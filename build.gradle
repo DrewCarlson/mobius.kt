@@ -1,0 +1,39 @@
+buildscript {
+  repositories {
+    mavenCentral()
+    jcenter()
+    google()
+    maven { url "https://plugins.gradle.org/m2/" }
+  }
+
+  dependencies {
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    classpath 'com.android.tools.build:gradle:3.1.4'
+    classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
+  }
+}
+
+allprojects {
+  repositories {
+    mavenCentral()
+    jcenter()
+    google()
+  }
+}
+
+ext {
+  versions = [
+      'autoValue'        : '1.5',
+      'assertjcore'      : '3.8.0',
+      'awaitility'       : '3.0.0',
+      'guava'            : '23.0-android',
+      'junit'            : '4.12',
+      'logback'          : '1.2.3',
+      'rxJava'           : '1.3.4',
+      'rxJava2'          : '2.1.9',
+      'slf4j'            : '1.7.25',
+      'jsr305'           : '3.0.1',
+      'hamcrestLibrary'  : '1.3',
+      'mockito'          : '1.10.19'
+  ]
+}

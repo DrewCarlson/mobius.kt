@@ -1,0 +1,24 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.github.DrewCarlson.kotlin-mobius'
+
+dependencies {
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  api project(':jvm:core-jvm')
+}
+
+android {
+  compileSdkVersion 28
+  defaultConfig {
+    minSdkVersion 21
+  }
+  lintOptions {
+    disable 'InvalidPackage'
+  }
+
+  sourceSets.forEach {
+    it.java.srcDirs += 'src/main/kotlin'
+  }
+}

@@ -1,0 +1,5 @@
+rootProject.name = 'kotlin-mobius'
+
+include ":common:core-common"
+include ":jvm:core-jvm"
+include ":jvm:framework-android"
