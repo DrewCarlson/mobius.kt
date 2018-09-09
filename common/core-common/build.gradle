@@ -1,12 +1,6 @@
 apply plugin: 'kotlin-platform-common'
 apply plugin: 'maven'
 
-group = 'com.github.DrewCarlson.kotlin-mobius'
-
-repositories {
-  mavenCentral()
-}
-
 dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib-common"
   testCompile "org.jetbrains.kotlin:kotlin-test-annotations-common"

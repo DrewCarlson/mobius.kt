@@ -1,8 +1,6 @@
 apply plugin: 'kotlin-platform-jvm'
 apply plugin: 'maven'
 
-group = 'com.github.DrewCarlson.kotlin-mobius'
-
 dependencies {
   expectedBy project(":common:core-common")
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"

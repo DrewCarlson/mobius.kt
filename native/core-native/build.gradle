@@ -1,0 +1,18 @@
+apply plugin: "kotlin-platform-native"
+apply plugin: "maven"
+
+sourceSets.main {
+  kotlin.srcDirs += 'src/main/kotlin'
+}
+
+components.main {
+  targets = [
+      'ios_arm64', 'ios_x64', 'linux_x64',
+      'mingw_x64', 'macos_x64', 'wasm32'
+  ]
+  outputKinds = [KLIBRARY]
+}
+
+dependencies {
+  expectedBy project(":common:core-common")
+}

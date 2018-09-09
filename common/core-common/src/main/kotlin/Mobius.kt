@@ -3,6 +3,7 @@ package com.spotify.mobius
 import com.spotify.mobius.disposables.Disposable
 import com.spotify.mobius.functions.Consumer
 import com.spotify.mobius.functions.Producer
+import com.spotify.mobius.runners.DefaultWorkRunners
 import com.spotify.mobius.runners.ImmediateWorkRunner
 import com.spotify.mobius.runners.WorkRunner
 
@@ -56,24 +57,23 @@ object Mobius {
    * @param effectHandler the [Connectable] effect handler of the loop
    * @return a [MobiusLoop.Builder] instance that you can further configure before starting the loop
    */
-  @Suppress("UNCHECKED_CAST")
+  @Suppress("UNCHECKED_CAST", "RemoveExplicitTypeArguments")
   fun <M, E, F> loop(update: Update<M, E, F>, effectHandler: Connectable<F, E>): Builder<M, E, F> {
     //noinspection unchecked
+    val defaultWorkRunners = DefaultWorkRunners()
     return Builder<M, E, F>(
         update,
         effectHandler,
         NOOP_INIT as Init<M, F>,
         NOOP_EVENT_SOURCE as EventSource<E>,
-        //TODO: WorkRunners.from(Executors.newSingleThreadExecutor(Builder.THREAD_FACTORY))
-        Producer { ImmediateWorkRunner() },
-        //TODO: WorkRunners.from(Executors.newCachedThreadPool(Builder.THREAD_FACTORY));
-        Producer { ImmediateWorkRunner() },
+        defaultWorkRunners.eventWorkRunnerProducer(),
+        defaultWorkRunners.effectWorkRunnerProducer(),
         NOOP_LOGGER as MobiusLoop.Logger<M, E, F>
     )
   }
 
   /**
-   * Create a {@link MobiusLoop.Controller} that allows you to start, stop, and restart MobiusLoops.
+   * Create a [MobiusLoop.Controller] that allows you to start, stop, and restart MobiusLoops.
    *
    * @param loopFactory a factory for creating loops
    * @param defaultModel the model the controller should start from
@@ -84,7 +84,7 @@ object Mobius {
   }
 
   /**
-   * Create a {@link MobiusLoop.Controller} that allows you to start, stop, and restart MobiusLoops.
+   * Create a [MobiusLoop.Controller] that allows you to start, stop, and restart MobiusLoops.
    *
    * @param loopFactory a factory for creating loops
    * @param defaultModel the model the controller should start from
@@ -99,7 +99,6 @@ object Mobius {
     return MobiusLoopController(loopFactory, defaultModel, modelRunner)
   }
 
-  @Suppress("DataClassPrivateConstructor")
   data class Builder<M, E, F>(
       private val update: Update<M, E, F>,
       private val effectHandler: Connectable<F, E>,
@@ -109,8 +108,6 @@ object Mobius {
       private val effectRunner: Producer<WorkRunner>,
       private val logger: MobiusLoop.Logger<M, E, F>
   ) : MobiusLoop.Builder<M, E, F> {
-
-    //private val THREAD_FACTORY = MyThreadFactory()
 
     override fun init(init: Init<M, F>): MobiusLoop.Builder<M, E, F> {
       return copy(init = init)
@@ -144,20 +141,9 @@ object Mobius {
           MobiusStore.create(loggingInit, loggingUpdate, startModel),
           effectHandler,
           eventSource,
-          checkNotNull(eventRunner.get()),
-          checkNotNull(effectRunner.get())
+          eventRunner.get(),
+          effectRunner.get()
       )
     }
-/*
-    private class MyThreadFactory : ThreadFactory {
-      private val threadCount = AtomicLong(0)
-
-      public fun newThread(runnable: Runnable): Thread {
-        Thread thread = Executors . defaultThreadFactory ().newThread(runnable);
-
-        thread.setName(String.format(Locale.ENGLISH, "mobius-thread-%d", threadCount.incrementAndGet()));
-        return thread;
-      }
-    }*/
   }
 }

@@ -1,5 +1,8 @@
 rootProject.name = 'kotlin-mobius'
 
+enableFeaturePreview('GRADLE_METADATA')
+
 include ":common:core-common"
 include ":jvm:core-jvm"
 include ":jvm:framework-android"
+include ":native:core-native"
