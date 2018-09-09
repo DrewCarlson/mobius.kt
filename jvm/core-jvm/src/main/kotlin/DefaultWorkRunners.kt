@@ -15,14 +15,14 @@ actual class DefaultWorkRunners {
   actual fun effectWorkRunnerProducer() = Producer {
     WorkRunners.from(Executors.newCachedThreadPool(threadFactory))
   }
-}
 
-private class MyThreadFactory : ThreadFactory {
-  private val threadCount = AtomicLong(0)
+  private class MyThreadFactory : ThreadFactory {
+    private val threadCount = AtomicLong(0)
 
-  override fun newThread(r: java.lang.Runnable?): Thread {
-    return Executors.defaultThreadFactory().newThread(r).apply {
-      name = "mobius-thread-${threadCount.incrementAndGet()}"
+    override fun newThread(r: java.lang.Runnable?): Thread {
+      return Executors.defaultThreadFactory().newThread(r).apply {
+        name = "mobius-thread-${threadCount.incrementAndGet()}"
+      }
     }
   }
 }

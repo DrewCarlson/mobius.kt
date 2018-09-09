@@ -5,11 +5,32 @@ import com.spotify.mobius.functions.Producer
 
 /** Interface for posting runnables to be executed using different scheduling mechanisms. */
 interface WorkRunner : Disposable {
+  companion object {
+    operator fun invoke(post: (Runnable) -> Unit): WorkRunner {
+      return object : WorkRunner {
+        override fun post(runnable: Runnable) {
+          post(runnable)
+        }
+
+        override fun dispose() {
+        }
+      }
+    }
+  }
+
   fun post(runnable: Runnable)
 }
 
 expect interface Runnable {
   fun run()
+}
+
+operator fun Runnable.invoke(run: () -> Unit): Runnable {
+  return object : Runnable {
+    override fun run() {
+      run()
+    }
+  }
 }
 
 /**

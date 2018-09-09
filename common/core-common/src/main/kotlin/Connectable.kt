@@ -20,6 +20,16 @@ import com.spotify.mobius.functions.Consumer
  */
 interface Connectable<I, O> {
 
+  companion object {
+    operator fun <I, O> invoke(connect: (@ParameterName("output") Consumer<O>) -> Connection<I>): Connectable<I, O> {
+      return object : Connectable<I, O> {
+        override fun connect(output: Consumer<O>): Connection<I> {
+          return connect(output)
+        }
+      }
+    }
+  }
+
   /**
    * Create a new connection that accepts input values and sends outgoing values to a supplied
    * consumer.
@@ -41,6 +51,5 @@ interface Connectable<I, O> {
    * connections to this Connectable; this should be caused by incorrect usage of the
    * Connectable, and is considered an irrecoverable error
    */
-
   fun connect(output: Consumer<O>): Connection<I>
 }

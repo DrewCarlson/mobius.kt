@@ -4,7 +4,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  api project(':jvm:core-jvm')
+  implementation project(':jvm:core-jvm')
 }
 
 android {

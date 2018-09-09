@@ -3,7 +3,7 @@ package com.spotify.mobius.functions
 /** Interface for consuming values. */
 interface Consumer<V> {
   companion object {
-    inline operator fun <V> invoke(crossinline accept: (V) -> Unit): Consumer<V> {
+    operator fun <V> invoke(accept: (@ParameterName("value") V) -> Unit): Consumer<V> {
       return object : Consumer<V> {
         override fun accept(value: V) = accept(value)
       }
@@ -15,7 +15,7 @@ interface Consumer<V> {
 /** Interface for producing values. */
 interface Producer<V> {
   companion object {
-    inline operator fun <V> invoke(crossinline get: () -> V): Producer<V> {
+    operator fun <V> invoke(get: () -> V): Producer<V> {
       return object : Producer<V> {
         override fun get() = get()
       }

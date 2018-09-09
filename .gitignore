@@ -3,6 +3,7 @@
 .idea/
 !.idea/codeStyleSettings.xml
 .DS_Store
-/build
+build/
+out/
 /captures
 *.iml

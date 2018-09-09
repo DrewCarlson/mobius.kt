@@ -29,8 +29,8 @@ class EventProcessor<M, E, F> internal constructor(
 
     val first = store.init()
 
-    dispatchModel(first.model)
-    dispatchEffects(first.effects)
+    dispatchModel(first.model())
+    dispatchEffects(first.effects())
 
     initialised = true
     for (event in eventsReceivedBeforeInit) {

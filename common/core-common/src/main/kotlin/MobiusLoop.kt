@@ -112,11 +112,9 @@ class MobiusLoop<M, E, F> private constructor(
       }
     }
 
-    return object : Disposable {
-      override fun dispose() {
-        synchronized(modelObservers) {
-          modelObservers.remove(observer)
-        }
+    return Disposable {
+      synchronized(modelObservers) {
+        modelObservers.remove(observer)
       }
     }
   }

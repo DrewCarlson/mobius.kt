@@ -1,0 +1,10 @@
+apply plugin: 'kotlin-platform-js'
+apply plugin: 'maven'
+
+dependencies {
+  expectedBy project(":common:core-common")
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+  testCompile "junit:junit:4.12"
+  testCompile "org.jetbrains.kotlin:kotlin-test"
+  testCompile "org.jetbrains.kotlin:kotlin-test-junit"
+}

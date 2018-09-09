@@ -1,8 +1,6 @@
 package com.spotify.mobius
 
 import com.spotify.mobius.functions.Consumer
-import kotlin.jvm.JvmField
-import kotlin.jvm.JvmName
 
 
 /**
@@ -66,14 +64,9 @@ class Next<M, F> private constructor(
   }
 
   companion object {
-    /** Create a Next that updates the model and dispatches the supplied set of effects. */
-    fun <M, F> next(model: M, effects: Set<F>): Next<M, F> {
+    /** Create a Next that updates the model and dispatches the optional set of effects. */
+    fun <M, F> next(model: M, effects: Set<F> = emptySet()): Next<M, F> {
       return Next(model, effects.toSet())
-    }
-
-    /** Create a Next that updates the model but dispatches no effects. */
-    fun <M, F> next(model: M): Next<M, F> {
-      return Next(model, emptySet())
     }
 
     /** Create a Next that doesn't update the model but dispatches the supplied effects. */

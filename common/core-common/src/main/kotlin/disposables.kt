@@ -8,7 +8,7 @@ package com.spotify.mobius.disposables
  */
 interface Disposable {
   companion object {
-    inline operator fun invoke(crossinline dispose: () -> Unit): Disposable {
+    operator fun invoke(dispose: () -> Unit): Disposable {
       return object : Disposable {
         override fun dispose() {
           dispose()

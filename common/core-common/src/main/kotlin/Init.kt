@@ -11,7 +11,7 @@ package com.spotify.mobius
  */
 interface Init<M, F> {
   companion object {
-    inline operator fun <M, F> invoke(crossinline init: (M) -> First<M, F>): Init<M, F> {
+    operator fun <M, F> invoke(init: (@ParameterName("model") M) -> First<M, F>): Init<M, F> {
       return object : Init<M, F> {
         override fun init(model: M): First<M, F> {
           return init(model)

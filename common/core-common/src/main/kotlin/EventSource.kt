@@ -17,7 +17,7 @@ import com.spotify.mobius.functions.Consumer
 interface EventSource<E> {
 
   companion object {
-    inline operator fun <E> invoke(crossinline subscribe: (Consumer<E>) -> Disposable): EventSource<E> {
+    operator fun <E> invoke(subscribe: (Consumer<E>) -> Disposable): EventSource<E> {
       return object : EventSource<E> {
         override fun subscribe(eventConsumer: Consumer<E>): Disposable {
           return subscribe(eventConsumer)

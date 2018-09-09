@@ -4,8 +4,8 @@ import kotlin.jvm.Volatile
 
 /** Responsible for holding and updating the current model. */
 class MobiusStore<M, E, F> private constructor(
-    val init: Init<M, F>,
-    val update: Update<M, E, F>,
+    private val init: Init<M, F>,
+    private val update: Update<M, E, F>,
     startModel: M
 ) {
   private object LOCK
@@ -15,7 +15,7 @@ class MobiusStore<M, E, F> private constructor(
 
   fun init(): First<M, F> = synchronized(LOCK) {
     val first = init.init(currentModel!!)
-    currentModel = first.model
+    currentModel = first.model()
     return first
   }
 

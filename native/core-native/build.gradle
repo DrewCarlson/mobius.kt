@@ -1,6 +1,9 @@
 apply plugin: 'kotlin-platform-native'
 apply plugin: 'maven-publish'
 
+group 'com.github.DrewCarlson.kotlin-mobius'
+version '1.0-SNAPSHOT'
+
 sourceSets.main {
   kotlin.srcDirs += 'src/main/kotlin'
 }
