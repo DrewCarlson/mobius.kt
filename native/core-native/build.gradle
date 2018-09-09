@@ -1,5 +1,5 @@
-apply plugin: "kotlin-platform-native"
-apply plugin: "maven"
+apply plugin: 'kotlin-platform-native'
+apply plugin: 'maven-publish'
 
 sourceSets.main {
   kotlin.srcDirs += 'src/main/kotlin'
@@ -14,5 +14,5 @@ components.main {
 }
 
 dependencies {
-  expectedBy project(":common:core-common")
+  expectedBy project(':common:core-common')
 }
