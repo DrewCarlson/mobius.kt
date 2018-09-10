@@ -3,6 +3,7 @@ package com.spotify.mobius
 import com.spotify.mobius.functions.Consumer
 import com.spotify.mobius.runners.Runnable
 import com.spotify.mobius.runners.WorkRunner
+import synchronized2
 
 class MobiusLoopController<M, E, F>(
     private val loopFactory: MobiusLoop.Factory<M, E, F>,
@@ -14,12 +15,12 @@ class MobiusLoopController<M, E, F>(
   private var currentState: ControllerStateBase<M, E>? = null
 
   override val isRunning: Boolean
-    get() = synchronized(LOCK) {
+    get() = synchronized2(LOCK) {
       currentState!!.isRunning
     }
 
   override val model: M
-    get() = synchronized(LOCK) {
+    get() = synchronized2(LOCK) {
       currentState!!.onGetModel()
     }
 
@@ -27,31 +28,31 @@ class MobiusLoopController<M, E, F>(
     goToStateInit(defaultModel)
   }
 
-  private fun dispatchEvent(event: E): Unit = synchronized(LOCK) {
+  private fun dispatchEvent(event: E): Unit = synchronized2(LOCK) {
     currentState!!.onDispatchEvent(event)
   }
 
-  private fun updateView(model: M): Unit = synchronized(LOCK) {
+  private fun updateView(model: M): Unit = synchronized2(LOCK) {
     currentState!!.onUpdateView(model)
   }
 
-  override fun connect(view: Connectable<M, E>): Unit = synchronized(LOCK) {
+  override fun connect(view: Connectable<M, E>): Unit = synchronized2(LOCK) {
     currentState!!.onConnect(view)
   }
 
-  override fun disconnect(): Unit = synchronized(LOCK) {
+  override fun disconnect(): Unit = synchronized2(LOCK) {
     currentState!!.onDisconnect()
   }
 
-  override fun start(): Unit = synchronized(LOCK) {
+  override fun start(): Unit = synchronized2(LOCK) {
     currentState!!.onStart()
   }
 
-  override fun stop(): Unit = synchronized(LOCK) {
+  override fun stop(): Unit = synchronized2(LOCK) {
     currentState!!.onStop()
   }
 
-  override fun replaceModel(model: M): Unit = synchronized(LOCK) {
+  override fun replaceModel(model: M): Unit = synchronized2(LOCK) {
     currentState!!.onReplaceModel(model)
   }
 
@@ -64,12 +65,12 @@ class MobiusLoopController<M, E, F>(
         })
   }
 
-  override fun goToStateInit(nextModelToStartFrom: M): Unit = synchronized(LOCK) {
+  override fun goToStateInit(nextModelToStartFrom: M): Unit = synchronized2(LOCK) {
     currentState = ControllerStateInit(this, nextModelToStartFrom)
   }
 
   override fun goToStateCreated(renderer: Connection<M>, nextModelToStartFrom: M?): Unit =
-      synchronized(LOCK) {
+      synchronized2(LOCK) {
         val nextModel = nextModelToStartFrom ?: defaultModel
         currentState = ControllerStateCreated<M, E, F>(this, renderer, nextModel)
       }
@@ -89,7 +90,7 @@ class MobiusLoopController<M, E, F>(
   }
 
   override fun goToStateRunning(renderer: Connection<M>, nextModelToStartFrom: M): Unit =
-      synchronized(LOCK) {
+      synchronized2(LOCK) {
         val stateRunning = ControllerStateRunning(this, renderer, loopFactory, nextModelToStartFrom)
 
         currentState = stateRunning

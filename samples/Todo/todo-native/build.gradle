@@ -1,0 +1,18 @@
+apply plugin: 'kotlin-platform-native'
+
+sourceSets.main {
+  kotlin.srcDirs += 'src/main/kotlin'
+}
+
+components.main {
+  baseName = 'Todo'
+  targets = ['ios_x64', 'ios_arm64']
+  outputKinds = [FRAMEWORK]
+  dependencies {
+    implementation 'com.github.DrewCarlson.kotlin-mobius:core-native:1.0-SNAPSHOT'
+  }
+}
+
+dependencies {
+  expectedBy project(":Todo:todo-common")
+}

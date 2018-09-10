@@ -5,6 +5,7 @@ import com.spotify.mobius.functions.Consumer
 import com.spotify.mobius.functions.Producer
 import com.spotify.mobius.runners.Runnable
 import com.spotify.mobius.runners.WorkRunner
+import synchronized2
 import kotlin.jvm.Volatile
 
 
@@ -41,7 +42,7 @@ class MobiusLoop<M, E, F> private constructor(
 
   private val eventProcessor = eventProcessorFactory.create(effectDispatcher, object : Consumer<M> {
     override fun accept(model: M) {
-      synchronized(modelObservers) {
+      synchronized2(modelObservers) {
         mostRecentModel = model
         for (observer in modelObservers) {
           observer.accept(model)
@@ -98,7 +99,7 @@ class MobiusLoop<M, E, F> private constructor(
    * @throws IllegalStateException if the loop has been disposed
    */
   fun observe(observer: Consumer<M>): Disposable {
-    synchronized(modelObservers) {
+    synchronized2(modelObservers) {
       if (disposed)
         throw IllegalStateException(
             "This loop has already been disposed. You cannot observe a disposed loop")
@@ -113,14 +114,14 @@ class MobiusLoop<M, E, F> private constructor(
     }
 
     return Disposable {
-      synchronized(modelObservers) {
+      synchronized2(modelObservers) {
         modelObservers.remove(observer)
       }
     }
   }
 
   override fun dispose() {
-    synchronized(modelObservers) {
+    synchronized2(modelObservers) {
       eventDispatcher.dispose()
       effectDispatcher.dispose()
       effectConsumer.dispose()

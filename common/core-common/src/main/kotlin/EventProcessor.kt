@@ -1,6 +1,7 @@
 package com.spotify.mobius
 
 import com.spotify.mobius.functions.Consumer
+import synchronized2
 
 
 /**
@@ -22,7 +23,7 @@ class EventProcessor<M, E, F> internal constructor(
   private val eventsReceivedBeforeInit = ArrayList<E>()
   private var initialised = false
 
-  fun init(): Unit = synchronized(this) {
+  fun init(): Unit = synchronized2(this) {
     if (initialised) {
       throw IllegalStateException("already initialised")
     }
@@ -38,7 +39,7 @@ class EventProcessor<M, E, F> internal constructor(
     }
   }
 
-  fun update(event: E): Unit = synchronized(LOCK) {
+  fun update(event: E): Unit = synchronized2(LOCK) {
     if (!initialised) {
       eventsReceivedBeforeInit.add(event)
       return

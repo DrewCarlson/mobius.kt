@@ -9,7 +9,7 @@ actual class DefaultWorkRunners {
     object : WorkRunner {
       val worker = Worker.start()
       override fun post(runnable: Runnable) {
-        worker.execute(TransferMode.SAFE, { runnable }) { it.run() }
+        worker.execute(TransferMode.UNSAFE, { runnable }) { it.run() }
       }
 
       override fun dispose() {
@@ -22,7 +22,7 @@ actual class DefaultWorkRunners {
     object : WorkRunner {
       val worker = Worker.start()
       override fun post(runnable: Runnable) {
-        worker.execute(TransferMode.SAFE, { runnable }) { it.run() }
+        worker.execute(TransferMode.UNSAFE, { runnable }) { it.run() }
       }
 
       override fun dispose() {

@@ -1,5 +1,7 @@
 package com.spotify.mobius.disposables
 
+import synchronized2
+
 
 /**
  * A [Disposable] is an object that may be holding on to references or resources that need to
@@ -31,7 +33,7 @@ class CompositeDisposable private constructor(disposables: Array<out Disposable>
 
   private val disposables = disposables.copyOf()
 
-  override fun dispose() = synchronized(LOCK) {
+  override fun dispose() = synchronized2(LOCK) {
     for (disposable in disposables) {
       disposable.dispose()
     }
