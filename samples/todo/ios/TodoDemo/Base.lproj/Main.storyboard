@@ -18,9 +18,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m5p-1n-YEh">
+                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m5p-1n-YEh">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <viewLayoutGuide key="safeArea" id="kWr-II-cd7"/>
                                 <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
                                     <navigationItem title="Todos" id="oo2-Fz-6Yf">
@@ -28,12 +28,37 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eR3-UK-W6P">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="identifier" id="5Gx-MA-A5b">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5Gx-MA-A5b" id="kGx-Kh-8F9">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <constraints>
+                            <constraint firstItem="m5p-1n-YEh" firstAttribute="trailing" secondItem="bkC-77-Fog" secondAttribute="trailing" id="9qQ-e1-Muw"/>
+                            <constraint firstItem="eR3-UK-W6P" firstAttribute="leading" secondItem="bkC-77-Fog" secondAttribute="leading" id="Acp-we-fsC"/>
+                            <constraint firstItem="eR3-UK-W6P" firstAttribute="bottom" secondItem="bkC-77-Fog" secondAttribute="bottom" id="E7K-CF-H2o"/>
+                            <constraint firstItem="m5p-1n-YEh" firstAttribute="top" secondItem="bkC-77-Fog" secondAttribute="top" id="LXr-Ly-gBZ"/>
+                            <constraint firstItem="eR3-UK-W6P" firstAttribute="top" secondItem="bkC-77-Fog" secondAttribute="top" constant="44" id="NTa-6g-qwS"/>
+                            <constraint firstItem="eR3-UK-W6P" firstAttribute="top" secondItem="bkC-77-Fog" secondAttribute="top" constant="44" id="ZPX-rA-2NC"/>
+                            <constraint firstItem="m5p-1n-YEh" firstAttribute="leading" secondItem="bkC-77-Fog" secondAttribute="leading" id="fpp-TL-6lV"/>
+                            <constraint firstItem="eR3-UK-W6P" firstAttribute="trailing" secondItem="bkC-77-Fog" secondAttribute="trailing" id="hrD-gQ-F4S"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bkC-77-Fog"/>
                     </view>
                     <connections>
                         <outlet property="addTaskButton" destination="oIq-Vz-SgD" id="VTm-1A-hdf"/>
+                        <outlet property="taskTableView" destination="eR3-UK-W6P" id="bdw-yC-6gG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

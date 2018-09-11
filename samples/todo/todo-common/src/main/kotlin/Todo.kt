@@ -6,7 +6,7 @@ import com.spotify.mobius.Update
 
 data class Task(
     val id: Int,
-    val description: String,
+    val todo: String,
     val complete: Boolean
 )
 
@@ -14,7 +14,7 @@ sealed class Event {
   object OnLoadTasks : Event()
   object OnAddTask : Event()
 
-  data class OnSubmitNewTask(val description: String) : Event()
+  data class OnSubmitNewTask(val todo: String) : Event()
   object OnDiscardNewTask : Event()
 
   data class OnDeleteTask(val taskId: Int) : Event()
@@ -25,7 +25,7 @@ sealed class Event {
 
 sealed class Effect {
   object LoadTasks : Effect()
-  data class CreateTask(val description: String) : Effect()
+  data class CreateTask(val todo: String) : Effect()
   data class DeleteTask(val taskId: Int) : Effect()
   data class UpdateTask(val task: Task) : Effect()
 }
@@ -54,7 +54,7 @@ class AppUpdate : Update<AppModel, Event, Effect> {
       is Event.OnSubmitNewTask -> {
         next(
             model.copy(addingTask = false),
-            effects(Effect.CreateTask(event.description))
+            effects(Effect.CreateTask(event.todo))
         )
       }
       is Event.OnDiscardNewTask -> {

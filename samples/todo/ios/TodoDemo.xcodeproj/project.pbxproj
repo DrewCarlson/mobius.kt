@@ -14,11 +14,10 @@
 		3A79C02F2146D7A4004FF9D8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A79C02D2146D7A4004FF9D8 /* LaunchScreen.storyboard */; };
 		3A79C03A2146D7A4004FF9D8 /* TodoDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C0392146D7A4004FF9D8 /* TodoDemoTests.swift */; };
 		3A79C0452146D7A4004FF9D8 /* TodoDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C0442146D7A4004FF9D8 /* TodoDemoUITests.swift */; };
-		3A79C0562146ECB5004FF9D8 /* Todo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A79C0542146ECB5004FF9D8 /* Todo.framework */; };
 		3A79C05A2146ED25004FF9D8 /* TodoEffectHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C0592146ED25004FF9D8 /* TodoEffectHandler.swift */; };
-		3AAA5FE62147515500C49FF4 /* Todo.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A79C0542146ECB5004FF9D8 /* Todo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3AAA5FE82147661200C49FF4 /* SimpleAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAA5FE72147661200C49FF4 /* SimpleAlertController.swift */; };
 		3AAA5FEB21478AA500C49FF4 /* ViewConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAA5FEA21478AA500C49FF4 /* ViewConnection.swift */; };
+		3AAA5FF62148252A00C49FF4 /* Todo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAA5FF52148252A00C49FF4 /* Todo.framework */; };
+		3AAA5FF72148253200C49FF4 /* Todo.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3AAA5FF52148252A00C49FF4 /* Todo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,7 +44,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3AAA5FE62147515500C49FF4 /* Todo.framework in CopyFiles */,
+				3AAA5FF72148253200C49FF4 /* Todo.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,10 +64,9 @@
 		3A79C0402146D7A4004FF9D8 /* TodoDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A79C0442146D7A4004FF9D8 /* TodoDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDemoUITests.swift; sourceTree = "<group>"; };
 		3A79C0462146D7A4004FF9D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3A79C0542146ECB5004FF9D8 /* Todo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Todo.framework; sourceTree = "<group>"; };
 		3A79C0592146ED25004FF9D8 /* TodoEffectHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEffectHandler.swift; sourceTree = "<group>"; };
-		3AAA5FE72147661200C49FF4 /* SimpleAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleAlertController.swift; sourceTree = "<group>"; };
 		3AAA5FEA21478AA500C49FF4 /* ViewConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConnection.swift; sourceTree = "<group>"; };
+		3AAA5FF52148252A00C49FF4 /* Todo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Todo.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A79C0562146ECB5004FF9D8 /* Todo.framework in Frameworks */,
+				3AAA5FF62148252A00C49FF4 /* Todo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,11 +98,11 @@
 		3A79C0182146D7A3004FF9D8 = {
 			isa = PBXGroup;
 			children = (
+				3AAA5FF42148250800C49FF4 /* Frameworks */,
 				3A79C0232146D7A3004FF9D8 /* TodoDemo */,
 				3A79C0382146D7A4004FF9D8 /* TodoDemoTests */,
 				3A79C0432146D7A4004FF9D8 /* TodoDemoUITests */,
 				3A79C0222146D7A3004FF9D8 /* Products */,
-				3A79C0522146ECB4004FF9D8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -148,24 +146,23 @@
 			path = TodoDemoUITests;
 			sourceTree = "<group>";
 		};
-		3A79C0522146ECB4004FF9D8 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				3A79C0542146ECB5004FF9D8 /* Todo.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		3AAA5FE92147892500C49FF4 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				3A79C0242146D7A3004FF9D8 /* AppDelegate.swift */,
-				3AAA5FE72147661200C49FF4 /* SimpleAlertController.swift */,
 				3A79C0592146ED25004FF9D8 /* TodoEffectHandler.swift */,
 				3AAA5FEA21478AA500C49FF4 /* ViewConnection.swift */,
 				3A79C0262146D7A3004FF9D8 /* ViewController.swift */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		3AAA5FF42148250800C49FF4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3AAA5FF52148252A00C49FF4 /* Todo.framework */,
+			);
+			path = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -175,6 +172,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3A79C0492146D7A4004FF9D8 /* Build configuration list for PBXNativeTarget "TodoDemo" */;
 			buildPhases = (
+				3AAA5FED214822B900C49FF4 /* Run Script (Copy K/N Framework) */,
 				3A79C01D2146D7A3004FF9D8 /* Sources */,
 				3A79C01E2146D7A3004FF9D8 /* Frameworks */,
 				3A79C01F2146D7A3004FF9D8 /* Resources */,
@@ -295,12 +293,28 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3AAA5FED214822B900C49FF4 /* Run Script (Copy K/N Framework) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script (Copy K/N Framework)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp -R ../todo-native/build/lib/main/debug/ios_x64/Todo.framework Frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3A79C01D2146D7A3004FF9D8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AAA5FE82147661200C49FF4 /* SimpleAlertController.swift in Sources */,
 				3A79C0272146D7A3004FF9D8 /* ViewController.swift in Sources */,
 				3A79C0252146D7A3004FF9D8 /* AppDelegate.swift in Sources */,
 				3A79C05A2146ED25004FF9D8 /* TodoEffectHandler.swift in Sources */,
@@ -481,6 +495,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = TodoDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -502,6 +517,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = TodoDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

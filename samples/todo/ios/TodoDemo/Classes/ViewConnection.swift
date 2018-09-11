@@ -12,63 +12,86 @@ class ViewConnectable: NSObject, TodoConnectable {
     }
 }
 
-class ViewConnection: NSObject, TodoConnection {
+class ViewConnection: NSObject, TodoConnection, UITableViewDataSource {
+    
     let consumer: TodoConsumer
     let view: ViewController
+    var alert: UIAlertController? = nil
     
-    var alert: SimpleAlertController? = nil
+    var tasks: [TodoTask] = []
     
     init(output: TodoConsumer, viewController: ViewController) {
         consumer = output
         view = viewController
+
         super.init()
-        
+
         view.addTaskButton.action = #selector(self.addTaskClicked)
         view.addTaskButton.target = self
+        view.taskTableView.dataSource = self
     }
     
     func accept(value: Any?) {
         let model = value as! TodoAppModel
-        print(model)
+        tasks = model.tasks
         
         if (model.addingTask && alert == nil) {
             showNewTaskAlert()
         } else if (!model.addingTask && alert != nil) {
-            clearNewTaskAlert()
+            hideNewTaskAlert()
+        }
+        
+        if (tasks.count != view.taskTableView.numberOfRows(inSection: 1)) {
+            view.taskTableView.reloadData()
         }
     }
     
     func showNewTaskAlert() {
-        alert = SimpleAlertController(title: "New Task", message: "Describe your Task.", preferredStyle: .alert)
+        alert = UIAlertController(title: "New Task", message: "Describe your Task.", preferredStyle: .alert)
         alert!.addTextField { (textField) in
             textField.text = ""
         }
-        alert!.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+        alert!.addAction(UIAlertAction(title: "Save", style: .default, handler: { [weak alert] (_) in
             let textField = alert!.textFields![0]
-            self.consumer.accept(value: TodoEventOnSubmitNewTask(description: textField.text!))
+            self.consumer.accept(value: TodoEventOnSubmitNewTask(todo: textField.text!))
+            self.alert = nil
         }))
-        alert!.willDisappear = { alert in
+        alert!.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
             self.consumer.accept(value: TodoEventOnDiscardNewTask())
             self.alert = nil
-        }
-        view.present(alert!, animated: false, completion: nil)
+        }))
+        view.present(alert!, animated: true, completion: nil)
     }
     
-    func clearNewTaskAlert() {
+    func hideNewTaskAlert() {
         alert!.dismiss(animated: true, completion: nil)
         alert = nil
     }
     
     @objc func addTaskClicked() {
-        print("clicked")
         consumer.accept(value: TodoEventOnAddTask())
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tasks.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "identifier")!
+        let task = tasks[indexPath.row]
+        cell.textLabel!.text = task.todo
+        return cell
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
     
     func dispose() {
         alert?.dismiss(animated: false, completion: nil)
-        alert?.willDisappear = nil
         alert = nil
         view.addTaskButton.action = nil
         view.addTaskButton.target = nil
+        view.taskTableView.dataSource = nil
     }
 }
