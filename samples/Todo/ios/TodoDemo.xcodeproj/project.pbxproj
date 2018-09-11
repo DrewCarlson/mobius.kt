@@ -16,9 +16,9 @@
 		3A79C0452146D7A4004FF9D8 /* TodoDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C0442146D7A4004FF9D8 /* TodoDemoUITests.swift */; };
 		3A79C0562146ECB5004FF9D8 /* Todo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A79C0542146ECB5004FF9D8 /* Todo.framework */; };
 		3A79C05A2146ED25004FF9D8 /* TodoEffectHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C0592146ED25004FF9D8 /* TodoEffectHandler.swift */; };
-		3A79C05C2146EFC8004FF9D8 /* TodoEffectConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C05B2146EFC8004FF9D8 /* TodoEffectConnection.swift */; };
 		3AAA5FE62147515500C49FF4 /* Todo.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A79C0542146ECB5004FF9D8 /* Todo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3AAA5FE82147661200C49FF4 /* CustomAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAA5FE72147661200C49FF4 /* CustomAlertController.swift */; };
+		3AAA5FE82147661200C49FF4 /* SimpleAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAA5FE72147661200C49FF4 /* SimpleAlertController.swift */; };
+		3AAA5FEB21478AA500C49FF4 /* ViewConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAA5FEA21478AA500C49FF4 /* ViewConnection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,8 +67,8 @@
 		3A79C0462146D7A4004FF9D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A79C0542146ECB5004FF9D8 /* Todo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Todo.framework; sourceTree = "<group>"; };
 		3A79C0592146ED25004FF9D8 /* TodoEffectHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEffectHandler.swift; sourceTree = "<group>"; };
-		3A79C05B2146EFC8004FF9D8 /* TodoEffectConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEffectConnection.swift; sourceTree = "<group>"; };
-		3AAA5FE72147661200C49FF4 /* CustomAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertController.swift; sourceTree = "<group>"; };
+		3AAA5FE72147661200C49FF4 /* SimpleAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleAlertController.swift; sourceTree = "<group>"; };
+		3AAA5FEA21478AA500C49FF4 /* ViewConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConnection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,15 +121,11 @@
 		3A79C0232146D7A3004FF9D8 /* TodoDemo */ = {
 			isa = PBXGroup;
 			children = (
-				3A79C0242146D7A3004FF9D8 /* AppDelegate.swift */,
-				3A79C0262146D7A3004FF9D8 /* ViewController.swift */,
+				3AAA5FE92147892500C49FF4 /* Classes */,
 				3A79C0282146D7A3004FF9D8 /* Main.storyboard */,
 				3A79C02B2146D7A4004FF9D8 /* Assets.xcassets */,
 				3A79C02D2146D7A4004FF9D8 /* LaunchScreen.storyboard */,
 				3A79C0302146D7A4004FF9D8 /* Info.plist */,
-				3A79C0592146ED25004FF9D8 /* TodoEffectHandler.swift */,
-				3A79C05B2146EFC8004FF9D8 /* TodoEffectConnection.swift */,
-				3AAA5FE72147661200C49FF4 /* CustomAlertController.swift */,
 			);
 			path = TodoDemo;
 			sourceTree = "<group>";
@@ -158,6 +154,18 @@
 				3A79C0542146ECB5004FF9D8 /* Todo.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3AAA5FE92147892500C49FF4 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				3A79C0242146D7A3004FF9D8 /* AppDelegate.swift */,
+				3AAA5FE72147661200C49FF4 /* SimpleAlertController.swift */,
+				3A79C0592146ED25004FF9D8 /* TodoEffectHandler.swift */,
+				3AAA5FEA21478AA500C49FF4 /* ViewConnection.swift */,
+				3A79C0262146D7A3004FF9D8 /* ViewController.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -292,11 +300,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AAA5FE82147661200C49FF4 /* CustomAlertController.swift in Sources */,
-				3A79C05C2146EFC8004FF9D8 /* TodoEffectConnection.swift in Sources */,
+				3AAA5FE82147661200C49FF4 /* SimpleAlertController.swift in Sources */,
 				3A79C0272146D7A3004FF9D8 /* ViewController.swift in Sources */,
 				3A79C0252146D7A3004FF9D8 /* AppDelegate.swift in Sources */,
 				3A79C05A2146ED25004FF9D8 /* TodoEffectHandler.swift in Sources */,
+				3AAA5FEB21478AA500C49FF4 /* ViewConnection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
