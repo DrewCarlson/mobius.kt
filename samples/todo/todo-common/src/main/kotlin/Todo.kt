@@ -20,7 +20,6 @@ sealed class Event {
   data class OnDeleteTask(val taskId: Int) : Event()
   data class OnToggleTaskComplete(val taskId: Int) : Event()
 
-  data class OnTaskAdded()
   data class OnTasksLoaded(val tasks: List<Task>) : Event()
 }
 
@@ -42,9 +41,10 @@ class AppUpdate : Update<AppModel, Event, Effect> {
   override fun update(model: AppModel, event: Event): Next<AppModel, Effect> {
     return when (event) {
       is Event.OnLoadTasks -> {
-        next(
+        if (model.loadingTasks) noChange()
+        else next<AppModel, Effect>(
             model.copy(loadingTasks = true),
-            effects(Effect.LoadTasks)
+            setOf(Effect.LoadTasks)
         )
       }
       is Event.OnAddTask -> {
