@@ -14,5 +14,5 @@ components.main {
 }
 
 dependencies {
-  expectedBy project(":Todo:todo-common")
+  expectedBy project(":todo:todo-common")
 }
