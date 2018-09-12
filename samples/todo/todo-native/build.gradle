@@ -9,7 +9,7 @@ components.main {
   targets = ['ios_x64', 'ios_arm64']
   outputKinds = [FRAMEWORK]
   dependencies {
-    implementation 'com.github.DrewCarlson.kotlin-mobius:core-native:1.0-SNAPSHOT'
+    implementation 'com.github.DrewCarlson.kotlin-mobius:core-native:master-SNAPSHOT'
   }
 }
 

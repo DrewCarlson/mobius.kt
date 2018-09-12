@@ -172,7 +172,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3A79C0492146D7A4004FF9D8 /* Build configuration list for PBXNativeTarget "TodoDemo" */;
 			buildPhases = (
-				3AAA5FED214822B900C49FF4 /* Run Script (Copy K/N Framework) */,
+				3AAA5FF821489BAE00C49FF4 /* Build K/N Framework */,
+				3AAA5FED214822B900C49FF4 /* Copy K/N Framework */,
 				3A79C01D2146D7A3004FF9D8 /* Sources */,
 				3A79C01E2146D7A3004FF9D8 /* Frameworks */,
 				3A79C01F2146D7A3004FF9D8 /* Resources */,
@@ -294,19 +295,33 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3AAA5FED214822B900C49FF4 /* Run Script (Copy K/N Framework) */ = {
+		3AAA5FED214822B900C49FF4 /* Copy K/N Framework */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Run Script (Copy K/N Framework)";
+			name = "Copy K/N Framework";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "cp -R ../todo-native/build/lib/main/debug/ios_x64/Todo.framework Frameworks";
+		};
+		3AAA5FF821489BAE00C49FF4 /* Build K/N Framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Build K/N Framework";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd ../.. && ./gradlew :todo:todo-native:compileDebugIos_x64KotlinNative";
 		};
 /* End PBXShellScriptBuildPhase section */
 
