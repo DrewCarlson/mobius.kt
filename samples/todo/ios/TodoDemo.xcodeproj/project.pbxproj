@@ -14,10 +14,9 @@
 		3A79C02F2146D7A4004FF9D8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A79C02D2146D7A4004FF9D8 /* LaunchScreen.storyboard */; };
 		3A79C03A2146D7A4004FF9D8 /* TodoDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C0392146D7A4004FF9D8 /* TodoDemoTests.swift */; };
 		3A79C0452146D7A4004FF9D8 /* TodoDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C0442146D7A4004FF9D8 /* TodoDemoUITests.swift */; };
-		3A79C05A2146ED25004FF9D8 /* TodoEffectHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C0592146ED25004FF9D8 /* TodoEffectHandler.swift */; };
 		3AAA5FEB21478AA500C49FF4 /* ViewConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAA5FEA21478AA500C49FF4 /* ViewConnection.swift */; };
 		3AAA5FF62148252A00C49FF4 /* Todo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAA5FF52148252A00C49FF4 /* Todo.framework */; };
-		3AAA5FF72148253200C49FF4 /* Todo.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3AAA5FF52148252A00C49FF4 /* Todo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3AAA5FF72148253200C49FF4 /* Todo.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 3AAA5FF52148252A00C49FF4 /* Todo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,14 +37,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		3A79C05D2146F2C7004FF9D8 /* CopyFiles */ = {
+		3A79C05D2146F2C7004FF9D8 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3AAA5FF72148253200C49FF4 /* Todo.framework in CopyFiles */,
+				3AAA5FF72148253200C49FF4 /* Todo.framework in Copy Files */,
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -64,7 +64,6 @@
 		3A79C0402146D7A4004FF9D8 /* TodoDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A79C0442146D7A4004FF9D8 /* TodoDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDemoUITests.swift; sourceTree = "<group>"; };
 		3A79C0462146D7A4004FF9D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3A79C0592146ED25004FF9D8 /* TodoEffectHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEffectHandler.swift; sourceTree = "<group>"; };
 		3AAA5FEA21478AA500C49FF4 /* ViewConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConnection.swift; sourceTree = "<group>"; };
 		3AAA5FF52148252A00C49FF4 /* Todo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Todo.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -150,7 +149,6 @@
 			isa = PBXGroup;
 			children = (
 				3A79C0242146D7A3004FF9D8 /* AppDelegate.swift */,
-				3A79C0592146ED25004FF9D8 /* TodoEffectHandler.swift */,
 				3AAA5FEA21478AA500C49FF4 /* ViewConnection.swift */,
 				3A79C0262146D7A3004FF9D8 /* ViewController.swift */,
 			);
@@ -177,7 +175,7 @@
 				3A79C01D2146D7A3004FF9D8 /* Sources */,
 				3A79C01E2146D7A3004FF9D8 /* Frameworks */,
 				3A79C01F2146D7A3004FF9D8 /* Resources */,
-				3A79C05D2146F2C7004FF9D8 /* CopyFiles */,
+				3A79C05D2146F2C7004FF9D8 /* Copy Files */,
 			);
 			buildRules = (
 			);
@@ -307,7 +305,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp -R ../todo-native/build/lib/main/debug/ios_x64/Todo.framework Frameworks";
+			shellScript = "cp -R ../todo-native/build/lib/main/debug/Todo.framework Frameworks";
 		};
 		3AAA5FF821489BAE00C49FF4 /* Build K/N Framework */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -321,7 +319,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd ../.. && ./gradlew :todo:todo-native:compileDebugIos_x64KotlinNative";
+			shellScript = "cd ../.. && ./gradlew :todo:todo-native:compileDebugKotlinNative";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -332,7 +330,6 @@
 			files = (
 				3A79C0272146D7A3004FF9D8 /* ViewController.swift in Sources */,
 				3A79C0252146D7A3004FF9D8 /* AppDelegate.swift in Sources */,
-				3A79C05A2146ED25004FF9D8 /* TodoEffectHandler.swift in Sources */,
 				3AAA5FEB21478AA500C49FF4 /* ViewConnection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

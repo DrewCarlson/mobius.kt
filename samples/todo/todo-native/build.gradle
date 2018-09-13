@@ -6,7 +6,7 @@ sourceSets.main {
 
 components.main {
   baseName = 'Todo'
-  targets = ['ios_x64', 'ios_arm64']
+  targets = ['ios_x64']
   outputKinds = [FRAMEWORK]
   dependencies {
     implementation 'com.github.DrewCarlson.kotlin-mobius:core-native:master-SNAPSHOT'

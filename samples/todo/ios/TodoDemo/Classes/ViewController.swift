@@ -8,11 +8,12 @@ class ViewController: UIViewController {
     
     let loopFactory: TodoMobiusLoopBuilder
     let loopController: TodoMobiusLoopControllerProtocol
-    let defaultModel = TodoAppModel.init(tasks: [], loadingTasks: false, addingTask: false)
+    let defaultModel = TodoAppModel.init(tasks: [], isLoadingTasks: true, isAddingTask: false)
     
     required init?(coder aDecoder: NSCoder) {
         let syncRunnerProducer = ImmediateWorkRunnerProducer()
         loopFactory = TodoMobius().loop(update: TodoAppUpdate(), effectHandler: TodoEffectHandler())
+            .doInit(init: TodoAppInit())
             .effectRunner(effectRunner: syncRunnerProducer)
             .eventRunner(eventRunner: syncRunnerProducer)
             .logger(logger: TodoSimpleLogger(tag: "Todo"))
@@ -31,6 +32,12 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+}
+
+class TodoEffectHandler: NSObject, TodoConnectable {
+    func connect(output: TodoConsumer) -> TodoConnection {
+        return TodoAppEffectHandler(output: output, store: TodoTaskStore())
     }
 }
 

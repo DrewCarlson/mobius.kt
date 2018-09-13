@@ -5,7 +5,7 @@ An experimental port of [Mobius](https://github.com/spotify/mobius) to Kotlin, w
 ## Notes
 
 **Jvm**: The Jvm module's should work just fine, they are _almost_ direct ports of Mobius minus a few kotlin related improvements.
-The Jvm modules still need some changes for better interop in Java and existing Kotlin projects depending on Mobius.
+The Jvm modules still need changes for better interop in Java and existing Kotlin projects that depend on Mobius.
 
 **Js**: I have not done much testing with the Js module but it should work without any significant issues, mostly because Js is not subject to the same multi-threading considerations as other platforms.
 
@@ -19,14 +19,9 @@ The sample projects can be run with gradle from the `samples` directory.
 ### Todo
 
 ##### iOS Simulator
-*Note: don't forget to deply the native klib first!* `./gradlew :native:core-native:publishToMavenLocal`
+*Note: don't forget to deploy the native klib first!* `./gradlew :native:core-native:publishToMavenLocal`
 
-Open the `samples/todo/ios` project in Xcode and run the project, it contains a build steps for the following commands:
-
-Build Framework: `./gradlew :todo:todo-native:compileDebugIos_x64KotlinNative`
-
-Copy to ios project: `cp -R ../todo-native/build/lib/main/debug/ios_x64/Todo.framework Frameworks`
-
+Open and run the `samples/todo/ios` Xcode project, it contains build steps to produce the `Todo.framework`
 
 ## Download
 

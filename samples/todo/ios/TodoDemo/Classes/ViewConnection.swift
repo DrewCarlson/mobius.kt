@@ -35,9 +35,9 @@ class ViewConnection: NSObject, TodoConnection, UITableViewDataSource {
         let model = value as! TodoAppModel
         tasks = model.tasks
         
-        if (model.addingTask && alert == nil) {
+        if (model.isAddingTask && alert == nil) {
             showNewTaskAlert()
-        } else if (!model.addingTask && alert != nil) {
+        } else if (!model.isAddingTask && alert != nil) {
             hideNewTaskAlert()
         }
         
