@@ -63,6 +63,23 @@ class Next<M, F> private constructor(
     }
   }
 
+  override fun toString(): String {
+    return "Next(model=$model, effects=$effects)"
+  }
+
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other !is Next<*, *>) return false
+    if (other.model != model) return false
+    if (!other.effects.containsAll(effects)) return false
+    return true
+  }
+
+  override fun hashCode(): Int {
+    var result = model?.hashCode() ?: 0
+    result = 31 * result + effects.hashCode()
+    return result
+  }
+
   companion object {
     /** Create a Next that updates the model and dispatches the optional set of effects. */
     fun <M, F> next(model: M, effects: Set<F> = emptySet()): Next<M, F> {

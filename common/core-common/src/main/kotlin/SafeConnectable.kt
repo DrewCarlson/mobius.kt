@@ -19,7 +19,7 @@ internal class SafeConnectable<F, E>(
   override fun connect(output: Consumer<E>): Connection<F> {
     val safeEventConsumer = SafeConsumer(output)
     val effectConsumer = SafeEffectConsumer(actual.connect(safeEventConsumer))
-    val disposable = CompositeDisposable(safeEventConsumer, effectConsumer)
+    val disposable = CompositeDisposable.from(safeEventConsumer, effectConsumer)
     return object : Connection<F> {
       override fun accept(effect: F): Unit = synchronized2(this) {
         effectConsumer.accept(effect)

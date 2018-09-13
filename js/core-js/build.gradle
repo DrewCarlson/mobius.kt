@@ -1,10 +1,68 @@
 apply plugin: 'kotlin-platform-js'
 apply plugin: 'maven'
+apply plugin: 'com.moowork.node'
 
 dependencies {
   expectedBy project(":common:core-common")
   implementation "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-  testCompile "junit:junit:4.12"
-  testCompile "org.jetbrains.kotlin:kotlin-test"
-  testCompile "org.jetbrains.kotlin:kotlin-test-junit"
+  testImplementation "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
+}
+
+compileKotlin2Js.kotlinOptions {
+  moduleKind = "umd"
+  sourceMap = true
+  sourceMapEmbedSources = "always"
+}
+
+compileTestKotlin2Js.kotlinOptions {
+  moduleKind = 'commonjs'
+  metaInfo = true
+}
+
+//noinspection GroovyAssignabilityCheck
+task populateNodeModules(type: Copy) {
+  from compileKotlin2Js.destinationDir
+
+  configurations.testCompile.each {
+    from zipTree(it.absolutePath).matching { include '*.js' }
+  }
+
+  into "${buildDir}/node_modules"
+}
+
+node {
+  version = node_version
+  download = true
+}
+
+//noinspection GroovyAssignabilityCheck
+task installNpmDeps(type: NpmTask) {
+  args = ['install', "qunit@$qunit_version", "kotlin", "kotlin-test"]
+}
+
+//noinspection GroovyAssignabilityCheck
+task runQunit(type: NodeTask, dependsOn: [compileTestKotlin2Js, populateNodeModules, installNpmDeps]) {
+  script = file('node_modules/qunit/bin/qunit')
+  args = [projectDir.toPath().relativize(file(compileTestKotlin2Js.outputFile).toPath())]
+}
+
+test.dependsOn runQunit
+
+//noinspection GroovyAssignabilityCheck
+task sourcesJar(type: Jar) {
+  classifier = 'sources'
+  from sourceSets.main.kotlin
+}
+
+artifacts {
+  archives sourcesJar
+}
+
+// Fix for https://github.com/srs/gradle-node-plugin/issues/301
+repositories.whenObjectAdded {
+  if (it instanceof IvyArtifactRepository) {
+    metadataSources {
+      artifact()
+    }
+  }
 }

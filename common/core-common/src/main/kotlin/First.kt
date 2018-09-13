@@ -12,7 +12,20 @@ class First<M, F> private constructor(
   fun effects() = effects
 
   /** Check if this First contains effects  */
-  fun hasEffects() = effects.isEmpty()
+  fun hasEffects() = effects.isNotEmpty()
+
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other !is First<*, *>) return false
+    if (other.model != model) return false
+    if (!other.effects.containsAll(effects)) return false
+    return true
+  }
+
+  override fun hashCode(): Int {
+    var result = model?.hashCode() ?: 0
+    result = 31 * result + effects.hashCode()
+    return result
+  }
 
   companion object {
 
