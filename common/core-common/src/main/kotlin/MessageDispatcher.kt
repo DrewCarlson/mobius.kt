@@ -23,21 +23,14 @@ internal class MessageDispatcher<M>(
               consumer.accept(message)
 
             } catch (throwable: Throwable) {
-              TODO("Logger")
-              //LOGGER.error(
-              //    "Consumer threw an exception when accepting message: {}", message, throwable)
+              println("Consumer threw an exception when accepting message: $message")
+              println(throwable.message)
             }
-
           }
         })
   }
 
   override fun dispose() {
     runner.dispose()
-  }
-
-  companion object {
-
-    //private val LOGGER = LoggerFactory.getLogger(MessageDispatcher<*>::class.java)
   }
 }
