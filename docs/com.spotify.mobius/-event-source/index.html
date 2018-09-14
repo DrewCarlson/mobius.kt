@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>EventSource - core-jvm</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core-jvm</a>&nbsp;/&nbsp;<a href="../index.html">com.spotify.mobius</a>&nbsp;/&nbsp;<a href="./index.html">EventSource</a><br/>
+<br/>
+<h1>EventSource</h1>
+<code><span class="keyword">interface </span><span class="identifier">EventSource</span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">&gt;</span></code>
+<p>Interface for event sources.</p>
+<p>The event source is used for subscribing to events that are external to the Mobius
+application. This is primarily meant to be used for environmental events - events that come from
+external signals, like change of network connectivity or a periodic timer, rather than happening
+because of an effect being triggered or the UI being interacted with.</p>
+<h3>Parameters</h3>
+<p><a name="E"></a>
+<code>E</code> - the event class</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="subscribe.html">subscribe</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">subscribe</span><span class="symbol">(</span><span class="identifier" id="com.spotify.mobius.EventSource$subscribe(com.spotify.mobius.functions.Consumer((com.spotify.mobius.EventSource.E)))/eventConsumer">eventConsumer</span><span class="symbol">:</span>&nbsp;<a href="../../com.spotify.mobius.functions/-consumer/index.html"><span class="identifier">Consumer</span></a><span class="symbol">&lt;</span><a href="index.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.spotify.mobius.disposables/-disposable/index.html"><span class="identifier">Disposable</span></a></code>
+<p>Subscribes the supplied consumer to the events from this event source, until the returned
+<a href="../../com.spotify.mobius.disposables/-disposable/index.html">Disposable</a> is disposed. Multiple such subscriptions can be in place concurrently for a
+given event source, without affecting each other.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="invoke.html">invoke</a></p>
+</td>
+<td>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">&gt;</span> <span class="identifier">invoke</span><span class="symbol">(</span><span class="identifier" id="com.spotify.mobius.EventSource.Companion$invoke(kotlin.Function1((com.spotify.mobius.functions.Consumer((com.spotify.mobius.EventSource.Companion.invoke.E)), com.spotify.mobius.disposables.Disposable)))/subscribe">subscribe</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../../com.spotify.mobius.functions/-consumer/index.html"><span class="identifier">Consumer</span></a><span class="symbol">&lt;</span><a href="invoke.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../com.spotify.mobius.disposables/-disposable/index.html"><span class="identifier">Disposable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">EventSource</span></a><span class="symbol">&lt;</span><a href="invoke.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-merged-event-source/index.html">MergedEventSource</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">MergedEventSource</span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">EventSource</span></a><span class="symbol">&lt;</span><a href="../-merged-event-source/index.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span></code>
+<p>An <a href="./index.html">EventSource</a> that merges multiple sources into one</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

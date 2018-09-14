@@ -1,0 +1,25 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>SimpleLogger.afterUpdate - core-jvm</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core-jvm</a>&nbsp;/&nbsp;<a href="../index.html">com.spotify.mobius</a>&nbsp;/&nbsp;<a href="index.html">SimpleLogger</a>&nbsp;/&nbsp;<a href="./after-update.html">afterUpdate</a><br/>
+<br/>
+<h1>afterUpdate</h1>
+<a name="com.spotify.mobius.SimpleLogger$afterUpdate(com.spotify.mobius.SimpleLogger.M, com.spotify.mobius.SimpleLogger.E, com.spotify.mobius.Next((com.spotify.mobius.SimpleLogger.M, com.spotify.mobius.SimpleLogger.F)))"></a>
+<code><span class="keyword">fun </span><span class="identifier">afterUpdate</span><span class="symbol">(</span><span class="identifier" id="com.spotify.mobius.SimpleLogger$afterUpdate(com.spotify.mobius.SimpleLogger.M, com.spotify.mobius.SimpleLogger.E, com.spotify.mobius.Next((com.spotify.mobius.SimpleLogger.M, com.spotify.mobius.SimpleLogger.F)))/model">model</span><span class="symbol">:</span>&nbsp;<a href="index.html#M"><span class="identifier">M</span></a><span class="symbol">, </span><span class="identifier" id="com.spotify.mobius.SimpleLogger$afterUpdate(com.spotify.mobius.SimpleLogger.M, com.spotify.mobius.SimpleLogger.E, com.spotify.mobius.Next((com.spotify.mobius.SimpleLogger.M, com.spotify.mobius.SimpleLogger.F)))/event">event</span><span class="symbol">:</span>&nbsp;<a href="index.html#E"><span class="identifier">E</span></a><span class="symbol">, </span><span class="identifier" id="com.spotify.mobius.SimpleLogger$afterUpdate(com.spotify.mobius.SimpleLogger.M, com.spotify.mobius.SimpleLogger.E, com.spotify.mobius.Next((com.spotify.mobius.SimpleLogger.M, com.spotify.mobius.SimpleLogger.F)))/result">result</span><span class="symbol">:</span>&nbsp;<a href="../-next/index.html"><span class="identifier">Next</span></a><span class="symbol">&lt;</span><a href="index.html#M"><span class="identifier">M</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#F"><span class="identifier">F</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Overrides <a href="../-mobius-loop/-logger/after-update.html">Logger.afterUpdate</a></p>
+<p>Called right after the <a href="../-update/update.html">Update.update</a> function is called.</p>
+<p>This method mustn't block, as it'll hinder the loop from running. It will be called on the
+same thread as the update function.</p>
+<h3>Parameters</h3>
+<p><a name="model"></a>
+<code>model</code> - the model that was passed to update</p>
+<p><a name="event"></a>
+<code>event</code> - the event that was passed to update</p>
+<p><a name="result"></a>
+<code>result</code> - the <a href="../-next/index.html">Next</a> that update returned</p>
+</BODY>
+</HTML>

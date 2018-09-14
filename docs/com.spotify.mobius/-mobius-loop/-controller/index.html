@@ -1,0 +1,102 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MobiusLoop.Controller - core-jvm</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">core-jvm</a>&nbsp;/&nbsp;<a href="../../index.html">com.spotify.mobius</a>&nbsp;/&nbsp;<a href="../index.html">MobiusLoop</a>&nbsp;/&nbsp;<a href="./index.html">Controller</a><br/>
+<br/>
+<h1>Controller</h1>
+<code><span class="keyword">interface </span><span class="identifier">Controller</span><span class="symbol">&lt;</span><span class="identifier">M</span><span class="symbol">, </span><span class="identifier">E</span><span class="symbol">&gt;</span></code>
+<p>Defines a controller that can be used to start and stop MobiusLoops.</p>
+<p>If a loop is stopped and then started again, the new loop will continue from where the last
+one left off.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="is-running.html">isRunning</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">isRunning</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Indicates whether this controller is running.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="model.html">model</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">model</span><span class="symbol">: </span><a href="index.html#M"><span class="identifier">M</span></a></code>
+<p>Get the current model of the loop that this controller is running, or the most recent model
+if it's not running.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="connect.html">connect</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">connect</span><span class="symbol">(</span><span class="identifier" id="com.spotify.mobius.MobiusLoop.Controller$connect(com.spotify.mobius.Connectable((com.spotify.mobius.MobiusLoop.Controller.M, com.spotify.mobius.MobiusLoop.Controller.E)))/view">view</span><span class="symbol">:</span>&nbsp;<a href="../../-connectable/index.html"><span class="identifier">Connectable</span></a><span class="symbol">&lt;</span><a href="index.html#M"><span class="identifier">M</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Connect a view to this controller.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="disconnect.html">disconnect</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">disconnect</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Disconnect UI from this controller.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="replace-model.html">replaceModel</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">replaceModel</span><span class="symbol">(</span><span class="identifier" id="com.spotify.mobius.MobiusLoop.Controller$replaceModel(com.spotify.mobius.MobiusLoop.Controller.M)/model">model</span><span class="symbol">:</span>&nbsp;<a href="index.html#M"><span class="identifier">M</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Replace which model the controller should start from.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="start.html">start</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">start</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Start a MobiusLoop from the current model.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="stop.html">stop</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">stop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Stop the currently running MobiusLoop.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../-mobius-loop-controller/index.html">MobiusLoopController</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">MobiusLoopController</span><span class="symbol">&lt;</span><span class="identifier">M</span><span class="symbol">, </span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">F</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Controller</span></a><span class="symbol">&lt;</span><a href="../../-mobius-loop-controller/index.html#M"><span class="identifier">M</span></a><span class="symbol">,</span>&nbsp;<a href="../../-mobius-loop-controller/index.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier">ControllerActions</span><span class="symbol">&lt;</span><a href="../../-mobius-loop-controller/index.html#M"><span class="identifier">M</span></a><span class="symbol">,</span>&nbsp;<a href="../../-mobius-loop-controller/index.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

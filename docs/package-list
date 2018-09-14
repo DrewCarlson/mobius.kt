@@ -1,0 +1,8 @@
+$dokka.format:html
+$dokka.linkExtension:html
+
+com.spotify.mobius
+com.spotify.mobius.disposables
+com.spotify.mobius.functions
+com.spotify.mobius.internal_util
+com.spotify.mobius.runners

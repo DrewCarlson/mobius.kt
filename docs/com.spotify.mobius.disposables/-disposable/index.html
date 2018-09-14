@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Disposable - core-jvm</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core-jvm</a>&nbsp;/&nbsp;<a href="../index.html">com.spotify.mobius.disposables</a>&nbsp;/&nbsp;<a href="./index.html">Disposable</a><br/>
+<br/>
+<h1>Disposable</h1>
+<code><span class="keyword">interface </span><span class="identifier">Disposable</span></code>
+<p>A <a href="./index.html">Disposable</a> is an object that may be holding on to references or resources that need to
+be released when the object is no longer needed. The dispose method is invoked to release
+resources that the object is holding.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="dispose.html">dispose</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">dispose</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Dispose of all resources associated with this object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="invoke.html">invoke</a></p>
+</td>
+<td>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">invoke</span><span class="symbol">(</span><span class="identifier" id="com.spotify.mobius.disposables.Disposable.Companion$invoke(kotlin.Function0((kotlin.Unit)))/dispose">dispose</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Disposable</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-composite-disposable/index.html">CompositeDisposable</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">CompositeDisposable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Disposable</span></a></code>
+<p>A <a href="./index.html">Disposable</a> that disposes of other disposables.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.spotify.mobius/-connection/index.html">Connection</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Connection</span><span class="symbol">&lt;</span><span class="identifier">I</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Disposable</span></a><span class="symbol">, </span><a href="../../com.spotify.mobius.functions/-consumer/index.html"><span class="identifier">Consumer</span></a><span class="symbol">&lt;</span><a href="../../com.spotify.mobius/-connection/index.html#I"><span class="identifier">I</span></a><span class="symbol">&gt;</span></code>
+<p>Handle for a connection created by <a href="../../com.spotify.mobius/-connectable/index.html">Connectable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.spotify.mobius/-mobius-loop/index.html">MobiusLoop</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">MobiusLoop</span><span class="symbol">&lt;</span><span class="identifier">M</span><span class="symbol">, </span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">F</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Disposable</span></a></code>
+<p>This is the main loop for Mobius.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.spotify.mobius.runners/-work-runner/index.html">WorkRunner</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">WorkRunner</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Disposable</span></a></code>
+<p>Interface for posting runnables to be executed using different scheduling mechanisms.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

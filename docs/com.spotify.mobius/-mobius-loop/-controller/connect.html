@@ -1,0 +1,25 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MobiusLoop.Controller.connect - core-jvm</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">core-jvm</a>&nbsp;/&nbsp;<a href="../../index.html">com.spotify.mobius</a>&nbsp;/&nbsp;<a href="../index.html">MobiusLoop</a>&nbsp;/&nbsp;<a href="index.html">Controller</a>&nbsp;/&nbsp;<a href="./connect.html">connect</a><br/>
+<br/>
+<h1>connect</h1>
+<a name="com.spotify.mobius.MobiusLoop.Controller$connect(com.spotify.mobius.Connectable((com.spotify.mobius.MobiusLoop.Controller.M, com.spotify.mobius.MobiusLoop.Controller.E)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">connect</span><span class="symbol">(</span><span class="identifier" id="com.spotify.mobius.MobiusLoop.Controller$connect(com.spotify.mobius.Connectable((com.spotify.mobius.MobiusLoop.Controller.M, com.spotify.mobius.MobiusLoop.Controller.E)))/view">view</span><span class="symbol">:</span>&nbsp;<a href="../../-connectable/index.html"><span class="identifier">Connectable</span></a><span class="symbol">&lt;</span><a href="index.html#M"><span class="identifier">M</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Connect a view to this controller.</p>
+<p>Must be called before <a href="#">.start</a>.</p>
+<p>The <a href="../../-connectable/index.html">Connectable</a> will be given an event consumer, which the view should use to send
+events to the MobiusLoop. The view should also return a <a href="../../-connection/index.html">Connection</a> that accepts
+models and renders them. Disposing the connection should make the view stop emitting events.</p>
+<p>The view Connectable is guaranteed to only be connected once, so you don't have to check
+for multiple connections or throw <a href="../../-connection-limit-exceeded-exception/index.html">ConnectionLimitExceededException</a>.</p>
+<h3>Exceptions</h3>
+<p><a name="IllegalStateException"></a>
+<code>IllegalStateException</code> - if the loop is running or if the controller already is
+connected</p>
+</BODY>
+</HTML>

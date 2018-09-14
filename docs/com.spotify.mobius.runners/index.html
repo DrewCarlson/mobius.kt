@@ -1,0 +1,112 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.spotify.mobius.runners - core-jvm</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">core-jvm</a>&nbsp;/&nbsp;<a href="./index.html">com.spotify.mobius.runners</a><br/>
+<br/>
+<h2>Package com.spotify.mobius.runners</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-default-work-runners/index.html">DefaultWorkRunners</a></p>
+</td>
+<td>
+<code><span class="keyword">expect</span> <span class="keyword">class </span><span class="identifier">DefaultWorkRunners</span></code>
+<p>Provides the default Event and Effect work runners used by <a href="#">Mobius.loop</a> when
+configuring a default <a href="#">MobiusLoop.Builder</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-executor-service-work-runner/index.html">ExecutorServiceWorkRunner</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ExecutorServiceWorkRunner</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-work-runner/index.html"><span class="identifier">WorkRunner</span></a></code>
+<p>A <a href="-work-runner/index.html">WorkRunner</a> implementation that is backed by an <a href="http://docs.oracle.com/javase/6/docs/api/java/util/concurrent/ExecutorService.html">ExecutorService</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-immediate-work-runner/index.html">ImmediateWorkRunner</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ImmediateWorkRunner</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-work-runner/index.html"><span class="identifier">WorkRunner</span></a></code>
+<p>A <a href="-work-runner/index.html">WorkRunner</a> that immediately invokes the <a href="-runnable/index.html">Runnable</a> you post on the thread you
+posted from.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-runnable/index.html">Runnable</a></p>
+</td>
+<td>
+<code><span class="keyword">expect</span> <span class="keyword">interface </span><span class="identifier">Runnable</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-work-runner/index.html">WorkRunner</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">WorkRunner</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../com.spotify.mobius.disposables/-disposable/index.html"><span class="identifier">Disposable</span></a></code>
+<p>Interface for posting runnables to be executed using different scheduling mechanisms.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-work-runners/index.html">WorkRunners</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">WorkRunners</span></code>
+<p>Interface for posting runnables to be executed on a thread.
+The runnables must all be executed on the same thread for a given WorkRunner.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="cached-thread-pool.html">cachedThreadPool</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="-work-runners/index.html"><span class="identifier">WorkRunners</span></a><span class="symbol">.</span><span class="identifier">cachedThreadPool</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="-work-runner/index.html"><span class="identifier">WorkRunner</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="fixed-thread-pool.html">fixedThreadPool</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="-work-runners/index.html"><span class="identifier">WorkRunners</span></a><span class="symbol">.</span><span class="identifier">fixedThreadPool</span><span class="symbol">(</span><span class="identifier" id="com.spotify.mobius.runners$fixedThreadPool(com.spotify.mobius.runners.WorkRunners, kotlin.Int)/n">n</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-work-runner/index.html"><span class="identifier">WorkRunner</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="from.html">from</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="-work-runners/index.html"><span class="identifier">WorkRunners</span></a><span class="symbol">.</span><span class="identifier">from</span><span class="symbol">(</span><span class="identifier" id="com.spotify.mobius.runners$from(com.spotify.mobius.runners.WorkRunners, java.util.concurrent.ExecutorService)/service">service</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/util/concurrent/ExecutorService.html"><span class="identifier">ExecutorService</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-work-runner/index.html"><span class="identifier">WorkRunner</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="invoke.html">invoke</a></p>
+</td>
+<td>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><a href="-runnable/index.html"><span class="identifier">Runnable</span></a><span class="symbol">.</span><span class="identifier">invoke</span><span class="symbol">(</span><span class="identifier" id="com.spotify.mobius.runners$invoke(com.spotify.mobius.runners.Runnable, kotlin.Function0((kotlin.Unit)))/run">run</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-runnable/index.html"><span class="identifier">Runnable</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="single-thread.html">singleThread</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="-work-runners/index.html"><span class="identifier">WorkRunners</span></a><span class="symbol">.</span><span class="identifier">singleThread</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="-work-runner/index.html"><span class="identifier">WorkRunner</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

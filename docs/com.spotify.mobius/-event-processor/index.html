@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>EventProcessor - core-jvm</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core-jvm</a>&nbsp;/&nbsp;<a href="../index.html">com.spotify.mobius</a>&nbsp;/&nbsp;<a href="./index.html">EventProcessor</a><br/>
+<br/>
+<h1>EventProcessor</h1>
+<code><span class="keyword">class </span><span class="identifier">EventProcessor</span><span class="symbol">&lt;</span><span class="identifier">M</span><span class="symbol">, </span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">F</span><span class="symbol">&gt;</span></code>
+<p>Processes events and emits effects and models as a result of that.</p>
+<h3>Parameters</h3>
+<p><a name="M"></a>
+<code>M</code> - model type</p>
+<p><a name="E"></a>
+<code>E</code> - event type</p>
+<p><a name="F"></a>
+<code>F</code> - effect descriptor type</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-factory/index.html">Factory</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">Factory</span><span class="symbol">&lt;</span><span class="identifier">M</span><span class="symbol">, </span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">F</span><span class="symbol">&gt;</span></code>
+<p>Factory for event processors.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="effect-consumer.html">effectConsumer</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">effectConsumer</span><span class="symbol">: </span><a href="../../com.spotify.mobius.functions/-consumer/index.html"><span class="identifier">Consumer</span></a><span class="symbol">&lt;</span><a href="index.html#F"><span class="identifier">F</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="model-consumer.html">modelConsumer</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">modelConsumer</span><span class="symbol">: </span><a href="../../com.spotify.mobius.functions/-consumer/index.html"><span class="identifier">Consumer</span></a><span class="symbol">&lt;</span><a href="index.html#M"><span class="identifier">M</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="store.html">store</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">store</span><span class="symbol">: </span><a href="../-mobius-store/index.html"><span class="identifier">MobiusStore</span></a><span class="symbol">&lt;</span><a href="index.html#M"><span class="identifier">M</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#E"><span class="identifier">E</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#F"><span class="identifier">F</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="init.html">init</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">init</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="update.html">update</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">update</span><span class="symbol">(</span><span class="identifier" id="com.spotify.mobius.EventProcessor$update(com.spotify.mobius.EventProcessor.E)/event">event</span><span class="symbol">:</span>&nbsp;<a href="index.html#E"><span class="identifier">E</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,20 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MobiusLoop.Logger.beforeInit - core-jvm</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">core-jvm</a>&nbsp;/&nbsp;<a href="../../index.html">com.spotify.mobius</a>&nbsp;/&nbsp;<a href="../index.html">MobiusLoop</a>&nbsp;/&nbsp;<a href="index.html">Logger</a>&nbsp;/&nbsp;<a href="./before-init.html">beforeInit</a><br/>
+<br/>
+<h1>beforeInit</h1>
+<a name="com.spotify.mobius.MobiusLoop.Logger$beforeInit(com.spotify.mobius.MobiusLoop.Logger.M)"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">beforeInit</span><span class="symbol">(</span><span class="identifier" id="com.spotify.mobius.MobiusLoop.Logger$beforeInit(com.spotify.mobius.MobiusLoop.Logger.M)/model">model</span><span class="symbol">:</span>&nbsp;<a href="index.html#M"><span class="identifier">M</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Called right before the <a href="../../-init/init.html">Init.init</a> function is called.</p>
+<p>This method mustn't block, as it'll hinder the loop from running. It will be called on the
+same thread as the init function.</p>
+<h3>Parameters</h3>
+<p><a name="model"></a>
+<code>model</code> - the model that will be passed to the init function</p>
+</BODY>
+</HTML>

@@ -1,0 +1,186 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.spotify.mobius - core-jvm</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">core-jvm</a>&nbsp;/&nbsp;<a href="./index.html">com.spotify.mobius</a><br/>
+<br/>
+<h2>Package com.spotify.mobius</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-connectable/index.html">Connectable</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Connectable</span><span class="symbol">&lt;</span><span class="identifier">I</span><span class="symbol">, </span><span class="identifier">O</span><span class="symbol">&gt;</span></code>
+<p>API for something that can be connected to be part of a <a href="-mobius-loop/index.html">MobiusLoop</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-connection/index.html">Connection</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Connection</span><span class="symbol">&lt;</span><span class="identifier">I</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../com.spotify.mobius.disposables/-disposable/index.html"><span class="identifier">Disposable</span></a><span class="symbol">, </span><a href="../com.spotify.mobius.functions/-consumer/index.html"><span class="identifier">Consumer</span></a><span class="symbol">&lt;</span><a href="-connection/index.html#I"><span class="identifier">I</span></a><span class="symbol">&gt;</span></code>
+<p>Handle for a connection created by <a href="-connectable/index.html">Connectable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-effects/index.html">Effects</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">Effects</span></code>
+<p>Utility class for working with effects.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-event-processor/index.html">EventProcessor</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">EventProcessor</span><span class="symbol">&lt;</span><span class="identifier">M</span><span class="symbol">, </span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">F</span><span class="symbol">&gt;</span></code>
+<p>Processes events and emits effects and models as a result of that.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-event-source/index.html">EventSource</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">EventSource</span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">&gt;</span></code>
+<p>Interface for event sources.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-first/index.html">First</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">First</span><span class="symbol">&lt;</span><span class="identifier">M</span><span class="symbol">, </span><span class="identifier">F</span><span class="symbol">&gt;</span></code>
+<p>Defines the entry into the initial state of a Mobius loop.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-init/index.html">Init</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Init</span><span class="symbol">&lt;</span><span class="identifier">M</span><span class="symbol">, </span><span class="identifier">F</span><span class="symbol">&gt;</span></code>
+<p>An interface representing the Init function used by Mobius for starting or resuming execution of
+a program from a given model.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-logging-init/index.html">LoggingInit</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">LoggingInit</span><span class="symbol">&lt;</span><span class="identifier">M</span><span class="symbol">, </span><span class="identifier">F</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-init/index.html"><span class="identifier">Init</span></a><span class="symbol">&lt;</span><a href="-logging-init/index.html#M"><span class="identifier">M</span></a><span class="symbol">,</span>&nbsp;<a href="-logging-init/index.html#F"><span class="identifier">F</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-logging-update/index.html">LoggingUpdate</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">LoggingUpdate</span><span class="symbol">&lt;</span><span class="identifier">M</span><span class="symbol">, </span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">F</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-update/index.html"><span class="identifier">Update</span></a><span class="symbol">&lt;</span><a href="-logging-update/index.html#M"><span class="identifier">M</span></a><span class="symbol">,</span>&nbsp;<a href="-logging-update/index.html#E"><span class="identifier">E</span></a><span class="symbol">,</span>&nbsp;<a href="-logging-update/index.html#F"><span class="identifier">F</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-merged-event-source/index.html">MergedEventSource</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">MergedEventSource</span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-event-source/index.html"><span class="identifier">EventSource</span></a><span class="symbol">&lt;</span><a href="-merged-event-source/index.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span></code>
+<p>An <a href="-event-source/index.html">EventSource</a> that merges multiple sources into one</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-mobius/index.html">Mobius</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">Mobius</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-mobius-loop/index.html">MobiusLoop</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">MobiusLoop</span><span class="symbol">&lt;</span><span class="identifier">M</span><span class="symbol">, </span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">F</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../com.spotify.mobius.disposables/-disposable/index.html"><span class="identifier">Disposable</span></a></code>
+<p>This is the main loop for Mobius.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-mobius-loop-controller/index.html">MobiusLoopController</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">MobiusLoopController</span><span class="symbol">&lt;</span><span class="identifier">M</span><span class="symbol">, </span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">F</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-mobius-loop/-controller/index.html"><span class="identifier">Controller</span></a><span class="symbol">&lt;</span><a href="-mobius-loop-controller/index.html#M"><span class="identifier">M</span></a><span class="symbol">,</span>&nbsp;<a href="-mobius-loop-controller/index.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier">ControllerActions</span><span class="symbol">&lt;</span><a href="-mobius-loop-controller/index.html#M"><span class="identifier">M</span></a><span class="symbol">,</span>&nbsp;<a href="-mobius-loop-controller/index.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-mobius-store/index.html">MobiusStore</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">MobiusStore</span><span class="symbol">&lt;</span><span class="identifier">M</span><span class="symbol">, </span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">F</span><span class="symbol">&gt;</span></code>
+<p>Responsible for holding and updating the current model.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-next/index.html">Next</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Next</span><span class="symbol">&lt;</span><span class="identifier">M</span><span class="symbol">, </span><span class="identifier">F</span><span class="symbol">&gt;</span></code>
+<p>This class represents the result of calling an <a href="-update/index.html">Update</a> function.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-simple-logger/index.html">SimpleLogger</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">SimpleLogger</span><span class="symbol">&lt;</span><span class="identifier">M</span><span class="symbol">, </span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">F</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-mobius-loop/-logger/index.html"><span class="identifier">Logger</span></a><span class="symbol">&lt;</span><a href="-simple-logger/index.html#M"><span class="identifier">M</span></a><span class="symbol">,</span>&nbsp;<a href="-simple-logger/index.html#E"><span class="identifier">E</span></a><span class="symbol">,</span>&nbsp;<a href="-simple-logger/index.html#F"><span class="identifier">F</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-update/index.html">Update</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Update</span><span class="symbol">&lt;</span><span class="identifier">M</span><span class="symbol">, </span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">F</span><span class="symbol">&gt;</span></code>
+<p>An interface representing the Update function used by Mobius for performing model transitions and
+requesting side-effects.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Exceptions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-connection-exception/index.html">ConnectionException</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ConnectionException</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-runtime-exception/index.html"><span class="identifier">RuntimeException</span></a></code>
+<p>Indicates that a <a href="-connectable/index.html">Connectable</a> connection caused an unhandled exception.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-connection-limit-exceeded-exception/index.html">ConnectionLimitExceededException</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ConnectionLimitExceededException</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-runtime-exception/index.html"><span class="identifier">RuntimeException</span></a></code>
+<p>Exception to be thrown by a <a href="-connectable/index.html">Connectable</a> that doesn't support multiple simultaneous
+connections.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

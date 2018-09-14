@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>WorkRunner - core-jvm</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core-jvm</a>&nbsp;/&nbsp;<a href="../index.html">com.spotify.mobius.runners</a>&nbsp;/&nbsp;<a href="./index.html">WorkRunner</a><br/>
+<br/>
+<h1>WorkRunner</h1>
+<code><span class="keyword">interface </span><span class="identifier">WorkRunner</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../com.spotify.mobius.disposables/-disposable/index.html"><span class="identifier">Disposable</span></a></code>
+<p>Interface for posting runnables to be executed using different scheduling mechanisms.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="post.html">post</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">post</span><span class="symbol">(</span><span class="identifier" id="com.spotify.mobius.runners.WorkRunner$post(com.spotify.mobius.runners.Runnable)/runnable">runnable</span><span class="symbol">:</span>&nbsp;<a href="../-runnable/index.html"><span class="identifier">Runnable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../com.spotify.mobius.disposables/-disposable/dispose.html">dispose</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">dispose</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Dispose of all resources associated with this object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="invoke.html">invoke</a></p>
+</td>
+<td>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">invoke</span><span class="symbol">(</span><span class="identifier" id="com.spotify.mobius.runners.WorkRunner.Companion$invoke(kotlin.Function1((com.spotify.mobius.runners.Runnable, kotlin.Unit)))/post">post</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../-runnable/index.html"><span class="identifier">Runnable</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">WorkRunner</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-executor-service-work-runner/index.html">ExecutorServiceWorkRunner</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ExecutorServiceWorkRunner</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WorkRunner</span></a></code>
+<p>A <a href="./index.html">WorkRunner</a> implementation that is backed by an <a href="http://docs.oracle.com/javase/6/docs/api/java/util/concurrent/ExecutorService.html">ExecutorService</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-immediate-work-runner/index.html">ImmediateWorkRunner</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ImmediateWorkRunner</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WorkRunner</span></a></code>
+<p>A <a href="./index.html">WorkRunner</a> that immediately invokes the <a href="../-runnable/index.html">Runnable</a> you post on the thread you
+posted from.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

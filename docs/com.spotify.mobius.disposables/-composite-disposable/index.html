@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CompositeDisposable - core-jvm</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core-jvm</a>&nbsp;/&nbsp;<a href="../index.html">com.spotify.mobius.disposables</a>&nbsp;/&nbsp;<a href="./index.html">CompositeDisposable</a><br/>
+<br/>
+<h1>CompositeDisposable</h1>
+<code><span class="keyword">class </span><span class="identifier">CompositeDisposable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-disposable/index.html"><span class="identifier">Disposable</span></a></code>
+<p>A <a href="../-disposable/index.html">Disposable</a> that disposes of other disposables.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="dispose.html">dispose</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">dispose</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Dispose of all resources associated with this object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="from.html">from</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">from</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.spotify.mobius.disposables.CompositeDisposable.Companion$from(kotlin.Array((com.spotify.mobius.disposables.Disposable)))/disposables">disposables</span><span class="symbol">:</span>&nbsp;<a href="../-disposable/index.html"><span class="identifier">Disposable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">CompositeDisposable</span></a></code>
+<p>Creates a <a href="./index.html">CompositeDisposable</a> that holds onto the provided disposables and disposes of
+all of them once its <a href="dispose.html">dispose</a> method is called.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,128 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MobiusLoopController - core-jvm</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core-jvm</a>&nbsp;/&nbsp;<a href="../index.html">com.spotify.mobius</a>&nbsp;/&nbsp;<a href="./index.html">MobiusLoopController</a><br/>
+<br/>
+<h1>MobiusLoopController</h1>
+<code><span class="keyword">class </span><span class="identifier">MobiusLoopController</span><span class="symbol">&lt;</span><span class="identifier">M</span><span class="symbol">, </span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">F</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-mobius-loop/-controller/index.html"><span class="identifier">Controller</span></a><span class="symbol">&lt;</span><a href="index.html#M"><span class="identifier">M</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier">ControllerActions</span><span class="symbol">&lt;</span><a href="index.html#M"><span class="identifier">M</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">MobiusLoopController</span><span class="symbol">(</span><span class="identifier" id="com.spotify.mobius.MobiusLoopController$<init>(com.spotify.mobius.MobiusLoop.Factory((com.spotify.mobius.MobiusLoopController.M, com.spotify.mobius.MobiusLoopController.E, com.spotify.mobius.MobiusLoopController.F)), com.spotify.mobius.MobiusLoopController.M, com.spotify.mobius.runners.WorkRunner)/loopFactory">loopFactory</span><span class="symbol">:</span>&nbsp;<a href="../-mobius-loop/-factory/index.html"><span class="identifier">Factory</span></a><span class="symbol">&lt;</span><a href="index.html#M"><span class="identifier">M</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#E"><span class="identifier">E</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#F"><span class="identifier">F</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.spotify.mobius.MobiusLoopController$<init>(com.spotify.mobius.MobiusLoop.Factory((com.spotify.mobius.MobiusLoopController.M, com.spotify.mobius.MobiusLoopController.E, com.spotify.mobius.MobiusLoopController.F)), com.spotify.mobius.MobiusLoopController.M, com.spotify.mobius.runners.WorkRunner)/defaultModel">defaultModel</span><span class="symbol">:</span>&nbsp;<a href="index.html#M"><span class="identifier">M</span></a><span class="symbol">, </span><span class="identifier" id="com.spotify.mobius.MobiusLoopController$<init>(com.spotify.mobius.MobiusLoop.Factory((com.spotify.mobius.MobiusLoopController.M, com.spotify.mobius.MobiusLoopController.E, com.spotify.mobius.MobiusLoopController.F)), com.spotify.mobius.MobiusLoopController.M, com.spotify.mobius.runners.WorkRunner)/mainThreadRunner">mainThreadRunner</span><span class="symbol">:</span>&nbsp;<a href="../../com.spotify.mobius.runners/-work-runner/index.html"><span class="identifier">WorkRunner</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="is-running.html">isRunning</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">isRunning</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Indicates whether this controller is running.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="model.html">model</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">model</span><span class="symbol">: </span><a href="index.html#M"><span class="identifier">M</span></a></code>
+<p>Get the current model of the loop that this controller is running, or the most recent model
+if it's not running.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="connect.html">connect</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">connect</span><span class="symbol">(</span><span class="identifier" id="com.spotify.mobius.MobiusLoopController$connect(com.spotify.mobius.Connectable((com.spotify.mobius.MobiusLoopController.M, com.spotify.mobius.MobiusLoopController.E)))/view">view</span><span class="symbol">:</span>&nbsp;<a href="../-connectable/index.html"><span class="identifier">Connectable</span></a><span class="symbol">&lt;</span><a href="index.html#M"><span class="identifier">M</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Connect a view to this controller.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="disconnect.html">disconnect</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">disconnect</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Disconnect UI from this controller.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="go-to-state-created.html">goToStateCreated</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">goToStateCreated</span><span class="symbol">(</span><span class="identifier" id="com.spotify.mobius.MobiusLoopController$goToStateCreated(com.spotify.mobius.Connection((com.spotify.mobius.MobiusLoopController.M)), com.spotify.mobius.MobiusLoopController.M)/renderer">renderer</span><span class="symbol">:</span>&nbsp;<a href="../-connection/index.html"><span class="identifier">Connection</span></a><span class="symbol">&lt;</span><a href="index.html#M"><span class="identifier">M</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.spotify.mobius.MobiusLoopController$goToStateCreated(com.spotify.mobius.Connection((com.spotify.mobius.MobiusLoopController.M)), com.spotify.mobius.MobiusLoopController.M)/nextModelToStartFrom">nextModelToStartFrom</span><span class="symbol">:</span>&nbsp;<a href="index.html#M"><span class="identifier">M</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">goToStateCreated</span><span class="symbol">(</span><span class="identifier" id="com.spotify.mobius.MobiusLoopController$goToStateCreated(com.spotify.mobius.Connectable((com.spotify.mobius.MobiusLoopController.M, com.spotify.mobius.MobiusLoopController.E)), com.spotify.mobius.MobiusLoopController.M)/view">view</span><span class="symbol">:</span>&nbsp;<a href="../-connectable/index.html"><span class="identifier">Connectable</span></a><span class="symbol">&lt;</span><a href="index.html#M"><span class="identifier">M</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.spotify.mobius.MobiusLoopController$goToStateCreated(com.spotify.mobius.Connectable((com.spotify.mobius.MobiusLoopController.M, com.spotify.mobius.MobiusLoopController.E)), com.spotify.mobius.MobiusLoopController.M)/nextModelToStartFrom">nextModelToStartFrom</span><span class="symbol">:</span>&nbsp;<a href="index.html#M"><span class="identifier">M</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="go-to-state-init.html">goToStateInit</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">goToStateInit</span><span class="symbol">(</span><span class="identifier" id="com.spotify.mobius.MobiusLoopController$goToStateInit(com.spotify.mobius.MobiusLoopController.M)/nextModelToStartFrom">nextModelToStartFrom</span><span class="symbol">:</span>&nbsp;<a href="index.html#M"><span class="identifier">M</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="go-to-state-running.html">goToStateRunning</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">goToStateRunning</span><span class="symbol">(</span><span class="identifier" id="com.spotify.mobius.MobiusLoopController$goToStateRunning(com.spotify.mobius.Connection((com.spotify.mobius.MobiusLoopController.M)), com.spotify.mobius.MobiusLoopController.M)/renderer">renderer</span><span class="symbol">:</span>&nbsp;<a href="../-connection/index.html"><span class="identifier">Connection</span></a><span class="symbol">&lt;</span><a href="index.html#M"><span class="identifier">M</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.spotify.mobius.MobiusLoopController$goToStateRunning(com.spotify.mobius.Connection((com.spotify.mobius.MobiusLoopController.M)), com.spotify.mobius.MobiusLoopController.M)/nextModelToStartFrom">nextModelToStartFrom</span><span class="symbol">:</span>&nbsp;<a href="index.html#M"><span class="identifier">M</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="post-update-view.html">postUpdateView</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">postUpdateView</span><span class="symbol">(</span><span class="identifier" id="com.spotify.mobius.MobiusLoopController$postUpdateView(com.spotify.mobius.MobiusLoopController.M)/model">model</span><span class="symbol">:</span>&nbsp;<a href="index.html#M"><span class="identifier">M</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="replace-model.html">replaceModel</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">replaceModel</span><span class="symbol">(</span><span class="identifier" id="com.spotify.mobius.MobiusLoopController$replaceModel(com.spotify.mobius.MobiusLoopController.M)/model">model</span><span class="symbol">:</span>&nbsp;<a href="index.html#M"><span class="identifier">M</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Replace which model the controller should start from.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="start.html">start</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">start</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Start a MobiusLoop from the current model.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="stop.html">stop</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">stop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Stop the currently running MobiusLoop.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
