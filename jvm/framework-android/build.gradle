@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.github.dcendents.android-maven'
 
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -20,3 +19,5 @@ android {
     it.java.srcDirs += 'src/main/kotlin'
   }
 }
+
+apply from: rootProject.file('gradle/publish-bintray.gradle')

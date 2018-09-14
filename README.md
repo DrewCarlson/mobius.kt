@@ -1,5 +1,6 @@
 # kotlin-mobius
 [![CircleCI](https://circleci.com/gh/DrewCarlson/kotlin-mobius.svg?style=shield&circle-token=5969d260c8b600d8fb1e55b633eabb7760fcea46)](https://circleci.com/gh/DrewCarlson/kotlin-mobius)
+[![Bintray](https://img.shields.io/bintray/v/drewcarlson/kotlin-mobius/core-common.svg?style=flat-rounded)](https://bintray.com/drewcarlson/kotlin-mobius)
 
 An experimental port of [Mobius](https://github.com/spotify/mobius) to Kotlin, with [Multiplatform Project](https://kotlinlang.org/docs/reference/multiplatform.html) (MPP) support.
 
@@ -26,17 +27,6 @@ _(Source: [Concepts > Mobius Loop](https://github.com/spotify/mobius/wiki/Concep
 By combining this concept with Kotlin's MPP features, kotlin-mobius allows you to write and test all of your pure functions (application and/or business logic) in Kotlin and deploy it everywhere.
 This leaves all of the impure functions to the native platform, which can be written in their primary language (Js, Java, Object-c/Swift) or in Kotlin!
 
-
-## Notes
-
-**Jvm**: The Jvm modules should work fine, they are _almost_ direct ports of Mobius minus a few kotlin related improvements.
-The Jvm modules still need changes for better interop in Java and existing Kotlin projects that depend on Mobius.
-
-**Js**: I have not done much testing with the Js module but it should work without any significant issues, mostly because Js is not subject to the same multi-threading considerations as other platforms.
-
-**Native**: The Native side still needs work.. and more tests.
-In theory (and some practice), kotlin-mobius escapes some of Kotlin/Native's concurrency model, though it's important to understand. (see [Concurrency in Kotlin/Native](https://github.com/JetBrains/kotlin-native/blob/15eb28a2a8c5d0f09f49770e1c2054b176ff6141/CONCURRENCY.md))
-
 ## Samples
 
 The sample projects can be run with gradle from the `samples` directory.
@@ -50,34 +40,21 @@ Open and run the `samples/todo/ios` Xcode project, it contains build steps to pr
 
 ## Download
 
-Due to the experimental nature of the project, your best option is to publish artifacts locally.
-For convenience JitPack can be used for the non-native modules.
-You can easily publish a Kotlin/Native klib on your machine ([Consuming klibs](https://github.com/JetBrains/kotlin-native/blob/master/GRADLE_PLUGIN.md#dependencies)).
-
-```groovy
-allprojects {
-  repositories {
-    maven { url 'https://jitpack.io' }
-    // Optional for Native klib or local publishing
-    mavenLocal()
-  }
-}
-```
+Artifacts are published to [bintray](https://bintray.com/drewcarlson/kotlin-mobius).
 
 ```groovy
 dependencies {
   // Common
-  implementation 'com.github.DrewCarlson.kotlin-mobius:core-common:master-SNAPSHOT'
+  implementation 'com.github.DrewCarlson.kotlin-mobius:core-common:0.0.1'
   
   // Js
-  implementation 'com.github.DrewCarlson.kotlin-mobius:core-js:master-SNAPSHOT'
+  implementation 'com.github.DrewCarlson.kotlin-mobius:core-js:0.0.1'
   
   // Jvm
-  implementation 'com.github.DrewCarlson.kotlin-mobius:core-jvm:master-SNAPSHOT'
-  implementation 'com.github.DrewCarlson.kotlin-mobius:framework-android:master-SNAPSHOT'
+  implementation 'com.github.DrewCarlson.kotlin-mobius:core-jvm:0.0.1'
+  implementation 'com.github.DrewCarlson.kotlin-mobius:framework-android:0.0.1'
   
-  // Native (not on JitPack!)
-  // run: `./gradlew :native:core-native:publishToMavenLocal`
-  implementation 'com.github.DrewCarlson.kotlin-mobius:native-core:master-SNAPSHOT'  
+  // Native
+  implementation 'com.github.DrewCarlson.kotlin-mobius:native-core:0.0.1'  
 }
 ```

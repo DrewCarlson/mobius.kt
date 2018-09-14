@@ -1,5 +1,5 @@
 apply plugin: 'kotlin-platform-common'
-apply plugin: 'maven'
+apply from: rootProject.file('gradle/publish-bintray.gradle')
 
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version"

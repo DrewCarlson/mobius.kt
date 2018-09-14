@@ -1,6 +1,6 @@
 apply plugin: 'kotlin-platform-js'
-apply plugin: 'maven'
 apply plugin: 'com.moowork.node'
+apply from: rootProject.file('gradle/publish-bintray.gradle')
 
 dependencies {
   expectedBy project(":common:core-common")
@@ -47,16 +47,6 @@ task runQunit(type: NodeTask, dependsOn: [compileTestKotlin2Js, populateNodeModu
 }
 
 test.dependsOn runQunit
-
-//noinspection GroovyAssignabilityCheck
-task sourcesJar(type: Jar) {
-  classifier = 'sources'
-  from sourceSets.main.kotlin
-}
-
-artifacts {
-  archives sourcesJar
-}
 
 // Fix for https://github.com/srs/gradle-node-plugin/issues/301
 repositories.whenObjectAdded {

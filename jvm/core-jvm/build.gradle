@@ -1,6 +1,6 @@
 apply plugin: 'kotlin-platform-jvm'
 apply plugin: 'org.jetbrains.dokka'
-apply plugin: 'maven'
+apply from: rootProject.file('gradle/publish-bintray.gradle')
 
 dependencies {
   expectedBy project(":common:core-common")

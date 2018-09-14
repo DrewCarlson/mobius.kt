@@ -1,4 +1,6 @@
 buildscript {
+  def deployNative = property('native.deploy') == 'true'
+
   repositories {
     mavenCentral()
     jcenter()
@@ -14,6 +16,9 @@ buildscript {
     classpath 'com.android.tools.build:gradle:3.1.4'
     classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
     classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
+
+    // https://github.com/Kotlin/kotlinx.serialization/blob/7cb4c4c3bd45269abe7432b277b92559e27320b8/build.gradle#L50
+    classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.2-SNAPSHOT'
   }
 }
 
@@ -23,4 +28,11 @@ allprojects {
     jcenter()
     google()
   }
+}
+
+static def platformOf(project) {
+  if (project.name.endsWith("-common")) return "common"
+  if (project.name.endsWith("-js")) return "js"
+  if (project.name.endsWith("-native")) return "native"
+  return "jvm"
 }

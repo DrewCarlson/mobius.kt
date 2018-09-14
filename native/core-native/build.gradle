@@ -1,21 +1,24 @@
 apply plugin: 'kotlin-platform-native'
-apply plugin: 'maven-publish'
+apply from: rootProject.file('gradle/publish-bintray.gradle')
 
-group 'com.github.DrewCarlson.kotlin-mobius'
-version 'master-SNAPSHOT'
+def deployMode = property('native.deploy') == 'true'
 
 sourceSets.main {
   kotlin.srcDirs += 'src/main/kotlin'
-}
 
-components.main {
-  extraOpts '-module_name', ''
-  targets = ['host']
-  /*targets = [
-      'ios_arm64', 'ios_x64', 'linux_x64',
-      'mingw_x64', 'macos_x64', 'wasm32'
-  ]*/
-  outputKinds = [KLIBRARY]
+  component {
+    extraOpts '-module_name', ''
+    outputKinds = [KLIBRARY]
+    if (deployMode) {
+      targets = [
+          'ios_x64', 'ios_arm32', 'ios_arm64',
+          'linux_x64', 'mingw_x64', 'macos_x64',
+          'wasm32', 'android_arm32', 'android_arm64'
+      ]
+    } else {
+      targets = ['host']
+    }
+  }
 }
 
 dependencies {
