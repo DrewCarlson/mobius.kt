@@ -1,4 +1,5 @@
 # kotlin-mobius
+[![CircleCI](https://circleci.com/gh/DrewCarlson/kotlin-mobius.svg?style=shield&circle-token=5969d260c8b600d8fb1e55b633eabb7760fcea46)](https://circleci.com/gh/DrewCarlson/kotlin-mobius)
 
 An experimental port of [Mobius](https://github.com/spotify/mobius) to Kotlin, with MPP support.
 
