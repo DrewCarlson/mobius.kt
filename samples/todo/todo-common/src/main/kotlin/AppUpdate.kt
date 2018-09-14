@@ -12,51 +12,59 @@ class AppUpdate : Update<AppModel, Event, Effect> {
   override fun update(model: AppModel, event: Event): Next<AppModel, Effect> {
     return when (event) {
       is Event.OnLoadTasks -> {
-        if (model.isLoadingTasks) noChange()
-        else next<AppModel, Effect>(
-            model.copy(isLoadingTasks = true),
-            effects(Effect.LoadTasks)
-        )
+        if (model.isLoadingTasks) {
+          noChange()
+        } else {
+          val nextModel = model.copy(isLoadingTasks = true)
+          val effects = effects(Effect.LoadTasks)
+          next<AppModel, Effect>(nextModel, effects)
+        }
       }
       is Event.OnAddTask -> {
-        if (model.isAddingTask) noChange()
-        else next(model.copy(isAddingTask = true))
+        if (model.isAddingTask) {
+          noChange()
+        } else {
+          next(model.copy(isAddingTask = true))
+        }
       }
       is Event.OnSubmitNewTask -> {
         val nextId = model.tasks.size + 1
         val task = Task(nextId, event.todo, false)
-        next(
-            model.copy(
-                isAddingTask = false,
-                tasks = model.tasks + task
-            ),
-            effects(Effect.SaveTask(task))
+        val nextModel = model.copy(
+            isAddingTask = false,
+            tasks = model.tasks + task
         )
+        val effects = effects(Effect.SaveTask(task))
+        next(nextModel, effects)
       }
       is Event.OnDiscardNewTask -> {
-        if (model.isAddingTask)
+        if (model.isAddingTask) {
           next(model.copy(isAddingTask = false))
-        else noChange()
+        } else {
+          noChange()
+        }
       }
       is Event.OnDeleteTask -> {
-        next(
-            model.copy(tasks = model.tasks.filter { it.id != event.taskId }),
-            effects(Effect.DeleteTask(event.taskId))
-        )
+        val updatedTasksList = model.tasks.filter { it.id != event.taskId }
+        val nextModel = model.copy(tasks = updatedTasksList)
+        val effects = effects(Effect.DeleteTask(event.taskId))
+        next(nextModel, effects)
       }
       is Event.OnToggleTaskComplete -> {
         val task = model.tasks
-            .find { it.id == event.taskId }!!
-            .run { copy(isComplete = !isComplete) }
+            .findSingle { it.id == event.taskId }!!
+            .copy(isComplete = !isComplete)
         val newList = model.tasks.toMutableList()
         newList[task.id] = task
-        next(
-            model.copy(tasks = newList.toList()),
-            effects(Effect.UpdateTask(task))
-        )
+        val newModel = model.copy(tasks = newList.toList())
+        val effects = effects(Effect.UpdateTask(task))
+        next(newModel, effects)
       }
       is Event.OnTasksLoaded -> {
-        next(model.copy(isLoadingTasks = false, tasks = event.tasks))
+        next(model.copy(
+            tasks = event.tasks,
+            isLoadingTasks = false
+        ))
       }
     }
   }

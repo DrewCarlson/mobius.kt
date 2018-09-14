@@ -1,7 +1,7 @@
 # kotlin-mobius
 [![CircleCI](https://circleci.com/gh/DrewCarlson/kotlin-mobius.svg?style=shield&circle-token=5969d260c8b600d8fb1e55b633eabb7760fcea46)](https://circleci.com/gh/DrewCarlson/kotlin-mobius)
 
-An experimental port of [Mobius](https://github.com/spotify/mobius) to Kotlin, with MPP support.
+An experimental port of [Mobius](https://github.com/spotify/mobius) to Kotlin, with [Multiplatform Project](https://kotlinlang.org/docs/reference/multiplatform.html) (MPP) support.
 
 ## What is Mobius?
 
@@ -23,7 +23,7 @@ In a Spotify context, there is usually one loop per feature such as “the album
 
 _(Source: [Concepts > Mobius Loop](https://github.com/spotify/mobius/wiki/Concepts/53777574e070e168f2c3bdebc1be544edfcee2cf#mobius-loop))_
 
-By combing this concept Kotlin's [Multiplatform Project](https://kotlinlang.org/docs/reference/multiplatform.html), kotlin-mobius allows you to write and test all of your pure functions (application and/or business logic) in Kotlin and deploy it everywhere.
+By combining this concept with Kotlin's MPP features, kotlin-mobius allows you to write and test all of your pure functions (application and/or business logic) in Kotlin and deploy it everywhere.
 This leaves all of the impure functions to the native platform, which can be written in their primary language (Js, Java, Object-c/Swift) or in Kotlin!
 
 
