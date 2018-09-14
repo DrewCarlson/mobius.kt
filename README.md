@@ -5,13 +5,13 @@ An experimental port of [Mobius](https://github.com/spotify/mobius) to Kotlin, w
 
 ## Notes
 
-**Jvm**: The Jvm module's should work just fine, they are _almost_ direct ports of Mobius minus a few kotlin related improvements.
+**Jvm**: The Jvm modules should work fine, they are _almost_ direct ports of Mobius minus a few kotlin related improvements.
 The Jvm modules still need changes for better interop in Java and existing Kotlin projects that depend on Mobius.
 
 **Js**: I have not done much testing with the Js module but it should work without any significant issues, mostly because Js is not subject to the same multi-threading considerations as other platforms.
 
-**Native**: The Native side still needs a lot of work.. and tests.
-In theory (and some practice), kotlin-mobius escapes some of Kotlin/Native's multi-threading considerations but only if you carefully consider every operation.
+**Native**: The Native side still needs work.. and more tests.
+In theory (and some practice), kotlin-mobius escapes some of Kotlin/Native's concurrency model, though it's important to understand. (see [Concurrency in Kotlin/Native](https://github.com/JetBrains/kotlin-native/blob/15eb28a2a8c5d0f09f49770e1c2054b176ff6141/CONCURRENCY.md))
 
 ## Samples
 

@@ -2,22 +2,27 @@ version: 2
 jobs:
   build:
     docker:
-    - image: circleci/android:api-28-alpha
+      - image: circleci/android:api-28-alpha
     steps:
-    - restore_cache:
-        keys:
-          - konan
-    - checkout
-    - run:
-        name: Test core-jvm
-        command: ./gradlew :jvm:core-jvm:test
-    - run:
-        name: Test core-js
-        command: ./gradlew :js:core-js:test
-    - run:
-        name: Test core-native
-        command: ./gradlew :native:core-native:test
-    - save_cache:
-        key: konan
-        paths:
-          - "/home/circleci/.konan"
+      - restore_cache:
+          keys:
+            - konan
+      - checkout
+      - run:
+          name: Test core-jvm
+          command: ./gradlew :jvm:core-jvm:test
+      - run:
+          name: Test core-js
+          command: ./gradlew :js:core-js:test
+      - run:
+          name: Test core-native
+          command: ./gradlew :native:core-native:test
+      - save_cache:
+          key: konan
+          paths:
+            - "/home/circleci/.konan"
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - build
