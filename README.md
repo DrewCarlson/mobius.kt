@@ -55,6 +55,6 @@ dependencies {
   implementation 'com.github.DrewCarlson.kotlin-mobius:framework-android:0.0.1'
   
   // Native
-  implementation 'com.github.DrewCarlson.kotlin-mobius:native-core:0.0.1'  
+  implementation 'com.github.DrewCarlson.kotlin-mobius:core-native:0.0.1'  
 }
 ```
