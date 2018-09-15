@@ -25,7 +25,7 @@ In a Spotify context, there is usually one loop per feature such as “the album
 _(Source: [Concepts > Mobius Loop](https://github.com/spotify/mobius/wiki/Concepts/53777574e070e168f2c3bdebc1be544edfcee2cf#mobius-loop))_
 
 By combining this concept with Kotlin's MPP features, kotlin-mobius allows you to write and test all of your pure functions (application and/or business logic) in Kotlin and deploy it everywhere.
-This leaves all of the impure functions to the native platform, which can be written in their primary language (Js, Java, Object-c/Swift) or in Kotlin!
+This leaves impure functions to the native platform, which can be written in their primary language (Js, Java, Objective-c/Swift) or in Kotlin!
 
 ## Samples
 
@@ -45,16 +45,16 @@ Artifacts are published to [bintray](https://bintray.com/drewcarlson/kotlin-mobi
 ```groovy
 dependencies {
   // Common
-  implementation 'com.github.DrewCarlson.kotlin-mobius:core-common:0.0.1'
+  implementation 'com.github.DrewCarlson.kotlin-mobius:core-common:0.0.2'
   
   // Js
-  implementation 'com.github.DrewCarlson.kotlin-mobius:core-js:0.0.1'
+  implementation 'com.github.DrewCarlson.kotlin-mobius:core-js:0.0.2'
   
   // Jvm
-  implementation 'com.github.DrewCarlson.kotlin-mobius:core-jvm:0.0.1'
-  implementation 'com.github.DrewCarlson.kotlin-mobius:framework-android:0.0.1'
+  implementation 'com.github.DrewCarlson.kotlin-mobius:core-jvm:0.0.2'
+  implementation 'com.github.DrewCarlson.kotlin-mobius:framework-android:0.0.2'
   
   // Native
-  implementation 'com.github.DrewCarlson.kotlin-mobius:core-native:0.0.1'  
+  implementation 'com.github.DrewCarlson.kotlin-mobius:core-native:0.0.2'  
 }
 ```
