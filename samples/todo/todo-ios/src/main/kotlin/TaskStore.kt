@@ -10,16 +10,17 @@ actual class TaskStore() {
 
   init {
     tasks = cache.dictionaryRepresentation()
-        .filter { (key: Any?, value: Any?) ->
+        .filter { (key: Any?, _: Any?) ->
           (key as String).endsWith("todo")
         }
         .map { (key: Any?, value: Any?) ->
           val taskStr = value as String
-          val id = "$key".substring(0, 1).toInt()
-          val todo = taskStr.substring(1, taskStr.lastIndex)
+          val id = "$key".first().toInt()
+          val todo = taskStr.substring(1, taskStr.length)
           val isComplete = taskStr.substring(0, 1).toInt().toBoolean()
           Task(id, todo, isComplete)
         }
+        .sortedBy(Task::id)
   }
 
   actual fun listTasks(): List<Task> {

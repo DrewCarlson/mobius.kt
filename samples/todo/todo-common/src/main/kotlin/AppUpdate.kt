@@ -52,8 +52,8 @@ class AppUpdate : Update<AppModel, Event, Effect> {
       }
       is Event.OnToggleTaskComplete -> {
         val task = model.tasks
-            .findSingle { it.id == event.taskId }!!
-            .copy(isComplete = !isComplete)
+            .first { it.id == event.taskId }
+            .run { copy(isComplete = !isComplete) }
         val newList = model.tasks.toMutableList()
         newList[task.id] = task
         val newModel = model.copy(tasks = newList.toList())

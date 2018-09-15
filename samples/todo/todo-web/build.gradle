@@ -2,9 +2,9 @@ apply plugin: 'kotlin-platform-js'
 apply plugin: 'kotlin2js'
 
 dependencies {
-  expectedBy project(':todo:todo-common')
+  expectedBy project(":samples:todo:todo-common")
   compile "org.jetbrains.kotlin:kotlin-stdlib-js"
-  compile "com.github.DrewCarlson.kotlin-mobius:core-js:master-SNAPSHOT"
+  compile project(":common:core-common")
   testCompile "org.jetbrains.kotlin:kotlin-test-js"
 }
 

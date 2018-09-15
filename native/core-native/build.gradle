@@ -7,7 +7,7 @@ sourceSets.main {
   kotlin.srcDirs += 'src/main/kotlin'
 
   component {
-    extraOpts '-module_name', ''
+    extraOpts '-module-name', ''
     outputKinds = [KLIBRARY]
     if (deployMode) {
       targets = [
@@ -16,7 +16,7 @@ sourceSets.main {
           'wasm32', 'android_arm32', 'android_arm64'
       ]
     } else {
-      targets = ['host']
+      targets = ['host', 'ios_x64']
     }
   }
 }

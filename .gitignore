@@ -8,3 +8,4 @@ out/
 /captures
 *.iml
 node_modules/
+xcuserdata/

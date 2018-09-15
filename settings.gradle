@@ -7,3 +7,8 @@ include ":jvm:core-jvm"
 include ":jvm:framework-android"
 include ":native:core-native"
 include ":js:core-js"
+
+// Samples
+include ":samples:todo:todo-common"
+include ":samples:todo:todo-ios"
+include ":samples:todo:todo-web"

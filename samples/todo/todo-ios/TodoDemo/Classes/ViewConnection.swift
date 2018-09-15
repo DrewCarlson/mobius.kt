@@ -2,25 +2,25 @@ import Foundation
 import UIKit
 import Todo
 
-class ViewConnectable: NSObject, TodoConnectable {
+class ViewConnectable: NSObject, Connectable {
     let viewController: ViewController
     init(viewController: ViewController) {
         self.viewController = viewController
     }
-    func connect(output: TodoConsumer) -> TodoConnection {
+    func connect(output: Consumer) -> Connection {
         return ViewConnection(output: output, viewController: viewController)
     }
 }
 
-class ViewConnection: NSObject, TodoConnection, UITableViewDataSource {
+class ViewConnection: NSObject, Connection, UITableViewDataSource {
     
-    let consumer: TodoConsumer
+    let consumer: Consumer
     let view: ViewController
     var alert: UIAlertController? = nil
     
-    var tasks: [TodoTask] = []
+    var tasks: [Task] = []
     
-    init(output: TodoConsumer, viewController: ViewController) {
+    init(output: Consumer, viewController: ViewController) {
         consumer = output
         view = viewController
 
@@ -32,7 +32,7 @@ class ViewConnection: NSObject, TodoConnection, UITableViewDataSource {
     }
     
     func accept(value: Any?) {
-        let model = value as! TodoAppModel
+        let model = value as! AppModel
         tasks = model.tasks
         
         if (model.isAddingTask && alert == nil) {
@@ -53,11 +53,11 @@ class ViewConnection: NSObject, TodoConnection, UITableViewDataSource {
         }
         alert!.addAction(UIAlertAction(title: "Save", style: .default, handler: { [weak alert] (_) in
             let textField = alert!.textFields![0]
-            self.consumer.accept(value: TodoEventOnSubmitNewTask(todo: textField.text!))
+            self.consumer.accept(value: Event.OnSubmitNewTask(todo: textField.text!))
             self.alert = nil
         }))
         alert!.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
-            self.consumer.accept(value: TodoEventOnDiscardNewTask())
+            self.consumer.accept(value: Event.OnDiscardNewTask())
             self.alert = nil
         }))
         view.present(alert!, animated: true, completion: nil)
@@ -69,7 +69,7 @@ class ViewConnection: NSObject, TodoConnection, UITableViewDataSource {
     }
     
     @objc func addTaskClicked() {
-        consumer.accept(value: TodoEventOnAddTask())
+        consumer.accept(value: Event.OnAddTask())
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -1,6 +1,4 @@
 buildscript {
-  def deployNative = property('native.deploy') == 'true'
-
   repositories {
     mavenCentral()
     jcenter()

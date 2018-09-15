@@ -1,7 +1,0 @@
-rootProject.name = 'samples'
-
-enableFeaturePreview('GRADLE_METADATA')
-
-include ":todo:todo-common"
-include ":todo:todo-native"
-include ":todo:todo-js"

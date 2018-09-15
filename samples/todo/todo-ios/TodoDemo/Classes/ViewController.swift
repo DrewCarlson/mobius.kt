@@ -6,18 +6,18 @@ class ViewController: UIViewController {
     @IBOutlet weak var addTaskButton: UIBarButtonItem!
     @IBOutlet weak var taskTableView: UITableView!
     
-    let loopFactory: TodoMobiusLoopBuilder
-    let loopController: TodoMobiusLoopControllerProtocol
-    let defaultModel = TodoAppModel.init(tasks: [], isLoadingTasks: true, isAddingTask: false)
+    let loopFactory: MobiusLoop.Builder
+    let loopController: MobiusLoop.Controller
+    let defaultModel = AppModel.init(tasks: [], isLoadingTasks: true, isAddingTask: false)
     
     required init?(coder aDecoder: NSCoder) {
         let syncRunnerProducer = ImmediateWorkRunnerProducer()
-        loopFactory = TodoMobius().loop(update: TodoAppUpdate(), effectHandler: TodoEffectHandler())
-            .doInit(init: TodoAppInit())
+        loopFactory = Mobius().loop(update: AppUpdate(), effectHandler: TodoEffectHandler())
+            .doInit(init: AppInit())
             .effectRunner(effectRunner: syncRunnerProducer)
             .eventRunner(eventRunner: syncRunnerProducer)
-            .logger(logger: TodoSimpleLogger(tag: "Todo"))
-        loopController = TodoMobius().controller(
+            .logger(logger: SimpleLogger(tag: "Todo"))
+        loopController = Mobius().controller(
             loopFactory: loopFactory,
             defaultModel: defaultModel
         )
@@ -35,14 +35,14 @@ class ViewController: UIViewController {
     }
 }
 
-class TodoEffectHandler: NSObject, TodoConnectable {
-    func connect(output: TodoConsumer) -> TodoConnection {
-        return TodoAppEffectHandler(output: output, store: TodoTaskStore())
+class TodoEffectHandler: NSObject, Connectable {
+    func connect(output: Consumer) -> Connection {
+        return AppEffectHandler(output: output, store: TaskStore())
     }
 }
 
-class ImmediateWorkRunnerProducer: NSObject, TodoProducer {
+class ImmediateWorkRunnerProducer: NSObject, Producer {
     func get() -> Any? {
-        return TodoImmediateWorkRunner()
+        return ImmediateWorkRunner()
     }
 }
