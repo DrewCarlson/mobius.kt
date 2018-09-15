@@ -1,7 +1,7 @@
 package com.spotify.mobius.internal_util
 
 /** Utilities for working with throwables.  */
-object Throwables {
+internal object Throwables {
 
   fun propagate(e: Exception): RuntimeException {
     if (e is RuntimeException) {
