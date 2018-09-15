@@ -29,14 +29,13 @@ This leaves impure functions to the native platform, which can be written in the
 
 ## Samples
 
-The sample projects can be run with gradle from the `samples` directory.
 
 ### Todo
 
-##### iOS Simulator
-*Note: don't forget to deploy the native klib first!* `./gradlew :native:core-native:publishToMavenLocal`
+##### iOS
 
-Open and run the `samples/todo/ios` Xcode project, it contains build steps to produce the `Todo.framework`
+Open and run the `samples/todo/todo-ios` Xcode project, it contains a build step to produce the Kotlin framework.
+Note the first build will take some time while it downloads all the necessary dependencies.
 
 ## Download
 
