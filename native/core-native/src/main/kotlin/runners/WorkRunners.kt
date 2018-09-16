@@ -10,10 +10,12 @@ actual object WorkRunners {
   }
 
   fun nativeWorker(
+      worker: Worker = Worker.start(),
       transferMode: TransferMode = TransferMode.SAFE,
       processScheduledJobs: Boolean = true
   ): WorkRunner {
     return NativeWorkRunner(
+        worker,
         transferMode,
         processScheduledJobs
     )
