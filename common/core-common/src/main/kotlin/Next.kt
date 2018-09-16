@@ -70,8 +70,7 @@ class Next<M, F> private constructor(
   override fun equals(other: Any?): Boolean {
     if (other == null || other !is Next<*, *>) return false
     if (other.model != model) return false
-    if (!other.effects.containsAll(effects)) return false
-    return true
+    return other.effects.containsAll(effects)
   }
 
   override fun hashCode(): Int {
