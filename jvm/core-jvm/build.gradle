@@ -23,3 +23,10 @@ dokka {
   outputFormat = 'html'
   outputDirectory = "$buildDir/javadoc"
 }
+
+test {
+  testLogging {
+    events "passed", "skipped", "failed"
+    outputs.upToDateWhen { false }
+  }
+}
