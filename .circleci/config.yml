@@ -10,13 +10,13 @@ jobs:
       - checkout
       - run:
           name: Test core-jvm
-          command: ./gradlew :jvm:core-jvm:test
+          command: ./gradlew :jvm:core-jvm:check
       - run:
           name: Test core-js
-          command: ./gradlew :js:core-js:test
+          command: ./gradlew :js:core-js:check
       - run:
           name: Test core-native
-          command: ./gradlew :native:core-native:test
+          command: ./gradlew :native:core-native:check
       - save_cache:
           key: konan
           paths:
