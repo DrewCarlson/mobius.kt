@@ -11,7 +11,7 @@ import com.spotify.mobius.functions.Consumer
  * contains the new Model (if there is one) and Effect objects that describe which side-effects
  * should take place.
  */
-class Next<M, F> private constructor(
+class Next<M, F> internal constructor(
     /** Get the model of this Next, if it has one. Might return null. */
     private val model: M?,
     /** Get the effects of this Next. Will return an empty set if there are no effects */
@@ -81,16 +81,20 @@ class Next<M, F> private constructor(
 
   companion object {
     /** Create a Next that updates the model and dispatches the optional set of effects. */
+    //@JvmStatic
+    //@JvmOverloads
     fun <M, F> next(model: M, effects: Set<F> = emptySet()): Next<M, F> {
       return Next(model, effects.toSet())
     }
 
     /** Create a Next that doesn't update the model but dispatches the supplied effects. */
+    //@JvmStatic
     fun <M, F> dispatch(effects: Set<F>): Next<M, F> {
       return Next(null, effects.toSet())
     }
 
     /** Create an empty Next that doesn't update the model or dispatch effects. */
+    //@JvmStatic
     fun <M, F> noChange(): Next<M, F> {
       return Next(null, emptySet())
     }

@@ -1,7 +1,7 @@
 package com.spotify.mobius
 
 /** Defines the entry into the initial state of a Mobius loop. */
-class First<M, F> private constructor(
+class First<M, F> internal constructor(
     /** the initial model to use */
     private val model: M,
     /** the possibly empty set of effects to initially dispatch */
@@ -35,6 +35,8 @@ class First<M, F> private constructor(
      * @param [M] the model type
      * @param [F] the effect type
      */
+    //@JvmStatic
+    //@JvmOverloads
     fun <M, F> first(model: M, effects: Set<F> = emptySet()): First<M, F> {
       return First(model, effects)
     }

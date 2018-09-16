@@ -1,7 +1,5 @@
 package com.spotify.mobius.disposables
 
-import synchronized2
-
 
 /** A [Disposable] that disposes of other disposables. */
 class CompositeDisposable private constructor(disposables: Array<out Disposable>) : Disposable {
@@ -9,7 +7,7 @@ class CompositeDisposable private constructor(disposables: Array<out Disposable>
 
   private val disposables = disposables.copyOf()
 
-  override fun dispose() = synchronized2(LOCK) {
+  override fun dispose() = mpp.synchronized(LOCK) {
     for (disposable in disposables) {
       disposable.dispose()
     }

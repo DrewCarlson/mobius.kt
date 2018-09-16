@@ -2,7 +2,6 @@ package com.spotify.mobius
 
 import com.spotify.mobius.disposables.CompositeDisposable
 import com.spotify.mobius.functions.Consumer
-import synchronized2
 
 /**
  * A [Connectable] that ensures that an inner [Connection] doesn't emit or receive any
@@ -21,11 +20,11 @@ internal class SafeConnectable<F, E>(
     val effectConsumer = SafeEffectConsumer(actual.connect(safeEventConsumer))
     val disposable = CompositeDisposable.from(safeEventConsumer, effectConsumer)
     return object : Connection<F> {
-      override fun accept(effect: F): Unit = synchronized2(this) {
+      override fun accept(effect: F): Unit = mpp.synchronized(this) {
         effectConsumer.accept(effect)
       }
 
-      override fun dispose(): Unit = synchronized2(this) {
+      override fun dispose(): Unit = mpp.synchronized(this) {
         disposable.dispose()
       }
     }
@@ -35,14 +34,14 @@ internal class SafeConnectable<F, E>(
     private object LOCK
     private var disposed: Boolean = false
 
-    override fun accept(effect: F): Unit = synchronized2(LOCK) {
+    override fun accept(effect: F): Unit = mpp.synchronized(LOCK) {
       if (disposed) {
         return
       }
       actual.accept(effect)
     }
 
-    override fun dispose(): Unit = synchronized2(LOCK) {
+    override fun dispose(): Unit = mpp.synchronized(LOCK) {
       disposed = true
       actual.dispose()
     }
@@ -52,14 +51,14 @@ internal class SafeConnectable<F, E>(
     private object LOCK
     private var disposed: Boolean = false
 
-    override fun accept(value: E): Unit = synchronized2(LOCK) {
+    override fun accept(value: E): Unit = mpp.synchronized(LOCK) {
       if (disposed) {
         return
       }
       actual.accept(value)
     }
 
-    override fun dispose(): Unit = synchronized2(LOCK) {
+    override fun dispose(): Unit = mpp.synchronized(LOCK) {
       disposed = true
     }
   }

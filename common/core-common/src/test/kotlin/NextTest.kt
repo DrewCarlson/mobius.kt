@@ -57,7 +57,7 @@ class NextTest {
 
   @Test
   fun nextModelAndEffectsHasBothModelAndEffects() {
-    val next = Next.next("m", effects("f"))
+    val next = next("m", effects("f"))
 
     assertTrue(next.hasModel())
     assertTrue(next.hasEffects())
