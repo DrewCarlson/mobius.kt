@@ -16,18 +16,14 @@ class ExecutorServiceWorkRunner(private val service: ExecutorService) : WorkRunn
 
       if (!runnables.isEmpty()) {
         println("Disposing ExecutorServiceWorkRunner with ${runnables.size} outstanding tasks.")
-        //TODO: LOGGER.warn(
-        //TODO:    "Disposing ExecutorServiceWorkRunner with {} outstanding tasks.", runnables.size)
       }
 
       if (!service.awaitTermination(100, TimeUnit.MILLISECONDS)) {
         println("ExecutorService shutdown timed out; there are still tasks executing")
-        //TODO: LOGGER.error("ExecutorService shutdown timed out; there are still tasks executing")
       }
     } catch (e: InterruptedException) {
       println("Timeout when disposing work runner")
       println(e)
-      //TODO: LOGGER.error("Timeout when disposing work runner", e)
     }
   }
 }
