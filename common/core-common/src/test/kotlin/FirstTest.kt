@@ -1,3 +1,5 @@
+package com.spotify.mobius
+
 import com.spotify.mobius.Effects.effects
 import com.spotify.mobius.First
 import kotlin.test.Test

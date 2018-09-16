@@ -5,9 +5,10 @@ apply from: rootProject.file('gradle/publish-bintray.gradle')
 dependencies {
   expectedBy project(":common:core-common")
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-  testCompile "junit:junit:4.12"
-  testCompile "org.jetbrains.kotlin:kotlin-test"
-  testCompile "org.jetbrains.kotlin:kotlin-test-junit"
+
+  testImplementation "junit:junit:4.12"
+  testImplementation "org.jetbrains.kotlin:kotlin-test"
+  testImplementation "org.jetbrains.kotlin:kotlin-test-junit"
 }
 
 compileKotlin {

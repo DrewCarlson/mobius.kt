@@ -1,3 +1,5 @@
+package com.spotify.mobius
+
 import kotlin.test.assertEquals
 
 fun assertAllEquals(vararg subjects: Any) {

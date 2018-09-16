@@ -371,60 +371,52 @@ class MobiusLoopControllerTest {
       assertEquals("init!", renderer.values.last())
     }
 
-  /*
-  https://github.com/spotify/mobius/blob/d8e2eea761658d90d44fbafa1195cb3ef6044798/mobius-core/src/test/java/com/spotify/mobius/MobiusLoopControllerTest.java#L451-L482
-  @Test
-    public void updaterReceivesViewUpdatesOnMainThread() throws Exception {
-      KnownThreadWorkRunner mainThreadRunner = new KnownThreadWorkRunner();
-      final AtomicReference<Thread> actualThread = new AtomicReference<>();
-      final Semaphore rendererGotModel = new Semaphore(0);
-
-      @SuppressWarnings("unchecked")
-      Connection<String> renderer =
-          new Connection<String>() {
-            @Override
-            public void accept(String value) {
-              actualThread.set(Thread.currentThread());
-              rendererGotModel.release();
-            }
-
-            @Override
-            public void dispose() {}
-          };
-
-      underTest = createWithWorkRunner(mainThreadRunner);
-
-      underTest.connect(
-          eventConsumer -> {
-            return renderer;
-          });
-
-      underTest.start();
-
-      rendererGotModel.tryAcquire(5, TimeUnit.SECONDS);
-
-      assertThat(actualThread.get(), is(mainThreadRunner.workerThread));
-  }
+    /*
+    https://github.com/spotify/mobius/blob/d8e2eea761658d90d44fbafa1195cb3ef6044798/mobius-core/src/test/java/com/spotify/mobius/MobiusLoopControllerTest.java#L451-L482
     @Test
-    public void eventsWhenNotRunningAreDropped() throws Exception {
-      @SuppressWarnings("unchecked")
-      Connection<String> renderer = mock(Connection.class);
+      public void updaterReceivesViewUpdatesOnMainThread() throws Exception {
+        KnownThreadWorkRunner mainThreadRunner = new KnownThreadWorkRunner();
+        final AtomicReference<Thread> actualThread = new AtomicReference<>();
+        final Semaphore rendererGotModel = new Semaphore(0);
 
-      AtomicReference<Consumer<String>> consumer = new AtomicReference<>();
+        @SuppressWarnings("unchecked")
+        Connection<String> renderer =
+            new Connection<String>() {
+              @Override
+              public void accept(String value) {
+                actualThread.set(Thread.currentThread());
+                rendererGotModel.release();
+              }
 
-      underTest.connect(
-          eventConsumer -> {
-            consumer.set(eventConsumer);
-            return renderer;
-          });
+              @Override
+              public void dispose() {}
+            };
 
-      consumer.get().accept("!");
+        underTest = createWithWorkRunner(mainThreadRunner);
 
-      underTest.start();
+        underTest.connect(
+            eventConsumer -> {
+              return renderer;
+            });
 
-      verify(renderer, never()).accept("init!");
+        underTest.start();
+
+        rendererGotModel.tryAcquire(5, TimeUnit.SECONDS);
+
+        assertThat(actualThread.get(), is(mainThreadRunner.workerThread));
     }
-   */
+    */
+
+    @Test
+    fun eventsWhenNotRunningAreDropped() {
+      val renderer = Renderer<String, String>()
+
+      underTest.connect(renderer)
+      renderer.consumer.accept("!")
+      underTest.start()
+
+      assertEquals(renderer.values.single(), "init")
+    }
   }
 
   class Renderer<I, O> : Connection<I>, Connectable<I, O> {

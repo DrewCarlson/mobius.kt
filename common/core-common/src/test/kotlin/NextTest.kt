@@ -1,5 +1,6 @@
+package com.spotify.mobius
+
 import com.spotify.mobius.Effects.effects
-import com.spotify.mobius.Next
 import com.spotify.mobius.Next.Companion.dispatch
 import com.spotify.mobius.Next.Companion.next
 import com.spotify.mobius.Next.Companion.noChange

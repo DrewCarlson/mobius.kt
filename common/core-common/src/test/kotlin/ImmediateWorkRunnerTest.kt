@@ -1,5 +1,5 @@
-import com.spotify.mobius.runners.ImmediateWorkRunner
-import com.spotify.mobius.runners.Runnable
+package com.spotify.mobius.runners
+
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
