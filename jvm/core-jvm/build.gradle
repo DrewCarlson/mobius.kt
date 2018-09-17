@@ -10,6 +10,9 @@ dependencies {
   testImplementation "junit:junit:4.12"
   testImplementation "org.jetbrains.kotlin:kotlin-test"
   testImplementation "org.jetbrains.kotlin:kotlin-test-junit"
+
+  testImplementation "com.google.guava:guava:$guava_version"
+  testImplementation "org.awaitility:awaitility:$awaitality_version"
 }
 
 compileKotlin {

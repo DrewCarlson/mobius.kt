@@ -1,6 +1,6 @@
 package com.spotify.mobius.runners
 
-import com.spotify.mobius.Uninterruptibles
+import com.google.common.util.concurrent.Uninterruptibles.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -100,7 +100,7 @@ class ExecutorServiceWorkRunnerTest {
         object : Runnable {
           override fun run() {
             while (alwaysTrue.get()) {
-              Uninterruptibles.sleepUninterruptibly(100, TimeUnit.MILLISECONDS)
+              sleepUninterruptibly(100, TimeUnit.MILLISECONDS)
             }
           }
         })
@@ -117,7 +117,7 @@ class ExecutorServiceWorkRunnerTest {
         object : Runnable {
           override fun run() {
             while (alwaysTrue.get()) {
-              Uninterruptibles.sleepUninterruptibly(100, TimeUnit.MILLISECONDS)
+              sleepUninterruptibly(100, TimeUnit.MILLISECONDS)
             }
           }
         })
