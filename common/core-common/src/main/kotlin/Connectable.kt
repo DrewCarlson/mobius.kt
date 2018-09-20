@@ -51,5 +51,6 @@ interface Connectable<I, O> {
    * connections to this Connectable; this should be caused by incorrect usage of the
    * Connectable, and is considered an irrecoverable error
    */
+  @mpp.JsName("connect")
   fun connect(output: Consumer<O>): Connection<I>
 }

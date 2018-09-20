@@ -32,6 +32,7 @@ class Next<M, F> internal constructor(
    *
    * @param fallbackModel the default model to use if the Next doesn't have a model
    */
+  @mpp.JsName("modelOrElse")
   fun modelOrElse(fallbackModel: M): M {
     return if (hasModel()) {
       modelUnsafe()
@@ -57,6 +58,7 @@ class Next<M, F> internal constructor(
   }
 
   /** If the model is present, call the given consumer with it, otherwise do nothing.  */
+  @mpp.JsName("ifHasModel")
   fun ifHasModel(consumer: Consumer<M>) {
     if (hasModel()) {
       consumer.accept(modelUnsafe())
@@ -83,12 +85,14 @@ class Next<M, F> internal constructor(
     /** Create a Next that updates the model and dispatches the optional set of effects. */
     //@JvmStatic
     //@JvmOverloads
+    @mpp.JsName("next")
     fun <M, F> next(model: M, effects: Set<F> = emptySet()): Next<M, F> {
       return Next(model, effects.toSet())
     }
 
     /** Create a Next that doesn't update the model but dispatches the supplied effects. */
     //@JvmStatic
+    @mpp.JsName("dispatch")
     fun <M, F> dispatch(effects: Set<F>): Next<M, F> {
       return Next(null, effects.toSet())
     }

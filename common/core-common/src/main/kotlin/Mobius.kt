@@ -58,8 +58,8 @@ object Mobius {
    * @return a [MobiusLoop.Builder] instance that you can further configure before starting the loop
    */
   @Suppress("UNCHECKED_CAST", "RemoveExplicitTypeArguments")
+  @mpp.JsName("loop")
   fun <M, E, F> loop(update: Update<M, E, F>, effectHandler: Connectable<F, E>): Builder<M, E, F> {
-    //noinspection unchecked
     val defaultWorkRunners = DefaultWorkRunners()
     return Builder<M, E, F>(
         update,
@@ -79,6 +79,7 @@ object Mobius {
    * @param defaultModel the model the controller should start from
    * @return a new controller
    */
+  @mpp.JsName("controller")
   fun <M, E, F> controller(loopFactory: MobiusLoop.Factory<M, E, F>, defaultModel: M): MobiusLoop.Controller<M, E> {
     return MobiusLoopController(loopFactory, defaultModel, ImmediateWorkRunner())
   }
@@ -91,6 +92,7 @@ object Mobius {
    * @param modelRunner the WorkRunner to use when observing model changes
    * @return a new controller
    */
+  @mpp.JsName("controllerWithModelRunner")
   fun <M, E, F> controller(
       loopFactory: MobiusLoop.Factory<M, E, F>,
       defaultModel: M,

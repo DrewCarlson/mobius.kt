@@ -21,6 +21,7 @@ class CompositeDisposable private constructor(disposables: Array<out Disposable>
      * @param disposables disposables to be disposed of
      * @return a Disposable that mass-disposes of the provided disposables
      */
+    @mpp.JsName("from")
     fun from(vararg disposables: Disposable) = CompositeDisposable(disposables)
   }
 }

@@ -20,5 +20,6 @@ interface Init<M, F> {
     }
   }
 
+  @mpp.JsName("init")
   fun init(model: M): First<M, F>
 }

@@ -9,5 +9,7 @@ interface Consumer<V> {
       }
     }
   }
+
+  @mpp.JsName("accept")
   fun accept(value: V)
 }

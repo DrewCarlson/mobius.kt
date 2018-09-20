@@ -37,6 +37,7 @@ class First<M, F> internal constructor(
      */
     //@JvmStatic
     //@JvmOverloads
+    @mpp.JsName("first")
     fun <M, F> first(model: M, effects: Set<F> = emptySet()): First<M, F> {
       return First(model, effects)
     }

@@ -13,6 +13,7 @@ object Effects {
    */
   // implementation note: the type signature of this method helps ensure that you can get a set of a
   // super type even if you only submit items of a sub type. Hence the 'G extends F' type parameter.
+  @mpp.JsName("effects")
   fun <F, G : F> effects(vararg effects: G): Set<F> {
     return hashSetOf<F>(*effects.copyOf())
   }

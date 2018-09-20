@@ -29,6 +29,7 @@ class MergedEventSource<E> private constructor(
   }
 
   companion object {
+    @mpp.JsName("from")
     fun <E> from(vararg eventSources: EventSource<E>): EventSource<E> {
       val allSources = ArrayList<EventSource<E>>()
       allSources.addAll(eventSources)

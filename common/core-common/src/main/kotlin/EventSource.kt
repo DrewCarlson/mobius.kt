@@ -34,5 +34,6 @@ interface EventSource<E> {
    * @param eventConsumer the consumer that should receive events from the source
    * @return a disposable used to stop the source from emitting any more events to this consumer
    */
+  @mpp.JsName("subscribe")
   fun subscribe(eventConsumer: Consumer<E>): Disposable
 }

@@ -74,6 +74,7 @@ class EventProcessor<M, E, F> internal constructor(
    */
   data class Factory<M, E, F>(val store: MobiusStore<M, E, F>) {
 
+    @mpp.JsName("create")
     fun create(effectConsumer: Consumer<F>, modelConsumer: Consumer<M>): EventProcessor<M, E, F> {
       return EventProcessor(store, effectConsumer, modelConsumer)
     }
