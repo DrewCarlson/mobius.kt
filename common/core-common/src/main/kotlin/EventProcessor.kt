@@ -22,7 +22,7 @@ class EventProcessor<M, E, F> internal constructor(
   private val eventsReceivedBeforeInit = ArrayList<E>()
   private var initialised = false
 
-  fun init(): Unit = mpp.synchronized(this) {
+  fun init(): Unit = mpp.synchronized(LOCK) {
     if (initialised) {
       throw IllegalStateException("already initialised")
     }
