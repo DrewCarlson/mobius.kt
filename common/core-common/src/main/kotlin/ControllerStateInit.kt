@@ -1,6 +1,6 @@
 package com.spotify.mobius
 
-internal class ControllerStateInit<M, E>(
+class ControllerStateInit<M, E>(
     private val actions: ControllerActions<M, E>,
     private var nextModelToStartFrom: M
 ) : ControllerStateBase<M, E>() {

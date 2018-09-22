@@ -7,6 +7,7 @@ import com.spotify.mobius.runners.WorkRunner
 class MainThreadWorkRunner private constructor() : LooperWorkRunner(Looper.getMainLooper()) {
   companion object {
     /** Creates a [WorkRunner] that runs work on Android's main thread.  */
+    @JvmStatic
     fun create(): MainThreadWorkRunner {
       return MainThreadWorkRunner()
     }

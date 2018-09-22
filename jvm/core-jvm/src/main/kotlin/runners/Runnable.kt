@@ -1,5 +1,3 @@
 package com.spotify.mobius.runners
 
-actual interface Runnable : java.lang.Runnable {
-  actual override fun run()
-}
+actual typealias Runnable = java.lang.Runnable

@@ -1,5 +1,6 @@
 package com.spotify.mobius.functions
 
+
 /** Interface for consuming values. */
 interface Consumer<V> {
   companion object {

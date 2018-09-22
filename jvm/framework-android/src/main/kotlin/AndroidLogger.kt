@@ -9,8 +9,8 @@ class AndroidLogger<M, E, F>(
     private val tag: String
 ): MobiusLoop.Logger<M, E, F> {
 
-
   companion object {
+    @JvmStatic
     fun <M, E, F> tag(tag: String): AndroidLogger<M, E, F> {
       return AndroidLogger(tag)
     }

@@ -1,7 +1,7 @@
 package com.spotify.mobius
 
 
-internal class ControllerStateCreated<M, E, F>(
+class ControllerStateCreated<M, E, F>(
     private val actions: ControllerActions<M, E>,
     private val renderer: Connection<M>,
     private var nextModelToStartFrom: M

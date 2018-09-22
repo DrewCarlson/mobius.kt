@@ -31,7 +31,7 @@ class ConnectionException(
  * Exception to be thrown by a [Connectable] that doesn't support multiple simultaneous
  * connections.
  */
-class ConnectionLimitExceededException(
+class ConnectionLimitExceededException @mpp.JvmOverloads constructor(
     message: String? = null,
     throwable: Throwable? = null
 ) : RuntimeException(message, throwable)

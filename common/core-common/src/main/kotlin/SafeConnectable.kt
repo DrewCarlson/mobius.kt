@@ -11,7 +11,7 @@ import com.spotify.mobius.functions.Consumer
  * This only acts as a safeguard, you still need to make sure that the Connectable disposes of
  * resources correctly.
  */
-internal class SafeConnectable<F, E>(
+class SafeConnectable<F, E>(
     private val actual: Connectable<F, E>
 ) : Connectable<F, E> {
 

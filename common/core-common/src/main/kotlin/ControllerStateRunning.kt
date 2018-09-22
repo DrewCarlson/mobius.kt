@@ -2,7 +2,7 @@ package com.spotify.mobius
 
 import com.spotify.mobius.functions.Consumer
 
-internal class ControllerStateRunning<M, E, F>(
+class ControllerStateRunning<M, E, F>(
     private val actions: ControllerActions<M, E>,
     private val renderer: Connection<M>,
     loopFactory: MobiusLoop.Factory<M, E, F>,

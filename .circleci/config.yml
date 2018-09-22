@@ -3,6 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/android:api-28-alpha
+    working_directory: ~/kotlin-mobius
     steps:
       - restore_cache:
           keys:
@@ -17,6 +18,8 @@ jobs:
       - run:
           name: Test core-native
           command: ./gradlew :native:core-native:check
+      - store_artifacts:
+          path: "~/kotlin-mobius/jvm/core-jvm/build/reports"
       - save_cache:
           key: konan
           paths:

@@ -1,6 +1,6 @@
 package com.spotify.mobius
 
-internal interface ControllerActions<M, E> {
+interface ControllerActions<M, E> {
 
   fun postUpdateView(model: M)
 

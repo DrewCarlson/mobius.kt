@@ -35,6 +35,7 @@ open class LooperWorkRunner internal constructor(looper: Looper) : WorkRunner {
      * @param looper the looper to use for processing work
      * @return a [WorkRunner] that uses the provided [Looper] for processing work
      */
+    @JvmStatic
     fun using(looper: Looper): LooperWorkRunner {
       return LooperWorkRunner(looper)
     }

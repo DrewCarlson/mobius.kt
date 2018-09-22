@@ -26,7 +26,7 @@ class MobiusStore<M, E, F> internal constructor(
   }
 
   companion object {
-    //@JvmStatic
+    @mpp.JvmStatic
     fun <M, E, F> create(init: Init<M, F>, update: Update<M, E, F>, startModel: M): MobiusStore<M, E, F> {
       return MobiusStore(init, update, startModel)
     }

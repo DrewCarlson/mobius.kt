@@ -23,6 +23,25 @@ class MobiusLoop<M, E, F> private constructor(
     effectRunner: WorkRunner
 ) : Disposable {
 
+  companion object {
+
+    @mpp.JvmStatic
+    @mpp.JsName("create")
+    fun <M, E, F> create(
+        store: MobiusStore<M, E, F>,
+        effectHandler: Connectable<F, E>,
+        eventSource: EventSource<E>,
+        eventRunner: WorkRunner,
+        effectRunner: WorkRunner): MobiusLoop<M, E, F> {
+
+      return MobiusLoop(
+          EventProcessor.Factory(store),
+          effectHandler,
+          eventSource,
+          eventRunner,
+          effectRunner)
+    }
+  }
 
   private val eventDispatcher = MessageDispatcher(eventRunner, object : Consumer<E> {
     override fun accept(event: E) {
@@ -348,24 +367,5 @@ class MobiusLoop<M, E, F> private constructor(
      */
     @mpp.JsName("exceptionDuringUpdate")
     fun exceptionDuringUpdate(model: M, event: E, exception: Throwable)
-  }
-
-  companion object {
-
-    @mpp.JsName("create")
-    fun <M, E, F> create(
-        store: MobiusStore<M, E, F>,
-        effectHandler: Connectable<F, E>,
-        eventSource: EventSource<E>,
-        eventRunner: WorkRunner,
-        effectRunner: WorkRunner): MobiusLoop<M, E, F> {
-
-      return MobiusLoop(
-          EventProcessor.Factory(store),
-          effectHandler,
-          eventSource,
-          eventRunner,
-          effectRunner)
-    }
   }
 }

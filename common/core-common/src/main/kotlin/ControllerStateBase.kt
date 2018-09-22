@@ -5,7 +5,7 @@ package com.spotify.mobius
  * related state switching. Use ControllerActions to interact with MobiusControllerActions for any
  * asynchronous action and never call one on-method from another directly.
  */
-internal abstract class ControllerStateBase<M, E> {
+abstract class ControllerStateBase<M, E> {
 
   protected abstract val stateName: String
 
@@ -35,16 +35,10 @@ internal abstract class ControllerStateBase<M, E> {
   abstract fun onGetModel(): M
 
   open fun onDispatchEvent(event: E) {
-    /*LOGGER.debug(
-        "Dropping event that was dispatched when the program was in the {} state: {}",
-        stateName,
-        event)*/
+    println("Dropping event that was dispatched when the program was in the '$stateName' state: '$event'")
   }
 
   open fun onUpdateView(model: M) {
-    /*LOGGER.debug(
-        "Dropping model that was dispatched when the program was in the {} state: {}",
-        stateName,
-        model)*/
+    println("Dropping model that was dispatched when the program was in the '$stateName' state: '$model'")
   }
 }

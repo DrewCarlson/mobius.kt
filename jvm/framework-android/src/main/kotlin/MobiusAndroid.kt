@@ -5,6 +5,7 @@ import com.spotify.mobius.MobiusLoop;
 import com.spotify.mobius.android.runners.MainThreadWorkRunner;
 
 object MobiusAndroid {
+  @JvmStatic
   fun <M, E, F> controller(
       loopFactory: MobiusLoop.Factory<M, E, F>,
       defaultModel: M
