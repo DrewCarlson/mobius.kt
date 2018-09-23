@@ -60,7 +60,10 @@ object Mobius {
   @Suppress("UNCHECKED_CAST")
   @mpp.JvmStatic
   @mpp.JsName("loop")
-  fun <M, E, F> loop(update: Update<M, E, F>, effectHandler: Connectable<F, E>): Builder<M, E, F> {
+  fun <M, E, F> loop(
+      update: Update<M, E, F>,
+      effectHandler: Connectable<F, E>
+  ): MobiusLoop.Builder<M, E, F> {
     val defaultWorkRunners = DefaultWorkRunners()
     return Builder(
         update,
