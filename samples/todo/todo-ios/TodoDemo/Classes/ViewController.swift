@@ -6,8 +6,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var addTaskButton: UIBarButtonItem!
     @IBOutlet weak var taskTableView: UITableView!
     
-    let loopFactory: MobiusLoop.Builder
-    let loopController: MobiusLoop.Controller
+    let loopFactory: MobiusLoopBuilder
+    let loopController: MobiusLoopController_
     let defaultModel = AppModel.init(tasks: [], isLoadingTasks: true, isAddingTask: false)
     
     required init?(coder aDecoder: NSCoder) {
