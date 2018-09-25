@@ -7,7 +7,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var taskTableView: UITableView!
     
     let loopFactory: MobiusLoopBuilder
-    let loopController: MobiusLoopController_
+    let loopController: MobiusLoopController
     let defaultModel = AppModel.init(tasks: [], isLoadingTasks: true, isAddingTask: false)
     
     required init?(coder aDecoder: NSCoder) {

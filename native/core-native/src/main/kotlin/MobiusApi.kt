@@ -15,7 +15,6 @@ interface MobiusApi {
   fun update(): Update<Any, Any, Any> = TODO()
   fun mobius(): Mobius = TODO()
   fun mobiusLoop(): MobiusLoop<Any, Any, Any> = TODO()
-  fun mobiusLoopController(): MobiusLoopController<Any, Any, Any> = TODO()
   fun immediateWorkRunner(): ImmediateWorkRunner = TODO()
   fun simpleLogger(): SimpleLogger<Any, Any, Any> = TODO()
 }
