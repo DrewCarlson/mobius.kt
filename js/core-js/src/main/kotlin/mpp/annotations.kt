@@ -4,4 +4,4 @@ actual annotation class JvmStatic
 
 actual annotation class JvmOverloads
 
-actual annotation class JsName(actual val name: String)
+actual typealias JsName = kotlin.js.JsName
