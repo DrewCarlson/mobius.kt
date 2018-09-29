@@ -11,17 +11,20 @@ dependencies {
 compileKotlin2Js.kotlinOptions {
   moduleKind = "umd"
   sourceMap = true
-  sourceMapEmbedSources = "always"
+  outputFile = "$project.buildDir.path/js/mobius.js"
 }
 
 compileTestKotlin2Js.kotlinOptions {
-  moduleKind = 'commonjs'
+  moduleKind = "commonjs"
   metaInfo = true
+  outputFile = "$project.buildDir.path/js-test/mobius-test.js"
 }
 
 //noinspection GroovyAssignabilityCheck
 task populateNodeModules(type: Copy) {
   from compileKotlin2Js.destinationDir
+  from "$project.buildDir.path/js"
+  from "$project.buildDir.path/js-test"
 
   configurations.testCompile.each {
     from zipTree(it.absolutePath).matching { include '*.js' }
