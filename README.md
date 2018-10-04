@@ -44,16 +44,16 @@ Artifacts are published to [bintray](https://bintray.com/drewcarlson/kotlin-mobi
 ```groovy
 dependencies {
   // Common
-  implementation 'com.github.DrewCarlson.kotlin-mobius:core-common:0.0.5'
+  implementation 'com.github.DrewCarlson.kotlin-mobius:core-common:0.0.8'
   
   // Js
-  implementation 'com.github.DrewCarlson.kotlin-mobius:core-js:0.0.5'
+  implementation 'com.github.DrewCarlson.kotlin-mobius:core-js:0.0.8'
   
   // Jvm
-  implementation 'com.github.DrewCarlson.kotlin-mobius:core-jvm:0.0.5'
-  implementation 'com.github.DrewCarlson.kotlin-mobius:framework-android:0.0.5'
+  implementation 'com.github.DrewCarlson.kotlin-mobius:core-jvm:0.0.8'
+  implementation 'com.github.DrewCarlson.kotlin-mobius:framework-android:0.0.8'
   
   // Native
-  implementation 'com.github.DrewCarlson.kotlin-mobius:core-native:0.0.5'
+  implementation 'com.github.DrewCarlson.kotlin-mobius:core-native:0.0.8'
 }
 ```
