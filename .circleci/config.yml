@@ -10,14 +10,14 @@ jobs:
             - konan
       - checkout
       - run:
-          name: Test core-jvm
-          command: ./gradlew :jvm:core-jvm:check
+          name: Test Jvm mobius-core
+          command: ./gradlew jvmTest
       - run:
-          name: Test core-js
-          command: ./gradlew :js:core-js:check
+          name: Test Js mobius-core
+          command: ./gradlew jsTest
       - run:
-          name: Test core-native
-          command: ./gradlew :native:core-native:check
+          name: Test Native mobius-core
+          command: ./gradlew linuxTest
       - store_artifacts:
           path: "~/kotlin-mobius/jvm/core-jvm/build/reports"
       - save_cache:
