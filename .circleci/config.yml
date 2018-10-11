@@ -23,6 +23,7 @@ jobs:
       - save_cache:
           key: konan
           paths:
+            - "/home/circleci/.gradle"
             - "/home/circleci/.konan"
 workflows:
   version: 2
