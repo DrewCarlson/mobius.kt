@@ -12,11 +12,9 @@ buildscript {
   dependencies {
     classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    classpath "org.jetbrains.kotlin:kotlin-native-gradle-plugin:$kotlin_version"
     classpath 'com.android.tools.build:gradle:3.1.4'
     classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
     classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
-    classpath 'me.champeau.gradle:japicmp-gradle-plugin:0.2.6'
 
     // https://github.com/Kotlin/kotlinx.serialization/blob/7cb4c4c3bd45269abe7432b277b92559e27320b8/build.gradle#L50
     classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.2-SNAPSHOT'
@@ -25,17 +23,123 @@ buildscript {
 
 allprojects {
   repositories {
+    maven { url "https://dl.bintray.com/kotlin/kotlin-eap" }
     mavenCentral()
     jcenter()
     google()
-    maven { url "https://dl.bintray.com/kotlin/kotlin-eap" }
-    maven { url "http://kotlin.bintray.com/kotlin-dev" }
   }
 }
 
-static def platformOf(project) {
-  if (project.name.endsWith("-common")) return "common"
-  if (project.name.endsWith("-js")) return "js"
-  if (project.name.endsWith("-native")) return "native"
-  return "jvm"
+apply plugin: 'kotlin-multiplatform'
+apply plugin: 'org.jetbrains.dokka'
+apply plugin: 'com.moowork.node'
+apply plugin: 'maven-publish'
+
+kotlin {
+  targets {
+    fromPreset(presets.iosX64, 'iosSim')
+    fromPreset(presets.iosArm32, 'iosArm32')
+    fromPreset(presets.iosArm64, 'iosArm64')
+    fromPreset(presets.macosX64, 'macos')
+    fromPreset(presets.linuxX64, 'linux')
+    fromPreset(presets.mingwX64, 'windows')
+    fromPreset(presets.jvm, 'jvm')
+    fromPreset(presets.js, 'js') {
+      compilations.main {
+        compileKotlinJs.kotlinOptions {
+          sourceMap = true
+          metaInfo = true
+          moduleKind = "umd"
+          outputFile = "$buildDir/classes/kotlin/js/test/mobius.js"
+        }
+        compileTestKotlinJs.kotlinOptions {
+          moduleKind = "commonjs"
+        }
+      }
+    }
+    configure([iosSim, iosArm32, iosArm64, macos]) {
+      compilations.main {
+        extraOpts '-module-name', ''
+      }
+    }
+  }
+  sourceSets {
+    configure([iosSimMain, iosArm32Main, iosArm64Main, macosMain, linuxMain, windowsMain]) {
+      kotlin.srcDirs += "src/nativeMain/kotlin"
+    }
+  }
+}
+
+dependencies {
+  commonMainImplementation "org.jetbrains.kotlin:kotlin-stdlib-common"
+  commonTestImplementation "org.jetbrains.kotlin:kotlin-test-annotations-common"
+  commonTestImplementation "org.jetbrains.kotlin:kotlin-test-common"
+
+  jsMainImplementation "org.jetbrains.kotlin:kotlin-stdlib-js"
+  jsTestImplementation "org.jetbrains.kotlin:kotlin-test-js"
+
+  jvmMainImplementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+  jvmTestImplementation "org.jetbrains.kotlin:kotlin-test"
+  jvmTestImplementation "org.jetbrains.kotlin:kotlin-test-junit"
+  jvmTestImplementation "com.google.guava:guava:$guava_version"
+  jvmTestImplementation "org.awaitility:awaitility:$awaitality_version"
+}
+
+publishing {
+  repositories {
+    maven {
+      credentials {
+        username System.getenv('BINTRAY_USER')
+        password System.getenv('BINTRAY_API_KEY')
+      }
+      url 'https://api.bintray.com/maven/drewcarlson/kotlin-mobius/mobius-core/'
+    }
+  }
+}
+
+dokka {
+  outputFormat = 'html'
+  outputDirectory = "$buildDir/javadoc"
+}
+
+node {
+  version = node_version
+  download = true
+  nodeModulesDir = file("$buildDir/yarn")
+}
+
+def jsCompilations = kotlin.targets.js.compilations
+task populateNodeModules {
+  doLast {
+    copy {
+      from "$buildDir/yarn/node_modules"
+      from jsCompilations.main.output.first()
+      jsCompilations.test.runtimeDependencyFiles.each {
+        if (it.exists() && !it.isDirectory()) {
+          from zipTree(it.absolutePath).matching { include '*.js' }
+        }
+      }
+      into "$buildDir/node_modules"
+    }
+  }
+}
+
+task addYarnDeps(type: YarnTask) {
+  args = ["add", "qunit@$qunit_version"]
+}
+
+task runQunit(type: NodeTask, dependsOn: [jsCompilations.test.compileKotlinTaskName, addYarnDeps, populateNodeModules]) {
+  script = file("$buildDir/node_modules/qunit/bin/qunit")
+  args = [relativePath("${jsCompilations.test.output.first()}/mobius-core_test.js")]
+}
+
+jsTest.dependsOn runQunit
+
+// Fix for https://github.com/srs/gradle-node-plugin/issues/301
+repositories.whenObjectAdded {
+  if (it instanceof IvyArtifactRepository) {
+    metadataSources {
+      artifact()
+    }
+  }
 }

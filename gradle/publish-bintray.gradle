@@ -5,23 +5,14 @@ apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
-def platform = platformOf(project)
-def core = "core-$platform"
-
-def isNative = project.name.endsWith("native")
 def isAndroid = project.hasProperty("android")
 
 task sourcesJar(type: Jar) {
   classifier = 'sources'
   if (isAndroid) {
     from android.sourceSets.main.java.srcDirs
-  } else if (!isNative) {
+  } else {
     from sourceSets.main.allSource
-  }
-
-  if (project.name == core && platform != "common") {
-    // add common source, too
-    from rootProject.file("common/$project.name-common/src/main/kotlin")
   }
 }
 
