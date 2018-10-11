@@ -1,0 +1,20 @@
+language: java
+os: osx
+osx_image: xcode10
+
+branches:
+  only:
+  - master
+
+script: ./gradlew linkMacos linkIosSim linkIosArm32 linkIosArm64
+
+jobs:
+  include:
+  - stage: "Tests"
+    name: "Macos Tests"
+    script: ./gradlew macosTest
+
+cache:
+  directories:
+  - /home/travis/.gradle/
+  - /home/travis/.konan/

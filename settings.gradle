@@ -2,7 +2,7 @@ rootProject.name = 'mobius-core'
 
 enableFeaturePreview('GRADLE_METADATA')
 
-if (System.getenv("APPVEYOR") != "True") {
+if (System.getenv("APPVEYOR") != "True" && System.getenv("TRAVIS") != "true") {
   include ":jvm:framework-android"
 }
 
