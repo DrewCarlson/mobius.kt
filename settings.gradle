@@ -2,7 +2,9 @@ rootProject.name = 'mobius-core'
 
 enableFeaturePreview('GRADLE_METADATA')
 
-include ":jvm:framework-android"
+if (System.getenv("APPVEYOR") != "True") {
+  include ":jvm:framework-android"
+}
 
 // Samples
 //include ":samples:todo:todo-common"
