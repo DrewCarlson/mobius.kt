@@ -1,20 +1,57 @@
-language: java
-os: osx
-osx_image: xcode10
-
-branches:
-  only:
-  - master
-
-script: ./gradlew linkMacos linkIosSim linkIosArm32 linkIosArm64
-
-jobs:
+matrix:
   include:
-  - stage: "Tests"
-    name: "Macos Tests"
-    script: ./gradlew macosTest
-
-cache:
-  directories:
-  - /home/travis/.gradle/
-  - /home/travis/.konan/
+  - os: linux
+    language: java
+    jdk: oraclejdk8
+    script:
+    - ./gradlew clean jsTest jvmTest linuxTest
+    before_cache:
+    - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+    - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+    cache:
+      directories:
+      - $HOME/.gradle/caches/
+      - $HOME/.gradle/wrapper/
+      - $HOME/.konan/cache/
+      - $HOME/.konan/dependencies/
+    deploy:
+      provider: script
+      script: ./gradlew publish
+      skip_cleanup: true
+      dry-run: false
+      on:
+        branch: master
+  - os: windows
+    language: shell
+    env:
+    - JAVA_HOME="c:\\Program Files\\Java\\jdk1.8.0_181"
+    script:
+    - ./gradlew.bat clean windowsTest --no-daemon
+    deploy:
+      provider: script
+      script: ./gradlew.bat publishWindowsPublicationToMavenRepository
+      skip_cleanup: true
+      dry-run: false
+      on:
+        branch: master
+  - os: osx
+    language: java
+    jdk: oraclejdk8
+    script:
+    - ./gradlew clean macosTest
+    before_cache:
+    - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+    - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+    cache:
+      directories:
+      - $HOME/.gradle/caches/
+      - $HOME/.gradle/wrapper/
+      - $HOME/.konan/cache/
+      - $HOME/.konan/dependencies/
+    deploy:
+      provider: script
+      script: ./gradlew publishMacosPublicationToMavenRepository publishIos
+      skip_cleanup: true
+      dry-run: false
+      on:
+        branch: master

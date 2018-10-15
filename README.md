@@ -1,8 +1,6 @@
 # kotlin-mobius
-[![CircleCI](https://circleci.com/gh/DrewCarlson/kotlin-mobius.svg?style=shield&circle-token=5969d260c8b600d8fb1e55b633eabb7760fcea46)](https://circleci.com/gh/DrewCarlson/kotlin-mobius)
-[![Build status](https://ci.appveyor.com/api/projects/status/khk856p46q6ybqiy/branch/master?svg=true)](https://ci.appveyor.com/project/DrewCarlson/kotlin-mobius/branch/master)
 [![Build Status](https://travis-ci.org/DrewCarlson/kotlin-mobius.svg?branch=master)](https://travis-ci.org/DrewCarlson/kotlin-mobius)
-[![Bintray](https://img.shields.io/bintray/v/drewcarlson/kotlin-mobius/core-common.svg?style=flat-rounded)](https://bintray.com/drewcarlson/kotlin-mobius)
+[![Bintray](https://img.shields.io/bintray/v/drewcarlson/kotlin-mobius/mobius-core.svg?style=flat-rounded)](https://bintray.com/drewcarlson/kotlin-mobius/)
 
 An experimental port of [Mobius](https://github.com/spotify/mobius) to Kotlin, with [Multiplatform Project](https://kotlinlang.org/docs/reference/multiplatform.html) (MPP) support.
 
