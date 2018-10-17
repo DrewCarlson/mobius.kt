@@ -27,13 +27,13 @@ matrix:
     - JAVA_HOME="c:\\Program Files\\Java\\jdk1.8.0_181"
     script:
     - ./gradlew.bat clean windowsTest --no-daemon
-    deploy:
-      provider: script
-      script: ./gradlew.bat publishWindowsPublicationToMavenRepository
-      skip_cleanup: true
-      dry-run: false
-      on:
-        branch: master
+#    deploy:
+#      provider: script
+#      script: ./gradlew.bat publishWindowsPublicationToMavenRepository
+#      skip_cleanup: true
+#      dry-run: false
+#      on:
+#        branch: master
   - os: osx
     language: java
     jdk: oraclejdk8
