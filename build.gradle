@@ -113,7 +113,7 @@ task populateNodeModules {
   doLast {
     copy {
       from "$buildDir/yarn/node_modules"
-      from jsCompilations.main.output.first()
+      from jsCompilations.main.output.allOutputs
       jsCompilations.test.runtimeDependencyFiles.each {
         if (it.exists() && !it.isDirectory()) {
           from zipTree(it.absolutePath).matching { include '*.js' }
@@ -133,7 +133,7 @@ task addYarnDeps(type: YarnTask) {
 
 task runQunit(type: NodeTask, dependsOn: [jsCompilations.test.compileKotlinTaskName, addYarnDeps, populateNodeModules]) {
   script = file("$buildDir/node_modules/qunit/bin/qunit")
-  args = [relativePath("${jsCompilations.test.output.first()}/mobius-core_test.js")]
+  args = [relativePath("${jsCompilations.test.output.classesDirs.first()}/mobius-core_test.js")]
 }
 
 jsTest.dependsOn runQunit
