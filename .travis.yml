@@ -24,8 +24,9 @@ matrix:
   - os: windows
     language: shell
     env:
-    - JAVA_HOME="c:\\Program Files\\Java\\jdk1.8.0_181"
+    - JAVA_HOME="c:\\Program Files\\Java\\jdk1.8.0_192"
     script:
+    - dir "c:\\Program Files\\Java\\"
     - ./gradlew.bat clean windowsTest --no-daemon
 #    deploy:
 #      provider: script
