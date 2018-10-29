@@ -28,13 +28,13 @@ matrix:
     script:
     - dir "c:\\Program Files\\Java\\"
     - ./gradlew.bat clean windowsTest --no-daemon
-#    deploy:
-#      provider: script
-#      script: ./gradlew.bat publishWindowsPublicationToMavenRepository
-#      skip_cleanup: true
-#      dry-run: false
-#      on:
-#        branch: master
+    deploy:
+      provider: script
+      script: ./gradlew.bat publishWindowsPublicationToMavenRepository --no-daemon
+      skip_cleanup: true
+      dry-run: false
+      on:
+        branch: master
   - os: osx
     language: java
     jdk: oraclejdk8
