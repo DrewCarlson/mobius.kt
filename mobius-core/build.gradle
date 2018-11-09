@@ -5,7 +5,7 @@ apply from: "$rootDir/gradle/publish.gradle"
 
 kotlin {
   targets {
-    fromPreset(presets.iosX64, 'iosSim')
+    fromPreset(presets.iosX64, 'iosX64')
     fromPreset(presets.iosArm32, 'iosArm32')
     fromPreset(presets.iosArm64, 'iosArm64')
     fromPreset(presets.macosX64, 'macos')
@@ -25,14 +25,14 @@ kotlin {
         }
       }
     }
-    configure([iosSim, iosArm32, iosArm64, macos]) {
+    configure([iosX64, iosArm32, iosArm64, macos]) {
       compilations.main {
         extraOpts '-module-name', ''
       }
     }
   }
   sourceSets {
-    configure([iosSimMain, iosArm32Main, iosArm64Main, macosMain, linuxMain, windowsMain]) {
+    configure([iosX64Main, iosArm32Main, iosArm64Main, macosMain, linuxMain, windowsMain]) {
       kotlin.srcDirs += 'src/nativeMain/kotlin'
     }
   }
@@ -107,7 +107,7 @@ repositories.whenObjectAdded {
 
 task publishIos {
   dependsOn(
-      'publishIosSimPublicationToMavenRepository',
+      'publishIosX64PublicationToMavenRepository',
       'publishIosArm64PublicationToMavenRepository',
       'publishIosArm32PublicationToMavenRepository'
   )

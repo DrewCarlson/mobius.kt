@@ -55,7 +55,7 @@ matrix:
       - $HOME/.konan/dependencies/
     deploy:
       provider: script
-      script: ./gradlew publishMacosPublicationToMavenRepository publishIos
+      script: ./gradlew publishMacosPublicationToMavenRepository publishIos publishIosExtras
       skip_cleanup: true
       dry-run: false
       on:

@@ -63,3 +63,10 @@ publishing {
   }
 }
 
+task publishIosExtras {
+  dependsOn(
+      'publishIosX64PublicationToMavenRepository',
+      'publishIosArm64PublicationToMavenRepository',
+      'publishIosArm32PublicationToMavenRepository'
+  )
+}
