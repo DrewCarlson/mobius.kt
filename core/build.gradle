@@ -1,7 +1,7 @@
 apply plugin: 'kotlin-multiplatform'
 apply plugin: 'org.jetbrains.dokka'
 apply plugin: 'com.moowork.node'
-apply plugin: 'maven-publish'
+apply from: "$rootDir/gradle/publish.gradle"
 
 kotlin {
   targets {
@@ -51,18 +51,6 @@ dependencies {
   jvmTestImplementation "org.jetbrains.kotlin:kotlin-test-junit"
   jvmTestImplementation "com.google.guava:guava:$guava_version"
   jvmTestImplementation "org.awaitility:awaitility:$awaitality_version"
-}
-
-publishing {
-  repositories {
-    maven {
-      credentials {
-        username System.getenv('BINTRAY_USER')
-        password System.getenv('BINTRAY_API_KEY')
-      }
-      url 'https://api.bintray.com/maven/drewcarlson/kotlin-mobius/mobius-core/'
-    }
-  }
 }
 
 dokka {

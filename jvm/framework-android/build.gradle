@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'digital.wup.android-maven-publish'
 
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -20,4 +21,19 @@ android {
   }
 }
 
-apply from: rootProject.file('gradle/publish-bintray.gradle')
+publishing {
+  publications {
+    mavenAar(MavenPublication) {
+      from components.android
+    }
+  }
+  repositories {
+    maven {
+      credentials {
+        username System.getenv('BINTRAY_USER')
+        password System.getenv('BINTRAY_API_KEY')
+      }
+      url 'https://api.bintray.com/maven/drewcarlson/kotlin-mobius/framework-android/'
+    }
+  }
+}
