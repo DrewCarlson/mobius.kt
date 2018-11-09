@@ -15,9 +15,6 @@ buildscript {
     classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
     classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
     classpath 'digital.wup:android-maven-publish:3.6.2'
-
-    // https://github.com/Kotlin/kotlinx.serialization/blob/7cb4c4c3bd45269abe7432b277b92559e27320b8/build.gradle#L50
-    classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.2-SNAPSHOT'
   }
 }
 

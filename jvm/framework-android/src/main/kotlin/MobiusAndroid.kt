@@ -1,8 +1,8 @@
-package com.spotify.mobius.android;
+package kt.mobius.android
 
-import com.spotify.mobius.Mobius;
-import com.spotify.mobius.MobiusLoop;
-import com.spotify.mobius.android.runners.MainThreadWorkRunner;
+import kt.mobius.Mobius
+import kt.mobius.MobiusLoop
+import kt.mobius.android.runners.MainThreadWorkRunner
 
 object MobiusAndroid {
   @JvmStatic

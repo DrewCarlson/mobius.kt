@@ -1,10 +1,10 @@
 package todo
 
-import com.spotify.mobius.Effects.effects
-import com.spotify.mobius.Next
-import com.spotify.mobius.Next.Companion.next
-import com.spotify.mobius.Next.Companion.noChange
-import com.spotify.mobius.Update
+import kt.mobius.Effects.effects
+import kt.mobius.Next
+import kt.mobius.Next.Companion.next
+import kt.mobius.Next.Companion.noChange
+import kt.mobius.Update
 
 
 class AppUpdate : Update<AppModel, Event, Effect> {

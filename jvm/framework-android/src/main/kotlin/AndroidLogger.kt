@@ -1,9 +1,9 @@
-package com.spotify.mobius.android
+package kt.mobius.android
 
 import android.util.Log
-import com.spotify.mobius.First
-import com.spotify.mobius.MobiusLoop
-import com.spotify.mobius.Next
+import kt.mobius.First
+import kt.mobius.MobiusLoop
+import kt.mobius.Next
 
 class AndroidLogger<M, E, F>(
     private val tag: String

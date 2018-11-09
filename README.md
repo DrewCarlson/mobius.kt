@@ -1,8 +1,8 @@
-# kotlin-mobius
+# mobius.kt
 [![Build Status](https://travis-ci.org/DrewCarlson/kotlin-mobius.svg?branch=master)](https://travis-ci.org/DrewCarlson/kotlin-mobius)
 [![Bintray](https://img.shields.io/bintray/v/drewcarlson/kotlin-mobius/mobius-core.svg?style=flat-rounded)](https://bintray.com/drewcarlson/kotlin-mobius/)
 
-An experimental port of [Mobius](https://github.com/spotify/mobius) to Kotlin, with [Multiplatform Project](https://kotlinlang.org/docs/reference/multiplatform.html) (MPP) support.
+A pure Kotlin implementation of [Mobius](https://github.com/spotify/mobius) with [Multiplatform Project](https://kotlinlang.org/docs/reference/multiplatform.html) (MPP) support.
 
 ## What is Mobius?
 
@@ -24,7 +24,7 @@ In a Spotify context, there is usually one loop per feature such as “the album
 
 _(Source: [Concepts > Mobius Loop](https://github.com/spotify/mobius/wiki/Concepts/53777574e070e168f2c3bdebc1be544edfcee2cf#mobius-loop))_
 
-By combining this concept with Kotlin's MPP features, kotlin-mobius allows you to write and test all of your pure functions (application and/or business logic) in Kotlin and deploy it everywhere.
+By combining this concept with Kotlin's MPP features, mobius.kt allows you to write and test all of your pure functions (application and/or business logic) in Kotlin and deploy it everywhere.
 This leaves impure functions to the native platform, which can be written in their primary language (Js, Java, Objective-c/Swift) or in Kotlin!
 
 ## Samples
@@ -39,13 +39,14 @@ Note the first build will take some time while it downloads all the necessary de
 
 ## Download
 
-Artifacts are published to [bintray](https://bintray.com/drewcarlson/kotlin-mobius).
+Artifacts are published to [bintray](https://bintray.com/drewcarlson/mobius.kt).
+Latest: [![Bintray](https://img.shields.io/bintray/v/drewcarlson/kotlin-mobius/mobius-core.svg?style=flat-rounded)](https://bintray.com/drewcarlson/mobius.kt/)
 
 Note: All platform SourceSets can depend on the same artifact, the embedded metadata will be used to resolve the platform specific variant.
 
 ```groovy
 dependencies {
-  implementation 'com.github.DrewCarlson.kotlin-mobius:mobius-core:0.0.9'
-  implementation 'com.github.DrewCarlson.kotlin-mobius:framework-android:0.0.9'
+  implementation 'kt.mobius:mobius-core:VERSION'
+  implementation 'kt.mobius:framework-android:VERSON'
 }
 ```

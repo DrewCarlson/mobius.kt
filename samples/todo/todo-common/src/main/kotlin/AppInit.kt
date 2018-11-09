@@ -1,8 +1,8 @@
 package todo
 
-import com.spotify.mobius.Init
-import com.spotify.mobius.First
-import com.spotify.mobius.First.Companion.first
+import kt.mobius.Init
+import kt.mobius.First
+import kt.mobius.First.Companion.first
 
 class AppInit : Init<AppModel, Effect> {
 

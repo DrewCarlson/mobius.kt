@@ -1,7 +1,7 @@
-package com.spotify.mobius.android.runners
+package kt.mobius.android.runners
 
 import android.os.Looper
-import com.spotify.mobius.runners.WorkRunner
+import kt.mobius.runners.WorkRunner
 
 /** A [LooperWorkRunner] that executes runnables on Android's main thread.  */
 class MainThreadWorkRunner private constructor() : LooperWorkRunner(Looper.getMainLooper()) {

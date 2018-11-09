@@ -1,5 +1,5 @@
 package todo
 
-import com.spotify.mobius.MobiusApi
+import kt.mobius.MobiusApi
 
 class MobiusApiShim : MobiusApi

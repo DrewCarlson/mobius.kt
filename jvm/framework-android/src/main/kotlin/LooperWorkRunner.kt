@@ -1,8 +1,8 @@
-package com.spotify.mobius.android.runners
+package kt.mobius.android.runners
 
 import android.os.Handler
 import android.os.Looper
-import com.spotify.mobius.runners.WorkRunner
+import kt.mobius.runners.WorkRunner
 
 /** A work runner that uses a [Looper] to run work.  */
 open class LooperWorkRunner internal constructor(looper: Looper) : WorkRunner {
@@ -22,7 +22,7 @@ open class LooperWorkRunner internal constructor(looper: Looper) : WorkRunner {
    *
    * @param runnable the runnable you would like to execute
    */
-  override fun post(runnable: com.spotify.mobius.runners.Runnable) {
+  override fun post(runnable: kt.mobius.runners.Runnable) {
     if (disposed) return
     handler.post(runnable)
   }

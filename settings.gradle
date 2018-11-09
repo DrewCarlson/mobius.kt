@@ -1,14 +1,12 @@
-rootProject.name = 'mobius'
+rootProject.name = 'mobiuskt'
 
 enableFeaturePreview('GRADLE_METADATA')
 
-include ':core'
-project(':core').name = 'mobius-core'
+include ':mobius-core'
+include ':mobius-extras'
 
-include ':extras'
-project(':extras').name = 'mobius-extras'
-
-if (System.getenv("APPVEYOR") != "True" && System.getenv("TRAVIS") != "true") {
+def osName = System.getenv("TRAVIS_OS_NAME")
+if (osName != "osx" && osName != "windows") {
   include 'jvm:framework-android'
 }
 

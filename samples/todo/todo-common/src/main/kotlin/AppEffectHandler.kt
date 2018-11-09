@@ -1,7 +1,7 @@
 package todo
 
-import com.spotify.mobius.*
-import com.spotify.mobius.functions.Consumer
+import kt.mobius.*
+import kt.mobius.functions.Consumer
 import todo.Effect.*
 
 class AppEffectHandler(
