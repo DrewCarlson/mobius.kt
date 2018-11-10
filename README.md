@@ -1,6 +1,6 @@
 # mobius.kt
 [![Build Status](https://travis-ci.org/DrewCarlson/kotlin-mobius.svg?branch=master)](https://travis-ci.org/DrewCarlson/kotlin-mobius)
-[![Bintray](https://img.shields.io/bintray/v/drewcarlson/kotlin-mobius/mobius-core.svg?style=flat-rounded)](https://bintray.com/drewcarlson/kotlin-mobius/)
+[![Bintray](https://img.shields.io/bintray/v/drewcarlson/mobius.kt/mobius-core.svg?style=flat-rounded)](https://bintray.com/drewcarlson/mobius.kt/)
 
 A pure Kotlin implementation of [Mobius](https://github.com/spotify/mobius) with [Multiplatform Project](https://kotlinlang.org/docs/reference/multiplatform.html) (MPP) support.
 
