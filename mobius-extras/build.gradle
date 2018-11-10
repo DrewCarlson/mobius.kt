@@ -23,11 +23,6 @@ kotlin {
         }
       }
     }
-    configure([iosX64, iosArm32, iosArm64, macos]) {
-      compilations.main {
-        extraOpts '-module-name', ''
-      }
-    }
   }
   sourceSets {
     all {
