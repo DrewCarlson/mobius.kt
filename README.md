@@ -47,6 +47,7 @@ Note: All platform SourceSets can depend on the same artifact, the embedded meta
 ```groovy
 dependencies {
   implementation 'kt.mobius:mobius-core:VERSION'
-  implementation 'kt.mobius:framework-android:VERSON'
+  implementation 'kt.mobius:mobius-extras:VERSION'
+  implementation 'kt.mobius:mobius-android:VERSION'
 }
 ```

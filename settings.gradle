@@ -7,7 +7,7 @@ include ':mobius-extras'
 
 def osName = System.getenv("TRAVIS_OS_NAME")
 if (osName != "osx" && osName != "windows") {
-  include 'jvm:framework-android'
+  include ':jvm:mobius-android'
 }
 
 // Samples
