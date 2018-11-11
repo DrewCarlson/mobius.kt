@@ -40,7 +40,7 @@ Note the first build will take some time while it downloads all the necessary de
 ## Download
 
 Artifacts are published to [bintray](https://bintray.com/drewcarlson/mobius.kt).
-Latest: [![Bintray](https://img.shields.io/bintray/v/drewcarlson/kotlin-mobius/mobius-core.svg?style=flat-rounded)](https://bintray.com/drewcarlson/mobius.kt/)
+Latest: [![Bintray](https://img.shields.io/bintray/v/drewcarlson/mobius.kt/mobius-core.svg?style=flat-rounded)](https://bintray.com/drewcarlson/mobius.kt/)
 
 Note: All platform SourceSets can depend on the same artifact, the embedded metadata will be used to resolve the platform specific variant.
 
