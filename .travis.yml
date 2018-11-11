@@ -34,7 +34,7 @@ matrix:
     - ./gradlew.bat clean mingwX64Test --no-daemon
     deploy:
       provider: script
-      script: ./gradlew.bat publishMingwX64TestPublicationToMavenRepository --no-daemon
+      script: ./gradlew.bat publishMingwX64PublicationToMavenRepository --no-daemon
       skip_cleanup: true
       dry-run: false
       on:
