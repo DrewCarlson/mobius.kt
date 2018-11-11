@@ -8,7 +8,7 @@ matrix:
     - echo "d56f5187479451eabf01fb78af6dfcb131a6481e" > "$ANDROID_HOME/licenses/android-sdk-license"
     - sdkmanager tools
     script:
-    - ./gradlew clean jsTest jvmTest linuxTest
+    - ./gradlew clean jsTest jvmTest linuxX64Test
     before_cache:
     - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
     - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -31,10 +31,10 @@ matrix:
     - JAVA_HOME="c:\\Program Files\\Java\\jdk1.8.0_192"
     script:
     - dir "c:\\Program Files\\Java\\"
-    - ./gradlew.bat clean windowsTest --no-daemon
+    - ./gradlew.bat clean mingwX64Test --no-daemon
     deploy:
       provider: script
-      script: ./gradlew.bat publishWindowsPublicationToMavenRepository --no-daemon
+      script: ./gradlew.bat publishMingwX64TestPublicationToMavenRepository --no-daemon
       skip_cleanup: true
       dry-run: false
       on:
@@ -43,7 +43,7 @@ matrix:
     language: java
     jdk: oraclejdk8
     script:
-    - ./gradlew clean macosTest
+    - ./gradlew clean macosX64Test
     before_cache:
     - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
     - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -55,7 +55,7 @@ matrix:
       - $HOME/.konan/dependencies/
     deploy:
       provider: script
-      script: ./gradlew publishMacosPublicationToMavenRepository publishIos publishIosExtras
+      script: ./gradlew publishMacosX64PublicationToMavenRepository publishIos publishIosExtras
       skip_cleanup: true
       dry-run: false
       on:
