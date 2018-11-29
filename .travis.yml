@@ -27,10 +27,10 @@ matrix:
         branch: master
   - os: windows
     language: shell
-    env:
-    - JAVA_HOME="c:\\Program Files\\Java\\jdk1.8.0_192"
+    before_install:
+    - choco install -y -d -v -f jdk8 -params "installdir=c:\\java8"
+    - export JAVA_HOME="c:\\java8"
     script:
-    - dir "c:\\Program Files\\Java\\"
     - ./gradlew.bat clean mingwX64Test --no-daemon
     deploy:
       provider: script
