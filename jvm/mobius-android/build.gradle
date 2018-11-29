@@ -21,9 +21,15 @@ android {
   }
 }
 
+task sourceJar(type: Jar) {
+  from android.sourceSets.main.java.srcDirs
+  classifier "sources"
+}
+
 publishing {
   publications {
     mavenAar(MavenPublication) {
+      artifact(sourceJar)
       from components.android
     }
   }
