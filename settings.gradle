@@ -1,3 +1,8 @@
+pluginManagement {
+  repositories {
+    maven { url 'https://kotlin.bintray.com/kotlin-eap' }
+  }
+}
 rootProject.name = 'mobiuskt'
 
 enableFeaturePreview('GRADLE_METADATA')

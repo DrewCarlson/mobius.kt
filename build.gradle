@@ -5,7 +5,7 @@ buildscript {
     google()
     maven { url "https://plugins.gradle.org/m2/" }
     maven { url "https://dl.bintray.com/jetbrains/kotlin-native-dependencies" }
-    maven { url "http://kotlin.bintray.com/kotlin-dev" }
+    maven { url "http://kotlin.bintray.com/kotlin-eap" }
   }
 
   dependencies {
@@ -23,5 +23,6 @@ allprojects {
     mavenCentral()
     jcenter()
     google()
+    maven { url "http://kotlin.bintray.com/kotlin-eap" }
   }
 }
