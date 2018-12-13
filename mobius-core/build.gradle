@@ -4,42 +4,28 @@ apply plugin: 'com.moowork.node'
 apply from: "$rootDir/gradle/publish.gradle"
 
 kotlin {
-  targets {
-    fromPreset(presets.iosX64, 'iosX64')
-    fromPreset(presets.iosArm32, 'iosArm32')
-    fromPreset(presets.iosArm64, 'iosArm64')
-    fromPreset(presets.macosX64, 'macosX64')
-    fromPreset(presets.linuxX64, 'linuxX64')
-    fromPreset(presets.mingwX64, 'mingwX64')
-    fromPreset(presets.wasm32, 'wasm32')
-    fromPreset(presets.linuxArm32Hfp, 'linuxArm32Hfp')
-    fromPreset(presets.linuxMips32, 'linuxMips32')
-    fromPreset(presets.linuxMipsel32, 'linuxMipsel32')
-    fromPreset(presets.androidNativeArm32, 'androidNativeArm32')
-    fromPreset(presets.androidNativeArm64, 'androidNativeArm64')
-    fromPreset(presets.jvm, 'jvm')
-    fromPreset(presets.js, 'js') {
-      compilations.main {
-        compileKotlinJs.kotlinOptions {
-          sourceMap = true
-          metaInfo = true
-          moduleKind = 'umd'
-          outputFile = "$buildDir/classes/kotlin/js/test/mobius-core.js"
-        }
-        compileTestKotlinJs.kotlinOptions {
-          moduleKind = 'commonjs'
-        }
+  jvm()
+  js {
+    compilations.main {
+      compileKotlinJs.kotlinOptions {
+        sourceMap = true
+        metaInfo = true
+        moduleKind = 'umd'
+        outputFile = "$buildDir/classes/kotlin/js/test/mobius-core.js"
+      }
+      compileTestKotlinJs.kotlinOptions {
+        moduleKind = 'commonjs'
       }
     }
   }
-  sourceSets {
-    configure([
-        iosX64Main, iosArm32Main, iosArm64Main,
-        macosX64Main, linuxX64Main, mingwX64Main,
-        linuxMipsel32Main, linuxArm32HfpMain, linuxMips32Main,
-        wasm32Main, androidNativeArm32Main, androidNativeArm64Main
-    ]) {
-      kotlin.srcDirs += 'src/nativeMain/kotlin'
+  configure([
+      iosX64(), iosArm32(), iosArm64(),
+      macosX64(), linuxX64(), mingwX64(),
+      linuxMipsel32(), linuxArm32Hfp(), linuxMips32(),
+      wasm32(), androidNativeArm32(), androidNativeArm64()
+  ]) {
+    compilations.main.defaultSourceSet {
+      kotlin.srcDirs = ['src/nativeMain/kotlin']
     }
   }
 }
