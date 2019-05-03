@@ -10,6 +10,7 @@ import kt.mobius.runners.WorkRunner
 import kt.mobius.test.TestWorkRunner
 import org.awaitility.Awaitility.await
 import org.awaitility.Duration
+import org.junit.After
 import org.junit.Before
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.Executors
@@ -47,8 +48,8 @@ class MobiusLoopTest {
         is TestEvent.EventWithCrashingEffect ->
           Next.next("will crash", effects(TestEffect.Crash))
         is TestEvent.EventWithSafeEffect -> Next.next(
-            model + "->" + mobiusEvent.toString(), setOf<TestEffect>(TestEffect.SafeEffect(mobiusEvent.toString())))
-        else -> Next.next(model + "->" + mobiusEvent.toString())
+          "$model->$mobiusEvent", setOf<TestEffect>(TestEffect.SafeEffect(mobiusEvent.toString())))
+        else -> Next.next("$model->$mobiusEvent")
       }
     }
 
@@ -63,6 +64,11 @@ class MobiusLoopTest {
       }
 
     setupWithEffects(effectHandler, immediateRunner)
+  }
+
+  @After
+  fun tearDown() {
+    backgroundRunner.dispose()
   }
 
   @Test
@@ -178,7 +184,7 @@ class MobiusLoopTest {
 
     val update =
         Update<String, TestEvent, TestEffect> { model, event ->
-          Next.next(model + "->" + event.toString())
+          Next.next("$model->$event")
         }
 
 
