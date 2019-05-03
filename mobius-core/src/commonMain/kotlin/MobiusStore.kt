@@ -1,6 +1,5 @@
 package kt.mobius
 
-import kotlin.jvm.Volatile
 
 /** Responsible for holding and updating the current model. */
 class MobiusStore<M, E, F> internal constructor(
@@ -10,7 +9,6 @@ class MobiusStore<M, E, F> internal constructor(
 ) {
   private object LOCK
 
-  @Volatile
   private var currentModel: M = startModel
 
   fun init(): First<M, F> = mpp.synchronized(LOCK) {
