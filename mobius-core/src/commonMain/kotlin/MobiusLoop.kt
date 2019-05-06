@@ -5,6 +5,7 @@ import kt.mobius.functions.Consumer
 import kt.mobius.functions.Producer
 import kt.mobius.runners.Runnable
 import kt.mobius.runners.WorkRunner
+import kotlin.jvm.Synchronized
 import kotlin.jvm.Volatile
 
 
@@ -138,15 +139,22 @@ class MobiusLoop<M, E, F> private constructor(
     }
   }
 
+  @Synchronized
   override fun dispose() {
     mpp.synchronized(modelObservers) {
-      eventDispatcher.dispose()
-      effectDispatcher.dispose()
-      effectConsumer.dispose()
-      eventSourceDisposable.dispose()
       modelObservers.clear()
-      disposed = true
     }
+
+    eventDispatcher.disable()
+    effectDispatcher.disable()
+
+    eventSourceDisposable.dispose()
+    effectConsumer.dispose()
+
+    eventDispatcher.dispose()
+    effectDispatcher.dispose()
+
+    disposed = true
   }
 
   /**

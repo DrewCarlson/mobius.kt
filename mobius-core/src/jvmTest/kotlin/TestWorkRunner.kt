@@ -8,8 +8,14 @@ class TestWorkRunner : WorkRunner {
 
   private val queue = LinkedList<Runnable>()
 
+  var isDisposed = false
+    private set
+
   override fun post(runnable: Runnable) {
     synchronized(queue) {
+      if (isDisposed) {
+        throw IllegalStateException("this WorkRunner has already been disposed.")
+      }
       queue.add(runnable)
     }
   }
@@ -34,6 +40,7 @@ class TestWorkRunner : WorkRunner {
 
   override fun dispose() {
     synchronized(queue) {
+      isDisposed = true
       queue.clear()
     }
   }

@@ -4,6 +4,7 @@ import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
 import kt.mobius.runners.Runnable
 import kt.mobius.runners.WorkRunner
+import kotlin.jvm.Volatile
 
 /**
  * Dispatches messages to a given runner.
@@ -15,16 +16,23 @@ internal class MessageDispatcher<M>(
     val consumer: Consumer<M>
 ) : Consumer<M>, Disposable {
 
+  @Volatile
+  private var disabled = false
+
   override fun accept(message: M) {
     runner.post(
         object : Runnable {
           override fun run() {
-            try {
-              consumer.accept(message)
+            if (disabled) {
+              println("Message ignored because the dispatcher is disabled: $message")
+            } else {
+              try {
+                consumer.accept(message)
 
-            } catch (throwable: Throwable) {
-              println("Consumer threw an exception when accepting message: $message")
-              println(throwable.message)
+              } catch (throwable: Throwable) {
+                println("Consumer threw an exception when accepting message: $message")
+                println(throwable.message)
+              }
             }
           }
         })
@@ -32,5 +40,9 @@ internal class MessageDispatcher<M>(
 
   override fun dispose() {
     runner.dispose()
+  }
+
+  fun disable() {
+    disabled = true
   }
 }
