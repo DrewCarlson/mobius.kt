@@ -8,7 +8,7 @@ package kt.mobius.disposables
  */
 interface Disposable {
   companion object {
-    operator fun invoke(dispose: () -> Unit): Disposable {
+    inline operator fun invoke(crossinline dispose: () -> Unit): Disposable {
       return object : Disposable {
         override fun dispose() {
           dispose()

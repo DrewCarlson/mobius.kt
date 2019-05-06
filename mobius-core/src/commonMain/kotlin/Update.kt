@@ -11,8 +11,8 @@ package kt.mobius
  */
 interface Update<M, E, F> {
   companion object {
-    operator fun <M, E, F> invoke(
-        update: (@ParameterName("model") M, @ParameterName("event") E) -> Next<M, F>
+    inline operator fun <M, E, F> invoke(
+      crossinline update: (@ParameterName("model") M, @ParameterName("event") E) -> Next<M, F>
     ): Update<M, E, F> {
       return object : Update<M, E, F> {
         override fun update(model: M, event: E): Next<M, F> {

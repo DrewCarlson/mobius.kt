@@ -11,7 +11,7 @@ package kt.mobius
  */
 interface Init<M, F> {
   companion object {
-    operator fun <M, F> invoke(init: (@ParameterName("model") M) -> First<M, F>): Init<M, F> {
+    inline operator fun <M, F> invoke(crossinline init: (@ParameterName("model") M) -> First<M, F>): Init<M, F> {
       return object : Init<M, F> {
         override fun init(model: M): First<M, F> {
           return init(model)

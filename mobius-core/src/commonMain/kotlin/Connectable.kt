@@ -21,7 +21,7 @@ import kt.mobius.functions.Consumer
 interface Connectable<I, O> {
 
   companion object {
-    operator fun <I, O> invoke(connect: (@ParameterName("output") Consumer<O>) -> Connection<I>): Connectable<I, O> {
+    inline operator fun <I, O> invoke(crossinline connect: (@ParameterName("output") Consumer<O>) -> Connection<I>): Connectable<I, O> {
       return object : Connectable<I, O> {
         override fun connect(output: Consumer<O>): Connection<I> {
           return connect(output)
