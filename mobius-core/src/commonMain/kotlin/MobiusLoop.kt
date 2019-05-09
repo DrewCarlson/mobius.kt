@@ -17,11 +17,11 @@ import kotlin.jvm.Volatile
  * internally on the appropriate executors.
  */
 class MobiusLoop<M, E, F> private constructor(
-    eventProcessorFactory: EventProcessor.Factory<M, E, F>,
-    effectHandler: Connectable<F, E>,
-    eventSource: EventSource<E>,
-    eventRunner: WorkRunner,
-    effectRunner: WorkRunner
+  eventProcessorFactory: EventProcessor.Factory<M, E, F>,
+  effectHandler: Connectable<F, E>,
+  eventSource: EventSource<E>,
+  eventRunner: WorkRunner,
+  effectRunner: WorkRunner
 ) : Disposable {
 
   companion object {
@@ -29,43 +29,37 @@ class MobiusLoop<M, E, F> private constructor(
     @mpp.JvmStatic
     @mpp.JsName("create")
     fun <M, E, F> create(
-        store: MobiusStore<M, E, F>,
-        effectHandler: Connectable<F, E>,
-        eventSource: EventSource<E>,
-        eventRunner: WorkRunner,
-        effectRunner: WorkRunner): MobiusLoop<M, E, F> {
+      store: MobiusStore<M, E, F>,
+      effectHandler: Connectable<F, E>,
+      eventSource: EventSource<E>,
+      eventRunner: WorkRunner,
+      effectRunner: WorkRunner): MobiusLoop<M, E, F> {
 
       return MobiusLoop(
-          EventProcessor.Factory(store),
-          effectHandler,
-          eventSource,
-          eventRunner,
-          effectRunner)
+        EventProcessor.Factory(store),
+        effectHandler,
+        eventSource,
+        eventRunner,
+        effectRunner)
     }
   }
 
-  private val eventDispatcher = MessageDispatcher(eventRunner, object : Consumer<E> {
-    override fun accept(event: E) {
-      eventProcessor.update(event)
-    }
+  private val eventDispatcher = MessageDispatcher(eventRunner, Consumer<E> { event ->
+    eventProcessor.update(event)
   })
-  private val effectDispatcher = MessageDispatcher(effectRunner, object : Consumer<F> {
-    override fun accept(effect: F) {
-      try {
-        effectConsumer.accept(effect)
-      } catch (t: Throwable) {
-        throw ConnectionException(effect!!, t)
-      }
+  private val effectDispatcher = MessageDispatcher(effectRunner, Consumer<F> { effect ->
+    try {
+      effectConsumer.accept(effect)
+    } catch (t: Throwable) {
+      throw ConnectionException(effect!!, t)
     }
   })
 
-  private val eventProcessor = eventProcessorFactory.create(effectDispatcher, object : Consumer<M> {
-    override fun accept(model: M) {
-      mpp.synchronized(modelObservers) {
-        mostRecentModel = model
-        for (observer in modelObservers) {
-          observer.accept(model)
-        }
+  private val eventProcessor = eventProcessorFactory.create(effectDispatcher, Consumer { model ->
+    mpp.synchronized(modelObservers) {
+      mostRecentModel = model
+      for (observer in modelObservers) {
+        observer.accept(model)
       }
     }
   })
@@ -92,17 +86,17 @@ class MobiusLoop<M, E, F> private constructor(
     this.eventSourceDisposable = eventSource.subscribe(eventConsumer)
 
     eventRunner.post(
-        object : Runnable {
-          override fun run() {
-            eventProcessor.init()
-          }
-        })
+      object : Runnable {
+        override fun run() {
+          eventProcessor.init()
+        }
+      })
   }
 
   fun dispatchEvent(event: E) {
     if (disposed)
       throw IllegalStateException(
-          "This loop has already been disposed. You cannot dispatch events after disposal")
+        "This loop has already been disposed. You cannot dispatch events after disposal")
     eventDispatcher.accept(event)
   }
 
@@ -121,7 +115,7 @@ class MobiusLoop<M, E, F> private constructor(
     mpp.synchronized(modelObservers) {
       if (disposed)
         throw IllegalStateException(
-            "This loop has already been disposed. You cannot observe a disposed loop")
+          "This loop has already been disposed. You cannot observe a disposed loop")
 
       modelObservers.add(observer)
 

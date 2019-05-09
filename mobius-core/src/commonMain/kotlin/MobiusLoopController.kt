@@ -79,10 +79,8 @@ class MobiusLoopController<M, E, F>(
     val safeModelHandler = SafeConnectable(view)
 
     val modelConnection = safeModelHandler.connect(
-        object : Consumer<E> {
-          override fun accept(event: E) {
-            dispatchEvent(event)
-          }
+        Consumer { event ->
+          dispatchEvent(event)
         })
 
     goToStateCreated(modelConnection, nextModelToStartFrom)

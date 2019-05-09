@@ -3,10 +3,10 @@ package kt.mobius
 import kt.mobius.functions.Consumer
 
 class ControllerStateRunning<M, E, F>(
-    private val actions: ControllerActions<M, E>,
-    private val renderer: Connection<M>,
-    loopFactory: MobiusLoop.Factory<M, E, F>,
-    private val startModel: M
+  private val actions: ControllerActions<M, E>,
+  private val renderer: Connection<M>,
+  loopFactory: MobiusLoop.Factory<M, E, F>,
+  private val startModel: M
 ) : ControllerStateBase<M, E>() {
 
   private val loop = loopFactory.startFrom(startModel)
@@ -19,11 +19,9 @@ class ControllerStateRunning<M, E, F>(
 
   fun start() {
     loop.observe(
-        object : Consumer<M> {
-          override fun accept(model: M) {
-            actions.postUpdateView(model)
-          }
-        })
+      Consumer { model ->
+        actions.postUpdateView(model)
+      })
   }
 
   override fun onDispatchEvent(event: E) {
