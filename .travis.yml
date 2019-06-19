@@ -1,62 +1,65 @@
 matrix:
   include:
-  - os: linux
-    language: android
-    jdk: oraclejdk8
-    before_install:
-    - mkdir "$ANDROID_HOME/licenses" || true
-    - echo "d56f5187479451eabf01fb78af6dfcb131a6481e" > "$ANDROID_HOME/licenses/android-sdk-license"
-    - sdkmanager tools
-    script:
-    - ./gradlew clean jsTest jvmTest linuxX64Test
-    before_cache:
-    - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-    - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-    cache:
-      directories:
-      - $HOME/.gradle/caches/
-      - $HOME/.gradle/wrapper/
-      - $HOME/.konan/cache/
-      - $HOME/.konan/dependencies/
-    deploy:
-      provider: script
-      script: ./gradlew publish
-      skip_cleanup: true
-      dry-run: false
-      on:
-        branch: master
-  - os: windows
-    language: shell
-    before_install:
-    - choco install -y -d -v -f jdk8 -params "installdir=c:\\java8"
-    - export JAVA_HOME="c:\\java8"
-    script:
-    - ./gradlew.bat clean mingwX64Test --no-daemon
-    deploy:
-      provider: script
-      script: ./gradlew.bat publishMingwX64PublicationToMavenRepository --no-daemon
-      skip_cleanup: true
-      dry-run: false
-      on:
-        branch: master
-  - os: osx
-    language: java
-    jdk: oraclejdk8
-    script:
-    - ./gradlew clean macosX64Test
-    before_cache:
-    - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-    - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-    cache:
-      directories:
-      - $HOME/.gradle/caches/
-      - $HOME/.gradle/wrapper/
-      - $HOME/.konan/cache/
-      - $HOME/.konan/dependencies/
-    deploy:
-      provider: script
-      script: ./gradlew publishMacosX64PublicationToMavenRepository publishIos publishIosExtras
-      skip_cleanup: true
-      dry-run: false
-      on:
-        branch: master
+    - os: linux
+      language: android
+      jdk: oraclejdk8
+      script:
+        - ./gradlew jsTest jvmTest linuxX64Test --no-daemon
+      before_cache:
+        - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+        - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+      before_install:
+        - yes | sdkmanager "platforms;android-28"
+        - yes | sdkmanager "build-tools;28.0.3"
+      cache:
+        directories:
+          - $HOME/.gradle/caches/
+          - $HOME/.gradle/wrapper/
+          - $HOME/.konan/cache/
+          - $HOME/.konan/dependencies/
+      deploy:
+        provider: script
+        script: ./gradlew publish --no-daemon
+        skip_cleanup: true
+        dry-run: false
+        on:
+          branch: master
+    - os: windows
+      language: shell
+      before_install:
+        - choco install -y -d -v jdk8 -params 'installdir=c:\\java8'
+        - export JAVA_HOME="c:\\java8"
+        - export PATH=${JAVA_HOME}/bin:${PATH}
+      script:
+        - ./gradlew.bat mingwX64Test --no-daemon
+      deploy:
+        provider: script
+        script: ./gradlew.bat publishMingwX64PublicationToMavenRepository --no-daemon
+        skip_cleanup: true
+        dry-run: false
+        on:
+          branch: master
+    - os: osx
+      language: java
+      jdk: oraclejdk8
+      osx_image: xcode9.3
+      install:
+        - ./gradlew --no-daemon
+      script:
+        - ./gradlew macosX64Test --no-daemon
+      before_cache:
+        - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+        - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+      cache:
+        directories:
+          - $HOME/.gradle/caches/
+          - $HOME/.gradle/wrapper/
+          - $HOME/.konan/cache/
+          - $HOME/.konan/dependencies/
+      deploy:
+        provider: script
+        script: ./gradlew publishMacosX64PublicationToMavenRepository publishIos publishIosExtras --no-daemon
+        skip_cleanup: true
+        dry-run: false
+        on:
+          branch: master
