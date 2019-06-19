@@ -1,6 +1,7 @@
 # mobius.kt
-[![Build Status](https://travis-ci.org/DrewCarlson/kotlin-mobius.svg?branch=master)](https://travis-ci.org/DrewCarlson/kotlin-mobius)
-[![Bintray](https://img.shields.io/bintray/v/drewcarlson/mobius.kt/mobius-core.svg?style=flat-rounded)](https://bintray.com/drewcarlson/mobius.kt/)
+[![Travis (.org) branch](https://img.shields.io/travis/drewcarlson/kotlin-mobius/master.svg?label=master)](https://travis-ci.org/DrewCarlson/kotlin-mobius)
+[![Travis (.org) branch](https://img.shields.io/travis/drewcarlson/kotlin-mobius/develop.svg?label=develop)](https://travis-ci.org/DrewCarlson/kotlin-mobius)
+[![Bintray](https://img.shields.io/badge/dynamic/json.svg?label=Bintray&query=name&style=flat&url=https%3A%2F%2Fbintray.com%2Fapi%2Fv1%2Fpackages%2Fdrewcarlson%2Fmobius.kt%2Fmobius-core%2Fversions%2F_latest)](https://bintray.com/drewcarlson/mobius.kt/)
 
 A pure Kotlin implementation of [Mobius](https://github.com/spotify/mobius) with [Multiplatform Project](https://kotlinlang.org/docs/reference/multiplatform.html) (MPP) support.
 
@@ -40,7 +41,8 @@ Note the first build will take some time while it downloads all the necessary de
 ## Download
 
 Artifacts are published to [bintray](https://bintray.com/drewcarlson/mobius.kt).
-Latest: [![Bintray](https://img.shields.io/bintray/v/drewcarlson/mobius.kt/mobius-core.svg?style=flat-rounded)](https://bintray.com/drewcarlson/mobius.kt/)
+
+![Bintray](https://img.shields.io/badge/dynamic/json.svg?label=Bintray&query=name&style=flat&url=https%3A%2F%2Fbintray.com%2Fapi%2Fv1%2Fpackages%2Fdrewcarlson%2Fmobius.kt%2Fmobius-core%2Fversions%2F_latest)
 
 Note: All platform SourceSets can depend on the same artifact, the embedded metadata will be used to resolve the platform specific variant.
 
