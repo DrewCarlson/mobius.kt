@@ -24,4 +24,8 @@ interface Update<M, E, F> {
 
   @mpp.JsName("update")
   fun update(model: M, event: E): Next<M, F>
+
+  operator fun invoke(model: M, event: E): Next<M, F> {
+    return update(model, event)
+  }
 }
