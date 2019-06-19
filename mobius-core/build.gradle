@@ -1,20 +1,28 @@
 apply plugin: 'kotlin-multiplatform'
 apply plugin: 'org.jetbrains.dokka'
-apply plugin: 'com.moowork.node'
 apply from: "$rootDir/gradle/publish.gradle"
 
 kotlin {
   jvm()
   js {
+    nodejs()
+    browser  {
+      testTask {
+        useKarma {
+          useChromeHeadless()
+        }
+      }
+    }
     compilations.main {
       compileKotlinJs.kotlinOptions {
         sourceMap = true
         metaInfo = true
         moduleKind = 'umd'
-        outputFile = "$buildDir/classes/kotlin/js/test/mobius-core.js"
+        sourceMapEmbedSources = 'always'
       }
       compileTestKotlinJs.kotlinOptions {
-        moduleKind = 'commonjs'
+        moduleKind = 'umd'
+        sourceMapEmbedSources = 'always'
       }
     }
   }
@@ -48,53 +56,6 @@ dependencies {
 dokka {
   outputFormat = 'html'
   outputDirectory = "$buildDir/javadoc"
-}
-
-node {
-  version = node_version
-  workDir = file("$rootDir/.gradle/nodejs")
-  yarnWorkDir = file("$rootDir/.gradle/yarn")
-  download = true
-  nodeModulesDir = file("$buildDir/yarn")
-}
-
-def jsCompilations = kotlin.targets.js.compilations
-task populateNodeModules {
-  doLast {
-    copy {
-      from "$buildDir/yarn/node_modules"
-      from jsCompilations.main.output.allOutputs
-      jsCompilations.test.runtimeDependencyFiles.each {
-        if (it.exists() && !it.isDirectory()) {
-          from zipTree(it.absolutePath).matching { include '*.js' }
-        }
-      }
-      into "$buildDir/node_modules"
-    }
-  }
-}
-
-task addYarnDeps(type: YarnTask) {
-  doFirst {
-    mkdir "$buildDir/yarn"
-  }
-  args = ["add", "qunit@$qunit_version"]
-}
-
-task runQunit(type: NodeTask, dependsOn: [jsCompilations.test.compileKotlinTaskName, addYarnDeps, populateNodeModules]) {
-  script = file("$buildDir/node_modules/qunit/bin/qunit")
-  args = [relativePath("${jsCompilations.test.output.classesDirs.first()}/mobius-core_test.js")]
-}
-
-//jsTest.dependsOn runQunit
-
-// Fix for https://github.com/srs/gradle-node-plugin/issues/301
-repositories.whenObjectAdded {
-  if (it instanceof IvyArtifactRepository) {
-    metadataSources {
-      artifact()
-    }
-  }
 }
 
 task publishIos {

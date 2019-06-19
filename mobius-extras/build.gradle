@@ -16,15 +16,23 @@ kotlin {
   androidNativeArm64()
   jvm()
   js {
+    nodejs()
+    browser  {
+      testTask {
+        useKarma {
+          useChromeHeadless()
+        }
+      }
+    }
     compilations.main {
       compileKotlinJs.kotlinOptions {
         sourceMap = true
         metaInfo = true
-        moduleKind = "umd"
-        outputFile = "$buildDir/classes/kotlin/js/test/mobius-extras.js"
+        moduleKind = 'umd'
       }
       compileTestKotlinJs.kotlinOptions {
-        moduleKind = "commonjs"
+        moduleKind = 'umd'
+        sourceMapEmbedSources = 'always'
       }
     }
   }
