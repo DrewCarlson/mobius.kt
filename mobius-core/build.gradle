@@ -86,7 +86,7 @@ task runQunit(type: NodeTask, dependsOn: [jsCompilations.test.compileKotlinTaskN
   args = [relativePath("${jsCompilations.test.output.classesDirs.first()}/mobius-core_test.js")]
 }
 
-jsTest.dependsOn runQunit
+//jsTest.dependsOn runQunit
 
 // Fix for https://github.com/srs/gradle-node-plugin/issues/301
 repositories.whenObjectAdded {
