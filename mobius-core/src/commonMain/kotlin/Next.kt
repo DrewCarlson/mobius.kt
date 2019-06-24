@@ -25,7 +25,7 @@ class Next<M, F> internal constructor(
   fun hasModel() = model != null
 
   /** Check if this Next contains effects.  */
-  fun hasEffects() = !effects.isEmpty()
+  fun hasEffects() = effects.isNotEmpty()
 
   /**
    * Try to get the model from this Next, with a fallback if there isn't one.
