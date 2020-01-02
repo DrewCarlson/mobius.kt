@@ -41,8 +41,8 @@ matrix:
           branch: master
     - os: osx
       language: java
-      jdk: oraclejdk8
-      osx_image: xcode9.3
+      jdk: oraclejdk13
+      osx_image: xcode11.3
       install:
         - ./gradlew --no-daemon
       script:
