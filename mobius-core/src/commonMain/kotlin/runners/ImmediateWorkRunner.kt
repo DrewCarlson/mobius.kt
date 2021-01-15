@@ -5,19 +5,19 @@ package kt.mobius.runners
  * posted from.
  */
 class ImmediateWorkRunner : WorkRunner {
-  private object LOCK
+    private object LOCK
 
-  private var disposed: Boolean = false
+    private var disposed: Boolean = false
 
-  override fun post(runnable: Runnable): Unit =
-      mpp.synchronized(LOCK) {
-        if (disposed) return
+    override fun post(runnable: Runnable): Unit =
+        mpp.synchronized(LOCK) {
+            if (disposed) return
 
-        runnable.run()
-      }
+            runnable.run()
+        }
 
-  override fun dispose(): Unit =
-      mpp.synchronized(LOCK) {
-        disposed = true
-      }
+    override fun dispose(): Unit =
+        mpp.synchronized(LOCK) {
+            disposed = true
+        }
 }

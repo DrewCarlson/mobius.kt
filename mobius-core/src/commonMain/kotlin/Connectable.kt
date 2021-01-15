@@ -20,37 +20,37 @@ import kt.mobius.functions.Consumer
  */
 interface Connectable<I, O> {
 
-  companion object {
-    inline operator fun <I, O> invoke(crossinline connect: (@ParameterName("output") Consumer<O>) -> Connection<I>): Connectable<I, O> {
-      return object : Connectable<I, O> {
-        override fun connect(output: Consumer<O>): Connection<I> {
-          return connect(output)
+    companion object {
+        inline operator fun <I, O> invoke(crossinline connect: (output: Consumer<O>) -> Connection<I>): Connectable<I, O> {
+            return object : Connectable<I, O> {
+                override fun connect(output: Consumer<O>): Connection<I> {
+                    return connect(output)
+                }
+            }
         }
-      }
     }
-  }
 
-  /**
-   * Create a new connection that accepts input values and sends outgoing values to a supplied
-   * consumer.
-   *
-   *
-   * Must return a new [Connection] that accepts incoming values. After [Connection.dispose]
-   * is called on the returned [Connection], the connection must be broken, and no more values
-   * may be sent to the output consumer.
-   *
-   *
-   * Every call to this method should create a new independent connection that can be disposed of
-   * individually without affecting the other connections. If your Connectable doesn't support this,
-   * it should throw a [ConnectionLimitExceededException] if someone tries to connect a second
-   * time before disposing of the first connection.
-   *
-   * @param output the consumer that the new connection should use to emit values
-   * @return a new connection
-   * @throws ConnectionLimitExceededException should be thrown if there are too many concurrent
-   * connections to this Connectable; this should be caused by incorrect usage of the
-   * Connectable, and is considered an irrecoverable error
-   */
-  @mpp.JsName("connect")
-  fun connect(output: Consumer<O>): Connection<I>
+    /**
+     * Create a new connection that accepts input values and sends outgoing values to a supplied
+     * consumer.
+     *
+     *
+     * Must return a new [Connection] that accepts incoming values. After [Connection.dispose]
+     * is called on the returned [Connection], the connection must be broken, and no more values
+     * may be sent to the output consumer.
+     *
+     *
+     * Every call to this method should create a new independent connection that can be disposed of
+     * individually without affecting the other connections. If your Connectable doesn't support this,
+     * it should throw a [ConnectionLimitExceededException] if someone tries to connect a second
+     * time before disposing of the first connection.
+     *
+     * @param output the consumer that the new connection should use to emit values
+     * @return a new connection
+     * @throws ConnectionLimitExceededException should be thrown if there are too many concurrent
+     * connections to this Connectable; this should be caused by incorrect usage of the
+     * Connectable, and is considered an irrecoverable error
+     */
+    @mpp.JsName("connect")
+    fun connect(output: Consumer<O>): Connection<I>
 }

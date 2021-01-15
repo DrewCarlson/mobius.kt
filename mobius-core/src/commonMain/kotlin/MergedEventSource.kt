@@ -3,7 +3,6 @@ package kt.mobius
 import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
 
-
 /**
  * An [EventSource] that merges multiple sources into one
  *
@@ -13,28 +12,28 @@ class MergedEventSource<E> private constructor(
     private val eventSources: List<EventSource<E>>
 ) : EventSource<E> {
 
-  override fun subscribe(eventConsumer: Consumer<E>): Disposable {
-    val disposables = ArrayList<Disposable>(eventSources.size)
-    for (eventSource in eventSources) {
-      disposables.add(eventSource.subscribe(eventConsumer))
-    }
-
-    return object : Disposable {
-      override fun dispose() {
-        for (disposable in disposables) {
-          disposable.dispose()
+    override fun subscribe(eventConsumer: Consumer<E>): Disposable {
+        val disposables = ArrayList<Disposable>(eventSources.size)
+        for (eventSource in eventSources) {
+            disposables.add(eventSource.subscribe(eventConsumer))
         }
-      }
-    }
-  }
 
-  companion object {
-    @mpp.JvmStatic
-    @mpp.JsName("from")
-    fun <E> from(vararg eventSources: EventSource<E>): EventSource<E> {
-      val allSources = ArrayList<EventSource<E>>()
-      allSources.addAll(eventSources)
-      return MergedEventSource(allSources)
+        return object : Disposable {
+            override fun dispose() {
+                for (disposable in disposables) {
+                    disposable.dispose()
+                }
+            }
+        }
     }
-  }
+
+    companion object {
+        @mpp.JvmStatic
+        @mpp.JsName("from")
+        fun <E> from(vararg eventSources: EventSource<E>): EventSource<E> {
+            val allSources = ArrayList<EventSource<E>>()
+            allSources.addAll(eventSources)
+            return MergedEventSource(allSources)
+        }
+    }
 }

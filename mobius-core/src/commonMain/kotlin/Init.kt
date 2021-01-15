@@ -10,20 +10,20 @@ package kt.mobius
  * [First].
  */
 interface Init<M, F> {
-  companion object {
-    inline operator fun <M, F> invoke(crossinline init: (@ParameterName("model") M) -> First<M, F>): Init<M, F> {
-      return object : Init<M, F> {
-        override fun init(model: M): First<M, F> {
-          return init(model)
+    companion object {
+        inline operator fun <M, F> invoke(crossinline init: (model: M) -> First<M, F>): Init<M, F> {
+            return object : Init<M, F> {
+                override fun init(model: M): First<M, F> {
+                    return init(model)
+                }
+            }
         }
-      }
     }
-  }
 
-  @mpp.JsName("init")
-  fun init(model: M): First<M, F>
+    @mpp.JsName("init")
+    fun init(model: M): First<M, F>
 
-  operator fun invoke(model: M): First<M, F> {
-    return init(model)
-  }
+    operator fun invoke(model: M): First<M, F> {
+        return init(model)
+    }
 }

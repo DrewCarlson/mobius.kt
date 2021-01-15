@@ -16,24 +16,24 @@ import kt.mobius.functions.Consumer
  */
 interface EventSource<E> {
 
-  companion object {
-    inline operator fun <E> invoke(crossinline subscribe: (Consumer<E>) -> Disposable): EventSource<E> {
-      return object : EventSource<E> {
-        override fun subscribe(eventConsumer: Consumer<E>): Disposable {
-          return subscribe(eventConsumer)
+    companion object {
+        inline operator fun <E> invoke(crossinline subscribe: (Consumer<E>) -> Disposable): EventSource<E> {
+            return object : EventSource<E> {
+                override fun subscribe(eventConsumer: Consumer<E>): Disposable {
+                    return subscribe(eventConsumer)
+                }
+            }
         }
-      }
     }
-  }
 
-  /**
-   * Subscribes the supplied consumer to the events from this event source, until the returned
-   * [Disposable] is disposed. Multiple such subscriptions can be in place concurrently for a
-   * given event source, without affecting each other.
-   *
-   * @param eventConsumer the consumer that should receive events from the source
-   * @return a disposable used to stop the source from emitting any more events to this consumer
-   */
-  @mpp.JsName("subscribe")
-  fun subscribe(eventConsumer: Consumer<E>): Disposable
+    /**
+     * Subscribes the supplied consumer to the events from this event source, until the returned
+     * [Disposable] is disposed. Multiple such subscriptions can be in place concurrently for a
+     * given event source, without affecting each other.
+     *
+     * @param eventConsumer the consumer that should receive events from the source
+     * @return a disposable used to stop the source from emitting any more events to this consumer
+     */
+    @mpp.JsName("subscribe")
+    fun subscribe(eventConsumer: Consumer<E>): Disposable
 }
