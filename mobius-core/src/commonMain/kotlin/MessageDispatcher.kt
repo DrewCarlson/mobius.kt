@@ -16,33 +16,32 @@ internal class MessageDispatcher<M>(
     val consumer: Consumer<M>
 ) : Consumer<M>, Disposable {
 
-  @Volatile
-  private var disabled = false
+    @Volatile
+    private var disabled = false
 
-  override fun accept(message: M) {
-    runner.post(
-        object : Runnable {
-          override fun run() {
-            if (disabled) {
-              println("Message ignored because the dispatcher is disabled: $message")
-            } else {
-              try {
-                consumer.accept(message)
+    override fun accept(message: M) {
+        runner.post(
+            object : Runnable {
+                override fun run() {
+                    if (disabled) {
+                        println("Message ignored because the dispatcher is disabled: $message")
+                    } else {
+                        try {
+                            consumer.accept(message)
+                        } catch (throwable: Throwable) {
+                            println("Consumer threw an exception when accepting message: $message")
+                            println(throwable.message)
+                        }
+                    }
+                }
+            })
+    }
 
-              } catch (throwable: Throwable) {
-                println("Consumer threw an exception when accepting message: $message")
-                println(throwable.message)
-              }
-            }
-          }
-        })
-  }
+    override fun dispose() {
+        runner.dispose()
+    }
 
-  override fun dispose() {
-    runner.dispose()
-  }
-
-  fun disable() {
-    disabled = true
-  }
+    fun disable() {
+        disabled = true
+    }
 }

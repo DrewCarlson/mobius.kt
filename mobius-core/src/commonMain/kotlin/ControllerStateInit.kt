@@ -5,18 +5,18 @@ class ControllerStateInit<M, E>(
     private var nextModelToStartFrom: M
 ) : ControllerStateBase<M, E>() {
 
-  override val stateName: String
-    get() = "init"
+    override val stateName: String
+        get() = "init"
 
-  override fun onConnect(view: Connectable<M, E>) {
-    actions.goToStateCreated(view, nextModelToStartFrom)
-  }
+    override fun onConnect(view: Connectable<M, E>) {
+        actions.goToStateCreated(view, nextModelToStartFrom)
+    }
 
-  override fun onReplaceModel(model: M) {
-    nextModelToStartFrom = model
-  }
+    override fun onReplaceModel(model: M) {
+        nextModelToStartFrom = model
+    }
 
-  override fun onGetModel(): M {
-    return nextModelToStartFrom
-  }
+    override fun onGetModel(): M {
+        return nextModelToStartFrom
+    }
 }

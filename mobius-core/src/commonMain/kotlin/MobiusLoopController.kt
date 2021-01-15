@@ -9,89 +9,89 @@ class MobiusLoopController<M, E, F>(
     private val defaultModel: M,
     private val mainThreadRunner: WorkRunner
 ) : MobiusLoop.Controller<M, E>, ControllerActions<M, E> {
-  private object LOCK
+    private object LOCK
 
-  private var currentState: ControllerStateBase<M, E>? = null
+    private var currentState: ControllerStateBase<M, E>? = null
 
-  override val isRunning: Boolean
-    get() = mpp.synchronized(LOCK) {
-      currentState!!.isRunning
+    override val isRunning: Boolean
+        get() = mpp.synchronized(LOCK) {
+            currentState!!.isRunning
+        }
+
+    override val model: M
+        get() = mpp.synchronized(LOCK) {
+            currentState!!.onGetModel()
+        }
+
+    init {
+        goToStateInit(defaultModel)
     }
 
-  override val model: M
-    get() = mpp.synchronized(LOCK) {
-      currentState!!.onGetModel()
+    private fun dispatchEvent(event: E): Unit = mpp.synchronized(LOCK) {
+        currentState!!.onDispatchEvent(event)
     }
 
-  init {
-    goToStateInit(defaultModel)
-  }
+    private fun updateView(model: M): Unit = mpp.synchronized(LOCK) {
+        currentState!!.onUpdateView(model)
+    }
 
-  private fun dispatchEvent(event: E): Unit = mpp.synchronized(LOCK) {
-    currentState!!.onDispatchEvent(event)
-  }
+    override fun connect(view: Connectable<M, E>): Unit = mpp.synchronized(LOCK) {
+        currentState!!.onConnect(view)
+    }
 
-  private fun updateView(model: M): Unit = mpp.synchronized(LOCK) {
-    currentState!!.onUpdateView(model)
-  }
+    override fun disconnect(): Unit = mpp.synchronized(LOCK) {
+        currentState!!.onDisconnect()
+    }
 
-  override fun connect(view: Connectable<M, E>): Unit = mpp.synchronized(LOCK) {
-    currentState!!.onConnect(view)
-  }
+    override fun start(): Unit = mpp.synchronized(LOCK) {
+        currentState!!.onStart()
+    }
 
-  override fun disconnect(): Unit = mpp.synchronized(LOCK) {
-    currentState!!.onDisconnect()
-  }
+    override fun stop(): Unit = mpp.synchronized(LOCK) {
+        currentState!!.onStop()
+    }
 
-  override fun start(): Unit = mpp.synchronized(LOCK) {
-    currentState!!.onStart()
-  }
+    override fun replaceModel(model: M): Unit = mpp.synchronized(LOCK) {
+        currentState!!.onReplaceModel(model)
+    }
 
-  override fun stop(): Unit = mpp.synchronized(LOCK) {
-    currentState!!.onStop()
-  }
+    override fun postUpdateView(model: M) {
+        mainThreadRunner.post(
+            object : Runnable {
+                override fun run() {
+                    updateView(model)
+                }
+            })
+    }
 
-  override fun replaceModel(model: M): Unit = mpp.synchronized(LOCK) {
-    currentState!!.onReplaceModel(model)
-  }
+    override fun goToStateInit(nextModelToStartFrom: M): Unit = mpp.synchronized(LOCK) {
+        currentState = ControllerStateInit(this, nextModelToStartFrom)
+    }
 
-  override fun postUpdateView(model: M) {
-    mainThreadRunner.post(
-        object : Runnable {
-          override fun run() {
-            updateView(model)
-          }
-        })
-  }
+    override fun goToStateCreated(renderer: Connection<M>, nextModelToStartFrom: M?): Unit =
+        mpp.synchronized(LOCK) {
+            val nextModel = nextModelToStartFrom ?: defaultModel
+            currentState = ControllerStateCreated<M, E, F>(this, renderer, nextModel)
+        }
 
-  override fun goToStateInit(nextModelToStartFrom: M): Unit = mpp.synchronized(LOCK) {
-    currentState = ControllerStateInit(this, nextModelToStartFrom)
-  }
+    override fun goToStateCreated(view: Connectable<M, E>, nextModelToStartFrom: M) {
 
-  override fun goToStateCreated(renderer: Connection<M>, nextModelToStartFrom: M?): Unit =
-      mpp.synchronized(LOCK) {
-        val nextModel = nextModelToStartFrom ?: defaultModel
-        currentState = ControllerStateCreated<M, E, F>(this, renderer, nextModel)
-      }
+        val safeModelHandler = SafeConnectable(view)
 
-  override fun goToStateCreated(view: Connectable<M, E>, nextModelToStartFrom: M) {
+        val modelConnection = safeModelHandler.connect(
+            Consumer { event ->
+                dispatchEvent(event)
+            })
 
-    val safeModelHandler = SafeConnectable(view)
+        goToStateCreated(modelConnection, nextModelToStartFrom)
+    }
 
-    val modelConnection = safeModelHandler.connect(
-        Consumer { event ->
-          dispatchEvent(event)
-        })
+    override fun goToStateRunning(renderer: Connection<M>, nextModelToStartFrom: M): Unit =
+        mpp.synchronized(LOCK) {
+            val stateRunning = ControllerStateRunning(this, renderer, loopFactory, nextModelToStartFrom)
 
-    goToStateCreated(modelConnection, nextModelToStartFrom)
-  }
+            currentState = stateRunning
 
-  override fun goToStateRunning(renderer: Connection<M>, nextModelToStartFrom: M): Unit =
-      mpp.synchronized(LOCK) {
-        val stateRunning = ControllerStateRunning(this, renderer, loopFactory, nextModelToStartFrom)
-
-        currentState = stateRunning
-
-        stateRunning.start()
-      }
+            stateRunning.start()
+        }
 }
