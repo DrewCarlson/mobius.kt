@@ -64,8 +64,8 @@ repositories {
     maven { setUrl("http://oss.jfrog.org/artifactory/oss-snapshot-local") }
 }
 dependencies {
-    implementation 'kt.mobius:mobius-core:VERSION'
-    implementation 'kt.mobius:mobius-extras:VERSION'
-    implementation 'kt.mobius:mobius-android:VERSION'
+    implementation("kt.mobius:mobius-core:$MOBIUS_VERSION")
+    implementation("kt.mobius:mobius-extras:$MOBIUS_VERSION")
+    implementation("kt.mobius:mobius-android:$MOBIUS_VERSION")
 }
 ```
