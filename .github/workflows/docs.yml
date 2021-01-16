@@ -1,20 +1,14 @@
-name: Publish
+name: Docs
 
 on:
   create:
     branches: [ main ]
-  push:
-    branches: [ main ]
-
-env:
-  BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
-  BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
 
 jobs:
   gradle:
     strategy:
       matrix:
-        os: [ macos-latest, windows-latest ]
+        os: [ macos-latest ]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v1
@@ -23,7 +17,7 @@ jobs:
           java-version: 11
       - name: Cache Build files
         uses: actions/cache@v2
-        if: ${{ !startsWith(matrix.os, 'windows') }}
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
         with:
           path: |
             ~/.konan
@@ -31,10 +25,14 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}
       - uses: eskatos/gradle-command-action@v1
         name: Publish (macos)
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
         with:
-          arguments: clean publish
-        if: ${{ !startsWith(matrix.os, 'windows') }}
-      - name: Publish (windows)
-        shell: bash
-        run: ./gradlew clean publishWindowsPublicationToMavenRepository
-        if: ${{ startsWith(matrix.os, 'windows') }}
+          arguments: clean dokkaHtmlMultiModule
+      - name: Publish Docs
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: docs
+          FOLDER: build/dokka/html
+          SINGLE_COMMIT: true
