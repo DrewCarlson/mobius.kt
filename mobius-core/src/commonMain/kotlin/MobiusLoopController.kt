@@ -27,11 +27,11 @@ class MobiusLoopController<M, E, F>(
         goToStateInit(defaultModel)
     }
 
-    private fun dispatchEvent(event: E): Unit = mpp.synchronized(LOCK) {
+    private fun dispatchEvent(event: E) {
         currentState!!.onDispatchEvent(event)
     }
 
-    private fun updateView(model: M): Unit = mpp.synchronized(LOCK) {
+    private fun updateView(model: M) {
         currentState!!.onUpdateView(model)
     }
 

@@ -119,13 +119,13 @@ class MobiusLoop<M, E, F> private constructor(
                 error("This loop has already been disposed. You cannot observe a disposed loop")
             }
 
-            modelObservers.add(observer)
-
             val currentModel = mostRecentModel
             if (currentModel != null) {
                 // Start by emitting the most recently received model.
                 observer.accept(currentModel)
             }
+
+            modelObservers.add(observer)
         }
 
         return Disposable {
@@ -222,7 +222,6 @@ class MobiusLoop<M, E, F> private constructor(
     /**
      * Defines a controller that can be used to start and stop MobiusLoops.
      *
-     *
      * If a loop is stopped and then started again, the new loop will continue from where the last
      * one left off.
      */
@@ -245,14 +244,11 @@ class MobiusLoop<M, E, F> private constructor(
         /**
          * Connect a view to this controller.
          *
-         *
          * Must be called before [.start].
-         *
          *
          * The [Connectable] will be given an event consumer, which the view should use to send
          * events to the MobiusLoop. The view should also return a [Connection] that accepts
          * models and renders them. Disposing the connection should make the view stop emitting events.
-         *
          *
          * The view Connectable is guaranteed to only be connected once, so you don't have to check
          * for multiple connections or throw [ConnectionLimitExceededException].
