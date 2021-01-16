@@ -1,8 +1,9 @@
 # mobius.kt
 
-![Bintray](https://img.shields.io/bintray/v/drewcarlson/mobius.kt/mobius-core?color=blue)
+![Bintray](https://img.shields.io/bintray/v/drewcarlson/mobius.kt/mobius.kt?color=blue)
 ![](https://img.shields.io/maven-metadata/v?label=artifactory&logoColor=lightgrey&metadataUrl=https%3A%2F%2Foss.jfrog.org%2Fartifactory%2Foss-snapshot-local%2Fkt%2Fmobius%2Fmobius-core%2Fmaven-metadata.xml&color=lightgrey)
 ![](https://github.com/DrewCarlson/mobius.kt/workflows/Jvm/badge.svg)
+![](https://github.com/DrewCarlson/mobius.kt/workflows/Js/badge.svg)
 ![](https://github.com/DrewCarlson/mobius.kt/workflows/Native/badge.svg)
 
 Multiplatform Kotlin [Mobius](https://github.com/spotify/mobius) implementation.
@@ -54,7 +55,7 @@ Note the first build will take some time while it downloads all the necessary de
 
 Artifacts are available on [bintray](https://bintray.com/drewcarlson/mobius.kt).
 
-![Bintray](https://img.shields.io/badge/dynamic/json.svg?label=Bintray&query=name&style=flat&url=https%3A%2F%2Fbintray.com%2Fapi%2Fv1%2Fpackages%2Fdrewcarlson%2Fmobius.kt%2Fmobius-core%2Fversions%2F_latest)
+![Bintray](https://img.shields.io/badge/dynamic/json.svg?label=Bintray&query=name&style=flat&url=https%3A%2F%2Fbintray.com%2Fapi%2Fv1%2Fpackages%2Fdrewcarlson%2Fmobius.kt%2Fmobius.kt%2Fversions%2F_latest)
 
 ```kotlin
 repositories {
@@ -65,6 +66,6 @@ repositories {
 dependencies {
     implementation 'kt.mobius:mobius-core:VERSION'
     implementation 'kt.mobius:mobius-extras:VERSION'
-   implementation 'kt.mobius:mobius-android:VERSION'
+    implementation 'kt.mobius:mobius-android:VERSION'
 }
 ```
