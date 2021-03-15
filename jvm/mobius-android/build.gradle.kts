@@ -4,6 +4,8 @@ plugins {
     id("org.jetbrains.dokka")
 }
 
+apply(from = rootProject.file("gradle/publishing.gradle.kts"))
+
 android {
     compileSdkVersion(28)
     defaultConfig {

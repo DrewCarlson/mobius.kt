@@ -7,8 +7,10 @@ on:
     branches: [ main ]
 
 env:
-  BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
-  BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
+  ORG_GRADLE_PROJECT_signingKey: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY }}
+  ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
+  ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.ORG_GRADLE_PROJECT_SONATYPEPASSWORD }}
+  ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.ORG_GRADLE_PROJECT_SONATYPEUSERNAME }}
 
 jobs:
   gradle:
