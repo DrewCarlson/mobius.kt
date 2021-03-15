@@ -1,7 +1,6 @@
 # mobius.kt
 
-![Bintray](https://img.shields.io/bintray/v/drewcarlson/mobius.kt/mobius.kt?color=blue)
-![](https://img.shields.io/maven-metadata/v?label=artifactory&logoColor=lightgrey&metadataUrl=https%3A%2F%2Foss.jfrog.org%2Fartifactory%2Foss-snapshot-local%2Fkt%2Fmobius%2Fmobius-core%2Fmaven-metadata.xml&color=lightgrey)
+![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/mobius-core-jvm?label=maven&color=blue)
 ![](https://github.com/DrewCarlson/mobius.kt/workflows/Jvm/badge.svg)
 ![](https://github.com/DrewCarlson/mobius.kt/workflows/Js/badge.svg)
 ![](https://github.com/DrewCarlson/mobius.kt/workflows/Native/badge.svg)
@@ -43,6 +42,9 @@ Note the first build will take some time while it downloads all the necessary de
 
 ## Download
 
+![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/mobius-core-jvm?label=maven&color=blue)
+![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/org.drewcarlson/mobius-core-jvm?server=https%3A%2F%2Fs01.oss.sonatype.org)
+
 ![](https://img.shields.io/static/v1?label=&message=Platforms&color=grey)
 ![](https://img.shields.io/static/v1?label=&message=Js&color=blue)
 ![](https://img.shields.io/static/v1?label=&message=Jvm&color=blue)
@@ -51,21 +53,17 @@ Note the first build will take some time while it downloads all the necessary de
 ![](https://img.shields.io/static/v1?label=&message=Windows&color=blue)
 ![](https://img.shields.io/static/v1?label=&message=iOS&color=blue)
 ![](https://img.shields.io/static/v1?label=&message=tvOS&color=blue)
-![](https://img.shields.io/static/v1?label=&message=watchOS&color=blue)
-
-Artifacts are available on [bintray](https://bintray.com/drewcarlson/mobius.kt).
-
-![Bintray](https://img.shields.io/badge/dynamic/json.svg?label=Bintray&query=name&style=flat&url=https%3A%2F%2Fbintray.com%2Fapi%2Fv1%2Fpackages%2Fdrewcarlson%2Fmobius.kt%2Fmobius.kt%2Fversions%2F_latest)
+![](https://img.shields.io/static/v1?label=&message=watchOS&color=red)
 
 ```kotlin
 repositories {
-    jcenter()
-    // Or snapshots
-    maven { setUrl("http://oss.jfrog.org/artifactory/oss-snapshot-local") }
+  mavenCentral()
+  // Or snapshots
+  maven(url = "https://s01.oss.sonatype.org/content/repositories/snapshots/")
 }
 dependencies {
-    implementation("kt.mobius:mobius-core:$MOBIUS_VERSION")
-    implementation("kt.mobius:mobius-extras:$MOBIUS_VERSION")
-    implementation("kt.mobius:mobius-android:$MOBIUS_VERSION")
+  implementation("org.drewcarlson:mobius-core:$MOBIUS_VERSION")
+  implementation("org.drewcarlson:mobius-extras:$MOBIUS_VERSION")
+  implementation("org.drewcarlson:mobius-android:$MOBIUS_VERSION")
 }
 ```
