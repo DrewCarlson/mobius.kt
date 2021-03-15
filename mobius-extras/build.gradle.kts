@@ -1,13 +1,12 @@
 plugins {
     kotlin("multiplatform")
-    id("org.jetbrains.dokka")
 }
 
 apply(from = "../gradle/publishing.gradle.kts")
 
 kotlin {
     ios()
-    watchos()
+    //watchos()
     tvos()
     macosX64("macos")
     linuxX64("linux")

@@ -1,7 +1,6 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
-    id("org.jetbrains.dokka")
 }
 
 apply(from = rootProject.file("gradle/publishing.gradle.kts"))
@@ -17,17 +16,19 @@ android {
 
     sourceSets {
         getByName("main") {
-            java.srcDirs("src/main/kotlin")
             manifest.srcFile("src/main/AndroidManifest.xml")
         }
     }
 }
 
 kotlin {
-    android()
+    android {
+        publishAllLibraryVariants()
+    }
 
     sourceSets {
         val androidMain by getting {
+            kotlin.srcDir("src/main/kotlin")
             dependencies {
                 implementation(project(":mobius-core"))
             }

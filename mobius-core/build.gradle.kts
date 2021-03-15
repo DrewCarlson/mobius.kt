@@ -1,6 +1,5 @@
 plugins {
     kotlin("multiplatform")
-    id("org.jetbrains.dokka")
 }
 
 val guava_version: String by ext
@@ -22,7 +21,7 @@ kotlin {
     }
 
     ios()
-    watchos()
+    //watchos()
     tvos()
 
     val nativeTargets = listOf(
@@ -32,7 +31,7 @@ kotlin {
         tvosArm64(),
         watchosArm32(),
         watchosArm64(),
-        watchosX86(),
+        //watchosX86(),
         macosX64("macos"),
         linuxX64("linux"),
         mingwX64("windows")
