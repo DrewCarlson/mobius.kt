@@ -33,13 +33,15 @@ task<Jar>("javadocJar") {
     archiveClassifier.set("javadoc")
 }
 
-task<Jar>("sourcesJar") {
-    archiveClassifier.set("sources")
-    afterEvaluate {
-        if (isAndroidLibrary) {
-            //from(android.sourceSets["main"].java.srcDirs)
-        } else {
-            //from(sourceSets["main"].allSource)
+if (tasks.none { it.name == "sourcesJar" }) {
+    task<Jar>("sourcesJar") {
+        archiveClassifier.set("sources")
+        afterEvaluate {
+            if (isAndroidLibrary) {
+                //from(android.sourceSets["main"].java.srcDirs)
+            } else {
+                //from(sourceSets["main"].allSource)
+            }
         }
     }
 }
