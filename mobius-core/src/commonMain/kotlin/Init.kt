@@ -1,5 +1,7 @@
 package kt.mobius
 
+import kotlin.js.JsName
+
 /**
  * An interface representing the Init function used by Mobius for starting or resuming execution of
  * a program from a given model.
@@ -9,18 +11,9 @@ package kt.mobius
  * side-effects. This means that given the same arguments, the function must always return the same
  * [First].
  */
-interface Init<M, F> {
-    companion object {
-        inline operator fun <M, F> invoke(crossinline init: (model: M) -> First<M, F>): Init<M, F> {
-            return object : Init<M, F> {
-                override fun init(model: M): First<M, F> {
-                    return init(model)
-                }
-            }
-        }
-    }
+fun interface Init<M, F> {
 
-    @mpp.JsName("init")
+    @JsName("init")
     fun init(model: M): First<M, F>
 
     operator fun invoke(model: M): First<M, F> {

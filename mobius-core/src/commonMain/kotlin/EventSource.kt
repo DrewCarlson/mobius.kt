@@ -2,6 +2,7 @@ package kt.mobius
 
 import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
+import kotlin.js.JsName
 
 /**
  * Interface for event sources.
@@ -14,17 +15,7 @@ import kt.mobius.functions.Consumer
  *
  * @param [E] the event class
  */
-interface EventSource<E> {
-
-    companion object {
-        inline operator fun <E> invoke(crossinline subscribe: (Consumer<E>) -> Disposable): EventSource<E> {
-            return object : EventSource<E> {
-                override fun subscribe(eventConsumer: Consumer<E>): Disposable {
-                    return subscribe(eventConsumer)
-                }
-            }
-        }
-    }
+fun interface EventSource<E> {
 
     /**
      * Subscribes the supplied consumer to the events from this event source, until the returned
@@ -34,6 +25,6 @@ interface EventSource<E> {
      * @param eventConsumer the consumer that should receive events from the source
      * @return a disposable used to stop the source from emitting any more events to this consumer
      */
-    @mpp.JsName("subscribe")
+    @JsName("subscribe")
     fun subscribe(eventConsumer: Consumer<E>): Disposable
 }

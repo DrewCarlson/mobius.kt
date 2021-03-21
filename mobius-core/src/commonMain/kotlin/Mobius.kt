@@ -6,6 +6,8 @@ import kt.mobius.functions.Producer
 import kt.mobius.runners.DefaultWorkRunners
 import kt.mobius.runners.ImmediateWorkRunner
 import kt.mobius.runners.WorkRunner
+import kotlin.js.JsName
+import kotlin.jvm.JvmStatic
 
 object Mobius {
     private object NOOP_INIT : Init<Any, Any> {
@@ -58,8 +60,8 @@ object Mobius {
      * @return a [MobiusLoop.Builder] instance that you can further configure before starting the loop
      */
     @Suppress("UNCHECKED_CAST")
-    @mpp.JvmStatic
-    @mpp.JsName("loop")
+    @JvmStatic
+    @JsName("loop")
     fun <M, E, F> loop(
         update: Update<M, E, F>,
         effectHandler: Connectable<F, E>
@@ -83,8 +85,8 @@ object Mobius {
      * @param defaultModel the model the controller should start from
      * @return a new controller
      */
-    @mpp.JvmStatic
-    @mpp.JsName("controller")
+    @JvmStatic
+    @JsName("controller")
     fun <M, E, F> controller(loopFactory: MobiusLoop.Factory<M, E, F>, defaultModel: M): MobiusLoop.Controller<M, E> {
         return MobiusLoopController(loopFactory, defaultModel, ImmediateWorkRunner())
     }
@@ -97,8 +99,8 @@ object Mobius {
      * @param modelRunner the WorkRunner to use when observing model changes
      * @return a new controller
      */
-    @mpp.JvmStatic
-    @mpp.JsName("controllerWithModelRunner")
+    @JvmStatic
+    @JsName("controllerWithModelRunner")
     fun <M, E, F> controller(
         loopFactory: MobiusLoop.Factory<M, E, F>,
         defaultModel: M,

@@ -3,6 +3,8 @@ package kt.mobius.extras
 import kt.mobius.Connectable
 import kt.mobius.Connection
 import kt.mobius.functions.Consumer
+import kotlin.js.JsName
+import kotlin.jvm.JvmStatic
 
 /**
  * Creates a [Connectable] that delegates connection creation to [effectHandlers]
@@ -13,8 +15,8 @@ class CompositeEffectHandler<I, O> private constructor(
 ) : Connectable<I, O> {
 
     companion object {
-        @mpp.JvmStatic
-        @mpp.JsName("from")
+        @JvmStatic
+        @JsName("from")
         fun <I, O> from(vararg effectHandlers: Connectable<I, O>) =
             CompositeEffectHandler(effectHandlers)
     }

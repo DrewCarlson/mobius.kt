@@ -2,6 +2,8 @@ package kt.mobius
 
 import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
+import kotlin.js.JsName
+import kotlin.jvm.JvmStatic
 
 /**
  * An [EventSource] that merges multiple sources into one
@@ -18,18 +20,16 @@ class MergedEventSource<E> private constructor(
             disposables.add(eventSource.subscribe(eventConsumer))
         }
 
-        return object : Disposable {
-            override fun dispose() {
-                for (disposable in disposables) {
-                    disposable.dispose()
-                }
+        return Disposable {
+            for (disposable in disposables) {
+                disposable.dispose()
             }
         }
     }
 
     companion object {
-        @mpp.JvmStatic
-        @mpp.JsName("from")
+        @JvmStatic
+        @JsName("from")
         fun <E> from(vararg eventSources: EventSource<E>): EventSource<E> {
             val allSources = ArrayList<EventSource<E>>()
             allSources.addAll(eventSources)

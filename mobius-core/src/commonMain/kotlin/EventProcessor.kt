@@ -1,6 +1,7 @@
 package kt.mobius
 
 import kt.mobius.functions.Consumer
+import kotlin.js.JsName
 
 /**
  * Processes events and emits effects and models as a result of that.
@@ -73,7 +74,7 @@ class EventProcessor<M, E, F> internal constructor(
      */
     data class Factory<M, E, F>(val store: MobiusStore<M, E, F>) {
 
-        @mpp.JsName("create")
+        @JsName("create")
         fun create(effectConsumer: Consumer<F>, modelConsumer: Consumer<M>): EventProcessor<M, E, F> {
             return EventProcessor(store, effectConsumer, modelConsumer)
         }

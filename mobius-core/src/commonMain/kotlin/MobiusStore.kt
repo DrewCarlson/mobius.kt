@@ -1,5 +1,7 @@
 package kt.mobius
 
+import kotlin.jvm.JvmStatic
+
 /** Responsible for holding and updating the current model. */
 class MobiusStore<M, E, F> internal constructor(
     private val init: Init<M, F>,
@@ -23,7 +25,7 @@ class MobiusStore<M, E, F> internal constructor(
     }
 
     companion object {
-        @mpp.JvmStatic
+        @JvmStatic
         fun <M, E, F> create(init: Init<M, F>, update: Update<M, E, F>, startModel: M): MobiusStore<M, E, F> {
             return MobiusStore(init, update, startModel)
         }

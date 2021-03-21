@@ -5,16 +5,7 @@ package kt.mobius.disposables
  * be released when the object is no longer needed. The dispose method is invoked to release
  * resources that the object is holding.
  */
-interface Disposable {
-    companion object {
-        inline operator fun invoke(crossinline dispose: () -> Unit): Disposable {
-            return object : Disposable {
-                override fun dispose() {
-                    dispose()
-                }
-            }
-        }
-    }
+fun interface Disposable {
 
     /**
      * Dispose of all resources associated with this object.

@@ -1,6 +1,9 @@
 package kt.mobius
 
 import kt.mobius.functions.Consumer
+import kotlin.js.JsName
+import kotlin.jvm.JvmOverloads
+import kotlin.jvm.JvmStatic
 
 /**
  * This class represents the result of calling an [Update] function.
@@ -30,7 +33,7 @@ class Next<M, F> internal constructor(
      *
      * @param fallbackModel the default model to use if the Next doesn't have a model
      */
-    @mpp.JsName("modelOrElse")
+    @JsName("modelOrElse")
     fun modelOrElse(fallbackModel: M): M {
         return if (hasModel()) {
             modelUnsafe()
@@ -56,7 +59,7 @@ class Next<M, F> internal constructor(
     }
 
     /** If the model is present, call the given consumer with it, otherwise do nothing.  */
-    @mpp.JsName("ifHasModel")
+    @JsName("ifHasModel")
     fun ifHasModel(consumer: Consumer<M>) {
         if (hasModel()) {
             consumer.accept(modelUnsafe())
@@ -81,22 +84,22 @@ class Next<M, F> internal constructor(
 
     companion object {
         /** Create a Next that updates the model and dispatches the optional set of effects. */
-        @mpp.JvmStatic
-        @mpp.JvmOverloads
-        @mpp.JsName("next")
+        @JvmStatic
+        @JvmOverloads
+        @JsName("next")
         fun <M, F> next(model: M, effects: Set<F> = emptySet()): Next<M, F> {
             return Next(model, effects.toSet())
         }
 
         /** Create a Next that doesn't update the model but dispatches the supplied effects. */
-        @mpp.JvmStatic
-        @mpp.JsName("dispatch")
+        @JvmStatic
+        @JsName("dispatch")
         fun <M, F> dispatch(effects: Set<F>): Next<M, F> {
             return Next(null, effects.toSet())
         }
 
         /** Create an empty Next that doesn't update the model or dispatch effects. */
-        @mpp.JvmStatic
+        @JvmStatic
         fun <M, F> noChange(): Next<M, F> {
             return Next(null, emptySet())
         }

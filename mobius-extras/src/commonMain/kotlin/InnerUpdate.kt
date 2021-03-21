@@ -7,7 +7,7 @@ import kt.mobius.Next.Companion.noChange
 import kt.mobius.Update
 import kt.mobius.functions.BiFunction
 import kt.mobius.functions.Function
-import mpp.JvmStatic
+import kotlin.jvm.JvmStatic
 
 /**
  * Helper class for putting an update function inside another update function.

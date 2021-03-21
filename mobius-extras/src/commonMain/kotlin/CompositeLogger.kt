@@ -3,6 +3,8 @@ package kt.mobius.extras
 import kt.mobius.First
 import kt.mobius.MobiusLoop.Logger
 import kt.mobius.Next
+import kotlin.js.JsName
+import kotlin.jvm.JvmStatic
 
 /**
  * A [Logger] that delegates all logging to a list of provided loggers. Useful if you have
@@ -43,8 +45,8 @@ class CompositeLogger<M, E, F> private constructor(
 
     companion object {
 
-        @mpp.JvmStatic
-        @mpp.JsName("from")
+        @JvmStatic
+        @JsName("from")
         fun <M, E, F> from(vararg loggers: Logger<M, E, F>): Logger<M, E, F> {
             return CompositeLogger(loggers.toList())
         }

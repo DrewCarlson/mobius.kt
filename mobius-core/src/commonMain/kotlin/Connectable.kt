@@ -1,6 +1,7 @@
 package kt.mobius
 
 import kt.mobius.functions.Consumer
+import kotlin.js.JsName
 
 /**
  * API for something that can be connected to be part of a [MobiusLoop].
@@ -18,17 +19,7 @@ import kt.mobius.functions.Consumer
  * @param I the incoming value type
  * @param O the outgoing value type
  */
-interface Connectable<I, O> {
-
-    companion object {
-        inline operator fun <I, O> invoke(crossinline connect: (output: Consumer<O>) -> Connection<I>): Connectable<I, O> {
-            return object : Connectable<I, O> {
-                override fun connect(output: Consumer<O>): Connection<I> {
-                    return connect(output)
-                }
-            }
-        }
-    }
+fun interface Connectable<I, O> {
 
     /**
      * Create a new connection that accepts input values and sends outgoing values to a supplied
@@ -51,6 +42,6 @@ interface Connectable<I, O> {
      * connections to this Connectable; this should be caused by incorrect usage of the
      * Connectable, and is considered an irrecoverable error
      */
-    @mpp.JsName("connect")
+    @JsName("connect")
     fun connect(output: Consumer<O>): Connection<I>
 }

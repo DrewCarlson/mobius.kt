@@ -1,15 +1,10 @@
 package kt.mobius.functions
 
+import kotlin.js.JsName
+
 /** Interface for simple functions.  */
-interface Function<T, R> {
+fun interface Function<T, R> {
 
-    companion object {
-        inline operator fun <T, R> invoke(crossinline function: (T) -> R) =
-            object : Function<T, R> {
-                override fun apply(value: T): R = function(value)
-            }
-    }
-
-    @mpp.JsName("apply")
+    @JsName("apply")
     fun apply(value: T): R
 }

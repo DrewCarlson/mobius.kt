@@ -1,5 +1,8 @@
 package kt.mobius.disposables
 
+import kotlin.js.JsName
+import kotlin.jvm.JvmStatic
+
 /** A [Disposable] that disposes of other disposables. */
 class CompositeDisposable private constructor(disposables: Array<out Disposable>) : Disposable {
     private object LOCK
@@ -20,8 +23,8 @@ class CompositeDisposable private constructor(disposables: Array<out Disposable>
          * @param disposables disposables to be disposed of
          * @return a Disposable that mass-disposes of the provided disposables
          */
-        @mpp.JvmStatic
-        @mpp.JsName("from")
+        @JvmStatic
+        @JsName("from")
         fun from(vararg disposables: Disposable): Disposable = CompositeDisposable(disposables)
     }
 }

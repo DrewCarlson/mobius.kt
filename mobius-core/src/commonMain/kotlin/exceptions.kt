@@ -1,5 +1,7 @@
 package kt.mobius
 
+import kotlin.jvm.JvmOverloads
+
 /**
  * Indicates that a [Connectable] connection caused an unhandled exception.
  *
@@ -30,7 +32,7 @@ class ConnectionException(
  * Exception to be thrown by a [Connectable] that doesn't support multiple simultaneous
  * connections.
  */
-class ConnectionLimitExceededException @mpp.JvmOverloads constructor(
+class ConnectionLimitExceededException @JvmOverloads constructor(
     message: String? = null,
     throwable: Throwable? = null
 ) : RuntimeException(message, throwable)

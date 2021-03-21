@@ -5,6 +5,8 @@ import kt.mobius.functions.Consumer
 import kt.mobius.functions.Producer
 import kt.mobius.runners.Runnable
 import kt.mobius.runners.WorkRunner
+import kotlin.js.JsName
+import kotlin.jvm.JvmStatic
 import kotlin.jvm.Synchronized
 import kotlin.jvm.Volatile
 
@@ -25,8 +27,8 @@ class MobiusLoop<M, E, F> private constructor(
 
     companion object {
 
-        @mpp.JvmStatic
-        @mpp.JsName("create")
+        @JvmStatic
+        @JsName("create")
         fun <M, E, F> create(
             store: MobiusStore<M, E, F>,
             effectHandler: Connectable<F, E>,
@@ -77,11 +79,7 @@ class MobiusLoop<M, E, F> private constructor(
     private var disposed: Boolean = false
 
     init {
-        val eventConsumer = object : Consumer<E> {
-            override fun accept(event: E) {
-                dispatchEvent(event)
-            }
-        }
+        val eventConsumer = Consumer<E> { event -> dispatchEvent(event) }
 
         this.effectConsumer = effectHandler.connect(eventConsumer)
         this.eventSourceDisposable = eventSource.subscribe(eventConsumer)
@@ -167,7 +165,7 @@ class MobiusLoop<M, E, F> private constructor(
          * @return a new [Builder] with the supplied [Init], and the same values as the
          * current one for the other fields.
          */
-        @mpp.JsName("init")
+        @JsName("init")
         fun init(init: Init<M, F>): Builder<M, E, F>
 
         /**
@@ -176,35 +174,35 @@ class MobiusLoop<M, E, F> private constructor(
          * [EventSource] with the supplied one. If you want to pass multiple event sources,
          * please use [.eventSources].
          */
-        @mpp.JsName("eventSource")
+        @JsName("eventSource")
         fun eventSource(eventSource: EventSource<E>): Builder<M, E, F>
 
         /**
          * @return a new [Builder] with an [EventSource] that merges the supplied event
          * sources, and the same values as the current one for the other fields.
          */
-        @mpp.JsName("eventSources")
+        @JsName("eventSources")
         fun eventSources(vararg eventSources: EventSource<E>): Builder<M, E, F>
 
         /**
          * @return a new [Builder] with the supplied logger, and the same values as the current
          * one for the other fields.
          */
-        @mpp.JsName("logger")
+        @JsName("logger")
         fun logger(logger: Logger<M, E, F>): Builder<M, E, F>
 
         /**
          * @return a new [Builder] with the supplied event runner, and the same values as the
          * current one for the other fields.
          */
-        @mpp.JsName("eventRunner")
+        @JsName("eventRunner")
         fun eventRunner(eventRunner: Producer<WorkRunner>): Builder<M, E, F>
 
         /**
          * @return a new [Builder] with the supplied effect runner, and the same values as the
          * current one for the other fields.
          */
-        @mpp.JsName("effectRunner")
+        @JsName("effectRunner")
         fun effectRunner(effectRunner: Producer<WorkRunner>): Builder<M, E, F>
     }
 
@@ -215,7 +213,7 @@ class MobiusLoop<M, E, F> private constructor(
          * @param startModel the model that the loop should start from
          * @return the started [MobiusLoop]
          */
-        @mpp.JsName("startFrom")
+        @JsName("startFrom")
         fun startFrom(startModel: M): MobiusLoop<M, E, F>
     }
 
@@ -256,7 +254,7 @@ class MobiusLoop<M, E, F> private constructor(
          * @throws IllegalStateException if the loop is running or if the controller already is
          * connected
          */
-        @mpp.JsName("connect")
+        @JsName("connect")
         fun connect(view: Connectable<M, E>)
 
         /**
@@ -290,7 +288,7 @@ class MobiusLoop<M, E, F> private constructor(
          * @param model the model with the state the controller should start from
          * @throws IllegalStateException if the loop is running
          */
-        @mpp.JsName("replaceModel")
+        @JsName("replaceModel")
         fun replaceModel(model: M)
     }
 
@@ -305,7 +303,7 @@ class MobiusLoop<M, E, F> private constructor(
          *
          * @param model the model that will be passed to the init function
          */
-        @mpp.JsName("beforeInit")
+        @JsName("beforeInit")
         fun beforeInit(model: M)
 
         /**
@@ -318,7 +316,7 @@ class MobiusLoop<M, E, F> private constructor(
          * @param model the model that was passed to init
          * @param result the [First] that init returned
          */
-        @mpp.JsName("afterInit")
+        @JsName("afterInit")
         fun afterInit(model: M, result: First<M, F>)
 
         /**
@@ -328,7 +326,7 @@ class MobiusLoop<M, E, F> private constructor(
          * @param model the model object that led to the exception
          * @param exception the thrown exception
          */
-        @mpp.JsName("exceptionDuringInit")
+        @JsName("exceptionDuringInit")
         fun exceptionDuringInit(model: M, exception: Throwable)
 
         /**
@@ -341,7 +339,7 @@ class MobiusLoop<M, E, F> private constructor(
          * @param model the model that will be passed to the update function
          * @param event the event that will be passed to the update function
          */
-        @mpp.JsName("beforeUpdate")
+        @JsName("beforeUpdate")
         fun beforeUpdate(model: M, event: E)
 
         /**
@@ -355,7 +353,7 @@ class MobiusLoop<M, E, F> private constructor(
          * @param event the event that was passed to update
          * @param result the [Next] that update returned
          */
-        @mpp.JsName("afterUpdate")
+        @JsName("afterUpdate")
         fun afterUpdate(model: M, event: E, result: Next<M, F>)
 
         /**
@@ -365,7 +363,7 @@ class MobiusLoop<M, E, F> private constructor(
          * @param model the model object that led to the exception
          * @param exception the thrown exception
          */
-        @mpp.JsName("exceptionDuringUpdate")
+        @JsName("exceptionDuringUpdate")
         fun exceptionDuringUpdate(model: M, event: E, exception: Throwable)
     }
 }

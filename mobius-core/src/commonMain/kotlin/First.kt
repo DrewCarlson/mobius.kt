@@ -1,5 +1,9 @@
 package kt.mobius
 
+import kotlin.js.JsName
+import kotlin.jvm.JvmOverloads
+import kotlin.jvm.JvmStatic
+
 /** Defines the entry into the initial state of a Mobius loop. */
 class First<M, F> internal constructor(
     /** the initial model to use */
@@ -35,9 +39,9 @@ class First<M, F> internal constructor(
          * @param [M] the model type
          * @param [F] the effect type
          */
-        @mpp.JvmStatic
-        @mpp.JvmOverloads
-        @mpp.JsName("first")
+        @JvmStatic
+        @JvmOverloads
+        @JsName("first")
         fun <M, F> first(model: M, effects: Set<F> = emptySet()): First<M, F> {
             return First(model, effects)
         }
