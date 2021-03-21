@@ -2,10 +2,12 @@ rootProject.name = "mobiuskt"
 
 enableFeaturePreview("GRADLE_METADATA")
 
-include(":mobius-core")
-include(":mobius-extras")
-
-include(":jvm:mobius-android")
+include(
+    ":mobius-core",
+    ":mobius-extras",
+    ":mobius-internal",
+    ":jvm:mobius-android"
+)
 
 // Samples
 //include ":samples:todo:todo-common"

@@ -2,27 +2,20 @@ plugins {
     kotlin("multiplatform")
 }
 
-val guava_version: String by ext
-val awaitality_version: String by ext
-
 apply(from = "../gradle/publishing.gradle.kts")
 
 kotlin {
-    jvm()
-    js(BOTH) {
-        nodejs()
-        browser {
-            testTask {
-                useKarma {
-                    useChromeHeadless()
-                }
-            }
-        }
-    }
-
     ios()
     //watchos()
     tvos()
+    macosX64("macos")
+    linuxX64("linux")
+    mingwX64("windows")
+    jvm()
+    js(BOTH) {
+        nodejs()
+        browser()
+    }
 
     val nativeTargets = listOf(
         iosX64(),
@@ -43,11 +36,9 @@ kotlin {
             }
         }
     }
-
     sourceSets {
-        named("commonMain") {
+        val commonMain by getting {
             dependencies {
-                implementation(project(":mobius-internal"))
             }
         }
 
@@ -62,8 +53,6 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
-                implementation("com.google.guava:guava:$guava_version")
-                implementation("org.awaitility:awaitility:$awaitality_version")
             }
         }
 
