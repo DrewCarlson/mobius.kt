@@ -17,8 +17,13 @@ class CompositeEffectHandler<I, O> private constructor(
     companion object {
         @JvmStatic
         @JsName("from")
-        fun <I, O> from(vararg effectHandlers: Connectable<I, O>) =
+        fun <I, O> from(vararg effectHandlers: Connectable<I, O>): Connectable<I, O> =
             CompositeEffectHandler(effectHandlers)
+
+        @JvmStatic
+        @JsName("fromList")
+        fun <I, O> from(effectHandlers: List<Connectable<I, O>>): Connectable<I, O> =
+            CompositeEffectHandler(effectHandlers.toTypedArray())
     }
 
     override fun connect(output: Consumer<O>): Connection<I> {
