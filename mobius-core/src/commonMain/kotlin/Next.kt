@@ -83,7 +83,8 @@ class Next<M, F> internal constructor(
     }
 
     companion object {
-        /** Create a Next that updates the model and dispatches the optional set of effects. */
+
+        /** Create a Next that updates the model and dispatches the optional effects. */
         @JvmStatic
         @JvmOverloads
         @JsName("next")
@@ -91,10 +92,22 @@ class Next<M, F> internal constructor(
             return Next(model, effects.toSet())
         }
 
+        /** Create a Next that updates the model and dispatches the optional effects. */
+        @JvmStatic
+        fun <M, F> next(model: M, vararg effects: F): Next<M, F> {
+            return Next(model, effects.toSet())
+        }
+
         /** Create a Next that doesn't update the model but dispatches the supplied effects. */
         @JvmStatic
         @JsName("dispatch")
         fun <M, F> dispatch(effects: Set<F>): Next<M, F> {
+            return Next(null, effects)
+        }
+
+        /** Create a Next that doesn't update the model but dispatches the supplied effects. */
+        @JvmStatic
+        fun <M, F> dispatch(vararg effects: F): Next<M, F> {
             return Next(null, effects.toSet())
         }
 
