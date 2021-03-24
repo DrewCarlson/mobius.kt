@@ -45,5 +45,17 @@ class First<M, F> internal constructor(
         fun <M, F> first(model: M, effects: Set<F> = emptySet()): First<M, F> {
             return First(model, effects)
         }
+
+        /**
+         * Create a [First] with the provided model and the optional initial effects.
+         *
+         * @param model the model to initialize the loop with
+         * @param [M] the model type
+         * @param [F] the effect type
+         */
+        @JvmStatic
+        fun <M, F> first(model: M, vararg effects: F): First<M, F> {
+            return First(model, effects.toSet())
+        }
     }
 }
