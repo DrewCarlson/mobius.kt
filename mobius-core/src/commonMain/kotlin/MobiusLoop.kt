@@ -58,14 +58,14 @@ class MobiusLoop<M, E, F> private constructor(
         }
     })
 
-    private val eventProcessor = eventProcessorFactory.create(effectDispatcher, Consumer { model ->
+    private val eventProcessor = eventProcessorFactory.create(effectDispatcher) { model ->
         mpp.synchronized(modelObservers) {
             mostRecentModel = model
             for (observer in modelObservers) {
                 observer.accept(model)
             }
         }
-    })
+    }
     private val effectConsumer: Connection<F>
     private val eventSourceDisposable: Disposable
 
@@ -79,7 +79,7 @@ class MobiusLoop<M, E, F> private constructor(
     private var disposed: Boolean = false
 
     init {
-        val eventConsumer = Consumer<E> { event -> dispatchEvent(event) }
+        val eventConsumer: Consumer<E> = Consumer { event -> dispatchEvent(event) }
 
         this.effectConsumer = effectHandler.connect(eventConsumer)
         this.eventSourceDisposable = eventSource.subscribe(eventConsumer)
