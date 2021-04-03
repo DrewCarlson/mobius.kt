@@ -9,6 +9,8 @@ include(
     ":jvm:mobius-android"
 )
 
+include(":mobiuskt-coroutines")
+
 // Samples
 //include ":samples:todo:todo-common"
 //include ":samples:todo:todo-ios"
