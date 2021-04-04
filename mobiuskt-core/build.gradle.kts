@@ -32,6 +32,7 @@ kotlin {
         watchosArm32(),
         watchosArm64(),
         watchosX86(),
+        watchosX64(),
         macosX64("macos"),
         linuxX64("linux"),
         mingwX64("windows")
