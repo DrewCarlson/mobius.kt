@@ -6,7 +6,7 @@ apply(from = "../gradle/publishing.gradle.kts")
 
 kotlin {
     ios()
-    //watchos()
+    watchos()
     tvos()
     macosX64("macos")
     linuxX64("linux")
@@ -24,7 +24,7 @@ kotlin {
         tvosArm64(),
         watchosArm32(),
         watchosArm64(),
-        //watchosX86(),
+        watchosX86(),
         macosX64("macos"),
         linuxX64("linux"),
         mingwX64("windows")

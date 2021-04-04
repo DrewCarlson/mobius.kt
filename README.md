@@ -1,6 +1,6 @@
 # Mobius.kt
 
-![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/mobiuskt-core-jvm?label=maven&color=blue)
+[![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/mobiuskt-core-jvm?label=maven&color=blue)](https://search.maven.org/search?q=g:org.drewcarlson%20a:mobiuskt-*)
 ![](https://github.com/DrewCarlson/mobius.kt/workflows/Jvm/badge.svg)
 ![](https://github.com/DrewCarlson/mobius.kt/workflows/Js/badge.svg)
 ![](https://github.com/DrewCarlson/mobius.kt/workflows/Native/badge.svg)
@@ -25,7 +25,7 @@ In a Spotify context, there is usually one loop per feature such as “the album
 'Pure' in the diagram refers to pure functions, functions whose output only depends on their inputs, and whose execution has no observable side effects.
  See [Pure vs Impure Functions](https://github.com/spotify/mobius/wiki/Pure-vs-Impure-Functions) for more details.
 
-_(Source: [Concepts > Mobius Loop](https://github.com/spotify/mobius/wiki/Concepts/53777574e070e168f2c3bdebc1be544edfcee2cf#mobius-loop))_
+_(Source: [Spotify/Mobius](https://github.com/spotify/mobius/) - [Concepts > Mobius Loop](https://github.com/spotify/mobius/wiki/Concepts/53777574e070e168f2c3bdebc1be544edfcee2cf#mobius-loop))_
 
 By combining this concept with Kotlin's MPP features, mobius.kt allows you to write and test all of your pure functions (application and/or business logic) in Kotlin and deploy it everywhere.
 This leaves impure functions to the native platform, which can be written in their primary language (Js, Java, Objective-c/Swift) or in Kotlin!
@@ -57,7 +57,7 @@ val effectHandler = Connectable<Effect, Event> { output ->
 val loopFactory = Mobius.loop(update, effectHandler)
 ```
 
-At this point a loop is not running, `loopFactory` must be used to create construct a "raw" loop.
+At this point a loop is not running, `loopFactory` must be used to create a "raw" loop.
 Raw loops have two states: running and disposed.
 
 
@@ -199,7 +199,7 @@ Connectable<Effect, Event> { output: Consumer<Event> ->
 
 ## Download
 
-![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/mobiuskt-core-jvm?label=maven&color=blue)
+[![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/mobiuskt-core-jvm?label=maven&color=blue)](https://search.maven.org/search?q=g:org.drewcarlson%20a:mobiuskt-*)
 ![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/org.drewcarlson/mobiuskt-core-jvm?server=https%3A%2F%2Fs01.oss.sonatype.org)
 
 ![](https://img.shields.io/static/v1?label=&message=Platforms&color=grey)
@@ -210,7 +210,7 @@ Connectable<Effect, Event> { output: Consumer<Event> ->
 ![](https://img.shields.io/static/v1?label=&message=Windows&color=blue)
 ![](https://img.shields.io/static/v1?label=&message=iOS&color=blue)
 ![](https://img.shields.io/static/v1?label=&message=tvOS&color=blue)
-![](https://img.shields.io/static/v1?label=&message=watchOS&color=red)
+![](https://img.shields.io/static/v1?label=&message=watchOS&color=blue)
 
 ```kotlin
 repositories {
