@@ -13,12 +13,12 @@ class InnerUpdateTest {
     fun canExtractInnerModel() {
         val innerUpdate =
             InnerUpdate.builder<String, String, String, String, String, String>()
-                .modelExtractor(Function { "extracted_model" })
-                .eventExtractor(Function { it })
-                .innerUpdate(Update { model: String, _: String ->
-                    Next.next<String, String>(model)
-                })
-                .modelUpdater(BiFunction { _: String, mi: String -> mi })
+                .modelExtractor { "extracted_model" }
+                .eventExtractor { it }
+                .innerUpdate { model: String, _: String ->
+                    Next.next(model)
+                }
+                .modelUpdater { _: String, mi: String -> mi }
                 .innerEffectHandler(ignoreEffects())
                 .build()
 
@@ -32,12 +32,12 @@ class InnerUpdateTest {
     fun canExtractInnerEvent() {
         val innerUpdate =
             InnerUpdate.builder<String, String, String, String, String, String>()
-                .modelExtractor(Function { it })
-                .eventExtractor(Function { "extracted_event" })
-                .innerUpdate(Update { _: String, event: String ->
+                .modelExtractor { it }
+                .eventExtractor { "extracted_event" }
+                .innerUpdate { _: String, event: String ->
                     Next.next<String, String>(event)
-                })
-                .modelUpdater(BiFunction { _: String, mi: String -> mi })
+                }
+                .modelUpdater { _: String, mi: String -> mi }
                 .innerEffectHandler(ignoreEffects())
                 .build()
 
@@ -51,10 +51,10 @@ class InnerUpdateTest {
     fun callsInnerUpdate() {
         val innerUpdate =
             InnerUpdate.builder<String, String, String, String, String, String>()
-                .modelExtractor(Function { it })
-                .eventExtractor(Function { it })
-                .innerUpdate(Update { _, _ -> Next.next("inner_update") })
-                .modelUpdater(BiFunction { _, mi -> mi })
+                .modelExtractor { it }
+                .eventExtractor { it }
+                .innerUpdate { _, _ -> Next.next("inner_update") }
+                .modelUpdater { _, mi -> mi }
                 .innerEffectHandler(ignoreEffects())
                 .build()
 
@@ -68,10 +68,10 @@ class InnerUpdateTest {
     fun noChangesDoesNotCallModelUpdater() {
         val innerUpdate =
             InnerUpdate.builder<String, String, String, String, String, String>()
-                .modelExtractor(Function { it })
-                .eventExtractor(Function { it })
-                .innerUpdate(Update { _, _ -> Next.noChange() })
-                .modelUpdater(BiFunction { _, _ -> "model_updater" })
+                .modelExtractor { it }
+                .eventExtractor { it }
+                .innerUpdate { _, _ -> Next.noChange() }
+                .modelUpdater { _, _ -> "model_updater" }
                 .innerEffectHandler(ignoreEffects())
                 .build()
 
@@ -85,10 +85,10 @@ class InnerUpdateTest {
     fun updateModelCallsModelUpdater() {
         val innerUpdate =
             InnerUpdate.builder<String, String, String, String, String, String>()
-                .modelExtractor(Function { it })
-                .eventExtractor(Function { it })
-                .innerUpdate(Update { _, _ -> Next.next("inner_update") })
-                .modelUpdater(BiFunction { _, _ -> "model_updater" })
+                .modelExtractor { it }
+                .eventExtractor { it }
+                .innerUpdate { _, _ -> Next.next("inner_update") }
+                .modelUpdater { _, _ -> "model_updater" }
                 .innerEffectHandler(ignoreEffects())
                 .build()
 
@@ -102,10 +102,10 @@ class InnerUpdateTest {
     fun dispatchEffectCallsInnerEffectHandler() {
         val innerUpdate =
             InnerUpdate.builder<String, String, String, String, String, String>()
-                .modelExtractor(Function { it })
-                .eventExtractor(Function { it })
-                .innerUpdate(Update { _, _ -> Next.dispatch(setOf("1", "2", "3")) })
-                .modelUpdater(BiFunction { _, mi -> mi })
+                .modelExtractor { it }
+                .eventExtractor { it }
+                .innerUpdate { _, _ -> Next.dispatch(setOf("1", "2", "3")) }
+                .modelUpdater { _, mi -> mi }
                 .innerEffectHandler(InnerEffectHandler { _, _, _ ->
                     Next.next("effect_handler")
                 })
@@ -121,10 +121,10 @@ class InnerUpdateTest {
     fun noEffectsStillCallsInnerEffectHandler() {
         val innerUpdate =
             InnerUpdate.builder<String, String, String, String, String, String>()
-                .modelExtractor(Function { it })
-                .eventExtractor(Function { it })
-                .innerUpdate(Update { _, _ -> Next.next("inner_update") })
-                .modelUpdater(BiFunction { _, mi -> mi })
+                .modelExtractor { it }
+                .eventExtractor { it }
+                .innerUpdate { _, _ -> Next.next("inner_update") }
+                .modelUpdater { _, mi -> mi }
                 .innerEffectHandler(InnerEffectHandler { _, _, _ ->
                     Next.next("effect_handler")
                 })
@@ -141,10 +141,10 @@ class InnerUpdateTest {
     fun noChangeNoEffectsStillCallsInnerEffectHandler() {
         val innerUpdate =
             InnerUpdate.builder<String, String, String, String, String, String>()
-                .modelExtractor(Function { it })
-                .eventExtractor(Function { it })
-                .innerUpdate(Update { _, _ -> Next.noChange() })
-                .modelUpdater(BiFunction { _, mi -> mi })
+                .modelExtractor { it }
+                .eventExtractor { it }
+                .innerUpdate { _, _ -> Next.noChange() }
+                .modelUpdater { _, mi -> mi }
                 .innerEffectHandler(InnerEffectHandler { _, _, _ ->
                     Next.next("effect_handler")
                 })
@@ -161,10 +161,10 @@ class InnerUpdateTest {
     fun updatedModelNoEffectsStillCallsInnerEffectHandler() {
         val innerUpdate =
             InnerUpdate.builder<String, String, String, String, String, String>()
-                .modelExtractor(Function { it })
-                .eventExtractor(Function { it })
-                .innerUpdate(Update { _, _ -> Next.next("inner_update") })
-                .modelUpdater(BiFunction { _, mi -> mi })
+                .modelExtractor { it }
+                .eventExtractor { it }
+                .innerUpdate { _, _ -> Next.next("inner_update") }
+                .modelUpdater { _, mi -> mi }
                 .innerEffectHandler(InnerEffectHandler { _, _, _ ->
                     Next.next("effect_handler")
                 })
