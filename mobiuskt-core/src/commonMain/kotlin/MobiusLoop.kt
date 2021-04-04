@@ -5,6 +5,7 @@ import kt.mobius.functions.Consumer
 import kt.mobius.functions.Producer
 import kt.mobius.runners.Runnable
 import kt.mobius.runners.WorkRunner
+import mpp.ensureNeverFrozen
 import kotlin.js.JsName
 import kotlin.jvm.JvmStatic
 import kotlin.jvm.Synchronized
@@ -79,11 +80,14 @@ class MobiusLoop<M, E, F> private constructor(
     private var disposed: Boolean = false
 
     init {
+        ensureNeverFrozen()
         val eventConsumer: Consumer<E> = object : Consumer<E> {
             override fun accept(value: E) {
                 dispatchEvent(value)
             }
         }
+
+        eventConsumer.ensureNeverFrozen()
 
         this.effectConsumer = effectHandler.connect(eventConsumer)
         this.eventSourceDisposable = eventSource.subscribe(eventConsumer)
