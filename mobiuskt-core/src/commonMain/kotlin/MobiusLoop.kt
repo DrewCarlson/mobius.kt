@@ -81,6 +81,11 @@ class MobiusLoop<M, E, F> private constructor(
 
     init {
         ensureNeverFrozen()
+
+        // NOTE: eventConsumer can be invoked from other languages,
+        // using lambda syntax results in the `accept` method being
+        // unavailable in Swift/ObjC.
+        @Suppress("ObjectLiteralToLambda")
         val eventConsumer: Consumer<E> = object : Consumer<E> {
             override fun accept(value: E) {
                 dispatchEvent(value)
