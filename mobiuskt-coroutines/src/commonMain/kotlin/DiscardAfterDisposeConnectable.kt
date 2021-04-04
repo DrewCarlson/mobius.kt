@@ -3,9 +3,9 @@ package kt.mobius.flow
 import kt.mobius.Connectable
 import kt.mobius.Connection
 import kt.mobius.disposables.CompositeDisposable
-import kt.mobius.functions.Consumer
 import kt.mobius.flow.DiscardAfterDisposeWrapper.Companion.wrapConnection
 import kt.mobius.flow.DiscardAfterDisposeWrapper.Companion.wrapConsumer
+import kt.mobius.functions.Consumer
 
 
 /**

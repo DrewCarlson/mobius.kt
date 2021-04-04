@@ -3,7 +3,7 @@ package kt.mobius.flow
 import kt.mobius.Connection
 import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
-
+import kotlin.jvm.Volatile
 
 /**
  * Wraps a [Connection] or a [Consumer] and blocks them from receiving any
@@ -17,11 +17,11 @@ internal class DiscardAfterDisposeWrapper<I> private constructor(
     @Volatile
     private var disposed: Boolean = false
 
-    override fun accept(effect: I) {
+    override fun accept(value: I) {
         if (disposed) {
             return
         }
-        consumer.accept(effect)
+        consumer.accept(value)
     }
 
     override fun dispose() {
