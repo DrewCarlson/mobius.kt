@@ -19,8 +19,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":mobius-core"))
-                implementation(project(":mobius-internal"))
+                implementation(project(":mobiuskt-core"))
+                implementation(project(":mobiuskt-internal"))
             }
         }
 

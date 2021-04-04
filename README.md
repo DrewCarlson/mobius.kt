@@ -1,11 +1,11 @@
-# mobius.kt
+# Mobius.kt
 
-![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/mobius-core-jvm?label=maven&color=blue)
+![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/mobiuskt-core-jvm?label=maven&color=blue)
 ![](https://github.com/DrewCarlson/mobius.kt/workflows/Jvm/badge.svg)
 ![](https://github.com/DrewCarlson/mobius.kt/workflows/Js/badge.svg)
 ![](https://github.com/DrewCarlson/mobius.kt/workflows/Native/badge.svg)
 
-Multiplatform Kotlin [Mobius](https://github.com/spotify/mobius) implementation.
+Kotlin Multiplatform [Mobius](https://github.com/spotify/mobius) implementation.
 
 ## What is Mobius?
 
@@ -30,20 +30,10 @@ _(Source: [Concepts > Mobius Loop](https://github.com/spotify/mobius/wiki/Concep
 By combining this concept with Kotlin's MPP features, mobius.kt allows you to write and test all of your pure functions (application and/or business logic) in Kotlin and deploy it everywhere.
 This leaves impure functions to the native platform, which can be written in their primary language (Js, Java, Objective-c/Swift) or in Kotlin!
 
-## Samples
-
-
-### Todo
-
-##### iOS
-
-Open and run the `samples/todo/todo-ios` Xcode project, it contains a build step to produce the Kotlin framework.
-Note the first build will take some time while it downloads all the necessary dependencies.
-
 ## Download
 
-![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/mobius-core-jvm?label=maven&color=blue)
-![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/org.drewcarlson/mobius-core-jvm?server=https%3A%2F%2Fs01.oss.sonatype.org)
+![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/mobiuskt-core-jvm?label=maven&color=blue)
+![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/org.drewcarlson/mobiuskt-core-jvm?server=https%3A%2F%2Fs01.oss.sonatype.org)
 
 ![](https://img.shields.io/static/v1?label=&message=Platforms&color=grey)
 ![](https://img.shields.io/static/v1?label=&message=Js&color=blue)
@@ -62,8 +52,8 @@ repositories {
   maven(url = "https://s01.oss.sonatype.org/content/repositories/snapshots/")
 }
 dependencies {
-  implementation("org.drewcarlson:mobius-core:$MOBIUS_VERSION")
-  implementation("org.drewcarlson:mobius-extras:$MOBIUS_VERSION")
-  implementation("org.drewcarlson:mobius-android:$MOBIUS_VERSION")
+  implementation("org.drewcarlson:mobiuskt-core:$MOBIUS_VERSION")
+  implementation("org.drewcarlson:mobiuskt-extras:$MOBIUS_VERSION")
+  implementation("org.drewcarlson:mobiuskt-android:$MOBIUS_VERSION")
 }
 ```

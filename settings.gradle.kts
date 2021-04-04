@@ -3,10 +3,10 @@ rootProject.name = "mobiuskt"
 enableFeaturePreview("GRADLE_METADATA")
 
 include(
-    ":mobius-core",
-    ":mobius-extras",
-    ":mobius-internal",
-    ":jvm:mobius-android"
+    ":mobiuskt-core",
+    ":mobiuskt-extras",
+    ":mobiuskt-internal",
+    ":jvm:mobiuskt-android"
 )
 
 include(":mobiuskt-coroutines")

@@ -19,8 +19,8 @@ kotlin {
     sourceSets {
         named("commonMain") {
             dependencies {
-                implementation(project(":mobius-core"))
-                implementation(project(":mobius-internal"))
+                implementation(project(":mobiuskt-core"))
+                implementation(project(":mobiuskt-internal"))
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3-native-mt")
             }
         }

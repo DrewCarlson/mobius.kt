@@ -47,7 +47,7 @@ kotlin {
     sourceSets {
         named("commonMain") {
             dependencies {
-                implementation(project(":mobius-internal"))
+                implementation(project(":mobiuskt-internal"))
             }
         }
 

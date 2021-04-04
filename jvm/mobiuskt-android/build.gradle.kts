@@ -30,7 +30,7 @@ kotlin {
         val androidMain by getting {
             kotlin.srcDir("src/main/kotlin")
             dependencies {
-                implementation(project(":mobius-core"))
+                implementation(project(":mobiuskt-core"))
             }
         }
     }
