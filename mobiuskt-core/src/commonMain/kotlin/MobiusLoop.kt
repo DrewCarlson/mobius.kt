@@ -14,7 +14,6 @@ import kotlin.jvm.Volatile
 /**
  * This is the main loop for Mobius.
  *
- *
  * It hooks up all the different parts of the main Mobius loop, and dispatches messages
  * internally on the appropriate executors.
  */
@@ -114,14 +113,13 @@ class MobiusLoop<M, E, F> private constructor(
     }
 
     /**
-     * Add an observer of model changes to this loop. If [.getMostRecentModel] is non-null,
+     * Add an observer of model changes to this loop. If [getMostRecentModel] is non-null,
      * the observer will immediately be notified of the most recent model. The observer will be
      * notified of future changes to the model until the loop or the returned [Disposable] is
      * disposed.
      *
      * @param observer a non-null observer of model changes
      * @return a [Disposable] that can be used to stop further notifications to the observer
-     * @throws NullPointerException if the observer is null
      * @throws IllegalStateException if the loop has been disposed
      */
     fun observe(observer: Consumer<M>): Disposable {
@@ -185,7 +183,7 @@ class MobiusLoop<M, E, F> private constructor(
          * @return a new [Builder] with the supplied [EventSource], and the same values as
          * the current one for the other fields. NOTE: Invoking this method will replace the current
          * [EventSource] with the supplied one. If you want to pass multiple event sources,
-         * please use [.eventSources].
+         * please use [eventSources].
          */
         @JsName("eventSource")
         fun eventSource(eventSource: EventSource<E>): Builder<M, E, F>
@@ -255,7 +253,7 @@ class MobiusLoop<M, E, F> private constructor(
         /**
          * Connect a view to this controller.
          *
-         * Must be called before [.start].
+         * Must be called before [start].
          *
          * The [Connectable] will be given an event consumer, which the view should use to send
          * events to the MobiusLoop. The view should also return a [Connection] that accepts

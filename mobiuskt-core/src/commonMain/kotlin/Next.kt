@@ -47,7 +47,7 @@ class Next<M, F> internal constructor(
      * this method will cause an exception to be thrown.
      *
      *
-     * In almost all cases you should use [.modelOrElse] or [.ifHasModel] instead.
+     * In almost all cases you should use [modelOrElse] or [ifHasModel] instead.
      *
      * @throws NoSuchElementException if this Next has no model
      */

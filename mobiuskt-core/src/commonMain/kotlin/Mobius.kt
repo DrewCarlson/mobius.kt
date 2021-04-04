@@ -53,7 +53,7 @@ object Mobius {
     /**
      * Create a [MobiusLoop.Builder] to help you configure a [MobiusLoop] before starting it.
      *
-     * <p>Once done configuring the loop you can start the loop using [MobiusLoop.Factory.startFrom]
+     * Once done configuring the loop you can start the loop using [MobiusLoop.Factory.startFrom]
      *
      * @param update the [Update] function of the loop
      * @param effectHandler the [Connectable] effect handler of the loop

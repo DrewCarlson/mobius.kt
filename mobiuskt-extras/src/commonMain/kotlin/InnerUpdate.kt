@@ -12,12 +12,12 @@ import kotlin.jvm.JvmStatic
 /**
  * Helper class for putting an update function inside another update function.
  *
- * <p>It is sometimes useful to compose two update functions that each have their own model, events,
+ * It is sometimes useful to compose two update functions that each have their own model, events,
  * and effects. Typically when you do this you will store the inner model inside the outer model,
  * and route some of the outer events to the inner update function. This class helps you wire up
  * this conversion between inner and outer model, events, and effects.
  *
- * <p>The outer update function must still make the decision if the inner update function should be
+ * The outer update function must still make the decision if the inner update function should be
  * called or not, this class only helps with converting the types of the inner update function
  *
  * @param [M] the outer model type
@@ -142,7 +142,7 @@ object InnerEffectHandlers {
     /**
      * Create an inner effect handler that ignores inner effects.
      *
-     * <p>The resulting next will be an [Next.next] or a [Next.noChange]
+     * The resulting next will be an [Next.next] or a [Next.noChange]
      * depending on if the outer model changed.
      */
     fun <M, F, FI> ignoreEffects(): InnerEffectHandler<M, F, FI> {
@@ -154,10 +154,10 @@ object InnerEffectHandlers {
     /**
      * Create an inner effect handler that maps inner effects.
      *
-     * <p>This can be used for example to wrap an inner effect in an outer effect, or to map inner
+     * This can be used for example to wrap an inner effect in an outer effect, or to map inner
      * effects to outer effects.
      *
-     * <p>If there are no inner effects, then the resulting next will be an [Next.next]
+     * If there are no inner effects, then the resulting next will be an [Next.next]
      * or a [Next.noChange] depending on if the outer model changed.
      */
     fun <M, F, FI> mapEffects(f: Function<FI, F>): InnerEffectHandler<M, F, FI> {
