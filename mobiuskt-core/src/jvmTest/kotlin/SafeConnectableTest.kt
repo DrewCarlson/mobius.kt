@@ -108,7 +108,7 @@ class SafeConnectableTest {
             assertEquals(values.asList(), recordedEffects)
         }
 
-        override fun accept(effect: Int) {
+        override fun accept(value: Int) {
             if (block) {
                 try {
                     if (!blockEffectPerformer.tryAcquire(5, TimeUnit.SECONDS)) {
@@ -118,8 +118,8 @@ class SafeConnectableTest {
                     throw RuntimeException(e)
                 }
             }
-            recordedEffects.add(effect);
-            eventConsumer.accept("Value is: $effect")
+            recordedEffects.add(value);
+            eventConsumer.accept("Value is: $value")
             signalEffectHasBeenPerformed.release()
         }
 

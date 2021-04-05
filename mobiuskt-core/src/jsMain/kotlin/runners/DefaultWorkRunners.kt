@@ -1,7 +1,7 @@
 package kt.mobius.runners
 
+import kotlinx.browser.*
 import kt.mobius.functions.Producer
-import kotlin.browser.window
 
 actual class DefaultWorkRunners {
     actual fun eventWorkRunnerProducer() = Producer<WorkRunner> {

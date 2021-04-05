@@ -19,17 +19,17 @@ internal class MessageDispatcher<M>(
     @Volatile
     private var disabled = false
 
-    override fun accept(message: M) {
+    override fun accept(value: M) {
         runner.post(
             object : Runnable {
                 override fun run() {
                     if (disabled) {
-                        println("Message ignored because the dispatcher is disabled: $message")
+                        println("Message ignored because the dispatcher is disabled: $value")
                     } else {
                         try {
-                            consumer.accept(message)
+                            consumer.accept(value)
                         } catch (throwable: Throwable) {
-                            println("Consumer threw an exception when accepting message: $message")
+                            println("Consumer threw an exception when accepting message: $value")
                             println(throwable.message)
                         }
                     }

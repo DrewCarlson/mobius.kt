@@ -20,8 +20,8 @@ class SafeConnectable<F, E>(
         val effectConsumer = SafeEffectConsumer(actual.connect(safeEventConsumer))
         val disposable = CompositeDisposable.from(safeEventConsumer, effectConsumer)
         return object : Connection<F> {
-            override fun accept(effect: F): Unit = mpp.synchronized(this) {
-                effectConsumer.accept(effect)
+            override fun accept(value: F): Unit = mpp.synchronized(this) {
+                effectConsumer.accept(value)
             }
 
             override fun dispose(): Unit = mpp.synchronized(this) {
@@ -35,11 +35,11 @@ class SafeConnectable<F, E>(
 
         private var disposed: Boolean = false
 
-        override fun accept(effect: F): Unit = mpp.synchronized(LOCK) {
+        override fun accept(value: F): Unit = mpp.synchronized(LOCK) {
             if (disposed) {
                 return
             }
-            actual.accept(effect)
+            actual.accept(value)
         }
 
         override fun dispose(): Unit = mpp.synchronized(LOCK) {

@@ -6,8 +6,8 @@ class RecordingModelObserver<S> : Consumer<S> {
 
     private val recorder = RecordingConsumer<S>()
 
-    override fun accept(newModel: S) {
-        recorder.accept(newModel)
+    override fun accept(value: S) {
+        recorder.accept(value)
     }
 
     /*fun waitForChange(timeoutMs: Long): Boolean {

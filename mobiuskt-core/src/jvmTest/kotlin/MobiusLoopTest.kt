@@ -605,14 +605,14 @@ class MobiusLoopTest {
 
     private class EmitDuringDisposeEffectHandler : Connectable<TestEffect, TestEvent> {
 
-        override fun connect(eventConsumer: Consumer<TestEvent>): Connection<TestEffect> {
+        override fun connect(output: Consumer<TestEvent>): Connection<TestEffect> {
             return object : Connection<TestEffect> {
                 override fun accept(value: TestEffect) {
                     // ignored
                 }
 
                 override fun dispose() {
-                    eventConsumer.accept(TestEvent.Simple("bar"))
+                    output.accept(TestEvent.Simple("bar"))
                 }
             }
         }
