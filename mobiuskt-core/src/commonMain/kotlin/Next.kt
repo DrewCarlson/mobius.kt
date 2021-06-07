@@ -6,13 +6,35 @@ import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmStatic
 
 /**
+ * Try to get the model from this Next, with a fallback if there isn't one.
+ *
+ * @param fallbackModel the default model to use if the Next doesn't have a model
+ */
+@JsName("modelOrElse")
+fun <M, F> Next<M, F>.modelOrElse(fallbackModel: M): M {
+    return if (hasModel()) {
+        modelUnsafe()
+    } else {
+        fallbackModel
+    }
+}
+
+/** If the model is present, call the given consumer with it, otherwise do nothing.  */
+@JsName("ifHasModel")
+fun <M, F> Next<M, F>.ifHasModel(consumer: Consumer<M>) {
+    if (hasModel()) {
+        consumer.accept(modelUnsafe())
+    }
+}
+
+/**
  * This class represents the result of calling an [Update] function.
  *
  * Upon calling an Update function with an Event and Model, a Next object will be returned that
  * contains the new Model (if there is one) and Effect objects that describe which side-effects
  * should take place.
  */
-class Next<M, F> internal constructor(
+class Next<out M, out F> internal constructor(
     /** Get the model of this Next, if it has one. Might return null. */
     private val model: M?,
     /** Get the effects of this Next. Will return an empty set if there are no effects */
@@ -28,19 +50,6 @@ class Next<M, F> internal constructor(
     /** Check if this Next contains effects.  */
     fun hasEffects() = effects.isNotEmpty()
 
-    /**
-     * Try to get the model from this Next, with a fallback if there isn't one.
-     *
-     * @param fallbackModel the default model to use if the Next doesn't have a model
-     */
-    @JsName("modelOrElse")
-    fun modelOrElse(fallbackModel: M): M {
-        return if (hasModel()) {
-            modelUnsafe()
-        } else {
-            fallbackModel
-        }
-    }
 
     /**
      * Get the model of this Next. This version is unsafe - if this next doesn't have a model, calling
@@ -56,14 +65,6 @@ class Next<M, F> internal constructor(
             throw NoSuchElementException("there is no model in this Next<>")
         }
         return model!!
-    }
-
-    /** If the model is present, call the given consumer with it, otherwise do nothing.  */
-    @JsName("ifHasModel")
-    fun ifHasModel(consumer: Consumer<M>) {
-        if (hasModel()) {
-            consumer.accept(modelUnsafe())
-        }
     }
 
     override fun toString(): String {
