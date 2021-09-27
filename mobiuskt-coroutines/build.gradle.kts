@@ -6,8 +6,12 @@ apply(from = "../gradle/publishing.gradle.kts")
 
 kotlin {
     ios()
-    //watchos()
+    watchos()
     tvos()
+    iosSimulatorArm64()
+    tvosSimulatorArm64()
+    watchosSimulatorArm64()
+    macosArm64()
     macosX64("macos")
     linuxX64("linux")
     mingwX64("windows")
@@ -21,7 +25,7 @@ kotlin {
             dependencies {
                 implementation(project(":mobiuskt-core"))
                 implementation(project(":mobiuskt-internal"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3-native-mt")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2-native-mt")
             }
         }
 
@@ -36,7 +40,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.3-native-mt")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2-native-mt")
             }
         }
 

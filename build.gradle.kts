@@ -7,7 +7,7 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:4.1.3")
+        classpath("com.android.tools.build:gradle:7.0.1")
         classpath("digital.wup:android-maven-publish:3.6.2")
     }
 }
