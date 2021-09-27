@@ -1,7 +1,5 @@
 rootProject.name = "mobiuskt"
 
-enableFeaturePreview("GRADLE_METADATA")
-
 include(
     ":mobiuskt-core",
     ":mobiuskt-extras",
