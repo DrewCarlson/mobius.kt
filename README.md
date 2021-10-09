@@ -154,6 +154,7 @@ Connectable<Effect, Event> { output: Consumer<Event> ->
             effectFlow
                  .debounce(200)
                  .mapLatest { effect -> handleSubtype2(effect) }
+                 .onEach { event -> output.accept(event) }
                  .launchIn(scope)
         }
 
