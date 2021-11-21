@@ -54,8 +54,8 @@ class DiscardAfterDisposeConnectableTest {
         var disposed = false
             private set
 
-        override fun accept(effect: Int) {
-            eventConsumer.accept("Value is: $effect")
+        override fun accept(value: Int) {
+            eventConsumer.accept("Value is: $value")
         }
 
         override fun dispose() {

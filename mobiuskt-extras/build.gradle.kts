@@ -15,10 +15,17 @@ kotlin {
     macosX64("macos")
     linuxX64("linux")
     mingwX64("windows")
+    mingwX86("windowsX86")
     jvm()
     js(BOTH) {
         nodejs()
-        browser()
+        browser {
+            testTask {
+                useKarma {
+                    useFirefoxHeadless()
+                }
+            }
+        }
     }
     sourceSets {
         val commonMain by getting {

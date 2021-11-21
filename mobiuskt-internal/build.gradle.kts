@@ -32,7 +32,8 @@ kotlin {
         macosX64("macos"),
         macosArm64(),
         linuxX64("linux"),
-        mingwX64("windows")
+        mingwX64("windows"),
+        mingwX86("windowsX86")
     )
     configure(nativeTargets) {
         compilations.getByName("main") {

@@ -19,7 +19,7 @@ internal class FlowMobiusLoop<M, E> internal constructor(
         callbackFlow {
             val loop = loopFactory.startFrom(startModel)
 
-            loop.observe { newModel -> offer(newModel) }
+            loop.observe { newModel -> trySend(newModel) }
 
             events
                 .onEach { event -> loop.dispatchEvent(event) }
