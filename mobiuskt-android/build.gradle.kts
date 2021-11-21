@@ -6,11 +6,11 @@ plugins {
 apply(from = rootProject.file("gradle/publishing.gradle.kts"))
 
 android {
-    compileSdkVersion(28)
+    compileSdk = 28
     defaultConfig {
-        minSdkVersion(21)
+        minSdk = 21
     }
-    lintOptions {
+    lint {
         disable("InvalidPackage")
     }
 

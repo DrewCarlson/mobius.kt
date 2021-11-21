@@ -34,5 +34,5 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: docs
-          FOLDER: build/dokka/html
+          FOLDER: build/dokka/htmlMultiModule
           SINGLE_COMMIT: true

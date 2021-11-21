@@ -21,11 +21,14 @@ kotlin {
         browser()
     }
     sourceSets {
+        all {
+            languageSettings.optIn("kotlin.RequiresOptIn")
+        }
         named("commonMain") {
             dependencies {
                 implementation(project(":mobiuskt-core"))
                 implementation(project(":mobiuskt-internal"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2-native-mt")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
             }
         }
 
@@ -40,7 +43,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2-native-mt")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$COROUTINES_VERSION")
             }
         }
 

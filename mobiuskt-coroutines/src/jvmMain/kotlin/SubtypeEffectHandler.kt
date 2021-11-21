@@ -1,15 +1,11 @@
 package kt.mobius.flow
 
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.flow.transformLatest
-import kotlinx.coroutines.invoke
 
 fun <F : Any, E> subtypeEffectHandler(
     block: SubtypeEffectHandlerBuilder<F, E>.() -> Unit
@@ -18,7 +14,6 @@ fun <F : Any, E> subtypeEffectHandler(
         .apply(block)
         .build()
 
-@OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 class SubtypeEffectHandlerBuilder<F : Any, E> {
     private val effectPerformerMap = hashMapOf<Class<*>, FlowTransformer<F, E>>()
 
@@ -42,30 +37,10 @@ class SubtypeEffectHandlerBuilder<F : Any, E> {
         noinline effectHandler: suspend FlowCollector<E>.(G) -> Unit
     ) = addTransformer(G::class.java) { it.transform(effectHandler) }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     inline fun <reified G : F> addLatestValueCollector(
         noinline effectHandler: suspend FlowCollector<E>.(G) -> Unit
     ) = addTransformer(G::class.java) { it.transformLatest(effectHandler) }
-
-    inline fun <reified G : F> addFunctionSync(
-        dispatcher: CoroutineDispatcher = Dispatchers.Default,
-        crossinline effectHandler: (effect: G) -> E
-    ) = addFunction(G::class.java) { effect ->
-        dispatcher { effectHandler(effect) }
-    }
-
-    inline fun <reified G : F> addConsumerSync(
-        dispatcher: CoroutineDispatcher = Dispatchers.Default,
-        crossinline effectHandler: (effect: G) -> Unit
-    ) = addConsumer(G::class.java) { effect ->
-        dispatcher { effectHandler(effect) }
-    }
-
-    inline fun <reified G : F> addActionSync(
-        dispatcher: CoroutineDispatcher = Dispatchers.Default,
-        crossinline effectHandler: () -> Unit
-    ) = addAction(G::class.java) {
-        dispatcher { effectHandler() }
-    }
 
     fun <G : F> addTransformer(
         effectClass: Class<G>,
