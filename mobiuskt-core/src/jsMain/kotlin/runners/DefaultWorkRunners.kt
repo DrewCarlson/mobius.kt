@@ -1,13 +1,14 @@
 package kt.mobius.runners
 
-import kotlinx.browser.*
 import kt.mobius.functions.Producer
+
+private external fun setTimeout(func: () -> Unit, timeout: Long)
 
 actual class DefaultWorkRunners {
     actual fun eventWorkRunnerProducer() = Producer<WorkRunner> {
         object : WorkRunner {
             override fun post(runnable: Runnable) {
-                window.setTimeout(runnable::run, 0)
+                setTimeout(runnable::run, 0)
             }
 
             override fun dispose() {
@@ -18,7 +19,7 @@ actual class DefaultWorkRunners {
     actual fun effectWorkRunnerProducer() = Producer<WorkRunner> {
         object : WorkRunner {
             override fun post(runnable: Runnable) {
-                window.setTimeout(runnable::run, 0)
+                setTimeout(runnable::run, 0)
             }
 
             override fun dispose() {
