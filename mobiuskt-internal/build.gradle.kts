@@ -12,7 +12,7 @@ kotlin {
     linuxX64("linux")
     mingwX64("windows")
     jvm()
-    js(BOTH) {
+    js(IR) {
         nodejs()
         browser {
             testTask {

@@ -9,7 +9,7 @@ kotlin {
     watchos()
     tvos()
     jvm()
-    js(BOTH) {
+    js(IR) {
         nodejs()
         browser {
             testTask {

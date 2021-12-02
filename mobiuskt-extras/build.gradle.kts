@@ -17,7 +17,7 @@ kotlin {
     mingwX64("windows")
     mingwX86("windowsX86")
     jvm()
-    js(BOTH) {
+    js(IR) {
         nodejs()
         browser {
             testTask {

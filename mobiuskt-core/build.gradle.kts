@@ -16,7 +16,7 @@ kotlin {
         }
     }
     jvm()
-    js(BOTH) {
+    js(IR) {
         nodejs()
         browser {
             testTask {
