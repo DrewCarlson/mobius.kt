@@ -131,15 +131,28 @@ Coroutines and Flows are supported with the `mobiuskt-coroutines` module (See [D
 
 ```kotlin
 val effectHandler = subtypeEffectHandler<Effect, Event> {
-     addAction<Effect.SubType1> { } // suspend () -> Unit
-     addConsumer<Effect.SubType2> { effect -> } // suspend (Effect) -> Unit
-     addFunction<Effect.SubType3> { effect -> Event.Result() } // suspend (Effect) -> Event
-     addValueCollector<Effect.SubType4> { effect -> // FlowCollector<E>.(F) -> Unit
+     // suspend () -> Unit
+     addAction<Effect.SubType1> { }
+
+     // suspend (Effect) -> Unit
+     addConsumer<Effect.SubType2> { effect -> } 
+
+     // suspend (Effect) -> Event
+     addFunction<Effect.SubType3> { effect -> Event.Result() }
+
+     // FlowCollector<Event>.(Effect) -> Unit
+     addValueCollector<Effect.SubType4> { effect ->
          emit(Event.Result())
          emitAll(createEventFlow())
      }
+
+     addLatestValueCollector<Effect.SubType5> {
+         // Like `addValueCollector` but cancels the previous
+         // running work when a new Effect instance arrives.
+     }
+
      // Transform Flow<Effect> into Flow<Event>
-     addTransformer<Effect.SubType5> { effects ->
+     addTransformer<Effect.SubType6> { effects ->
          effects.map { effect -> Event.Result() }
      }
 }
