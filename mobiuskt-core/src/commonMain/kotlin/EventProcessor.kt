@@ -1,6 +1,7 @@
 package kt.mobius
 
 import kt.mobius.functions.Consumer
+import mpp.synchronized
 import kotlin.js.JsName
 
 /**
@@ -22,7 +23,7 @@ class EventProcessor<M, E, F> internal constructor(
     private val eventsReceivedBeforeInit = ArrayList<E>()
     private var initialised = false
 
-    fun init(): Unit = mpp.synchronized(LOCK) {
+    fun init(): Unit = synchronized(LOCK) {
         if (initialised) {
             throw IllegalStateException("already initialised")
         }
@@ -38,7 +39,7 @@ class EventProcessor<M, E, F> internal constructor(
         }
     }
 
-    fun update(event: E): Unit = mpp.synchronized(LOCK) {
+    fun update(event: E): Unit = synchronized(LOCK) {
         if (!initialised) {
             eventsReceivedBeforeInit.add(event)
             return

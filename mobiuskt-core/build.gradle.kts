@@ -58,12 +58,6 @@ kotlin {
     }
 
     sourceSets {
-        named("commonMain") {
-            dependencies {
-                implementation(project(":mobiuskt-internal"))
-            }
-        }
-
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))

@@ -1,6 +1,7 @@
 package kt.mobius
 
 import mpp.ensureNeverFrozen
+import mpp.synchronized
 import kotlin.jvm.JvmStatic
 
 /** Responsible for holding and updating the current model. */
@@ -17,13 +18,13 @@ class MobiusStore<M, E, F> internal constructor(
         ensureNeverFrozen()
     }
 
-    fun init(): First<M, F> = mpp.synchronized(LOCK) {
+    fun init(): First<M, F> = synchronized(LOCK) {
         val first = init.init(currentModel!!)
         currentModel = first.model()
         return first
     }
 
-    fun update(event: E): Next<M, F> = mpp.synchronized(LOCK) {
+    fun update(event: E): Next<M, F> = synchronized(LOCK) {
         val next = update.update(currentModel, event)
         currentModel = next.modelOrElse(currentModel)
         return next

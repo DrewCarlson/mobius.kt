@@ -1,5 +1,6 @@
 package kt.mobius.disposables
 
+import mpp.synchronized
 import kotlin.js.JsName
 import kotlin.jvm.JvmStatic
 
@@ -9,7 +10,7 @@ class CompositeDisposable private constructor(disposables: Array<out Disposable>
 
     private val disposables = disposables.copyOf()
 
-    override fun dispose() = mpp.synchronized(LOCK) {
+    override fun dispose() = synchronized(LOCK) {
         for (disposable in disposables) {
             disposable.dispose()
         }

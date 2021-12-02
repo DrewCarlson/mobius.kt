@@ -2,6 +2,7 @@ package kt.mobius
 
 import kt.mobius.disposables.CompositeDisposable
 import kt.mobius.functions.Consumer
+import mpp.synchronized
 
 /**
  * A [Connectable] that ensures that an inner [Connection] doesn't emit or receive any
@@ -20,11 +21,11 @@ class SafeConnectable<F, E>(
         val effectConsumer = SafeEffectConsumer(actual.connect(safeEventConsumer))
         val disposable = CompositeDisposable.from(safeEventConsumer, effectConsumer)
         return object : Connection<F> {
-            override fun accept(value: F): Unit = mpp.synchronized(this) {
+            override fun accept(value: F): Unit = synchronized(this) {
                 effectConsumer.accept(value)
             }
 
-            override fun dispose(): Unit = mpp.synchronized(this) {
+            override fun dispose(): Unit = synchronized(this) {
                 disposable.dispose()
             }
         }
@@ -35,14 +36,14 @@ class SafeConnectable<F, E>(
 
         private var disposed: Boolean = false
 
-        override fun accept(value: F): Unit = mpp.synchronized(LOCK) {
+        override fun accept(value: F): Unit = synchronized(LOCK) {
             if (disposed) {
                 return
             }
             actual.accept(value)
         }
 
-        override fun dispose(): Unit = mpp.synchronized(LOCK) {
+        override fun dispose(): Unit = synchronized(LOCK) {
             disposed = true
             actual.dispose()
         }
@@ -53,14 +54,14 @@ class SafeConnectable<F, E>(
 
         private var disposed: Boolean = false
 
-        override fun accept(value: E): Unit = mpp.synchronized(LOCK) {
+        override fun accept(value: E): Unit = synchronized(LOCK) {
             if (disposed) {
                 return
             }
             actual.accept(value)
         }
 
-        override fun dispose(): Unit = mpp.synchronized(LOCK) {
+        override fun dispose(): Unit = synchronized(LOCK) {
             disposed = true
         }
     }

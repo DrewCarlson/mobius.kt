@@ -6,6 +6,7 @@ import kt.mobius.functions.Producer
 import kt.mobius.runners.Runnable
 import kt.mobius.runners.WorkRunner
 import mpp.ensureNeverFrozen
+import mpp.synchronized
 import kotlin.js.JsName
 import kotlin.jvm.JvmStatic
 import kotlin.jvm.Synchronized
@@ -59,7 +60,7 @@ class MobiusLoop<M, E, F> private constructor(
     })
 
     private val eventProcessor = eventProcessorFactory.create(effectDispatcher) { model ->
-        mpp.synchronized(modelObservers) {
+        synchronized(modelObservers) {
             mostRecentModel = model
             for (observer in modelObservers) {
                 observer.accept(model)
@@ -123,7 +124,7 @@ class MobiusLoop<M, E, F> private constructor(
      * @throws IllegalStateException if the loop has been disposed
      */
     fun observe(observer: Consumer<M>): Disposable {
-        mpp.synchronized(modelObservers) {
+        synchronized(modelObservers) {
             if (disposed) {
                 error("This loop has already been disposed. You cannot observe a disposed loop")
             }
@@ -138,7 +139,7 @@ class MobiusLoop<M, E, F> private constructor(
         }
 
         return Disposable {
-            mpp.synchronized(modelObservers) {
+            synchronized(modelObservers) {
                 modelObservers.remove(observer)
             }
         }
@@ -146,7 +147,7 @@ class MobiusLoop<M, E, F> private constructor(
 
     @Synchronized
     override fun dispose() {
-        mpp.synchronized(modelObservers) {
+        synchronized(modelObservers) {
             modelObservers.clear()
         }
 

@@ -51,7 +51,6 @@ kotlin {
         named("commonMain") {
             dependencies {
                 implementation(project(":mobiuskt-core"))
-                implementation(project(":mobiuskt-internal"))
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
             }
         }

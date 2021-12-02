@@ -31,7 +31,6 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(project(":mobiuskt-core"))
-                implementation(project(":mobiuskt-internal"))
             }
         }
 
