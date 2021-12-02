@@ -14,7 +14,13 @@ kotlin {
     jvm()
     js(BOTH) {
         nodejs()
-        browser()
+        browser {
+            testTask {
+                useKarma {
+                    useFirefoxHeadless()
+                }
+            }
+        }
     }
 
     val nativeTargets = listOf(

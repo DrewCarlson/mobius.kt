@@ -8,17 +8,41 @@ kotlin {
     ios()
     watchos()
     tvos()
-    iosSimulatorArm64()
-    tvosSimulatorArm64()
-    watchosSimulatorArm64()
-    macosArm64()
-    macosX64("macos")
-    linuxX64("linux")
-    mingwX64("windows")
     jvm()
     js(BOTH) {
         nodejs()
-        browser()
+        browser {
+            testTask {
+                useKarma {
+                    useFirefoxHeadless()
+                }
+            }
+        }
+    }
+    val nativeTargets = listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64(),
+        tvosX64(),
+        tvosArm64(),
+        tvosSimulatorArm64(),
+        watchosArm32(),
+        watchosArm64(),
+        watchosSimulatorArm64(),
+        watchosX86(),
+        watchosX64(),
+        macosX64("macos"),
+        macosArm64(),
+        linuxX64("linux"),
+        mingwX64("windows"),
+        mingwX86("windowsX86"),
+    )
+    configure(nativeTargets) {
+        compilations.getByName("test") {
+            defaultSourceSet {
+                kotlin.srcDir("src/nativeTest/kotlin")
+            }
+        }
     }
     sourceSets {
         all {

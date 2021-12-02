@@ -22,7 +22,7 @@ class RecordingConsumer<V> : Consumer<V> {
 
     fun assertValues(vararg expectedValues: V): Unit =
         mpp.synchronized(LOCK) {
-            assertEquals(values, expectedValues.asList())
+            assertEquals(expectedValues.asList(), values)
         }
 
     fun assertValuesInAnyOrder(vararg expectedValues: V): Unit =

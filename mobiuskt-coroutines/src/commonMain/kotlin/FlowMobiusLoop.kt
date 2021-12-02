@@ -15,13 +15,13 @@ internal class FlowMobiusLoop<M, E> internal constructor(
     private val startModel: M
 ) : FlowTransformer<E, M> {
 
-    override fun invoke(events: Flow<E>): Flow<M> =
+    override fun invoke(input: Flow<E>): Flow<M> =
         callbackFlow {
             val loop = loopFactory.startFrom(startModel)
 
             loop.observe { newModel -> trySend(newModel) }
 
-            events
+            input
                 .onEach { event -> loop.dispatchEvent(event) }
                 .catch { e -> throw UnrecoverableIncomingException(e) }
                 .launchIn(this)

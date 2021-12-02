@@ -3,9 +3,9 @@ package kt.mobius.flow
 import kt.mobius.Connectable
 import kt.mobius.Connection
 import kt.mobius.functions.Consumer
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Test
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 
 class DiscardAfterDisposeConnectableTest {
@@ -14,7 +14,7 @@ class DiscardAfterDisposeConnectableTest {
     private lateinit var underTest: DiscardAfterDisposeConnectable<Int, String>
     private lateinit var connection: Connection<Int>
 
-    @Before
+    @BeforeTest
     fun setUp() {
         recordingConsumer = RecordingConsumer()
         testConnection = TestConnection(recordingConsumer)
@@ -32,7 +32,7 @@ class DiscardAfterDisposeConnectableTest {
     fun delegatesDisposeToActualConnection() {
         connection = underTest.connect(recordingConsumer)
         connection.dispose()
-        Assert.assertEquals(true, testConnection.disposed)
+        assertEquals(true, testConnection.disposed)
     }
 
     @Test

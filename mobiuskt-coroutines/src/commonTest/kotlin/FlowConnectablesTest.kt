@@ -1,31 +1,20 @@
 package kt.mobius.flow
 
+import kotlinx.coroutines.*
 import kt.mobius.Connectable
 import kt.mobius.Connection
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.UNLIMITED
-import kotlinx.coroutines.flow.consumeAsFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runBlockingTest
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
-import org.junit.Assert.fail
-import org.junit.Before
-import org.junit.Test
+import kotlinx.coroutines.flow.*
+import kotlin.test.*
 
-@OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
+@OptIn(ExperimentalCoroutinesApi::class)
 class FlowConnectablesTest {
 
     private lateinit var input: Channel<String>
     private lateinit var connectable: Connectable<String, Int>
 
-    @Before
+    @BeforeTest
     fun setUp() {
         input = Channel(UNLIMITED)
         connectable = Connectable { output ->
@@ -44,7 +33,7 @@ class FlowConnectablesTest {
     }
 
     @Test
-    fun shouldEmitTransformedItems() = runBlockingTest {
+    fun shouldEmitTransformedItems() = runBlocking {
         val results = async {
             input.consumeAsFlow()
                 .transform(connectable)
@@ -60,31 +49,35 @@ class FlowConnectablesTest {
     }
 
     @Test
-    fun shouldPropagateCompletion() = runBlockingTest {
-        val job = input.consumeAsFlow()
-            .transform(connectable)
-            .launchIn(this)
+    fun shouldPropagateCompletion() = runBlocking {
+        withTimeout(1000) {
+            input.consumeAsFlow()
+                .transform(connectable)
+                .onStart {
+                    input.send("hi")
+                    input.close()
+                }
+                .collect {}
+        }
 
-        assertFalse(job.isCompleted)
-
-        input.send("hi")
-        input.close()
-
-        assertTrue(job.isCompleted)
+        assertTrue(input.isClosedForReceive)
+        assertTrue(input.isClosedForSend)
     }
 
     @Test
-    fun shouldPropagateErrorsFromConnectable() = runBlockingTest {
+    fun shouldPropagateErrorsFromConnectable() = runBlocking {
         val output = async {
-            input.consumeAsFlow()
-                .transform(connectable)
-                .toList()
+            runCatching {
+                input.consumeAsFlow()
+                    .transform(connectable)
+                    .toList()
+            }
         }
 
         input.send("crash")
 
         try {
-            output.await()
+            output.await().onFailure { throw it }
             fail()
         } catch (e: Exception) {
             assertEquals("crashing!", e.message)
@@ -92,17 +85,19 @@ class FlowConnectablesTest {
     }
 
     @Test
-    fun shouldPropagateErrorsFromUpstream() = runBlockingTest {
+    fun shouldPropagateErrorsFromUpstream() = runBlocking {
         val output = async {
-            input.consumeAsFlow()
-                .transform(connectable)
-                .toList()
+            runCatching {
+                input.consumeAsFlow()
+                    .transform(connectable)
+                    .toList()
+            }
         }
 
         input.close(RuntimeException("expected"))
 
         try {
-            output.await()
+            output.await().onFailure { throw it }
             fail()
         } catch (e: Exception) {
             assertEquals("expected", e.message)

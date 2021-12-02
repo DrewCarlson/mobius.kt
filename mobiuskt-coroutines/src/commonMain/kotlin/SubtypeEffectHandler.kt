@@ -1,11 +1,11 @@
 package kt.mobius.flow
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.transform
-import kotlinx.coroutines.flow.transformLatest
+import kotlin.reflect.KClass
+import kotlin.reflect.cast
+import kotlin.reflect.typeOf
 
 fun <F : Any, E> subtypeEffectHandler(
     block: SubtypeEffectHandlerBuilder<F, E>.() -> Unit
@@ -14,52 +14,57 @@ fun <F : Any, E> subtypeEffectHandler(
         .apply(block)
         .build()
 
+@Suppress("UNCHECKED_CAST")
+@PublishedApi
+internal inline fun <reified T : Any> extractKClass(): KClass<T> {
+    return typeOf<T>().classifier as KClass<T>
+}
+
 class SubtypeEffectHandlerBuilder<F : Any, E> {
-    private val effectPerformerMap = hashMapOf<Class<*>, FlowTransformer<F, E>>()
+    private val effectPerformerMap = hashMapOf<KClass<*>, FlowTransformer<F, E>>()
 
     inline fun <reified G : F> addTransformer(
-        noinline effectHandler: FlowTransformer<G, E>
-    ) = addTransformer(G::class.java, effectHandler)
+        noinline effectHandler: (input: Flow<G>) -> Flow<E>
+    ) = addTransformer(extractKClass<G>(), effectHandler)
 
     inline fun <reified G : F> addFunction(
         noinline effectHandler: suspend (effect: G) -> E
-    ) = addFunction(G::class.java, effectHandler)
+    ) = addFunction(extractKClass<G>(), effectHandler)
 
     inline fun <reified G : F> addConsumer(
         noinline effectHandler: suspend (effect: G) -> Unit
-    ) = addConsumer(G::class.java, effectHandler)
+    ) = addConsumer(extractKClass<G>(), effectHandler)
 
     inline fun <reified G : F> addAction(
         noinline effectHandler: suspend () -> Unit
-    ) = addAction(G::class.java, effectHandler)
+    ) = addAction(extractKClass<G>(), effectHandler)
 
     inline fun <reified G : F> addValueCollector(
         noinline effectHandler: suspend FlowCollector<E>.(G) -> Unit
-    ) = addTransformer(G::class.java) { it.transform(effectHandler) }
+    ) = addTransformer(extractKClass<G>()) { it.transform(effectHandler) }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     inline fun <reified G : F> addLatestValueCollector(
         noinline effectHandler: suspend FlowCollector<E>.(G) -> Unit
-    ) = addTransformer(G::class.java) { it.transformLatest(effectHandler) }
+    ) = addTransformer(extractKClass<G>()) { it.transformLatest(effectHandler) }
 
     fun <G : F> addTransformer(
-        effectClass: Class<G>,
+        effectClass: KClass<G>,
         effectHandler: FlowTransformer<G, E>
     ): SubtypeEffectHandlerBuilder<F, E> {
         effectPerformerMap
             .keys
             .forEach { cls ->
-                val assignable = cls.isAssignableFrom(effectClass) ||
-                    effectClass.isAssignableFrom(cls)
+                val assignable = cls.isInstance(effectClass) || effectClass.isInstance(cls)
                 check(!assignable) {
-                    "Sub-type effect handler already registered for '${effectClass.name}'"
+                    "Sub-type effect handler already registered for '${effectClass.simpleName}'"
                 }
             }
-        effectPerformerMap[effectClass] = { effects ->
+        effectPerformerMap[effectClass] = FlowTransformer { effects ->
             effects
                 .filter { effect -> effectClass.isInstance(effect) }
                 .map { effect -> effectClass.cast(effect) }
-                .run(effectHandler)
+                .run(effectHandler::invoke)
             // TODO: .catch unhandled exceptions
         }
 
@@ -67,21 +72,21 @@ class SubtypeEffectHandlerBuilder<F : Any, E> {
     }
 
     fun <G : F> addFunction(
-        effectClass: Class<G>,
+        effectClass: KClass<G>,
         effectHandler: suspend (effect: G) -> E
     ) = addTransformer(effectClass) { effects ->
         effects.map(effectHandler)
     }
 
     fun <G : F> addConsumer(
-        effectClass: Class<G>,
+        effectClass: KClass<G>,
         effectHandler: suspend (effect: G) -> Unit
     ) = addTransformer(effectClass) { effects ->
         effects.transform { effect -> effectHandler(effect) }
     }
 
     fun <G : F> addAction(
-        effectClass: Class<G>,
+        effectClass: KClass<G>,
         effectHandler: suspend () -> Unit
     ) = addTransformer(effectClass) { effects ->
         effects.transform { effectHandler() }
