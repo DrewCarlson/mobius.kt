@@ -62,7 +62,7 @@ Raw loops have two states: running and disposed.
 
 
 <details>
-<summary>Show Raw Loop Example</summary>
+<summary>Raw Loop Example (Click to expand)</summary>
 
 ```kotlin
 val loop = loopFactory.startFrom(0)
@@ -83,7 +83,7 @@ Alternatively a loop can be managed with a `MobiusLoop.Controller`, giving the l
 
 
 <details>
-<summary>Show Loop Controller Example</summary>
+<summary>Loop Controller Example (Click to expand)</summary>
 
 ```kotlin
 val loopController = Mobius.controller(loopFactory, 0)
@@ -138,7 +138,7 @@ If required, Effect Handlers are responsible for passing `Effect`s into and `Eve
 Coroutines and Flows provide the best way to execute work on the background.
 
 <details>
-<summary>Show Coroutine Example</summary>
+<summary>Coroutine Example (Click to expand)</summary>
 
 ```kotlin
 Connectable<Effect, Event> { output: Consumer<Event> ->
