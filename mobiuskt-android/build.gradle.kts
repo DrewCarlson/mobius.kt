@@ -16,19 +16,16 @@ android {
 
     sourceSets {
         getByName("main") {
-            manifest.srcFile("src/main/AndroidManifest.xml")
+            manifest.srcFile("src/androidMain/AndroidManifest.xml")
         }
     }
 }
 
 kotlin {
-    android {
-        publishAllLibraryVariants()
-    }
+    android()
 
     sourceSets {
         val androidMain by getting {
-            kotlin.srcDir("src/main/kotlin")
             dependencies {
                 implementation(project(":mobiuskt-core"))
             }

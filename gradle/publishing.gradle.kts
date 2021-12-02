@@ -1,12 +1,10 @@
-val isAndroidLibrary = plugins.hasPlugin("com.android.library")
-plugins.apply("maven-publish")
-
+apply(plugin = "maven-publish")
 apply(plugin = "signing")
 apply(plugin = "org.jetbrains.dokka")
 
 System.getenv("GITHUB_REF")?.let { ref ->
-    if (ref.startsWith("refs/tags/")) {
-        version = ref.substringAfterLast("refs/tags/")
+    if (ref.startsWith("refs/tags/v")) {
+        version = ref.substringAfterLast("refs/tags/v")
     }
 }
 
@@ -30,31 +28,38 @@ task<Jar>("javadocJar") {
 }
 
 configure<PublishingExtension> {
-    components.all {
-        publications {
-            withType<MavenPublication> {
-                if (!isAndroidLibrary) {
-                    artifact(tasks.named("javadocJar"))
+    components.findByName("java")?.also { javaComponent ->
+        task<Jar>("sourcesJar") {
+            archiveClassifier.set("sources")
+            val sourceSets = project.extensions.getByName<SourceSetContainer>("sourceSets")
+            from(sourceSets["main"].allSource)
+        }
+        publications.create<MavenPublication>("mavenJava") {
+            from(javaComponent)
+            artifact(tasks["sourcesJar"])
+        }
+    }
+    publications {
+        withType<MavenPublication> {
+            artifact(tasks.named("javadocJar"))
+            with(pom) {
+                name.set(rootProject.name)
+                url.set(pomProjectUrl)
+                description.set(pomProjectDescription)
+                scm {
+                    url.set(pomScmUrl)
                 }
-                with(pom) {
-                    name.set(rootProject.name)
-                    url.set(pomProjectUrl)
-                    description.set(pomProjectDescription)
-                    scm {
-                        url.set(pomScmUrl)
+                developers {
+                    developer {
+                        id.set(pomDeveloperId)
+                        name.set(pomDeveloperName)
                     }
-                    developers {
-                        developer {
-                            id.set(pomDeveloperId)
-                            name.set(pomDeveloperName)
-                        }
-                    }
-                    licenses {
-                        license {
-                            name.set(pomLicenseName)
-                            url.set(pomLicenseUrl)
-                            distribution.set(pomLicenseDistribution)
-                        }
+                }
+                licenses {
+                    license {
+                        name.set(pomLicenseName)
+                        url.set(pomLicenseUrl)
+                        distribution.set(pomLicenseDistribution)
                     }
                 }
             }
