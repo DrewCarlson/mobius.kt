@@ -65,7 +65,7 @@ class SubtypeEffectHandlerBuilder<F : Any, E> {
                 .filter { effect -> effectClass.isInstance(effect) }
                 .map { effect -> effectClass.cast(effect) }
                 .run(effectHandler::invoke)
-            // TODO: .catch unhandled exceptions
+                .catch { throw UnrecoverableIncomingException(it) }
         }
 
         return this
