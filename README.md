@@ -57,30 +57,28 @@ val effectHandler = Connectable<Effect, Event> { output ->
 val loopFactory = Mobius.loop(update, effectHandler)
 ```
 
-At this point a loop is not running, `loopFactory` must be used to create a "raw" loop.
-Raw loops have two states: running and disposed.
-
+To create a simple loop use `loopFactory.startFrom(model)` which returns a `MobiusLoop` with two states: running and disposed.
 
 <details>
-<summary>Raw Loop Example (Click to expand)</summary>
+<summary>Simple Loop Example (Click to expand)</summary>
 
 ```kotlin
 val loop = loopFactory.startFrom(0)
 
-val observerRef = loop.observer { model -> println(model.toString()) }
+val observerRef: Disposable = loop.observer { model ->
+   println("Model: $model")
+}
 
-loop.dispatchEvent(Event.ADD)   // Output: 1
-loop.dispatchEvent(Event.ADD)   // Output: 2
-loop.dispatchEvent(Event.RESET) // Output: 0
-loop.dispatchEvent(Event.SUB)   // Output: -1
+loop.dispatchEvent(Event.ADD)   // Model: 1
+loop.dispatchEvent(Event.ADD)   // Model: 2
+loop.dispatchEvent(Event.RESET) // Model: 0
+loop.dispatchEvent(Event.SUB)   // Model: -1
 
-observerRef.dispose() // Not required if calling loop.dispose() which disposes all observers.
 loop.dispose()
 ```
 </details>
 
 Alternatively a loop can be managed with a `MobiusLoop.Controller`, giving the loop a more flexible lifecycle.
-
 
 <details>
 <summary>Loop Controller Example (Click to expand)</summary>
@@ -124,6 +122,32 @@ loopController.disconnect()
 
 ## Notes
 
+### Coroutines Support
+
+Coroutines and Flows are supported with the `mobiuskt-coroutines` module (See [Download](#Download)).
+
+<details>
+<summary>Coroutine Module Example (Click to expand)</summary>
+
+```kotlin
+val effectHandler = subtypeEffectHandler<Effect, Event> {
+     addAction<Effect.SubType1> { } // suspend () -> Unit
+     addConsumer<Effect.SubType2> { effect -> } // suspend (Effect) -> Unit
+     addFunction<Effect.SubType3> { effect -> Event.Result() } // suspend (Effect) -> Event
+     addValueCollector<Effect.SubType4> { effect -> // FlowCollector<E>.(F) -> Unit
+         emit(Event.Result())
+         emitAll(createEventFlow())
+     }
+     // Transform Flow<Effect> into Flow<Event>
+     addTransformer<Effect.SubType5> { effects ->
+         effects.map { effect -> Event.Result() }
+     }
+}
+
+val loopFactory = FlowMobius.loop(update, effectHandler)
+```
+</details>
+
 ### Language Support
 
 `MobiusLoop`s can be created and managed in Javascript, Swift, and Java code without major interoperability concerns.
@@ -135,7 +159,7 @@ A `MobiusLoop` is single-threaded on native targets and cannot be [frozen](https
 Generally this is acceptable behavior, even when the loop exists on the main thread.
 If required, Effect Handlers are responsible for passing `Effect`s into and `Event`s out of a background thread.
 
-Coroutines and Flows provide the best way to execute work on the background.
+Coroutines and Flows are ideal for handing Effects in the background with the [`mobiuskt-coroutines`](#Coroutines-Support) module or manual example below.
 
 <details>
 <summary>Coroutine Example (Click to expand)</summary>
@@ -224,5 +248,6 @@ dependencies {
   implementation("org.drewcarlson:mobiuskt-core:$MOBIUS_VERSION")
   implementation("org.drewcarlson:mobiuskt-extras:$MOBIUS_VERSION")
   implementation("org.drewcarlson:mobiuskt-android:$MOBIUS_VERSION")
+  implementation("org.drewcarlson:mobiuskt-coroutines:$MOBIUS_VERSION")
 }
 ```
