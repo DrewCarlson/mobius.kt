@@ -2,9 +2,6 @@ plugins {
     kotlin("multiplatform")
 }
 
-val guava_version: String by ext
-val awaitality_version: String by ext
-
 apply(from = "../gradle/publishing.gradle.kts")
 
 kotlin {
@@ -69,8 +66,8 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
-                implementation("com.google.guava:guava:$guava_version")
-                implementation("org.awaitility:awaitility:$awaitality_version")
+                implementation("com.google.guava:guava:$GUAVA_VERSION")
+                implementation("org.awaitility:awaitility:$AWAITALITY_VERSION")
             }
         }
 
