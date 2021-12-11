@@ -1,0 +1,77 @@
+public final class kt/mobius/extras/CompositeEffectHandler : kt/mobius/Connectable {
+	public static final field Companion Lkt/mobius/extras/CompositeEffectHandler$Companion;
+	public synthetic fun <init> ([Lkt/mobius/Connectable;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun connect (Lkt/mobius/functions/Consumer;)Lkt/mobius/Connection;
+	public static final fun from (Ljava/util/List;)Lkt/mobius/Connectable;
+	public static final fun from ([Lkt/mobius/Connectable;)Lkt/mobius/Connectable;
+}
+
+public final class kt/mobius/extras/CompositeEffectHandler$Companion {
+	public final fun from (Ljava/util/List;)Lkt/mobius/Connectable;
+	public final fun from ([Lkt/mobius/Connectable;)Lkt/mobius/Connectable;
+}
+
+public final class kt/mobius/extras/CompositeLogger : kt/mobius/MobiusLoop$Logger {
+	public static final field Companion Lkt/mobius/extras/CompositeLogger$Companion;
+	public synthetic fun <init> (Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun afterInit (Ljava/lang/Object;Lkt/mobius/First;)V
+	public fun afterUpdate (Ljava/lang/Object;Ljava/lang/Object;Lkt/mobius/Next;)V
+	public fun beforeInit (Ljava/lang/Object;)V
+	public fun beforeUpdate (Ljava/lang/Object;Ljava/lang/Object;)V
+	public fun exceptionDuringInit (Ljava/lang/Object;Ljava/lang/Throwable;)V
+	public fun exceptionDuringUpdate (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Throwable;)V
+	public static final fun from ([Lkt/mobius/MobiusLoop$Logger;)Lkt/mobius/MobiusLoop$Logger;
+}
+
+public final class kt/mobius/extras/CompositeLogger$Companion {
+	public final fun from ([Lkt/mobius/MobiusLoop$Logger;)Lkt/mobius/MobiusLoop$Logger;
+}
+
+public final class kt/mobius/extras/QueuedConsumer : kt/mobius/functions/Consumer {
+	public fun <init> ()V
+	public fun accept (Ljava/lang/Object;)V
+	public final fun dequeueAll (Lkt/mobius/functions/Consumer;)V
+}
+
+public abstract interface class kt/mobius/extras/patterns/InnerEffectHandler {
+	public static final field Companion Lkt/mobius/extras/patterns/InnerEffectHandler$Companion;
+	public abstract fun handleInnerEffects (Ljava/lang/Object;ZLjava/util/Set;)Lkt/mobius/Next;
+}
+
+public final class kt/mobius/extras/patterns/InnerEffectHandler$Companion {
+	public final fun invoke (Lkotlin/jvm/functions/Function3;)Lkt/mobius/extras/patterns/InnerEffectHandler;
+}
+
+public final class kt/mobius/extras/patterns/InnerEffectHandlers {
+	public static final field INSTANCE Lkt/mobius/extras/patterns/InnerEffectHandlers;
+	public final fun ignoreEffects ()Lkt/mobius/extras/patterns/InnerEffectHandler;
+	public final fun mapEffects (Lkt/mobius/functions/Function;)Lkt/mobius/extras/patterns/InnerEffectHandler;
+}
+
+public final class kt/mobius/extras/patterns/InnerUpdate : kt/mobius/Update {
+	public static final field Companion Lkt/mobius/extras/patterns/InnerUpdate$Companion;
+	public fun <init> (Lkt/mobius/Update;Lkt/mobius/functions/Function;Lkt/mobius/functions/Function;Lkt/mobius/functions/BiFunction;Lkt/mobius/extras/patterns/InnerEffectHandler;)V
+	public static final fun builder ()Lkt/mobius/extras/patterns/InnerUpdate$Companion$Builder;
+	public final fun getEventExtractor ()Lkt/mobius/functions/Function;
+	public final fun getInnerEffectHandler ()Lkt/mobius/extras/patterns/InnerEffectHandler;
+	public final fun getInnerUpdate ()Lkt/mobius/Update;
+	public final fun getModelExtractor ()Lkt/mobius/functions/Function;
+	public final fun getModelUpdater ()Lkt/mobius/functions/BiFunction;
+	public fun invoke (Ljava/lang/Object;Ljava/lang/Object;)Lkt/mobius/Next;
+	public fun update (Ljava/lang/Object;Ljava/lang/Object;)Lkt/mobius/Next;
+}
+
+public final class kt/mobius/extras/patterns/InnerUpdate$Companion {
+	public final fun builder ()Lkt/mobius/extras/patterns/InnerUpdate$Companion$Builder;
+}
+
+public final class kt/mobius/extras/patterns/InnerUpdate$Companion$Builder {
+	public fun <init> ()V
+	public final fun build ()Lkt/mobius/extras/patterns/InnerUpdate;
+	public final fun eventExtractor (Lkt/mobius/functions/Function;)Lkt/mobius/extras/patterns/InnerUpdate$Companion$Builder;
+	public final fun innerEffectHandler (Lkt/mobius/extras/patterns/InnerEffectHandler;)Lkt/mobius/extras/patterns/InnerUpdate$Companion$Builder;
+	public final fun innerUpdate (Lkt/mobius/Update;)Lkt/mobius/extras/patterns/InnerUpdate$Companion$Builder;
+	public final fun modelExtractor (Lkt/mobius/functions/Function;)Lkt/mobius/extras/patterns/InnerUpdate$Companion$Builder;
+	public final fun modelUpdater (Lkt/mobius/functions/BiFunction;)Lkt/mobius/extras/patterns/InnerUpdate$Companion$Builder;
+}
+

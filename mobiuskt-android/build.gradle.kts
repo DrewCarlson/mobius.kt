@@ -1,5 +1,6 @@
 plugins {
     kotlin("multiplatform")
+    id("org.jetbrains.kotlinx.binary-compatibility-validator")
     id("com.android.library")
 }
 

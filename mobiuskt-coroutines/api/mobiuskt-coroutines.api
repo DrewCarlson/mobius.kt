@@ -1,0 +1,79 @@
+public final class kt/mobius/flow/DiscardAfterDisposeConnectable : kt/mobius/Connectable {
+	public fun <init> (Lkt/mobius/Connectable;)V
+	public fun connect (Lkt/mobius/functions/Consumer;)Lkt/mobius/Connection;
+}
+
+public final class kt/mobius/flow/DispatcherWorkRunner : kt/mobius/runners/WorkRunner {
+	public fun <init> (Lkotlinx/coroutines/CoroutineDispatcher;)V
+	public fun dispose ()V
+	public fun post (Ljava/lang/Runnable;)V
+}
+
+public final class kt/mobius/flow/FlowConnectablesKt {
+	public static final fun asConnectable (Lkt/mobius/flow/FlowTransformer;)Lkt/mobius/Connectable;
+	public static final fun flowConnectable (Lkt/mobius/flow/FlowTransformer;)Lkt/mobius/Connectable;
+	public static final fun transform (Lkotlinx/coroutines/flow/Flow;Lkt/mobius/Connectable;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class kt/mobius/flow/FlowEventSourcesKt {
+	public static final fun toEventSource (Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/CoroutineScope;)Lkt/mobius/EventSource;
+	public static final fun toFlow (Lkt/mobius/EventSource;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class kt/mobius/flow/FlowMobius {
+	public static final field INSTANCE Lkt/mobius/flow/FlowMobius;
+	public final fun loop (Lkt/mobius/Update;Lkt/mobius/flow/FlowTransformer;)Lkt/mobius/MobiusLoop$Builder;
+	public final fun loopFrom (Lkt/mobius/MobiusLoop$Factory;Ljava/lang/Object;)Lkt/mobius/flow/FlowTransformer;
+}
+
+public abstract interface class kt/mobius/flow/FlowTransformer {
+	public abstract fun invoke (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class kt/mobius/flow/FlowTransformerKt {
+	public static final fun flowTransformer (Lkt/mobius/flow/FlowTransformer;)Lkt/mobius/flow/FlowTransformer;
+}
+
+public final class kt/mobius/flow/MobiusEffectRouter : kt/mobius/flow/FlowTransformer {
+	public fun <init> (Ljava/util/Set;Ljava/util/List;)V
+	public fun invoke (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class kt/mobius/flow/SubtypeEffectHandlerBuilder {
+	public fun <init> ()V
+	public final fun addAction (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function1;)Lkt/mobius/flow/SubtypeEffectHandlerBuilder;
+	public final fun addConsumer (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function2;)Lkt/mobius/flow/SubtypeEffectHandlerBuilder;
+	public final fun addFunction (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function2;)Lkt/mobius/flow/SubtypeEffectHandlerBuilder;
+	public final fun addTransformer (Lkotlin/reflect/KClass;Lkt/mobius/flow/FlowTransformer;)Lkt/mobius/flow/SubtypeEffectHandlerBuilder;
+	public final fun build ()Lkt/mobius/flow/FlowTransformer;
+}
+
+public final class kt/mobius/flow/SubtypeEffectHandlerKt {
+	public static final fun subtypeEffectHandler (Lkotlin/jvm/functions/Function1;)Lkt/mobius/flow/FlowTransformer;
+}
+
+public final class kt/mobius/flow/SubtypeEffectHandlerKt$sam$i$kt_mobius_flow_FlowTransformer$0 : kotlin/jvm/internal/FunctionAdapter, kt/mobius/flow/FlowTransformer {
+	public fun <init> (Lkotlin/jvm/functions/Function1;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun getFunctionDelegate ()Lkotlin/Function;
+	public final fun hashCode ()I
+	public final synthetic fun invoke (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class kt/mobius/flow/UnknownEffectException : java/lang/RuntimeException {
+	public fun <init> (Ljava/lang/Object;)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun copy (Ljava/lang/Object;)Lkt/mobius/flow/UnknownEffectException;
+	public static synthetic fun copy$default (Lkt/mobius/flow/UnknownEffectException;Ljava/lang/Object;ILjava/lang/Object;)Lkt/mobius/flow/UnknownEffectException;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEffect ()Ljava/lang/Object;
+	public fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class kt/mobius/flow/UnrecoverableIncomingException : java/lang/RuntimeException {
+	public fun <init> (Ljava/lang/Throwable;)V
+	public fun getCause ()Ljava/lang/Throwable;
+}
+
