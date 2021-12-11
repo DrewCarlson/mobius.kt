@@ -16,7 +16,7 @@ kotlin {
     macosX64("macos")
     linuxX64("linux")
     mingwX64("windows")
-    mingwX86("windowsX86")
+    //mingwX86("windowsX86")
     jvm()
     js(IR) {
         nodejs()
