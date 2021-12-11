@@ -167,6 +167,9 @@ val loopFactory = FlowMobius.loop(update, effectHandler)
 Using Mobius.kt for shared logic does not require consuming projects to be written in or know about Kotlin.
 
 ### Kotlin/Native
+ 
+Kotlin/Native's [new memory manager](https://blog.jetbrains.com/kotlin/2021/08/try-the-new-kotlin-native-memory-manager-development-preview/) is generally supported but may result in higher memory usage and in rare cases, delayed runtime errors.
+The following notes are relevant only to the original memory manager where shared state cannot be mutable.
 
 A `MobiusLoop` is single-threaded on native targets and cannot be [frozen](https://kotlinlang.org/docs/native-immutability.html).
 Generally this is acceptable behavior, even when the loop exists on the main thread.
@@ -252,15 +255,15 @@ Connectable<Effect, Event> { output: Consumer<Event> ->
 
 ```kotlin
 repositories {
-  mavenCentral()
-  // Or snapshots
-  maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+    mavenCentral()
+    // Or snapshots
+    maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
 }
 
 dependencies {
-  implementation("org.drewcarlson:mobiuskt-core:$MOBIUS_VERSION")
-  implementation("org.drewcarlson:mobiuskt-extras:$MOBIUS_VERSION")
-  implementation("org.drewcarlson:mobiuskt-android:$MOBIUS_VERSION")
-  implementation("org.drewcarlson:mobiuskt-coroutines:$MOBIUS_VERSION")
+    implementation("org.drewcarlson:mobiuskt-core:$MOBIUS_VERSION")
+    implementation("org.drewcarlson:mobiuskt-extras:$MOBIUS_VERSION")
+    implementation("org.drewcarlson:mobiuskt-android:$MOBIUS_VERSION")
+    implementation("org.drewcarlson:mobiuskt-coroutines:$MOBIUS_VERSION")
 }
 ```
