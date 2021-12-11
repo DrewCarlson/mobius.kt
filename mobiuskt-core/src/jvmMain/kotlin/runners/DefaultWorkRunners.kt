@@ -5,7 +5,7 @@ import java.util.concurrent.Executors
 import java.util.concurrent.ThreadFactory
 import java.util.concurrent.atomic.AtomicLong
 
-internal actual class DefaultWorkRunners {
+internal actual object DefaultWorkRunners {
     private val threadFactory = MyThreadFactory()
 
     actual fun eventWorkRunnerProducer() = Producer {
@@ -19,7 +19,7 @@ internal actual class DefaultWorkRunners {
     private class MyThreadFactory : ThreadFactory {
         private val threadCount = AtomicLong(0)
 
-        override fun newThread(r: java.lang.Runnable?): Thread {
+        override fun newThread(r: java.lang.Runnable): Thread {
             return Executors.defaultThreadFactory().newThread(r).apply {
                 name = "mobius-thread-${threadCount.incrementAndGet()}"
             }

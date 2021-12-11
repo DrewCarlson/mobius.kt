@@ -66,14 +66,13 @@ public object Mobius {
         update: Update<M, E, F>,
         effectHandler: Connectable<F, E>
     ): MobiusLoop.Builder<M, E, F> {
-        val defaultWorkRunners = DefaultWorkRunners()
         return Builder(
             update,
             effectHandler,
             NOOP_INIT as Init<M, F>,
             NOOP_EVENT_SOURCE as EventSource<E>,
-            defaultWorkRunners.eventWorkRunnerProducer(),
-            defaultWorkRunners.effectWorkRunnerProducer(),
+            DefaultWorkRunners.eventWorkRunnerProducer(),
+            DefaultWorkRunners.effectWorkRunnerProducer(),
             NOOP_LOGGER as MobiusLoop.Logger<M, E, F>
         )
     }
