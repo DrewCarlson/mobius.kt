@@ -1,5 +1,5 @@
 package kt.mobius.runners
 
-expect interface Runnable {
-    fun run()
+public expect interface Runnable {
+    public fun run()
 }

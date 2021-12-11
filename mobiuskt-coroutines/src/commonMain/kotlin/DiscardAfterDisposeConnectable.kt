@@ -15,7 +15,7 @@ import kt.mobius.functions.Consumer
  * This only acts as a safeguard, you still need to make sure that the
  * Connectable disposes of resources correctly.
  */
-class DiscardAfterDisposeConnectable<I, O>(
+internal class DiscardAfterDisposeConnectable<I, O>(
         private val actual: Connectable<I, O>
 ) : Connectable<I, O> {
 

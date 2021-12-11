@@ -19,7 +19,7 @@ import kotlin.jvm.Volatile
  * It hooks up all the different parts of the main Mobius loop, and dispatches messages
  * internally on the appropriate executors.
  */
-class MobiusLoop<M, E, F> private constructor(
+public class MobiusLoop<M, E, F> private constructor(
     eventProcessorFactory: EventProcessor.Factory<M, E, F>,
     effectHandler: Connectable<F, E>,
     eventSource: EventSource<E>,
@@ -29,11 +29,11 @@ class MobiusLoop<M, E, F> private constructor(
 
     private val modelObserverLock = object : SynchronizedObject() {}
 
-    companion object {
+    public companion object {
 
         @JvmStatic
         @JsName("create")
-        fun <M, E, F> create(
+        public fun <M, E, F> create(
             store: MobiusStore<M, E, F>,
             effectHandler: Connectable<F, E>,
             eventSource: EventSource<E>,
@@ -76,7 +76,7 @@ class MobiusLoop<M, E, F> private constructor(
     private val modelObservers = arrayListOf<Consumer<M>>()
 
     @Volatile
-    var mostRecentModel: M? = null
+    public var mostRecentModel: M? = null
         private set
 
     @Volatile
@@ -108,7 +108,7 @@ class MobiusLoop<M, E, F> private constructor(
             })
     }
 
-    fun dispatchEvent(event: E) {
+    public fun dispatchEvent(event: E) {
         if (disposed)
             throw IllegalStateException(
                 "This loop has already been disposed. You cannot dispatch events after disposal"
@@ -126,7 +126,7 @@ class MobiusLoop<M, E, F> private constructor(
      * @return a [Disposable] that can be used to stop further notifications to the observer
      * @throws IllegalStateException if the loop has been disposed
      */
-    fun observe(observer: Consumer<M>): Disposable {
+    public fun observe(observer: Consumer<M>): Disposable {
         synchronized(modelObserverLock) {
             if (disposed) {
                 error("This loop has already been disposed. You cannot observe a disposed loop")
@@ -174,14 +174,14 @@ class MobiusLoop<M, E, F> private constructor(
      * @param E the event type
      * @param F the effect type
      */
-    interface Builder<M, E, F> : Factory<M, E, F> {
+    public interface Builder<M, E, F> : Factory<M, E, F> {
 
         /**
          * @return a new [Builder] with the supplied [Init], and the same values as the
          * current one for the other fields.
          */
         @JsName("init")
-        fun init(init: Init<M, F>): Builder<M, E, F>
+        public fun init(init: Init<M, F>): Builder<M, E, F>
 
         /**
          * @return a new [Builder] with the supplied [EventSource], and the same values as
@@ -190,38 +190,38 @@ class MobiusLoop<M, E, F> private constructor(
          * please use [eventSources].
          */
         @JsName("eventSource")
-        fun eventSource(eventSource: EventSource<E>): Builder<M, E, F>
+        public fun eventSource(eventSource: EventSource<E>): Builder<M, E, F>
 
         /**
          * @return a new [Builder] with an [EventSource] that merges the supplied event
          * sources, and the same values as the current one for the other fields.
          */
         @JsName("eventSources")
-        fun eventSources(vararg eventSources: EventSource<E>): Builder<M, E, F>
+        public fun eventSources(vararg eventSources: EventSource<E>): Builder<M, E, F>
 
         /**
          * @return a new [Builder] with the supplied logger, and the same values as the current
          * one for the other fields.
          */
         @JsName("logger")
-        fun logger(logger: Logger<M, E, F>): Builder<M, E, F>
+        public fun logger(logger: Logger<M, E, F>): Builder<M, E, F>
 
         /**
          * @return a new [Builder] with the supplied event runner, and the same values as the
          * current one for the other fields.
          */
         @JsName("eventRunner")
-        fun eventRunner(eventRunner: Producer<WorkRunner>): Builder<M, E, F>
+        public fun eventRunner(eventRunner: Producer<WorkRunner>): Builder<M, E, F>
 
         /**
          * @return a new [Builder] with the supplied effect runner, and the same values as the
          * current one for the other fields.
          */
         @JsName("effectRunner")
-        fun effectRunner(effectRunner: Producer<WorkRunner>): Builder<M, E, F>
+        public fun effectRunner(effectRunner: Producer<WorkRunner>): Builder<M, E, F>
     }
 
-    interface Factory<M, E, F> {
+    public interface Factory<M, E, F> {
         /**
          * Start a [MobiusLoop] using this factory.
          *
@@ -229,7 +229,7 @@ class MobiusLoop<M, E, F> private constructor(
          * @return the started [MobiusLoop]
          */
         @JsName("startFrom")
-        fun startFrom(startModel: M): MobiusLoop<M, E, F>
+        public fun startFrom(startModel: M): MobiusLoop<M, E, F>
     }
 
     /**
@@ -238,13 +238,13 @@ class MobiusLoop<M, E, F> private constructor(
      * If a loop is stopped and then started again, the new loop will continue from where the last
      * one left off.
      */
-    interface Controller<M, E> {
+    public interface Controller<M, E> {
         /**
          * Indicates whether this controller is running.
          *
          * @return true if the controller is running
          */
-        val isRunning: Boolean
+        public val isRunning: Boolean
 
         /**
          * Get the current model of the loop that this controller is running, or the most recent model
@@ -252,7 +252,7 @@ class MobiusLoop<M, E, F> private constructor(
          *
          * @return a model with the state of the controller
          */
-        val model: M
+        public val model: M
 
         /**
          * Connect a view to this controller.
@@ -270,21 +270,21 @@ class MobiusLoop<M, E, F> private constructor(
          * connected
          */
         @JsName("connect")
-        fun connect(view: Connectable<M, E>)
+        public fun connect(view: Connectable<M, E>)
 
         /**
          * Disconnect UI from this controller.
          *
          * @throws IllegalStateException if the loop is running or if there isn't anything to disconnect
          */
-        fun disconnect()
+        public fun disconnect()
 
         /**
          * Start a MobiusLoop from the current model.
          *
          * @throws IllegalStateException if the loop already is running or no view has been connected
          */
-        fun start()
+        public fun start()
 
         /**
          * Stop the currently running MobiusLoop.
@@ -295,7 +295,7 @@ class MobiusLoop<M, E, F> private constructor(
          *
          * @throws IllegalStateException if the loop isn't running
          */
-        fun stop()
+        public fun stop()
 
         /**
          * Replace which model the controller should start from.
@@ -304,11 +304,11 @@ class MobiusLoop<M, E, F> private constructor(
          * @throws IllegalStateException if the loop is running
          */
         @JsName("replaceModel")
-        fun replaceModel(model: M)
+        public fun replaceModel(model: M)
     }
 
     /** Interface for logging init and update calls.  */
-    interface Logger<M, E, F> {
+    public interface Logger<M, E, F> {
         /**
          * Called right before the [Init.init] function is called.
          *
@@ -319,7 +319,7 @@ class MobiusLoop<M, E, F> private constructor(
          * @param model the model that will be passed to the init function
          */
         @JsName("beforeInit")
-        fun beforeInit(model: M)
+        public fun beforeInit(model: M)
 
         /**
          * Called right after the [Init.init] function is called.
@@ -332,7 +332,7 @@ class MobiusLoop<M, E, F> private constructor(
          * @param result the [First] that init returned
          */
         @JsName("afterInit")
-        fun afterInit(model: M, result: First<M, F>)
+        public fun afterInit(model: M, result: First<M, F>)
 
         /**
          * Called if the [Init.init] invocation throws an exception. This is a programmer
@@ -342,7 +342,7 @@ class MobiusLoop<M, E, F> private constructor(
          * @param exception the thrown exception
          */
         @JsName("exceptionDuringInit")
-        fun exceptionDuringInit(model: M, exception: Throwable)
+        public fun exceptionDuringInit(model: M, exception: Throwable)
 
         /**
          * Called right before the [Update.update] function is called.
@@ -355,7 +355,7 @@ class MobiusLoop<M, E, F> private constructor(
          * @param event the event that will be passed to the update function
          */
         @JsName("beforeUpdate")
-        fun beforeUpdate(model: M, event: E)
+        public fun beforeUpdate(model: M, event: E)
 
         /**
          * Called right after the [Update.update] function is called.
@@ -369,7 +369,7 @@ class MobiusLoop<M, E, F> private constructor(
          * @param result the [Next] that update returned
          */
         @JsName("afterUpdate")
-        fun afterUpdate(model: M, event: E, result: Next<M, F>)
+        public fun afterUpdate(model: M, event: E, result: Next<M, F>)
 
         /**
          * Called if the [Update.update] invocation throws an exception. This is a
@@ -379,6 +379,6 @@ class MobiusLoop<M, E, F> private constructor(
          * @param exception the thrown exception
          */
         @JsName("exceptionDuringUpdate")
-        fun exceptionDuringUpdate(model: M, event: E, exception: Throwable)
+        public fun exceptionDuringUpdate(model: M, event: E, exception: Throwable)
     }
 }

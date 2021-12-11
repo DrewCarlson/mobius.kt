@@ -2,7 +2,7 @@ package kt.mobius.runners
 
 import kt.mobius.functions.Producer
 
-actual class DefaultWorkRunners {
+internal actual class DefaultWorkRunners {
 
     actual fun eventWorkRunnerProducer() =
         Producer<WorkRunner> {

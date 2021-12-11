@@ -10,19 +10,19 @@ import kotlin.jvm.JvmStatic
  * Creates a [Connectable] that delegates connection creation to [effectHandlers]
  * and the corresponding [Connection]s.
  */
-class CompositeEffectHandler<I, O> private constructor(
+public class CompositeEffectHandler<I, O> private constructor(
     private val effectHandlers: Array<out Connectable<I, O>>
 ) : Connectable<I, O> {
 
-    companion object {
+    public companion object {
         @JvmStatic
         @JsName("from")
-        fun <I, O> from(vararg effectHandlers: Connectable<I, O>): Connectable<I, O> =
+        public fun <I, O> from(vararg effectHandlers: Connectable<I, O>): Connectable<I, O> =
             CompositeEffectHandler(effectHandlers)
 
         @JvmStatic
         @JsName("fromList")
-        fun <I, O> from(effectHandlers: List<Connectable<I, O>>): Connectable<I, O> =
+        public fun <I, O> from(effectHandlers: List<Connectable<I, O>>): Connectable<I, O> =
             CompositeEffectHandler(effectHandlers.toTypedArray())
     }
 

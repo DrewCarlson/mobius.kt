@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.*
  * Constructs a [Connectable] that applies [transform] to
  * map a [Flow] of [I] into a [Flow] of [O].
  */
-fun <I, O> flowConnectable(
+public fun <I, O> flowConnectable(
     transform: FlowTransformer<I, O>
 ): Connectable<I, O> {
     val actual = Connectable<I, O> { consumer ->
@@ -42,7 +42,7 @@ fun <I, O> flowConnectable(
 /**
  * Transforms the [FlowTransformer] into a [Connectable].
  */
-fun <I, O> FlowTransformer<I, O>.asConnectable(): Connectable<I, O> =
+public fun <I, O> FlowTransformer<I, O>.asConnectable(): Connectable<I, O> =
     flowConnectable(this)
 
 /**
@@ -50,7 +50,7 @@ fun <I, O> FlowTransformer<I, O>.asConnectable(): Connectable<I, O> =
  * the provided [Connectable] [connectable].
  */
 @OptIn(ExperimentalCoroutinesApi::class)
-fun <I, O> Flow<I>.transform(
+public fun <I, O> Flow<I>.transform(
     connectable: Connectable<I, O>
 ): Flow<O> = callbackFlow {
     val connection = connectable.connect { output ->

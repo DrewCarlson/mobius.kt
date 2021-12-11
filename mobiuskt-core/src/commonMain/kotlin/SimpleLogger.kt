@@ -1,6 +1,6 @@
 package kt.mobius
 
-class SimpleLogger<M, E, F>(private val tag: String) : MobiusLoop.Logger<M, E, F> {
+public class SimpleLogger<M, E, F>(private val tag: String) : MobiusLoop.Logger<M, E, F> {
     override fun beforeInit(model: M) {
         println("[$tag] Initializing loop")
     }

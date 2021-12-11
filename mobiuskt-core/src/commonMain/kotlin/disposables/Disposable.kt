@@ -5,7 +5,7 @@ package kt.mobius.disposables
  * be released when the object is no longer needed. The dispose method is invoked to release
  * resources that the object is holding.
  */
-fun interface Disposable {
+public fun interface Disposable {
 
     /**
      * Dispose of all resources associated with this object.
@@ -13,5 +13,5 @@ fun interface Disposable {
      * The object will no longer be valid after dispose has been called, and any further calls to
      * dispose won't have any effect.
      */
-    fun dispose()
+    public fun dispose()
 }

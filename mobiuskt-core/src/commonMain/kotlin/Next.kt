@@ -12,21 +12,21 @@ import kotlin.jvm.JvmStatic
  * contains the new Model (if there is one) and Effect objects that describe which side-effects
  * should take place.
  */
-class Next<M, F> internal constructor(
+public class Next<M, F> internal constructor(
     /** Get the model of this Next, if it has one. Might return null. */
     private val model: M?,
     /** Get the effects of this Next. Will return an empty set if there are no effects */
     private val effects: Set<F>
 ) {
 
-    fun model() = model
-    fun effects() = effects
+    public fun model(): M? = model
+    public fun effects(): Set<F> = effects
 
     /** Check if this Next contains a model.  */
-    fun hasModel() = model != null
+    public fun hasModel(): Boolean = model != null
 
     /** Check if this Next contains effects.  */
-    fun hasEffects() = effects.isNotEmpty()
+    public fun hasEffects(): Boolean = effects.isNotEmpty()
 
     /**
      * Try to get the model from this Next, with a fallback if there isn't one.
@@ -34,7 +34,7 @@ class Next<M, F> internal constructor(
      * @param fallbackModel the default model to use if the Next doesn't have a model
      */
     @JsName("modelOrElse")
-    fun modelOrElse(fallbackModel: M): M {
+    public fun modelOrElse(fallbackModel: M): M {
         return if (hasModel()) {
             modelUnsafe()
         } else {
@@ -51,7 +51,7 @@ class Next<M, F> internal constructor(
      *
      * @throws NoSuchElementException if this Next has no model
      */
-    fun modelUnsafe(): M {
+    public fun modelUnsafe(): M {
         if (!hasModel()) {
             throw NoSuchElementException("there is no model in this Next<>")
         }
@@ -60,7 +60,7 @@ class Next<M, F> internal constructor(
 
     /** If the model is present, call the given consumer with it, otherwise do nothing.  */
     @JsName("ifHasModel")
-    fun ifHasModel(consumer: Consumer<M>) {
+    public fun ifHasModel(consumer: Consumer<M>) {
         if (hasModel()) {
             consumer.accept(modelUnsafe())
         }
@@ -82,38 +82,38 @@ class Next<M, F> internal constructor(
         return result
     }
 
-    companion object {
+    public companion object {
 
         /** Create a Next that updates the model and dispatches the optional effects. */
         @JvmStatic
         @JvmOverloads
         @JsName("next")
-        fun <M, F> next(model: M, effects: Set<F> = emptySet()): Next<M, F> {
+        public fun <M, F> next(model: M, effects: Set<F> = emptySet()): Next<M, F> {
             return Next(model, effects.toSet())
         }
 
         /** Create a Next that updates the model and dispatches the optional effects. */
         @JvmStatic
-        fun <M, F> next(model: M, vararg effects: F): Next<M, F> {
+        public fun <M, F> next(model: M, vararg effects: F): Next<M, F> {
             return Next(model, effects.toSet())
         }
 
         /** Create a Next that doesn't update the model but dispatches the supplied effects. */
         @JvmStatic
         @JsName("dispatch")
-        fun <M, F> dispatch(effects: Set<F>): Next<M, F> {
+        public fun <M, F> dispatch(effects: Set<F>): Next<M, F> {
             return Next(null, effects)
         }
 
         /** Create a Next that doesn't update the model but dispatches the supplied effects. */
         @JvmStatic
-        fun <M, F> dispatch(vararg effects: F): Next<M, F> {
+        public fun <M, F> dispatch(vararg effects: F): Next<M, F> {
             return Next(null, effects.toSet())
         }
 
         /** Create an empty Next that doesn't update the model or dispatch effects. */
         @JvmStatic
-        fun <M, F> noChange(): Next<M, F> {
+        public fun <M, F> noChange(): Next<M, F> {
             return Next(null, emptySet())
         }
     }

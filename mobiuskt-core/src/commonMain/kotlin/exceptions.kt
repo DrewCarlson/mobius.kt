@@ -12,8 +12,8 @@ import kotlin.jvm.JvmOverloads
  * An example of this would be that if loading an HTTP request throws an exception, then the
  * connection should emit a LoadingDataFailed event to communicate the failure to [Update].
  */
-class ConnectionException(
-    val effect: Any,
+public class ConnectionException(
+    public val effect: Any,
     throwable: Throwable
 ) : RuntimeException(effect.toString(), throwable) {
 
@@ -32,7 +32,7 @@ class ConnectionException(
  * Exception to be thrown by a [Connectable] that doesn't support multiple simultaneous
  * connections.
  */
-class ConnectionLimitExceededException @JvmOverloads constructor(
+public class ConnectionLimitExceededException @JvmOverloads constructor(
     message: String? = null,
     throwable: Throwable? = null
 ) : RuntimeException(message, throwable)

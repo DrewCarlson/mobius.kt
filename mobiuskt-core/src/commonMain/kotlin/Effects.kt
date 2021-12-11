@@ -4,7 +4,7 @@ import kotlin.js.JsName
 import kotlin.jvm.JvmStatic
 
 /** Utility class for working with effects. */
-object Effects {
+public object Effects {
 
     /**
      * Convenience method for instantiating a set of effects. Note that this returns a mutable set of
@@ -17,7 +17,7 @@ object Effects {
     // super type even if you only submit items of a sub type. Hence the 'G extends F' type parameter.
     @JvmStatic
     @JsName("effects")
-    fun <F, G : F> effects(vararg effects: G): Set<F> {
+    public fun <F, G : F> effects(vararg effects: G): Set<F> {
         return hashSetOf<F>(*effects.copyOf())
     }
 }

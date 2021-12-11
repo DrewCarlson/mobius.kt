@@ -1,6 +1,6 @@
 package kt.mobius
 
-class ControllerStateInit<M, E>(
+public class ControllerStateInit<M, E>(
     private val actions: ControllerActions<M, E>,
     private var nextModelToStartFrom: M
 ) : ControllerStateBase<M, E>() {

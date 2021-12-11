@@ -19,7 +19,7 @@ import kotlin.js.JsName
  * @param I the incoming value type
  * @param O the outgoing value type
  */
-fun interface Connectable<I, O> {
+public fun interface Connectable<I, O> {
 
     /**
      * Create a new connection that accepts input values and sends outgoing values to a supplied
@@ -43,5 +43,5 @@ fun interface Connectable<I, O> {
      * Connectable, and is considered an irrecoverable error
      */
     @JsName("connect")
-    fun connect(output: Consumer<O>): Connection<I>
+    public fun connect(output: Consumer<O>): Connection<I>
 }

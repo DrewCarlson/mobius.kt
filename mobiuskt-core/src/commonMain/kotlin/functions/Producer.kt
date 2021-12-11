@@ -1,6 +1,6 @@
 package kt.mobius.functions
 
 /** Interface for producing values. */
-fun interface Producer<V> {
-    fun get(): V
+public fun interface Producer<V> {
+    public fun get(): V
 }

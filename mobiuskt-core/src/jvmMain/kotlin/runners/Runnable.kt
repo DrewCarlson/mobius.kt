@@ -1,3 +1,3 @@
 package kt.mobius.runners
 
-actual typealias Runnable = java.lang.Runnable
+public actual typealias Runnable = java.lang.Runnable

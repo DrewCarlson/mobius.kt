@@ -11,12 +11,12 @@ import kotlin.js.JsName
  * side-effects. This means that given the same arguments, the function must always return the same
  * [First].
  */
-fun interface Init<M, F> {
+public fun interface Init<M, F> {
 
     @JsName("init")
-    fun init(model: M): First<M, F>
+    public fun init(model: M): First<M, F>
 
-    operator fun invoke(model: M): First<M, F> {
+    public operator fun invoke(model: M): First<M, F> {
         return init(model)
     }
 }

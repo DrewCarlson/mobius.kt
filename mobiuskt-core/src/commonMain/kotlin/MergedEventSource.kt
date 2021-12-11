@@ -10,7 +10,7 @@ import kotlin.jvm.JvmStatic
  *
  * @param E The type of Events the sources will emit
  */
-class MergedEventSource<E> private constructor(
+public class MergedEventSource<E> private constructor(
     private val eventSources: List<EventSource<E>>
 ) : EventSource<E> {
 
@@ -27,10 +27,10 @@ class MergedEventSource<E> private constructor(
         }
     }
 
-    companion object {
+    public companion object {
         @JvmStatic
         @JsName("from")
-        fun <E> from(vararg eventSources: EventSource<E>): EventSource<E> {
+        public fun <E> from(vararg eventSources: EventSource<E>): EventSource<E> {
             val allSources = ArrayList<EventSource<E>>()
             allSources.addAll(eventSources)
             return MergedEventSource(allSources)

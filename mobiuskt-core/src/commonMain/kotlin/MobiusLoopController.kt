@@ -5,7 +5,7 @@ import kt.mobius.runners.Runnable
 import kt.mobius.runners.WorkRunner
 import mpp.synchronized
 
-class MobiusLoopController<M, E, F>(
+public class MobiusLoopController<M, E, F>(
     private val loopFactory: MobiusLoop.Factory<M, E, F>,
     private val defaultModel: M,
     private val mainThreadRunner: WorkRunner

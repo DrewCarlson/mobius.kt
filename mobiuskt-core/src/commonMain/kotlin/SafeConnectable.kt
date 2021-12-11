@@ -13,7 +13,7 @@ import mpp.synchronized
  * This only acts as a safeguard, you still need to make sure that the Connectable disposes of
  * resources correctly.
  */
-class SafeConnectable<F, E>(
+public class SafeConnectable<F, E>(
     private val actual: Connectable<F, E>
 ) : Connectable<F, E> {
 
@@ -32,7 +32,7 @@ class SafeConnectable<F, E>(
         }
     }
 
-    class SafeEffectConsumer<F>(private val actual: Connection<F>) : Connection<F> {
+    public class SafeEffectConsumer<F>(private val actual: Connection<F>) : Connection<F> {
         private val lock = object : SynchronizedObject() {}
 
         private var disposed: Boolean = false
@@ -50,7 +50,7 @@ class SafeConnectable<F, E>(
         }
     }
 
-    class SafeConsumer<E>(private val actual: Consumer<E>) : Connection<E> {
+    public class SafeConsumer<E>(private val actual: Consumer<E>) : Connection<E> {
         private val lock = object : SynchronizedObject() {}
 
         private var disposed: Boolean = false

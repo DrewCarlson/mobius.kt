@@ -27,38 +27,40 @@ import kotlin.jvm.JvmStatic
  * @param [EI] the inner event type
  * @param [FI] the inner effect type
  */
-class InnerUpdate<M, E, F, MI, EI, FI>(
-    val innerUpdate: Update<MI, EI, FI>,
-    val modelExtractor: Function<M, MI>,
-    val eventExtractor: Function<E, EI>,
-    val modelUpdater: BiFunction<M, MI, M>,
-    val innerEffectHandler: InnerEffectHandler<M, F, FI>
+public class InnerUpdate<M, E, F, MI, EI, FI>(
+    public val innerUpdate: Update<MI, EI, FI>,
+    public val modelExtractor: Function<M, MI>,
+    public val eventExtractor: Function<E, EI>,
+    public val modelUpdater: BiFunction<M, MI, M>,
+    public val innerEffectHandler: InnerEffectHandler<M, F, FI>
 ) : Update<M, E, F> {
 
-    companion object {
-        class Builder<M, E, F, MI, EI, FI> {
+    public companion object {
+        public class Builder<M, E, F, MI, EI, FI> {
             private lateinit var _innerUpdate: Update<MI, EI, FI>
             private lateinit var _modelExtractor: Function<M, MI>
             private lateinit var _eventExtractor: Function<E, EI>
             private lateinit var _modelUpdater: BiFunction<M, MI, M>
             private lateinit var _innerEffectHandler: InnerEffectHandler<M, F, FI>
 
-            fun innerUpdate(innerUpdate: Update<MI, EI, FI>) =
+            public fun innerUpdate(innerUpdate: Update<MI, EI, FI>): Builder<M, E, F, MI, EI, FI> =
                 apply { _innerUpdate = innerUpdate }
 
-            fun modelExtractor(modelExtractor: Function<M, MI>) =
+            public fun modelExtractor(modelExtractor: Function<M, MI>): Builder<M, E, F, MI, EI, FI> =
                 apply { _modelExtractor = modelExtractor }
 
-            fun eventExtractor(eventExtractor: Function<E, EI>) =
+            public fun eventExtractor(eventExtractor: Function<E, EI>): Builder<M, E, F, MI, EI, FI> =
                 apply { _eventExtractor = eventExtractor }
 
-            fun modelUpdater(modelUpdater: BiFunction<M, MI, M>) =
+            public fun modelUpdater(modelUpdater: BiFunction<M, MI, M>): Builder<M, E, F, MI, EI, FI> =
                 apply { _modelUpdater = modelUpdater }
 
-            fun innerEffectHandler(innerEffectHandler: InnerEffectHandler<M, F, FI>) =
+            public fun innerEffectHandler(
+                innerEffectHandler: InnerEffectHandler<M, F, FI>
+            ): Builder<M, E, F, MI, EI, FI> =
                 apply { _innerEffectHandler = innerEffectHandler }
 
-            fun build() = InnerUpdate(
+            public fun build(): InnerUpdate<M, E, F, MI, EI, FI> = InnerUpdate(
                 innerUpdate = if (::_innerUpdate.isInitialized) _innerUpdate else {
                     error("You must call innerUpdate()")
                 },
@@ -78,7 +80,7 @@ class InnerUpdate<M, E, F, MI, EI, FI>(
         }
 
         @JvmStatic
-        fun <M, E, F, MI, EI, FI> builder() = Builder<M, E, F, MI, EI, FI>()
+        public fun <M, E, F, MI, EI, FI> builder(): Builder<M, E, F, MI, EI, FI> = Builder()
     }
 
     override fun update(model: M, event: E): Next<M, F> {
@@ -106,10 +108,10 @@ class InnerUpdate<M, E, F, MI, EI, FI>(
  * @param [F] the outer effect type
  * @param [FI] the inner effect type
  */
-interface InnerEffectHandler<M, F, FI> {
+public interface InnerEffectHandler<M, F, FI> {
 
-    companion object {
-        inline operator fun <M, F, FI> invoke(
+    public companion object {
+        public inline operator fun <M, F, FI> invoke(
             crossinline handler: (
                 model: M,
                 modelUpdated: Boolean,
@@ -134,10 +136,10 @@ interface InnerEffectHandler<M, F, FI> {
      * @param modelUpdated true if the outer model was updated
      * @param innerEffects the effects emitted by the inner update function
      */
-    fun handleInnerEffects(model: M, modelUpdated: Boolean, innerEffects: Set<FI>): Next<M, F>
+    public fun handleInnerEffects(model: M, modelUpdated: Boolean, innerEffects: Set<FI>): Next<M, F>
 }
 
-object InnerEffectHandlers {
+public object InnerEffectHandlers {
 
     /**
      * Create an inner effect handler that ignores inner effects.
@@ -145,7 +147,7 @@ object InnerEffectHandlers {
      * The resulting next will be an [Next.next] or a [Next.noChange]
      * depending on if the outer model changed.
      */
-    fun <M, F, FI> ignoreEffects(): InnerEffectHandler<M, F, FI> {
+    public fun <M, F, FI> ignoreEffects(): InnerEffectHandler<M, F, FI> {
         return InnerEffectHandler { model, modelUpdated, _ ->
             if (modelUpdated) next(model) else noChange()
         }
@@ -160,7 +162,7 @@ object InnerEffectHandlers {
      * If there are no inner effects, then the resulting next will be an [Next.next]
      * or a [Next.noChange] depending on if the outer model changed.
      */
-    fun <M, F, FI> mapEffects(f: Function<FI, F>): InnerEffectHandler<M, F, FI> {
+    public fun <M, F, FI> mapEffects(f: Function<FI, F>): InnerEffectHandler<M, F, FI> {
         return InnerEffectHandler { model, modelUpdated, innerEffects ->
             if (innerEffects.isEmpty()) {
                 if (modelUpdated) next(model)

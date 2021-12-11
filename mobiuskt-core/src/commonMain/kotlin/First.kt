@@ -5,18 +5,18 @@ import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmStatic
 
 /** Defines the entry into the initial state of a Mobius loop. */
-class First<M, F> internal constructor(
+public class First<M, F> internal constructor(
     /** the initial model to use */
     private val model: M,
     /** the possibly empty set of effects to initially dispatch */
     private val effects: Set<F>
 ) {
 
-    fun model() = model
-    fun effects() = effects
+    public fun model(): M = model
+    public fun effects(): Set<F> = effects
 
     /** Check if this First contains effects  */
-    fun hasEffects() = effects.isNotEmpty()
+    public fun hasEffects(): Boolean = effects.isNotEmpty()
 
     override fun equals(other: Any?): Boolean {
         if (other == null || other !is First<*, *>) return false
@@ -30,7 +30,7 @@ class First<M, F> internal constructor(
         return result
     }
 
-    companion object {
+    public companion object {
 
         /**
          * Create a [First] with the provided model and the optional initial effects.
@@ -42,7 +42,7 @@ class First<M, F> internal constructor(
         @JvmStatic
         @JvmOverloads
         @JsName("first")
-        fun <M, F> first(model: M, effects: Set<F> = emptySet()): First<M, F> {
+        public fun <M, F> first(model: M, effects: Set<F> = emptySet()): First<M, F> {
             return First(model, effects)
         }
 
@@ -54,7 +54,7 @@ class First<M, F> internal constructor(
          * @param [F] the effect type
          */
         @JvmStatic
-        fun <M, F> first(model: M, vararg effects: F): First<M, F> {
+        public fun <M, F> first(model: M, vararg effects: F): First<M, F> {
             return First(model, effects.toSet())
         }
     }

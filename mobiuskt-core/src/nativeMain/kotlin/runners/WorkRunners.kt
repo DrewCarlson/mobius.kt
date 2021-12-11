@@ -1,8 +1,8 @@
 package kt.mobius.runners
 
-actual object WorkRunners {
+public actual object WorkRunners {
 
-    actual fun immediate(): WorkRunner {
+    public actual fun immediate(): WorkRunner {
         return ImmediateWorkRunner()
     }
 }

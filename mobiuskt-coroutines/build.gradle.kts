@@ -48,6 +48,7 @@ kotlin {
     sourceSets {
         all {
             languageSettings.optIn("kotlin.RequiresOptIn")
+            explicitApi()
         }
         named("commonMain") {
             dependencies {

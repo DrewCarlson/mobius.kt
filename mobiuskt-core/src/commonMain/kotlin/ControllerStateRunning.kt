@@ -2,7 +2,7 @@ package kt.mobius
 
 import kt.mobius.functions.Consumer
 
-class ControllerStateRunning<M, E, F>(
+public class ControllerStateRunning<M, E, F>(
     private val actions: ControllerActions<M, E>,
     private val renderer: Connection<M>,
     loopFactory: MobiusLoop.Factory<M, E, F>,
@@ -17,7 +17,7 @@ class ControllerStateRunning<M, E, F>(
     override val isRunning: Boolean
         get() = true
 
-    fun start() {
+    public fun start() {
         loop.observe(
             Consumer { model ->
                 actions.postUpdateView(model)

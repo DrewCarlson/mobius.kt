@@ -5,7 +5,7 @@ import java.util.concurrent.Executors
 import java.util.concurrent.ThreadFactory
 import java.util.concurrent.atomic.AtomicLong
 
-actual class DefaultWorkRunners {
+internal actual class DefaultWorkRunners {
     private val threadFactory = MyThreadFactory()
 
     actual fun eventWorkRunnerProducer() = Producer {

@@ -1,5 +1,5 @@
 package mpp
 
-actual inline fun <R> synchronized(lock: Any, block: () -> R): R = run(block)
+public actual inline fun <R> synchronized(lock: Any, block: () -> R): R = run(block)
 
-actual fun Any.ensureNeverFrozen() = Unit
+internal actual fun Any.ensureNeverFrozen() = Unit

@@ -9,7 +9,7 @@ import kt.mobius.runners.WorkRunner
 import kotlin.js.JsName
 import kotlin.jvm.JvmStatic
 
-object Mobius {
+public object Mobius {
     private object NOOP_INIT : Init<Any, Any> {
         override fun init(model: Any): First<Any, Any> {
             return First.first(model)
@@ -62,7 +62,7 @@ object Mobius {
     @Suppress("UNCHECKED_CAST")
     @JvmStatic
     @JsName("loop")
-    fun <M, E, F> loop(
+    public fun <M, E, F> loop(
         update: Update<M, E, F>,
         effectHandler: Connectable<F, E>
     ): MobiusLoop.Builder<M, E, F> {
@@ -87,7 +87,7 @@ object Mobius {
      */
     @JvmStatic
     @JsName("controller")
-    fun <M, E, F> controller(loopFactory: MobiusLoop.Factory<M, E, F>, defaultModel: M): MobiusLoop.Controller<M, E> {
+    public fun <M, E, F> controller(loopFactory: MobiusLoop.Factory<M, E, F>, defaultModel: M): MobiusLoop.Controller<M, E> {
         return MobiusLoopController(loopFactory, defaultModel, ImmediateWorkRunner())
     }
 
@@ -101,7 +101,7 @@ object Mobius {
      */
     @JvmStatic
     @JsName("controllerWithModelRunner")
-    fun <M, E, F> controller(
+    public fun <M, E, F> controller(
         loopFactory: MobiusLoop.Factory<M, E, F>,
         defaultModel: M,
         modelRunner: WorkRunner
@@ -109,7 +109,7 @@ object Mobius {
         return MobiusLoopController(loopFactory, defaultModel, modelRunner)
     }
 
-    data class Builder<M, E, F>(
+    public data class Builder<M, E, F>(
         private val update: Update<M, E, F>,
         private val effectHandler: Connectable<F, E>,
         private val init: Init<M, F>,

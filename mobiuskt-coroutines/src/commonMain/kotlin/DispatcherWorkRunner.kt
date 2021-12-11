@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import kt.mobius.runners.Runnable
 
 /** A [WorkRunner] that launches work on a [CoroutineDispatcher]. */
-class DispatcherWorkRunner(
+public class DispatcherWorkRunner(
     dispatcher: CoroutineDispatcher
 ) : WorkRunner {
 

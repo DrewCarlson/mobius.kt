@@ -1,6 +1,6 @@
 package kt.mobius
 
-class ControllerStateCreated<M, E, F>(
+public class ControllerStateCreated<M, E, F>(
     private val actions: ControllerActions<M, E>,
     private val renderer: Connection<M>,
     private var nextModelToStartFrom: M

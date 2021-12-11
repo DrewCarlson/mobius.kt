@@ -15,7 +15,7 @@ import kotlin.js.JsName
  *
  * @param [E] the event class
  */
-fun interface EventSource<E> {
+public fun interface EventSource<E> {
 
     /**
      * Subscribes the supplied consumer to the events from this event source, until the returned
@@ -26,5 +26,5 @@ fun interface EventSource<E> {
      * @return a disposable used to stop the source from emitting any more events to this consumer
      */
     @JsName("subscribe")
-    fun subscribe(eventConsumer: Consumer<E>): Disposable
+    public fun subscribe(eventConsumer: Consumer<E>): Disposable
 }

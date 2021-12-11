@@ -12,10 +12,10 @@ import kotlin.js.JsName
  * @param [E] event type
  * @param [F] effect descriptor type
  */
-class EventProcessor<M, E, F> internal constructor(
-    val store: MobiusStore<M, E, F>,
-    val effectConsumer: Consumer<F>,
-    val modelConsumer: Consumer<M>
+public class EventProcessor<M, E, F> internal constructor(
+    private val store: MobiusStore<M, E, F>,
+    private val effectConsumer: Consumer<F>,
+    private val modelConsumer: Consumer<M>
 ) {
     private val lock = object : SynchronizedObject() {}
 
@@ -24,7 +24,7 @@ class EventProcessor<M, E, F> internal constructor(
     private val eventsReceivedBeforeInit = ArrayList<E>()
     private var initialised = false
 
-    fun init(): Unit = synchronized(lock) {
+    public fun init(): Unit = synchronized(lock) {
         if (initialised) {
             throw IllegalStateException("already initialised")
         }
@@ -40,7 +40,7 @@ class EventProcessor<M, E, F> internal constructor(
         }
     }
 
-    fun update(event: E): Unit = synchronized(lock) {
+    public fun update(event: E): Unit = synchronized(lock) {
         if (!initialised) {
             eventsReceivedBeforeInit.add(event)
             return
@@ -74,10 +74,10 @@ class EventProcessor<M, E, F> internal constructor(
      * @param [E] event type
      * @param [F] effect descriptor type
      */
-    data class Factory<M, E, F>(val store: MobiusStore<M, E, F>) {
+    public data class Factory<M, E, F>(val store: MobiusStore<M, E, F>) {
 
         @JsName("create")
-        fun create(effectConsumer: Consumer<F>, modelConsumer: Consumer<M>): EventProcessor<M, E, F> {
+        public fun create(effectConsumer: Consumer<F>, modelConsumer: Consumer<M>): EventProcessor<M, E, F> {
             return EventProcessor(store, effectConsumer, modelConsumer)
         }
     }

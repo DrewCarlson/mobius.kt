@@ -58,6 +58,10 @@ kotlin {
 
     @Suppress("UNUSED_VARIABLE")
     sourceSets {
+        all {
+            explicitApi()
+        }
+
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:atomicfu:$ATOMICFU_VERSION")

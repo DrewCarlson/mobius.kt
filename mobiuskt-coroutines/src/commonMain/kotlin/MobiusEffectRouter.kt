@@ -7,7 +7,7 @@ import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.reflect.KClass
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class MobiusEffectRouter<F : Any, E>(
+public class MobiusEffectRouter<F : Any, E>(
     private val effectClasses: Set<KClass<*>>,
     private val effectPerformers: List<FlowTransformer<F, E>>
 ) : FlowTransformer<F, E> {
@@ -33,8 +33,8 @@ class MobiusEffectRouter<F : Any, E>(
     }
 }
 
-data class UnknownEffectException(
+public data class UnknownEffectException(
     val effect: Any
 ) : RuntimeException() {
-    override val message = effect.toString()
+    override val message: String = effect.toString()
 }

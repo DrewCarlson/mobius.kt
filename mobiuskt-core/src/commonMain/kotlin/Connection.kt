@@ -10,7 +10,7 @@ import kt.mobius.functions.Consumer
  * Used for sending values to the connection and to dispose of it and all resources associated
  * with it.
  */
-interface Connection<I> : Disposable, Consumer<I> {
+public interface Connection<I> : Disposable, Consumer<I> {
 
     /**
      * Send a value this connection. Implementations may receive values from different threads and are
@@ -18,7 +18,7 @@ interface Connection<I> : Disposable, Consumer<I> {
      *
      * @param value the value that should be sent to the connection
      */
-    override fun accept(value: I)
+    public override fun accept(value: I)
 
     /**
      * Disconnect this connection and dispose of all resources associated with it.
@@ -27,5 +27,5 @@ interface Connection<I> : Disposable, Consumer<I> {
      * The connection will no longer be valid after dispose has been called. No further values will
      * be accepted, and any repeated calls to dispose should be ignored.
      */
-    override fun dispose()
+    public override fun dispose()
 }

@@ -27,6 +27,10 @@ kotlin {
 
     @Suppress("UNUSED_VARIABLE")
     sourceSets {
+        all {
+            explicitApi()
+        }
+
         val androidMain by getting {
             dependencies {
                 implementation(project(":mobiuskt-core"))

@@ -5,7 +5,7 @@ import android.os.Looper
 import kt.mobius.runners.WorkRunner
 
 /** A work runner that uses a [Looper] to run work.  */
-open class LooperWorkRunner internal constructor(looper: Looper) : WorkRunner {
+public open class LooperWorkRunner internal constructor(looper: Looper) : WorkRunner {
     private val handler: Handler = Handler(looper)
 
     @Volatile
@@ -27,7 +27,7 @@ open class LooperWorkRunner internal constructor(looper: Looper) : WorkRunner {
         handler.post(runnable)
     }
 
-    companion object {
+    public companion object {
 
         /**
          * Creates a [WorkRunner] backed by the provided [Looper]
@@ -36,7 +36,7 @@ open class LooperWorkRunner internal constructor(looper: Looper) : WorkRunner {
          * @return a [WorkRunner] that uses the provided [Looper] for processing work
          */
         @JvmStatic
-        fun using(looper: Looper): LooperWorkRunner {
+        public fun using(looper: Looper): LooperWorkRunner {
             return LooperWorkRunner(looper)
         }
     }

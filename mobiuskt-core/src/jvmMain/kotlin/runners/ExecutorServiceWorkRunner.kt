@@ -4,7 +4,7 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.TimeUnit
 
 /** A [WorkRunner] implementation that is backed by an [ExecutorService]. */
-class ExecutorServiceWorkRunner(private val service: ExecutorService) : WorkRunner {
+public class ExecutorServiceWorkRunner(private val service: ExecutorService) : WorkRunner {
 
     override fun post(runnable: Runnable) {
         service.submit(runnable)

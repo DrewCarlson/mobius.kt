@@ -15,7 +15,7 @@ import kotlin.jvm.JvmStatic
  * @param E The loop's Event type
  * @param F The loop's Effect type
  */
-class CompositeLogger<M, E, F> private constructor(
+public class CompositeLogger<M, E, F> private constructor(
     private val loggers: List<Logger<M, E, F>>
 ) : Logger<M, E, F> {
 
@@ -43,11 +43,11 @@ class CompositeLogger<M, E, F> private constructor(
         loggers.forEach { it.exceptionDuringUpdate(model, event, exception) }
     }
 
-    companion object {
+    public companion object {
 
         @JvmStatic
         @JsName("from")
-        fun <M, E, F> from(vararg loggers: Logger<M, E, F>): Logger<M, E, F> {
+        public fun <M, E, F> from(vararg loggers: Logger<M, E, F>): Logger<M, E, F> {
             return CompositeLogger(loggers.toList())
         }
     }

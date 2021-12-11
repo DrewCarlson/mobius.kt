@@ -8,7 +8,7 @@ package kt.mobius.flow
  *
  * *Do not* try to handle this exception in your code, ensure it never gets thrown.
  */
-class UnrecoverableIncomingException(
+public class UnrecoverableIncomingException(
     override val cause: Throwable?
 ) : RuntimeException(
     "PROGRAMMER ERROR: Mobius cannot recover from this exception; ensure your event sources don't invoke catch"
