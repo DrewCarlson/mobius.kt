@@ -7,6 +7,12 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kt.mobius.runners.Runnable
+import kt.mobius.runners.WorkRunners
+
+@Suppress("unused")
+public fun WorkRunners.fromDispatcher(dispatcher: CoroutineDispatcher): WorkRunner {
+    return DispatcherWorkRunner(dispatcher)
+}
 
 /** A [WorkRunner] that launches work on a [CoroutineDispatcher]. */
 public class DispatcherWorkRunner(

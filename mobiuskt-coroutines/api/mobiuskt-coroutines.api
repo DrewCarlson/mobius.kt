@@ -4,6 +4,10 @@ public final class kt/mobius/flow/DispatcherWorkRunner : kt/mobius/runners/WorkR
 	public fun post (Ljava/lang/Runnable;)V
 }
 
+public final class kt/mobius/flow/DispatcherWorkRunnerKt {
+	public static final fun fromDispatcher (Lkt/mobius/runners/WorkRunners;Lkotlinx/coroutines/CoroutineDispatcher;)Lkt/mobius/runners/WorkRunner;
+}
+
 public final class kt/mobius/flow/FlowConnectablesKt {
 	public static final fun asConnectable (Lkt/mobius/flow/FlowTransformer;)Lkt/mobius/Connectable;
 	public static final fun flowConnectable (Lkt/mobius/flow/FlowTransformer;)Lkt/mobius/Connectable;
