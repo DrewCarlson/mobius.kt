@@ -25,4 +25,4 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}
       - uses: eskatos/gradle-command-action@v1
         with:
-          arguments: jvmTest
+          arguments: jvmTest apiCheck
