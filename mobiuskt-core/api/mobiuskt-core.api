@@ -74,9 +74,6 @@ public final class kt/mobius/Effects {
 }
 
 public final class kt/mobius/EventProcessor {
-	public final fun getEffectConsumer ()Lkt/mobius/functions/Consumer;
-	public final fun getModelConsumer ()Lkt/mobius/functions/Consumer;
-	public final fun getStore ()Lkt/mobius/MobiusStore;
 	public final fun init ()V
 	public final fun update (Ljava/lang/Object;)V
 }
@@ -339,12 +336,6 @@ public abstract interface class kt/mobius/functions/Producer {
 	public abstract fun get ()Ljava/lang/Object;
 }
 
-public final class kt/mobius/runners/DefaultWorkRunners {
-	public fun <init> ()V
-	public final fun effectWorkRunnerProducer ()Lkt/mobius/functions/Producer;
-	public final fun eventWorkRunnerProducer ()Lkt/mobius/functions/Producer;
-}
-
 public final class kt/mobius/runners/ExecutorServiceWorkRunner : kt/mobius/runners/WorkRunner {
 	public fun <init> (Ljava/util/concurrent/ExecutorService;)V
 	public fun dispose ()V
@@ -376,7 +367,6 @@ public final class kt/mobius/runners/WorkRunners {
 }
 
 public final class mpp/UtilsKt {
-	public static final fun ensureNeverFrozen (Ljava/lang/Object;)V
 	public static final fun synchronized (Ljava/lang/Object;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
 }
 

@@ -1,8 +1,3 @@
-public final class kt/mobius/flow/DiscardAfterDisposeConnectable : kt/mobius/Connectable {
-	public fun <init> (Lkt/mobius/Connectable;)V
-	public fun connect (Lkt/mobius/functions/Consumer;)Lkt/mobius/Connection;
-}
-
 public final class kt/mobius/flow/DispatcherWorkRunner : kt/mobius/runners/WorkRunner {
 	public fun <init> (Lkotlinx/coroutines/CoroutineDispatcher;)V
 	public fun dispose ()V
@@ -41,10 +36,10 @@ public final class kt/mobius/flow/MobiusEffectRouter : kt/mobius/flow/FlowTransf
 
 public final class kt/mobius/flow/SubtypeEffectHandlerBuilder {
 	public fun <init> ()V
-	public final fun addAction (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function1;)Lkt/mobius/flow/SubtypeEffectHandlerBuilder;
-	public final fun addConsumer (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function2;)Lkt/mobius/flow/SubtypeEffectHandlerBuilder;
-	public final fun addFunction (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function2;)Lkt/mobius/flow/SubtypeEffectHandlerBuilder;
-	public final fun addTransformer (Lkotlin/reflect/KClass;Lkt/mobius/flow/FlowTransformer;)Lkt/mobius/flow/SubtypeEffectHandlerBuilder;
+	public final fun addAction (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function1;)V
+	public final fun addConsumer (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function2;)V
+	public final fun addFunction (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function2;)V
+	public final fun addTransformer (Lkotlin/reflect/KClass;Lkt/mobius/flow/FlowTransformer;)V
 	public final fun build ()Lkt/mobius/flow/FlowTransformer;
 }
 
