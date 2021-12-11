@@ -1,5 +1,6 @@
 package kt.mobius
 
+import kotlinx.atomicfu.locks.SynchronizedObject
 import kt.mobius.disposables.CompositeDisposable
 import kt.mobius.functions.Consumer
 import mpp.synchronized
@@ -20,7 +21,7 @@ class SafeConnectable<F, E>(
         val safeEventConsumer = SafeConsumer(output)
         val effectConsumer = SafeEffectConsumer(actual.connect(safeEventConsumer))
         val disposable = CompositeDisposable.from(safeEventConsumer, effectConsumer)
-        return object : Connection<F> {
+        return object : SynchronizedObject(), Connection<F> {
             override fun accept(value: F): Unit = synchronized(this) {
                 effectConsumer.accept(value)
             }
@@ -32,36 +33,36 @@ class SafeConnectable<F, E>(
     }
 
     class SafeEffectConsumer<F>(private val actual: Connection<F>) : Connection<F> {
-        private object LOCK
+        private val lock = object : SynchronizedObject() {}
 
         private var disposed: Boolean = false
 
-        override fun accept(value: F): Unit = synchronized(LOCK) {
+        override fun accept(value: F): Unit = synchronized(lock) {
             if (disposed) {
                 return
             }
             actual.accept(value)
         }
 
-        override fun dispose(): Unit = synchronized(LOCK) {
+        override fun dispose(): Unit = synchronized(lock) {
             disposed = true
             actual.dispose()
         }
     }
 
     class SafeConsumer<E>(private val actual: Consumer<E>) : Connection<E> {
-        private object LOCK
+        private val lock = object : SynchronizedObject() {}
 
         private var disposed: Boolean = false
 
-        override fun accept(value: E): Unit = synchronized(LOCK) {
+        override fun accept(value: E): Unit = synchronized(lock) {
             if (disposed) {
                 return
             }
             actual.accept(value)
         }
 
-        override fun dispose(): Unit = synchronized(LOCK) {
+        override fun dispose(): Unit = synchronized(lock) {
             disposed = true
         }
     }

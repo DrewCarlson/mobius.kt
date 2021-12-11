@@ -7,6 +7,7 @@ buildscript {
 
     dependencies {
         classpath("com.android.tools.build:gradle:$AGP_VERSION")
+        classpath("org.jetbrains.kotlinx:atomicfu-gradle-plugin:$ATOMICFU_VERSION")
     }
 }
 

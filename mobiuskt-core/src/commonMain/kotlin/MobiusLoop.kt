@@ -1,5 +1,6 @@
 package kt.mobius
 
+import kotlinx.atomicfu.locks.SynchronizedObject
 import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
 import kt.mobius.functions.Producer
@@ -25,6 +26,8 @@ class MobiusLoop<M, E, F> private constructor(
     eventRunner: WorkRunner,
     effectRunner: WorkRunner
 ) : Disposable {
+
+    private val modelObserverLock = object : SynchronizedObject() {}
 
     companion object {
 
@@ -60,7 +63,7 @@ class MobiusLoop<M, E, F> private constructor(
     })
 
     private val eventProcessor = eventProcessorFactory.create(effectDispatcher) { model ->
-        synchronized(modelObservers) {
+        synchronized(modelObserverLock) {
             mostRecentModel = model
             for (observer in modelObservers) {
                 observer.accept(model)
@@ -114,7 +117,7 @@ class MobiusLoop<M, E, F> private constructor(
     }
 
     /**
-     * Add an observer of model changes to this loop. If [getMostRecentModel] is non-null,
+     * Add an observer of model changes to this loop. If [mostRecentModel] is non-null,
      * the observer will immediately be notified of the most recent model. The observer will be
      * notified of future changes to the model until the loop or the returned [Disposable] is
      * disposed.
@@ -124,7 +127,7 @@ class MobiusLoop<M, E, F> private constructor(
      * @throws IllegalStateException if the loop has been disposed
      */
     fun observe(observer: Consumer<M>): Disposable {
-        synchronized(modelObservers) {
+        synchronized(modelObserverLock) {
             if (disposed) {
                 error("This loop has already been disposed. You cannot observe a disposed loop")
             }
@@ -139,7 +142,7 @@ class MobiusLoop<M, E, F> private constructor(
         }
 
         return Disposable {
-            synchronized(modelObservers) {
+            synchronized(modelObserverLock) {
                 modelObservers.remove(observer)
             }
         }
@@ -147,7 +150,7 @@ class MobiusLoop<M, E, F> private constructor(
 
     @Synchronized
     override fun dispose() {
-        synchronized(modelObservers) {
+        synchronized(modelObserverLock) {
             modelObservers.clear()
         }
 

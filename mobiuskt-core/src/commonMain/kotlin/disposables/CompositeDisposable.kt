@@ -1,16 +1,17 @@
 package kt.mobius.disposables
 
+import kotlinx.atomicfu.locks.SynchronizedObject
 import mpp.synchronized
 import kotlin.js.JsName
 import kotlin.jvm.JvmStatic
 
 /** A [Disposable] that disposes of other disposables. */
 class CompositeDisposable private constructor(disposables: Array<out Disposable>) : Disposable {
-    private object LOCK
+    private val lock = object : SynchronizedObject() {}
 
     private val disposables = disposables.copyOf()
 
-    override fun dispose() = synchronized(LOCK) {
+    override fun dispose() = synchronized(lock) {
         for (disposable in disposables) {
             disposable.dispose()
         }

@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform")
 }
 
+apply(plugin = "kotlinx-atomicfu")
 apply(from = "../gradle/publishing.gradle.kts")
 
 kotlin {
@@ -55,6 +56,12 @@ kotlin {
     }
 
     sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:atomicfu:$ATOMICFU_VERSION")
+            }
+        }
+
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
