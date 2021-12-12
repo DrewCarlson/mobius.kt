@@ -21,10 +21,12 @@ public fun <I, O> flowConnectable(
                 onBufferOverflow = BufferOverflow.SUSPEND,
         )
         scope.launch {
-            transform(inputChannel).collect { output ->
-                ensureActive()
-                consumer.accept(output)
-            }
+            transform(inputChannel)
+                .onEach { output ->
+                    ensureActive()
+                    consumer.accept(output)
+                }
+                .collect()
         }
         object : Connection<I> {
             override fun accept(value: I) {
@@ -57,12 +59,12 @@ public fun <I, O> Flow<I>.transform(
         if (isActive) trySend(output)
     }
     launch {
-        onCompletion {
-            close()
-        }.collect { input ->
+        onEach { input ->
             ensureActive()
             connection.accept(input)
-        }
+        }.onCompletion {
+            close()
+        }.collect()
     }
 
     awaitClose {
