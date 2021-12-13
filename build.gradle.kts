@@ -23,12 +23,6 @@ allprojects {
         mavenCentral()
         google()
     }
-
-    System.getenv("GITHUB_REF")?.let { ref ->
-        if (ref.startsWith("refs/tags/")) {
-            version = ref.substringAfterLast("refs/tags/")
-        }
-    }
 }
 
 dependencies {
