@@ -34,7 +34,7 @@ jobs:
         name: Test Windows Target (New MM)
         if: ${{ startsWith(matrix.os, 'windows') }}
         with:
-          arguments: windowsTest -Pnewmm
+          arguments: windowsTest -Pkotlin.native.binary.memoryModel=experimental
       - uses: eskatos/gradle-command-action@v1
         name: Test Apple Targets
         if: ${{ startsWith(matrix.os, 'macos') }}
@@ -44,7 +44,7 @@ jobs:
         name: Test Apple Targets (New MM)
         if: ${{ startsWith(matrix.os, 'macos') }}
         with:
-          arguments: macosTest iosX64Test -Pnewmm # tvosX64Test watchosX86Test
+          arguments: macosTest iosX64Test -Pkotlin.native.binary.memoryModel=experimental # tvosX64Test watchosX86Test
       - uses: eskatos/gradle-command-action@v1
         name: Test Linux Target
         if: ${{ startsWith(matrix.os, 'ubuntu') }}
@@ -54,4 +54,4 @@ jobs:
         name: Test Linux Target (New MM)
         if: ${{ startsWith(matrix.os, 'ubuntu') }}
         with:
-          arguments: linuxTest -Pnewmm
+          arguments: linuxTest -Pkotlin.native.binary.memoryModel=experimental

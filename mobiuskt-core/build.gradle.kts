@@ -7,13 +7,6 @@ apply(plugin = "kotlinx-atomicfu")
 apply(from = "../gradle/publishing.gradle.kts")
 
 kotlin {
-    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
-        binaries.all {
-            if (properties.containsKey("newmm")) {
-                binaryOptions["memoryModel"] = "experimental"
-            }
-        }
-    }
     jvm()
     js(IR) {
         nodejs()
