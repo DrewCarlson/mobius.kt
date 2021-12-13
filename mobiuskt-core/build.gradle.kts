@@ -48,10 +48,15 @@ kotlin {
             mingwX64("windows"),
             //mingwX86("windowsX86"),
     )
+    val darwinTargets = listOf("ios", "tvos", "watchos", "macos")
     configure(nativeTargets) {
         compilations.getByName("main") {
             defaultSourceSet {
                 kotlin.srcDir("src/nativeMain/kotlin")
+
+                if (darwinTargets.any(this@configure.name::startsWith)) {
+                    kotlin.srcDir("src/darwinMain/kotlin")
+                }
             }
         }
     }
