@@ -122,6 +122,10 @@ loopController.disconnect()
 
 ## Notes
 
+### External dependencies
+
+Mobius.kt depends on [kotlinx.atomicfu](https://github.com/Kotlin/kotlinx.atomicfu) for object synchronization, this results in a runtime dependency for Kotlin/Native targets only.
+
 ### Coroutines Support
 
 Coroutines and Flows are supported with the `mobiuskt-coroutines` module (See [Download](#Download)).
