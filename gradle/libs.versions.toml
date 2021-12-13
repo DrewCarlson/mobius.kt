@@ -1,0 +1,24 @@
+[versions]
+kotlin = "1.6.0"
+dokka = "1.6.0"
+agp = "7.0.3"
+coroutines = "1.5.2-native-mt"
+guava = "27.0.1-android"
+awaitility = "3.1.2"
+atomicfu = "0.17.0"
+binary_compat = "0.8.0"
+kover = "0.4.4"
+
+[plugins]
+multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
+binaryCompat = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary_compat" }
+
+[libraries]
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "atomicfu" }
+atomicfu-plugin = { module = "org.jetbrains.kotlinx:atomicfu-gradle-plugin", version.ref = "atomicfu" }
+agp = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
+awaitility = { module = "org.awaitility:awaitility", version.ref = "awaitility" }

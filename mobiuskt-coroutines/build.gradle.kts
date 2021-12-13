@@ -52,8 +52,8 @@ kotlin {
         }
         named("commonMain") {
             dependencies {
-                implementation(project(":mobiuskt-core"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
+                implementation(projects.mobiusktCore)
+                implementation(libs.coroutines.core)
             }
         }
 
@@ -61,7 +61,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
-                implementation("org.jetbrains.kotlinx:atomicfu:$ATOMICFU_VERSION")
+                implementation(libs.atomicfu)
             }
         }
 

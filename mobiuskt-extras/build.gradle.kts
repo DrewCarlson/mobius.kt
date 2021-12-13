@@ -37,8 +37,8 @@ kotlin {
 
         val commonMain by getting {
             dependencies {
-                implementation(project(":mobiuskt-core"))
-                implementation("org.jetbrains.kotlinx:atomicfu:$ATOMICFU_VERSION")
+                implementation(projects.mobiusktCore)
+                implementation(libs.atomicfu)
             }
         }
 

@@ -62,7 +62,7 @@ kotlin {
 
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:atomicfu:$ATOMICFU_VERSION")
+                implementation(libs.atomicfu)
             }
         }
 
@@ -77,8 +77,8 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
-                implementation("com.google.guava:guava:$GUAVA_VERSION")
-                implementation("org.awaitility:awaitility:$AWAITALITY_VERSION")
+                implementation(libs.guava)
+                implementation(libs.awaitility)
             }
         }
 

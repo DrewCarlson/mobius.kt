@@ -33,7 +33,7 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                implementation(project(":mobiuskt-core"))
+                implementation(projects.mobiusktCore)
             }
         }
     }
