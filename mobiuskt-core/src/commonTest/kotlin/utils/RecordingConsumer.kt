@@ -1,8 +1,8 @@
 package kt.mobius
 
 import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.atomicfu.locks.synchronized
 import kt.mobius.functions.Consumer
-import mpp.synchronized
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
@@ -24,12 +24,13 @@ class RecordingConsumer<V> : Consumer<V> {
 
     fun assertValues(vararg expectedValues: V): Unit =
         synchronized(lock) {
-            assertEquals(values, expectedValues.asList())
+            assertEquals(expectedValues.asList(), values)
         }
 
     fun assertValuesInAnyOrder(vararg expectedValues: V): Unit =
         synchronized(lock) {
-            assertTrue(values.containsAll(expectedValues.toList()))
+            val missing = expectedValues.toSet() - values.toSet()
+            assertTrue(values.containsAll(expectedValues.toList()), "Expected $missing")
         }
 
     fun clearValues(): Unit =

@@ -1,9 +1,9 @@
 package kt.mobius
 
 import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.atomicfu.locks.synchronized
 import kt.mobius.disposables.CompositeDisposable
 import kt.mobius.functions.Consumer
-import mpp.synchronized
 
 /**
  * A [Connectable] that ensures that an inner [Connection] doesn't emit or receive any

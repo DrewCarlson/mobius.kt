@@ -4,10 +4,11 @@ dokka = "1.6.0"
 agp = "7.0.3"
 coroutines = "1.5.2-native-mt"
 guava = "27.0.1-android"
-awaitility = "3.1.2"
+awaitility = "4.0.2"
 atomicfu = "0.17.0"
 binary_compat = "0.8.0"
 kover = "0.4.4"
+slf4j = "1.7.25"
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
@@ -22,3 +23,4 @@ atomicfu-plugin = { module = "org.jetbrains.kotlinx:atomicfu-gradle-plugin", ver
 agp = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
 awaitility = { module = "org.awaitility:awaitility", version.ref = "awaitility" }
+slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }

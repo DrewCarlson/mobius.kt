@@ -1,8 +1,8 @@
 package kt.mobius.flow
 
 import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.atomicfu.locks.synchronized
 import kt.mobius.functions.Consumer
-import mpp.synchronized
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 

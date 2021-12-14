@@ -1,7 +1,5 @@
-package kt.mobius.flow
+package kt.mobius
 
-import kt.mobius.Connectable
-import kt.mobius.Connection
 import kt.mobius.functions.Consumer
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -18,7 +16,7 @@ class DiscardAfterDisposeConnectableTest {
     fun setUp() {
         recordingConsumer = RecordingConsumer()
         testConnection = TestConnection(recordingConsumer)
-        underTest = DiscardAfterDisposeConnectable(Connectable { testConnection })
+        underTest = DiscardAfterDisposeConnectable { testConnection }
     }
 
     @Test
@@ -49,7 +47,7 @@ class DiscardAfterDisposeConnectableTest {
     }
 
     private class TestConnection(
-            private val eventConsumer: Consumer<String>
+        private val eventConsumer: Consumer<String>
     ) : Connection<Int> {
         var disposed = false
             private set

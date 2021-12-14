@@ -260,8 +260,7 @@ class MobiusLoopControllerTest {
                 effectHandler
             )
                 .eventRunner(Producer { WorkRunners.immediate() })
-                .effectRunner(Producer { WorkRunners.immediate() })
-                .init(Init { First.first(it) }),
+                .effectRunner(Producer { WorkRunners.immediate() }),
             "init",
             WorkRunners.immediate()
         )
@@ -312,8 +311,7 @@ class MobiusLoopControllerTest {
                 effectHandler
             )
                 .eventRunner(Producer { WorkRunners.immediate() })
-                .effectRunner(Producer { WorkRunners.immediate() })
-                .init(Init { First.first(it) }),
+                .effectRunner(Producer { WorkRunners.immediate() }),
             "init",
             WorkRunners.immediate()
         )

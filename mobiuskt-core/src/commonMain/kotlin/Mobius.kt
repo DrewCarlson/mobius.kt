@@ -1,6 +1,5 @@
 package kt.mobius
 
-import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
 import kt.mobius.functions.Producer
 import kt.mobius.runners.DefaultWorkRunners
@@ -10,15 +9,13 @@ import kotlin.js.JsName
 import kotlin.jvm.JvmStatic
 
 public object Mobius {
-    private object NOOP_INIT : Init<Any, Any> {
-        override fun init(model: Any): First<Any, Any> {
-            return First.first(model)
-        }
-    }
 
-    private object NOOP_EVENT_SOURCE : EventSource<Any> {
-        override fun subscribe(eventConsumer: Consumer<Any>): Disposable {
-            return Disposable { }
+    private object NOOP_EVENT_SOURCE : Connectable<Any, Any> {
+        override fun connect(output: Consumer<Any>): Connection<Any> {
+            return object : Connection<Any> {
+                override fun accept(value: Any) = Unit
+                override fun dispose() = Unit
+            }
         }
     }
 
@@ -69,8 +66,8 @@ public object Mobius {
         return Builder(
             update,
             effectHandler,
-            NOOP_INIT as Init<M, F>,
-            NOOP_EVENT_SOURCE as EventSource<E>,
+            null,
+            NOOP_EVENT_SOURCE as Connectable<M, E>,
             DefaultWorkRunners.eventWorkRunnerProducer(),
             DefaultWorkRunners.effectWorkRunnerProducer(),
             NOOP_LOGGER as MobiusLoop.Logger<M, E, F>
@@ -111,23 +108,28 @@ public object Mobius {
     public data class Builder<M, E, F>(
         private val update: Update<M, E, F>,
         private val effectHandler: Connectable<F, E>,
-        private val init: Init<M, F>,
-        private val eventSource: EventSource<E>,
+        private val init: Init<M, F>?,
+        private val eventSource: Connectable<M, E>,
         private val eventRunner: Producer<WorkRunner>,
         private val effectRunner: Producer<WorkRunner>,
         private val logger: MobiusLoop.Logger<M, E, F>
     ) : MobiusLoop.Builder<M, E, F> {
 
+        @Suppress("OverridingDeprecatedMember")
         override fun init(init: Init<M, F>): MobiusLoop.Builder<M, E, F> {
             return copy(init = init)
         }
 
         override fun eventSource(eventSource: EventSource<E>): MobiusLoop.Builder<M, E, F> {
-            return copy(eventSource = eventSource)
+            return copy(eventSource = EventSourceConnectable.create(eventSource))
         }
 
         override fun eventSources(vararg eventSources: EventSource<E>): MobiusLoop.Builder<M, E, F> {
-            return copy(eventSource = MergedEventSource.from(*eventSources))
+            return copy(eventSource = EventSourceConnectable.create(MergedEventSource.from(*eventSources)))
+        }
+
+        override fun eventSource(eventSource: Connectable<M, E>): MobiusLoop.Builder<M, E, F> {
+            return copy(eventSource = eventSource)
         }
 
         override fun logger(logger: MobiusLoop.Logger<M, E, F>): MobiusLoop.Builder<M, E, F> {
@@ -143,11 +145,32 @@ public object Mobius {
         }
 
         override fun startFrom(startModel: M): MobiusLoop<M, E, F> {
-            val loggingInit = LoggingInit(init, logger)
-            val loggingUpdate = LoggingUpdate(update, logger)
+            var firstModel = startModel
+            var firstEffects = emptySet<F>()
 
+            if (init != null) {
+                val loggingInit = LoggingInit(init, logger)
+                val first = loggingInit.init(startModel)
+
+                firstModel = first.model()
+                firstEffects = first.effects()
+            }
+
+            return startFromInternal(firstModel, firstEffects)
+        }
+
+        override fun startFrom(startModel: M, startEffects: Set<F>): MobiusLoop<M, E, F> {
+            check(init == null) { "cannot pass in start effects when a loop has init defined" }
+
+            return startFromInternal(startModel, startEffects)
+        }
+
+        private fun startFromInternal(startModel: M, startEffects: Set<F>): MobiusLoop<M, E, F> {
+            val loggingUpdate = LoggingUpdate(update, logger)
             return MobiusLoop.create(
-                MobiusStore.create(loggingInit, loggingUpdate, startModel),
+                loggingUpdate,
+                startModel,
+                startEffects,
                 effectHandler,
                 eventSource,
                 eventRunner.get(),

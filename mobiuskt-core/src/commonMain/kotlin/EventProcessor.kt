@@ -1,8 +1,8 @@
 package kt.mobius
 
 import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.atomicfu.locks.synchronized
 import kt.mobius.functions.Consumer
-import mpp.synchronized
 import kotlin.js.JsName
 
 /**
@@ -19,33 +19,7 @@ public class EventProcessor<M, E, F> internal constructor(
 ) {
     private val lock = object : SynchronizedObject() {}
 
-    // concurrency note: the two below fields are only read and written in synchronized sections,
-    // hence no need for further coordination.
-    private val eventsReceivedBeforeInit = ArrayList<E>()
-    private var initialised = false
-
-    public fun init(): Unit = synchronized(lock) {
-        if (initialised) {
-            throw IllegalStateException("already initialised")
-        }
-
-        val first = store.init()
-
-        dispatchModel(first.model())
-        dispatchEffects(first.effects())
-
-        initialised = true
-        for (event in eventsReceivedBeforeInit) {
-            update(event)
-        }
-    }
-
     public fun update(event: E): Unit = synchronized(lock) {
-        if (!initialised) {
-            eventsReceivedBeforeInit.add(event)
-            return
-        }
-
         val next = store.update(event)
 
         next.ifHasModel(

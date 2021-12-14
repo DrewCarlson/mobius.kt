@@ -2,7 +2,6 @@ package kt.mobius
 
 import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
-import java.util.ArrayList
 
 internal class FakeEventSource<E> : EventSource<E> {
 

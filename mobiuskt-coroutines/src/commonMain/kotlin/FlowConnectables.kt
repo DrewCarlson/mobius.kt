@@ -6,6 +6,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
+import kt.mobius.DiscardAfterDisposeConnectable
 
 /**
  * Constructs a [Connectable] that applies [transform] to

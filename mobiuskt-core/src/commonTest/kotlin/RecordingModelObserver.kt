@@ -18,7 +18,6 @@ class RecordingModelObserver<S> : Consumer<S> {
         return recorder.valueCount()
     }
 
-    @SafeVarargs
     fun assertStates(vararg expectedStates: S) {
         recorder.assertValues(*expectedStates)
     }

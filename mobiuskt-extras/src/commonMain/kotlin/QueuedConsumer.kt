@@ -1,8 +1,8 @@
 package kt.mobius.extras
 
 import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.atomicfu.locks.synchronized
 import kt.mobius.functions.Consumer
-import mpp.synchronized
 
 /**
  * Collects events and passes them in order to a new consumer via [dequeueAll].

@@ -1,17 +1,16 @@
 package kt.mobius
 
 import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.atomicfu.locks.synchronized
 import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
 import kt.mobius.functions.Producer
-import kt.mobius.runners.Runnable
 import kt.mobius.runners.WorkRunner
 import mpp.ensureNeverFrozen
-import mpp.synchronized
 import kotlin.js.JsName
 import kotlin.jvm.JvmStatic
-import kotlin.jvm.Synchronized
 import kotlin.jvm.Volatile
+
 
 /**
  * This is the main loop for Mobius.
@@ -21,28 +20,39 @@ import kotlin.jvm.Volatile
  */
 public class MobiusLoop<M, E, F> private constructor(
     eventProcessorFactory: EventProcessor.Factory<M, E, F>,
+    startModel: M,
+    startEffects: Set<F>,
     effectHandler: Connectable<F, E>,
-    eventSource: EventSource<E>,
+    eventSource: Connectable<M, E>,
     eventRunner: WorkRunner,
     effectRunner: WorkRunner
 ) : Disposable {
 
-    private val modelObserverLock = object : SynchronizedObject() {}
+    private enum class RunState {
+        RUNNING, // the loop is running normally
+        DISPOSING, // the loop is in the process of shutting down
+        DISPOSED // the loop has been shut down - any further attempts at interacting with it should be considered to be errors.
+    }
+
+    private val lock = object : SynchronizedObject() {}
 
     public companion object {
 
         @JvmStatic
         @JsName("create")
         public fun <M, E, F> create(
-            store: MobiusStore<M, E, F>,
+            update: Update<M, E, F>,
+            startModel: M,
+            startEffects: Set<F>,
             effectHandler: Connectable<F, E>,
-            eventSource: EventSource<E>,
+            eventSource: Connectable<M, E>,
             eventRunner: WorkRunner,
             effectRunner: WorkRunner
         ): MobiusLoop<M, E, F> {
-
             return MobiusLoop(
-                EventProcessor.Factory(store),
+                EventProcessor.Factory(MobiusStore.create(update, startModel)),
+                startModel,
+                startEffects,
                 effectHandler,
                 eventSource,
                 eventRunner,
@@ -51,39 +61,54 @@ public class MobiusLoop<M, E, F> private constructor(
         }
     }
 
-    private val eventDispatcher = MessageDispatcher(eventRunner, Consumer<E> { event ->
-        eventProcessor.update(event)
-    })
-    private val effectDispatcher = MessageDispatcher(effectRunner, Consumer<F> { effect ->
-        try {
-            effectConsumer.accept(effect)
-        } catch (t: Throwable) {
-            throw ConnectionException(effect!!, t)
-        }
-    })
+    private val eventDispatcher: MessageDispatcher<E>
+    private val effectDispatcher: MessageDispatcher<F>
 
-    private val eventProcessor = eventProcessorFactory.create(effectDispatcher) { model ->
-        synchronized(modelObserverLock) {
-            mostRecentModel = model
-            for (observer in modelObservers) {
-                observer.accept(model)
-            }
-        }
-    }
-    private val effectConsumer: Connection<F>
-    private val eventSourceDisposable: Disposable
+    private val onEventReceived: DiscardAfterDisposeWrapper<E>
+    private val onEffectReceived: DiscardAfterDisposeWrapper<F>
 
-    private val modelObservers = arrayListOf<Consumer<M>>()
+    // NOTE: lateinit var required for out of order delegate creation, only set once
+    private lateinit var eventProcessor: EventProcessor<M, E, F>
+    private lateinit var effectConsumer: Connection<F>
+    private val eventSourceModelConsumer: QueuingConnection<M> = QueuingConnection()
+
+    private var modelObservers = arrayListOf<Consumer<M>>()
 
     @Volatile
-    public var mostRecentModel: M? = null
+    private var runState = RunState.RUNNING
+
+    @Volatile
+    public var mostRecentModel: M = startModel
         private set
-
-    @Volatile
-    private var disposed: Boolean = false
 
     init {
         ensureNeverFrozen()
+
+        val onModelChanged = Consumer<M> { model ->
+            mostRecentModel = model
+            eventSourceModelConsumer.accept(model)
+
+            synchronized(lock) {
+                for (observer in modelObservers) {
+                    observer.accept(model)
+                }
+            }
+        }
+
+        onEventReceived = DiscardAfterDisposeWrapper.wrapConsumer { event ->
+            eventProcessor.update(event)
+        }
+        onEffectReceived = DiscardAfterDisposeWrapper.wrapConsumer { effect ->
+            try {
+                effectConsumer.accept(effect)
+            } catch (t: Throwable) {
+                throw ConnectionException(effect as Any, t)
+            }
+        }
+
+        eventDispatcher = MessageDispatcher(eventRunner, onEventReceived)
+        effectDispatcher = MessageDispatcher(effectRunner, onEffectReceived)
+        eventProcessor = eventProcessorFactory.create(effectDispatcher, onModelChanged)
 
         // NOTE: eventConsumer can be invoked from other languages,
         // using lambda syntax results in the `accept` method being
@@ -98,22 +123,28 @@ public class MobiusLoop<M, E, F> private constructor(
         eventConsumer.ensureNeverFrozen()
 
         this.effectConsumer = effectHandler.connect(eventConsumer)
-        this.eventSourceDisposable = eventSource.subscribe(eventConsumer)
 
-        eventRunner.post(
-            object : Runnable {
-                override fun run() {
-                    eventProcessor.init()
-                }
-            })
+        onModelChanged.accept(startModel)
+        for (effect in startEffects) {
+            effectDispatcher.accept(effect)
+        }
+
+        eventSourceModelConsumer.setDelegate(eventSource.connect(eventConsumer))
     }
 
     public fun dispatchEvent(event: E) {
-        if (disposed)
-            throw IllegalStateException(
-                "This loop has already been disposed. You cannot dispatch events after disposal"
-            )
-        eventDispatcher.accept(event)
+        check(runState != RunState.DISPOSED) {
+            "This loop has already been disposed. You cannot dispatch events after disposal - event received: ${event!!::class.simpleName}=${event}, currentModel: $mostRecentModel"
+        }
+
+        // ignore events received while disposing to avoid races during shutdown
+        if (runState == RunState.DISPOSING) return
+
+        try {
+            eventDispatcher.accept(event)
+        } catch (e: RuntimeException) {
+            throw IllegalStateException("Exception processing event: $event", e)
+        }
     }
 
     /**
@@ -127,43 +158,46 @@ public class MobiusLoop<M, E, F> private constructor(
      * @throws IllegalStateException if the loop has been disposed
      */
     public fun observe(observer: Consumer<M>): Disposable {
-        synchronized(modelObserverLock) {
-            if (disposed) {
-                error("This loop has already been disposed. You cannot observe a disposed loop")
-            }
+        check(runState != RunState.DISPOSED) {
+            "This loop has already been disposed. You cannot observe a disposed loop"
+        }
 
-            val currentModel = mostRecentModel
-            if (currentModel != null) {
-                // Start by emitting the most recently received model.
-                observer.accept(currentModel)
-            }
+        if (runState == RunState.DISPOSING) return Disposable { }
 
-            modelObservers.add(observer)
+        val currentModel = mostRecentModel
+        // Start by emitting the most recently received model.
+        observer.accept(currentModel)
+
+        synchronized(lock) {
+            modelObservers = (modelObservers + observer) as ArrayList<Consumer<M>>
         }
 
         return Disposable {
-            synchronized(modelObserverLock) {
-                modelObservers.remove(observer)
+            synchronized(lock) {
+                modelObservers = (modelObservers - observer) as ArrayList<Consumer<M>>
             }
         }
     }
 
-    @Synchronized
     override fun dispose() {
-        synchronized(modelObserverLock) {
+        synchronized(lock) {
+            if (runState == RunState.DISPOSED) return
+
+            runState = RunState.DISPOSING
+
             modelObservers.clear()
+
+            onEventReceived.dispose()
+            onEffectReceived.dispose()
+
+            eventSourceModelConsumer.dispose()
+            effectConsumer.dispose()
+
+            eventDispatcher.dispose()
+            effectDispatcher.dispose()
+
+            runState = RunState.DISPOSED
         }
-
-        eventDispatcher.disable()
-        effectDispatcher.disable()
-
-        eventSourceDisposable.dispose()
-        effectConsumer.dispose()
-
-        eventDispatcher.dispose()
-        effectDispatcher.dispose()
-
-        disposed = true
     }
 
     /**
@@ -181,6 +215,7 @@ public class MobiusLoop<M, E, F> private constructor(
          * current one for the other fields.
          */
         @JsName("init")
+        @Deprecated("Pass initial Effects with the start model using Builder.startFrom(model, setOf(Effects)")
         public fun init(init: Init<M, F>): Builder<M, E, F>
 
         /**
@@ -198,6 +233,19 @@ public class MobiusLoop<M, E, F> private constructor(
          */
         @JsName("eventSources")
         public fun eventSources(vararg eventSources: EventSource<E>): Builder<M, E, F>
+
+        /**
+         * Returns a new [Builder] with the supplied [Connectable], and the same values
+         * as the current one for the other fields. NOTE: Invoking this method will replace the current
+         * event source with the supplied one. If a loop has a [Connectable] as its event
+         * source, it will connect to it and will invoke the [Connection] accept method every
+         * time the model changes. This allows us to conditionally subscribe to different sources based
+         * on the current state. If you provide a regular [EventSource], it will be wrapped in
+         * a [Connectable] and that implementation will subscribe to that event source only once
+         * when the loop is initialized.
+         */
+        @JsName("eventSourceConnectable")
+        public fun eventSource(eventSource: Connectable<M, E>): Builder<M, E, F>
 
         /**
          * @return a new [Builder] with the supplied logger, and the same values as the current
@@ -230,6 +278,16 @@ public class MobiusLoop<M, E, F> private constructor(
          */
         @JsName("startFrom")
         public fun startFrom(startModel: M): MobiusLoop<M, E, F>
+
+        /**
+         * Start a {@link MobiusLoop} using this factory.
+         *
+         * @param startModel the model that the loop should start from
+         * @param startEffects the effects that the loop should start with
+         * @return the started [MobiusLoop]
+         */
+        @JsName("startFromWithEffects")
+        public fun startFrom(startModel: M, startEffects: Set<F>): MobiusLoop<M, E, F>
     }
 
     /**

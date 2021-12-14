@@ -1,9 +1,9 @@
 package kt.mobius
 
 import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.atomicfu.locks.synchronized
 import kt.mobius.runners.Runnable
 import kt.mobius.runners.WorkRunner
-import mpp.synchronized
 
 public class MobiusLoopController<M, E, F>(
     private val loopFactory: MobiusLoop.Factory<M, E, F>,

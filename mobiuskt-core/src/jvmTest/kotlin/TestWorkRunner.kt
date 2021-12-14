@@ -13,9 +13,7 @@ class TestWorkRunner : WorkRunner {
 
     override fun post(runnable: Runnable) {
         synchronized(queue) {
-            if (isDisposed) {
-                throw IllegalStateException("this WorkRunner has already been disposed.")
-            }
+            check(!isDisposed) { "this WorkRunner has already been disposed." }
             queue.add(runnable)
         }
     }

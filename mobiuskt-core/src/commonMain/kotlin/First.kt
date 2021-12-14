@@ -5,7 +5,7 @@ import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmStatic
 
 /** Defines the entry into the initial state of a Mobius loop. */
-public class First<M, F> internal constructor(
+public data class First<M, F> internal constructor(
     /** the initial model to use */
     private val model: M,
     /** the possibly empty set of effects to initially dispatch */

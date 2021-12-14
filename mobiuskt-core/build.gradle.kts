@@ -79,6 +79,7 @@ kotlin {
                 implementation(kotlin("test-junit"))
                 implementation(libs.guava)
                 implementation(libs.awaitility)
+                implementation(libs.slf4j)
             }
         }
 

@@ -1,7 +1,7 @@
 package kt.mobius.runners
 
 import kotlinx.atomicfu.locks.SynchronizedObject
-import mpp.synchronized
+import kotlinx.atomicfu.locks.synchronized
 
 /**
  * A [WorkRunner] that immediately invokes the [Runnable] you post on the thread you

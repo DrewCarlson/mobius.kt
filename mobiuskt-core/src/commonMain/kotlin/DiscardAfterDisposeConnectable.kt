@@ -1,12 +1,9 @@
-package kt.mobius.flow
+package kt.mobius
 
-import kt.mobius.Connectable
-import kt.mobius.Connection
+import kt.mobius.DiscardAfterDisposeWrapper.Companion.wrapConnection
+import kt.mobius.DiscardAfterDisposeWrapper.Companion.wrapConsumer
 import kt.mobius.disposables.CompositeDisposable
-import kt.mobius.flow.DiscardAfterDisposeWrapper.Companion.wrapConnection
-import kt.mobius.flow.DiscardAfterDisposeWrapper.Companion.wrapConsumer
 import kt.mobius.functions.Consumer
-
 
 /**
  * A [Connectable] that ensures that [Connection]s created by the wrapped
@@ -15,7 +12,7 @@ import kt.mobius.functions.Consumer
  * This only acts as a safeguard, you still need to make sure that the
  * Connectable disposes of resources correctly.
  */
-internal class DiscardAfterDisposeConnectable<I, O>(
+public class DiscardAfterDisposeConnectable<I, O>(
         private val actual: Connectable<I, O>
 ) : Connectable<I, O> {
 
