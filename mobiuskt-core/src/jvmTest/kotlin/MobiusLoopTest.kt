@@ -45,9 +45,9 @@ open class MobiusLoopTest {
         startEffects = emptySet()
         effectHandler = Connectable {
             object : SimpleConnection<TestEffect> {
-                override fun accept(effect: TestEffect) {
-                    effectObserver?.accept(effect)
-                    if (effect is Crash) {
+                override fun accept(value: TestEffect) {
+                    effectObserver?.accept(value)
+                    if (value is Crash) {
                         throw RuntimeException("Crashing!")
                     }
                 }

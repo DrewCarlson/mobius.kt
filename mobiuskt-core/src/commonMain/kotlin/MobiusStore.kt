@@ -10,7 +10,7 @@ public class MobiusStore<M, E, F> internal constructor(
     private val update: Update<M, E, F>,
     startModel: M
 ) {
-    private val lock = object : SynchronizedObject() {}
+    private val lock = SynchronizedObject()
 
     private var currentModel: M = startModel
 

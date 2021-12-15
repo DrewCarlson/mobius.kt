@@ -7,7 +7,7 @@ import kotlin.jvm.JvmStatic
 
 /** A [Disposable] that disposes of other disposables. */
 public class CompositeDisposable private constructor(disposables: Array<out Disposable>) : Disposable {
-    private val lock = object : SynchronizedObject() {}
+    private val lock = SynchronizedObject()
 
     private val disposables = disposables.copyOf()
 

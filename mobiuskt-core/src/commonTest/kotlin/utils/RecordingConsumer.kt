@@ -6,11 +6,11 @@ import kt.mobius.functions.Consumer
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-class RecordingConsumer<V> : Consumer<V> {
+open class RecordingConsumer<V> : Consumer<V> {
 
     private val values = arrayListOf<V>()
 
-    private val lock = object : SynchronizedObject() {}
+    private val lock = SynchronizedObject()
 
     override fun accept(value: V): Unit =
         synchronized(lock) {

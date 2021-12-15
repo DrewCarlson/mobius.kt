@@ -1,18 +1,20 @@
 package kt.mobius.test
 
+import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.atomicfu.locks.synchronized
 import kt.mobius.runners.Runnable
 import kt.mobius.runners.WorkRunner
-import java.util.*
 
 class TestWorkRunner : WorkRunner {
 
-    private val queue = LinkedList<Runnable>()
+    private val lock = SynchronizedObject()
+    private var queue = arrayListOf<Runnable>()
 
     var isDisposed = false
         private set
 
     override fun post(runnable: Runnable) {
-        synchronized(queue) {
+        synchronized(lock) {
             check(!isDisposed) { "this WorkRunner has already been disposed." }
             queue.add(runnable)
         }
@@ -20,16 +22,16 @@ class TestWorkRunner : WorkRunner {
 
     private fun runOne() {
         lateinit var runnable: Runnable
-        synchronized(queue) {
+        synchronized(lock) {
             if (queue.isEmpty()) return
-            runnable = queue.remove()
+            runnable = queue.removeFirst()
         }
         runnable.run()
     }
 
     fun runAll() {
         while (true) {
-            synchronized(queue) {
+            synchronized(lock) {
                 if (queue.isEmpty()) return
             }
             runOne()
@@ -37,7 +39,7 @@ class TestWorkRunner : WorkRunner {
     }
 
     override fun dispose() {
-        synchronized(queue) {
+        synchronized(lock) {
             isDisposed = true
             queue.clear()
         }

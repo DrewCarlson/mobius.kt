@@ -34,7 +34,7 @@ public class MobiusLoop<M, E, F> private constructor(
         DISPOSED // the loop has been shut down - any further attempts at interacting with it should be considered to be errors.
     }
 
-    private val lock = object : SynchronizedObject() {}
+    private val lock = SynchronizedObject()
 
     public companion object {
 

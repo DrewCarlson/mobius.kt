@@ -45,8 +45,8 @@ class MobiusLoopBehaviorWithEffectHandlers : MobiusLoopTest() {
         setupWithEffects(
             Connectable { eventConsumer: Consumer<TestEvent> ->
                 object : SimpleConnection<TestEffect> {
-                    override fun accept(effect: TestEffect) {
-                        eventConsumer.accept(TestEvent(effect.toString()))
+                    override fun accept(value: TestEffect) {
+                        eventConsumer.accept(TestEvent(value.toString()))
                     }
                 }
             },
@@ -63,7 +63,7 @@ class MobiusLoopBehaviorWithEffectHandlers : MobiusLoopTest() {
         setupWithEffects(
             Connectable { eventConsumer: Consumer<TestEvent> ->
                 object : SimpleConnection<TestEffect> {
-                    override fun accept(effect: TestEffect) {
+                    override fun accept(value: TestEffect) {
                         try {
                             eventConsumer.accept(future.get())
                         } catch (e: InterruptedException) {
@@ -89,9 +89,9 @@ class MobiusLoopBehaviorWithEffectHandlers : MobiusLoopTest() {
         setupWithEffects(
             { eventConsumer: Consumer<TestEvent> ->
                 object : SimpleConnection<TestEffect> {
-                    override fun accept(effect: TestEffect) {
-                        if (effect is SafeEffect) {
-                            if (effect.id == "1") {
+                    override fun accept(value: TestEffect) {
+                        if (value is SafeEffect) {
+                            if (value.id == "1") {
                                 try {
                                     // Rough approximation of waiting infinite amount of time.
                                     Thread.sleep(2000)
@@ -101,7 +101,7 @@ class MobiusLoopBehaviorWithEffectHandlers : MobiusLoopTest() {
                                 return
                             }
                         }
-                        eventConsumer.accept(TestEvent(effect.toString()))
+                        eventConsumer.accept(TestEvent(value.toString()))
                     }
                 }
             },
@@ -127,8 +127,8 @@ class MobiusLoopBehaviorWithEffectHandlers : MobiusLoopTest() {
         setupWithEffects(
             { eventConsumer: Consumer<TestEvent> ->
                 object : SimpleConnection<TestEffect> {
-                    override fun accept(effect: TestEffect) {
-                        eventConsumer.accept(TestEvent(effect.toString()))
+                    override fun accept(value: TestEffect) {
+                        eventConsumer.accept(TestEvent(value.toString()))
                     }
                 }
             },

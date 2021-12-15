@@ -17,7 +17,7 @@ public class EventProcessor<M, E, F> internal constructor(
     private val effectConsumer: Consumer<F>,
     private val modelConsumer: Consumer<M>
 ) {
-    private val lock = object : SynchronizedObject() {}
+    private val lock = SynchronizedObject()
 
     public fun update(event: E): Unit = synchronized(lock) {
         val next = store.update(event)

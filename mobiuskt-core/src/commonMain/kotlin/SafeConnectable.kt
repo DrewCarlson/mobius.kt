@@ -33,7 +33,7 @@ public class SafeConnectable<F, E>(
     }
 
     public class SafeEffectConsumer<F>(private val actual: Connection<F>) : Connection<F> {
-        private val lock = object : SynchronizedObject() {}
+        private val lock = SynchronizedObject()
 
         private var disposed: Boolean = false
 
@@ -51,7 +51,7 @@ public class SafeConnectable<F, E>(
     }
 
     public class SafeConsumer<E>(private val actual: Consumer<E>) : Connection<E> {
-        private val lock = object : SynchronizedObject() {}
+        private val lock = SynchronizedObject()
 
         private var disposed: Boolean = false
 

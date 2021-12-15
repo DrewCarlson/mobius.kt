@@ -9,7 +9,7 @@ import kotlinx.atomicfu.locks.synchronized
  * implementation.
  */
 internal class QueuingConnection<I> : Connection<I> {
-    private val lock = object : SynchronizedObject() {}
+    private val lock = SynchronizedObject()
 
     private val queue: MutableList<I> = arrayListOf()
     private var delegate: Connection<I>? = null

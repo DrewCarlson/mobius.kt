@@ -10,7 +10,7 @@ import kt.mobius.functions.Consumer
 @Suppress("unused")
 public class QueuedConsumer<V> : Consumer<V> {
 
-    private val lock = object : SynchronizedObject() {}
+    private val lock = SynchronizedObject()
 
     private val queue = arrayListOf<V>()
 

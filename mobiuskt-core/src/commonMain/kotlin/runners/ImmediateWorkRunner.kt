@@ -8,7 +8,7 @@ import kotlinx.atomicfu.locks.synchronized
  * posted from.
  */
 public class ImmediateWorkRunner : WorkRunner {
-    private val lock = object : SynchronizedObject() {}
+    private val lock = SynchronizedObject()
 
     private var disposed: Boolean = false
 

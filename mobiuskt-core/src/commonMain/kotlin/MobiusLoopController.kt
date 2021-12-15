@@ -10,7 +10,7 @@ public class MobiusLoopController<M, E, F>(
     private val defaultModel: M,
     private val mainThreadRunner: WorkRunner
 ) : MobiusLoop.Controller<M, E>, ControllerActions<M, E> {
-    private val lock = object : SynchronizedObject() {}
+    private val lock = SynchronizedObject()
 
     private var currentState: ControllerStateBase<M, E>? = null
 

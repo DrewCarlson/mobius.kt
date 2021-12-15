@@ -26,8 +26,8 @@ internal class MessageDispatcher<M>(
                 try {
                     consumer.accept(value)
                 } catch (throwable: Throwable) {
-                    println("Consumer threw an exception when accepting message: $value")
-                    println(throwable.message)
+                    MobiusHooks.handleError(
+                        RuntimeException("Consumer threw an exception when accepting message: $value", throwable))
                 }
             }
         })

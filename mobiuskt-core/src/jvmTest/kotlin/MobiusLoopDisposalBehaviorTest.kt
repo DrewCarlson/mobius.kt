@@ -121,7 +121,7 @@ class MobiusLoopDisposalBehavior : MobiusLoopTest() {
         // Events emitted by the event source during dispose should be ignored.
         val updateWasCalled = AtomicBoolean()
         val builder = loop(
-            Update<String, TestEvent, TestEffect> { model, event ->
+            Update<String, TestEvent, TestEffect> { _, _ ->
                 updateWasCalled.set(true)
                 noChange()
             },
@@ -139,7 +139,7 @@ class MobiusLoopDisposalBehavior : MobiusLoopTest() {
         // Events emitted by the effect handler during dispose should be ignored.
         val updateWasCalled = AtomicBoolean()
         val builder = loop(
-            Update<String, TestEvent, TestEffect> { model, event ->
+            Update<String, TestEvent, TestEffect> { _, _ ->
                 updateWasCalled.set(true)
                 noChange()
             },
@@ -154,7 +154,7 @@ class MobiusLoopDisposalBehavior : MobiusLoopTest() {
         // Model changes emitted from the update function during dispose should be ignored.
         observer = RecordingModelObserver()
         val lock = Semaphore(0)
-        val update = Update<String, TestEvent, TestEffect> { model, event ->
+        val update = Update<String, TestEvent, TestEffect> { _, _ ->
             lock.acquireUninterruptibly()
             next("baz")
         }
@@ -176,7 +176,7 @@ class MobiusLoopDisposalBehavior : MobiusLoopTest() {
         effectObserver = RecordingConsumer()
         val lock = Semaphore(0)
         val builder = loop<String, TestEvent, TestEffect>(
-            { model, event ->
+            { _, _ ->
                 lock.acquireUninterruptibly()
                 Next.dispatch(effects(SafeEffect("baz")))
             },
@@ -196,13 +196,13 @@ class MobiusLoopDisposalBehavior : MobiusLoopTest() {
         // ensure there are some observers to iterate over, and that one of them modifies the
         // observer list.
         // ConcurrentModificationException only triggered if three observers added, for some reason
-        val disposable = mobiusLoop.observe { s -> }
+        val disposable = mobiusLoop.observe { }
         mobiusLoop.observe { s: String ->
             if (s.contains("heyho")) {
                 disposable.dispose()
             }
         }
-        mobiusLoop.observe { s -> }
+        mobiusLoop.observe { }
         mobiusLoop.observe(secondObserver)
         mobiusLoop.dispatchEvent(TestEvent("heyho"))
         secondObserver.assertStates("init", "init->heyho")
@@ -230,14 +230,14 @@ class MobiusLoopDisposalBehavior : MobiusLoopTest() {
 
     internal class EmitDuringDisposeEffectHandler : Connectable<TestEffect, TestEvent> {
         @Nonnull
-        override fun connect(eventConsumer: Consumer<TestEvent>): Connection<TestEffect> {
+        override fun connect(output: Consumer<TestEvent>): Connection<TestEffect> {
             return object : Connection<TestEffect> {
                 override fun accept(value: TestEffect) {
                     // ignored
                 }
 
                 override fun dispose() {
-                    eventConsumer.accept(TestEvent("bar"))
+                    output.accept(TestEvent("bar"))
                 }
             }
         }
