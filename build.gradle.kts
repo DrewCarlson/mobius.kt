@@ -26,6 +26,8 @@ allprojects {
         mavenCentral()
         google()
     }
+
+    yarn.lockFileDirectory = rootDir.resolve("gradle/kotlin-js-store")
 }
 
 // Required for doc publishing
@@ -33,8 +35,4 @@ System.getenv("GITHUB_REF")?.let { ref ->
     if (ref.startsWith("refs/tags/v")) {
         version = ref.substringAfterLast("refs/tags/v")
     }
-}
-
-allprojects {
-    yarn.lockFileDirectory = rootDir.resolve("gradle/kotlin-js-store")
 }
