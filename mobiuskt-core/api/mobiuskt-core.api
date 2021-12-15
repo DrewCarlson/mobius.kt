@@ -197,6 +197,17 @@ public final class kt/mobius/Mobius$Builder : kt/mobius/MobiusLoop$Builder {
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class kt/mobius/MobiusHooks {
+	public static final field INSTANCE Lkt/mobius/MobiusHooks;
+	public final fun handleError (Ljava/lang/Throwable;)V
+	public final fun setDefaultErrorHandler ()V
+	public final fun setErrorHandler (Lkt/mobius/MobiusHooks$ErrorHandler;)V
+}
+
+public abstract interface class kt/mobius/MobiusHooks$ErrorHandler {
+	public abstract fun handleError (Ljava/lang/Throwable;)V
+}
+
 public final class kt/mobius/MobiusLoop : kt/mobius/disposables/Disposable {
 	public static final field Companion Lkt/mobius/MobiusLoop$Companion;
 	public synthetic fun <init> (Lkt/mobius/EventProcessor$Factory;Ljava/lang/Object;Ljava/util/Set;Lkt/mobius/Connectable;Lkt/mobius/Connectable;Lkt/mobius/runners/WorkRunner;Lkt/mobius/runners/WorkRunner;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
