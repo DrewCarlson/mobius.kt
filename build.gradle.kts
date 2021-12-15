@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.targets.js.yarn.yarn
+
 buildscript {
     repositories {
         gradlePluginPortal()
@@ -31,4 +33,8 @@ System.getenv("GITHUB_REF")?.let { ref ->
     if (ref.startsWith("refs/tags/v")) {
         version = ref.substringAfterLast("refs/tags/v")
     }
+}
+
+allprojects {
+    yarn.lockFileDirectory = rootDir.resolve("gradle/kotlin-js-store")
 }
