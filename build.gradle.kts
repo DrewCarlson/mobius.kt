@@ -25,3 +25,10 @@ allprojects {
         google()
     }
 }
+
+// Required for doc publishing
+System.getenv("GITHUB_REF")?.let { ref ->
+    if (ref.startsWith("refs/tags/v")) {
+        version = ref.substringAfterLast("refs/tags/v")
+    }
+}
