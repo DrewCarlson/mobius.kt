@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.6.0"
+kotlin = "1.6.10"
 dokka = "1.6.0"
 agp = "7.0.3"
 coroutines = "1.5.2-native-mt"
