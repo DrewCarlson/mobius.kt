@@ -25,7 +25,7 @@ jobs:
           path: |
             ~/.konan
             ~/.gradle
-          key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}
+          key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}-v1
       - uses: gradle/gradle-build-action@v2
         name: Test Windows Target
         if: ${{ startsWith(matrix.os, 'windows') }}
