@@ -59,9 +59,10 @@ kotlin {
 
         named("commonTest") {
             dependencies {
+                implementation(projects.mobiusktTest)
+                implementation(libs.atomicfu)
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
-                implementation(libs.atomicfu)
             }
         }
 

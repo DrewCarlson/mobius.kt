@@ -2,10 +2,10 @@ package kt.mobius.flow
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.yield
+import kt.mobius.RecordingConsumer
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
