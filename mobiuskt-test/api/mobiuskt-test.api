@@ -1,0 +1,35 @@
+public final class kt/mobius/RecordingConnection : kt/mobius/RecordingConsumer, kt/mobius/Connection {
+	public fun <init> ()V
+	public fun dispose ()V
+	public final fun getDisposed ()Z
+}
+
+public class kt/mobius/RecordingConsumer : kt/mobius/functions/Consumer {
+	public fun <init> ()V
+	public fun accept (Ljava/lang/Object;)V
+	public final fun assertValues ([Ljava/lang/Object;)V
+	public final fun assertValuesInAnyOrder ([Ljava/lang/Object;)V
+	public final fun clearValues ()V
+	public final fun valueCount ()I
+}
+
+public final class kt/mobius/RecordingModelObserver : kt/mobius/functions/Consumer {
+	public fun <init> ()V
+	public fun accept (Ljava/lang/Object;)V
+	public final fun assertStates ([Ljava/lang/Object;)V
+	public final fun valueCount ()I
+}
+
+public abstract interface class kt/mobius/SimpleConnection : kt/mobius/Connection {
+	public static final field Companion Lkt/mobius/SimpleConnection$Companion;
+	public abstract fun dispose ()V
+}
+
+public final class kt/mobius/SimpleConnection$Companion {
+	public final fun invoke (Lkotlin/jvm/functions/Function1;)Lkt/mobius/SimpleConnection;
+}
+
+public final class kt/mobius/SimpleConnection$DefaultImpls {
+	public static fun dispose (Lkt/mobius/SimpleConnection;)V
+}
+

@@ -68,6 +68,7 @@ kotlin {
 
         val commonTest by getting {
             dependencies {
+                implementation(projects.mobiusktTest)
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
             }

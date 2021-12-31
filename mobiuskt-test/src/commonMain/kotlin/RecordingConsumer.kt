@@ -6,7 +6,7 @@ import kt.mobius.functions.Consumer
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-open class RecordingConsumer<V> : Consumer<V> {
+public open class RecordingConsumer<V> : Consumer<V> {
 
     private val values = arrayListOf<V>()
 
@@ -17,23 +17,23 @@ open class RecordingConsumer<V> : Consumer<V> {
             values.add(value)
         }
 
-    fun valueCount(): Int =
+    public fun valueCount(): Int =
         synchronized(lock) {
             values.size
         }
 
-    fun assertValues(vararg expectedValues: V): Unit =
+    public fun assertValues(vararg expectedValues: V): Unit =
         synchronized(lock) {
             assertEquals(expectedValues.asList(), values)
         }
 
-    fun assertValuesInAnyOrder(vararg expectedValues: V): Unit =
+    public fun assertValuesInAnyOrder(vararg expectedValues: V): Unit =
         synchronized(lock) {
             val missing = expectedValues.toSet() - values.toSet()
             assertTrue(values.containsAll(expectedValues.toList()), "Expected $missing")
         }
 
-    fun clearValues(): Unit =
+    public fun clearValues(): Unit =
         synchronized(lock) {
             values.clear()
         }

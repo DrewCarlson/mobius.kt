@@ -37,27 +37,21 @@ kotlin {
 
         val commonMain by getting {
             dependencies {
-                implementation(projects.mobiusktCore)
+                compileOnly(projects.mobiusktCore)
                 implementation(libs.atomicfu)
-            }
-        }
-
-        val commonTest by getting {
-            dependencies {
-                implementation(projects.mobiusktTest)
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
             }
         }
 
-        val jvmTest by getting {
+        val jvmMain by getting {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
             }
         }
 
-        val jsTest by getting {
+        val jsMain by getting {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-js"))

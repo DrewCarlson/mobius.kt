@@ -2,7 +2,7 @@ package kt.mobius
 
 import kt.mobius.functions.Consumer
 
-class RecordingModelObserver<S> : Consumer<S> {
+public class RecordingModelObserver<S> : Consumer<S> {
 
     private val recorder = RecordingConsumer<S>()
 
@@ -14,11 +14,11 @@ class RecordingModelObserver<S> : Consumer<S> {
       return recorder.waitForChange(timeoutMs)
     }*/
 
-    fun valueCount(): Int {
+    public fun valueCount(): Int {
         return recorder.valueCount()
     }
 
-    fun assertStates(vararg expectedStates: S) {
+    public fun assertStates(vararg expectedStates: S) {
         recorder.assertValues(*expectedStates)
     }
 }
