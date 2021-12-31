@@ -7,7 +7,7 @@ guava = "27.0.1-android"
 awaitility = "4.0.2"
 atomicfu = "0.17.0"
 binary_compat = "0.8.0"
-kover = "0.4.4"
+kover = "0.5.0-RC"
 slf4j = "1.7.25"
 
 [plugins]
