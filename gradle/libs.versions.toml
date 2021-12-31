@@ -1,6 +1,6 @@
 [versions]
 kotlin = "1.6.10"
-dokka = "1.6.0"
+dokka = "1.6.10"
 agp = "7.0.3"
 coroutines = "1.5.2-native-mt"
 guava = "27.0.1-android"
