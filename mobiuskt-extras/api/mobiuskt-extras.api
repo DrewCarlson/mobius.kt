@@ -33,6 +33,12 @@ public final class kt/mobius/extras/QueuedConsumer : kt/mobius/functions/Consume
 	public final fun dequeueAll (Lkt/mobius/functions/Consumer;)V
 }
 
+public final class kt/mobius/extras/QueueingEventSubject : kt/mobius/EventSource, kt/mobius/functions/Consumer {
+	public fun <init> (I)V
+	public fun accept (Ljava/lang/Object;)V
+	public fun subscribe (Lkt/mobius/functions/Consumer;)Lkt/mobius/disposables/Disposable;
+}
+
 public abstract interface class kt/mobius/extras/patterns/InnerEffectHandler {
 	public static final field Companion Lkt/mobius/extras/patterns/InnerEffectHandler$Companion;
 	public abstract fun handleInnerEffects (Ljava/lang/Object;ZLjava/util/Set;)Lkt/mobius/Next;
