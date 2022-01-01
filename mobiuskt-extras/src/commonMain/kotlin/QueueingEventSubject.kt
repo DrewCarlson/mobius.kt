@@ -12,7 +12,7 @@ import kt.mobius.functions.Consumer
  * maximum capacity specified in the constructor), and forward all queued events to the next
  * subscriber. Only a single subscription at a time is permitted.
  */
-public class QueueingEventSubject<E : Any>(
+public class QueueingEventSubject<E>(
     private val capacity: Int
 ) : SynchronizedObject(), EventSource<E>, Consumer<E> {
     private enum class State {
