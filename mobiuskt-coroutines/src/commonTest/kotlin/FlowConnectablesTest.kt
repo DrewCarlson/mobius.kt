@@ -6,9 +6,9 @@ import kt.mobius.Connection
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.UNLIMITED
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.test.runTest
 import kotlin.test.*
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class FlowConnectablesTest {
 
     private lateinit var input: Channel<String>
@@ -33,7 +33,7 @@ class FlowConnectablesTest {
     }
 
     @Test
-    fun shouldEmitTransformedItems() = runBlocking {
+    fun shouldEmitTransformedItems() = runTest {
         val results = async {
             input.consumeAsFlow()
                 .transform(connectable)
@@ -49,7 +49,7 @@ class FlowConnectablesTest {
     }
 
     @Test
-    fun shouldPropagateCompletion() = runBlocking {
+    fun shouldPropagateCompletion() = runTest {
         withTimeout(1000) {
             input.consumeAsFlow()
                 .transform(connectable)
@@ -65,7 +65,7 @@ class FlowConnectablesTest {
     }
 
     @Test
-    fun shouldPropagateErrorsFromConnectable() = runBlocking {
+    fun shouldPropagateErrorsFromConnectable() = runTest {
         val output = async {
             runCatching {
                 input.consumeAsFlow()
@@ -85,7 +85,7 @@ class FlowConnectablesTest {
     }
 
     @Test
-    fun shouldPropagateErrorsFromUpstream() = runBlocking {
+    fun shouldPropagateErrorsFromUpstream() = runTest {
         val output = async {
             runCatching {
                 input.consumeAsFlow()

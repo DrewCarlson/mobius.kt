@@ -1,19 +1,18 @@
 package kt.mobius.flow
 
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.yield
 import kt.mobius.RecordingConsumer
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class FlowEventSourcesTest {
 
     @Test
-    fun eventsAreForwardedInOrder() = runBlocking {
+    fun eventsAreForwardedInOrder() = runTest {
         val source = flowOf(1, 2, 3).toEventSource(this)
         val consumer = RecordingConsumer<Int>()
 
@@ -24,7 +23,7 @@ class FlowEventSourcesTest {
     }
 
     @Test
-    fun disposePreventsFurtherEvents() = runBlocking {
+    fun disposePreventsFurtherEvents() = runTest {
         val channel = Channel<Int>()
         val source = channel.consumeAsFlow().toEventSource(this)
         val consumer = RecordingConsumer<Int>()

@@ -47,8 +47,13 @@ kotlin {
     }
     sourceSets {
         all {
-            languageSettings.optIn("kotlin.RequiresOptIn")
             explicitApi()
+            languageSettings.apply {
+                optIn("kotlin.RequiresOptIn")
+                if (name.endsWith("Test")) {
+                    optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+                }
+            }
         }
         named("commonMain") {
             dependencies {
@@ -61,6 +66,7 @@ kotlin {
             dependencies {
                 implementation(projects.mobiusktTest)
                 implementation(libs.atomicfu)
+                implementation(libs.coroutines.test)
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
             }

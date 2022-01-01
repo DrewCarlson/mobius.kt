@@ -6,6 +6,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.test.runTest
 import kt.mobius.Next
 import kotlin.test.*
 
@@ -29,7 +30,7 @@ class FlowMobiusLoopTest {
     }
 
     @Test
-    fun shouldPropagateIncomingErrorsAsUnrecoverable() = runBlocking {
+    fun shouldPropagateIncomingErrorsAsUnrecoverable() = runTest {
         val input = Channel<Int>()
 
         val result = async {
