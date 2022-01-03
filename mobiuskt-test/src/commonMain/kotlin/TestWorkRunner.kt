@@ -5,12 +5,12 @@ import kotlinx.atomicfu.locks.synchronized
 import kt.mobius.runners.Runnable
 import kt.mobius.runners.WorkRunner
 
-class TestWorkRunner : WorkRunner {
+public class TestWorkRunner : WorkRunner {
 
     private val lock = SynchronizedObject()
     private var queue = arrayListOf<Runnable>()
 
-    var isDisposed = false
+    public var isDisposed: Boolean = false
         private set
 
     override fun post(runnable: Runnable) {
@@ -29,7 +29,7 @@ class TestWorkRunner : WorkRunner {
         runnable.run()
     }
 
-    fun runAll() {
+    public fun runAll() {
         while (true) {
             synchronized(lock) {
                 if (queue.isEmpty()) return
