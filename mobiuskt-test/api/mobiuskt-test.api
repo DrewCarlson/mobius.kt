@@ -33,3 +33,177 @@ public final class kt/mobius/SimpleConnection$DefaultImpls {
 	public static fun dispose (Lkt/mobius/SimpleConnection;)V
 }
 
+public final class kt/mobius/test/FirstMatchers {
+	public static final field INSTANCE Lkt/mobius/test/FirstMatchers;
+	public final fun hasEffects (Lkt/mobius/test/matcher/Matcher;)Lkt/mobius/test/matcher/Matcher;
+	public final fun hasEffects ([Ljava/lang/Object;)Lkt/mobius/test/matcher/Matcher;
+	public final fun hasModel (Ljava/lang/Object;)Lkt/mobius/test/matcher/Matcher;
+	public final fun hasModel (Lkt/mobius/test/matcher/Matcher;)Lkt/mobius/test/matcher/Matcher;
+	public final fun hasNoEffects ()Lkt/mobius/test/matcher/Matcher;
+}
+
+public final class kt/mobius/test/InitSpec {
+	public static final field Companion Lkt/mobius/test/InitSpec$Companion;
+	public fun <init> (Lkt/mobius/Init;)V
+	public final fun whenInit (Ljava/lang/Object;)Lkt/mobius/test/InitSpec$Then;
+}
+
+public abstract interface class kt/mobius/test/InitSpec$Assert {
+	public abstract fun assertFirst (Lkt/mobius/First;)V
+}
+
+public abstract interface class kt/mobius/test/InitSpec$AssertError {
+	public abstract fun assertError (Ljava/lang/Exception;)V
+}
+
+public final class kt/mobius/test/InitSpec$Companion {
+	public final fun assertThatFirst ([Lkt/mobius/test/matcher/Matcher;)Lkt/mobius/test/InitSpec$Assert;
+}
+
+public abstract interface class kt/mobius/test/InitSpec$Then {
+	public abstract fun then (Lkt/mobius/test/InitSpec$Assert;)V
+	public abstract fun thenError (Lkt/mobius/test/InitSpec$AssertError;)V
+}
+
+public final class kt/mobius/test/NextMatchers {
+	public static final field INSTANCE Lkt/mobius/test/NextMatchers;
+	public final fun hasEffects (Lkt/mobius/test/matcher/Matcher;)Lkt/mobius/test/matcher/Matcher;
+	public final fun hasEffects ([Ljava/lang/Object;)Lkt/mobius/test/matcher/Matcher;
+	public final fun hasModel ()Lkt/mobius/test/matcher/Matcher;
+	public final fun hasModel (Ljava/lang/Object;)Lkt/mobius/test/matcher/Matcher;
+	public final fun hasModel (Lkt/mobius/test/matcher/Matcher;)Lkt/mobius/test/matcher/Matcher;
+	public final fun hasNoEffects ()Lkt/mobius/test/matcher/Matcher;
+	public final fun hasNoModel ()Lkt/mobius/test/matcher/Matcher;
+	public final fun hasNothing ()Lkt/mobius/test/matcher/Matcher;
+}
+
+public final class kt/mobius/test/Result {
+	public static final field Companion Lkt/mobius/test/Result$Companion;
+	public fun <init> (Ljava/lang/Object;Lkt/mobius/Next;)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun component2 ()Lkt/mobius/Next;
+	public final fun copy (Ljava/lang/Object;Lkt/mobius/Next;)Lkt/mobius/test/Result;
+	public static synthetic fun copy$default (Lkt/mobius/test/Result;Ljava/lang/Object;Lkt/mobius/Next;ILjava/lang/Object;)Lkt/mobius/test/Result;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLastNext ()Lkt/mobius/Next;
+	public final fun getModel ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class kt/mobius/test/Result$Companion {
+	public final fun of (Ljava/lang/Object;Lkt/mobius/Next;)Lkt/mobius/test/Result;
+}
+
+public final class kt/mobius/test/TestWorkRunner : kt/mobius/runners/WorkRunner {
+	public fun <init> ()V
+	public fun dispose ()V
+	public final fun isDisposed ()Z
+	public fun post (Ljava/lang/Runnable;)V
+	public final fun runAll ()V
+}
+
+public final class kt/mobius/test/UpdateSpec {
+	public static final field Companion Lkt/mobius/test/UpdateSpec$Companion;
+	public fun <init> (Lkt/mobius/Update;)V
+	public final fun given (Ljava/lang/Object;)Lkt/mobius/test/UpdateSpec$When;
+}
+
+public abstract interface class kt/mobius/test/UpdateSpec$Assert {
+	public abstract fun apply (Lkt/mobius/test/Result;)V
+}
+
+public abstract interface class kt/mobius/test/UpdateSpec$AssertError {
+	public abstract fun assertError (Ljava/lang/Exception;)V
+}
+
+public final class kt/mobius/test/UpdateSpec$Companion {
+	public final fun assertThatNext ([Lkt/mobius/test/matcher/Matcher;)Lkt/mobius/test/UpdateSpec$Assert;
+}
+
+public abstract interface class kt/mobius/test/UpdateSpec$Then {
+	public abstract fun then (Lkt/mobius/test/UpdateSpec$Assert;)V
+	public abstract fun thenError (Lkt/mobius/test/UpdateSpec$AssertError;)V
+}
+
+public final class kt/mobius/test/UpdateSpec$When {
+	public final fun when (Ljava/lang/Object;[Ljava/lang/Object;)Lkt/mobius/test/UpdateSpec$Then;
+	public final fun whenEvent (Ljava/lang/Object;)Lkt/mobius/test/UpdateSpec$Then;
+	public final fun whenEvents (Ljava/lang/Object;[Ljava/lang/Object;)Lkt/mobius/test/UpdateSpec$Then;
+}
+
+public abstract class kt/mobius/test/matcher/BaseDescription : kt/mobius/test/matcher/Description {
+	public fun <init> ()V
+	protected abstract fun append (C)V
+	protected fun append (Ljava/lang/String;)V
+	public fun appendDescriptionOf (Lkt/mobius/test/matcher/SelfDescribing;)Lkt/mobius/test/matcher/Description;
+	public fun appendList (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Iterable;)Lkt/mobius/test/matcher/Description;
+	public fun appendText (Ljava/lang/String;)Lkt/mobius/test/matcher/Description;
+	public fun appendValue (Ljava/lang/Object;)Lkt/mobius/test/matcher/Description;
+	public fun appendValueList (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Iterable;)Lkt/mobius/test/matcher/Description;
+	public fun appendValueList (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/Object;)Lkt/mobius/test/matcher/Description;
+}
+
+public abstract class kt/mobius/test/matcher/BaseMatcher : kt/mobius/test/matcher/Matcher {
+	public static final field Companion Lkt/mobius/test/matcher/BaseMatcher$Companion;
+	public fun <init> ()V
+	public fun describeMismatch (Ljava/lang/Object;Lkt/mobius/test/matcher/Description;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class kt/mobius/test/matcher/BaseMatcher$Companion {
+}
+
+public abstract interface class kt/mobius/test/matcher/Description {
+	public static final field Companion Lkt/mobius/test/matcher/Description$Companion;
+	public abstract fun appendDescriptionOf (Lkt/mobius/test/matcher/SelfDescribing;)Lkt/mobius/test/matcher/Description;
+	public abstract fun appendList (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Iterable;)Lkt/mobius/test/matcher/Description;
+	public abstract fun appendText (Ljava/lang/String;)Lkt/mobius/test/matcher/Description;
+	public abstract fun appendValue (Ljava/lang/Object;)Lkt/mobius/test/matcher/Description;
+	public abstract fun appendValueList (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Iterable;)Lkt/mobius/test/matcher/Description;
+	public abstract fun appendValueList (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/Object;)Lkt/mobius/test/matcher/Description;
+}
+
+public final class kt/mobius/test/matcher/Description$Companion {
+	public final fun getNONE ()Lkt/mobius/test/matcher/Description;
+}
+
+public final class kt/mobius/test/matcher/IsEqual : kt/mobius/test/matcher/BaseMatcher {
+	public static final field Companion Lkt/mobius/test/matcher/IsEqual$Companion;
+	public fun <init> (Ljava/lang/Object;)V
+	public fun describeTo (Lkt/mobius/test/matcher/Description;)V
+	public fun matches (Ljava/lang/Object;)Z
+}
+
+public final class kt/mobius/test/matcher/IsEqual$Companion {
+	public final fun equalTo (Ljava/lang/Object;)Lkt/mobius/test/matcher/Matcher;
+}
+
+public final class kt/mobius/test/matcher/IsIterableContaining : kt/mobius/test/matcher/TypeSafeDiagnosingMatcher {
+	public fun <init> (Lkt/mobius/test/matcher/Matcher;)V
+	public fun describeTo (Lkt/mobius/test/matcher/Description;)V
+	public synthetic fun matchesSafely (Ljava/lang/Object;Lkt/mobius/test/matcher/Description;)Z
+}
+
+public abstract interface class kt/mobius/test/matcher/Matcher : kt/mobius/test/matcher/SelfDescribing {
+	public abstract fun describeMismatch (Ljava/lang/Object;Lkt/mobius/test/matcher/Description;)V
+	public abstract fun matches (Ljava/lang/Object;)Z
+}
+
+public final class kt/mobius/test/matcher/MatcherAssert {
+	public static final field INSTANCE Lkt/mobius/test/matcher/MatcherAssert;
+	public final fun assertThat (Ljava/lang/Object;Lkt/mobius/test/matcher/Matcher;)V
+	public final fun assertThat (Ljava/lang/String;Ljava/lang/Object;Lkt/mobius/test/matcher/Matcher;)V
+}
+
+public abstract interface class kt/mobius/test/matcher/SelfDescribing {
+	public abstract fun describeTo (Lkt/mobius/test/matcher/Description;)V
+}
+
+public abstract class kt/mobius/test/matcher/TypeSafeDiagnosingMatcher : kt/mobius/test/matcher/BaseMatcher {
+	public fun <init> (Lkotlin/reflect/KType;)V
+	public fun describeMismatch (Ljava/lang/Object;Lkt/mobius/test/matcher/Description;)V
+	public fun matches (Ljava/lang/Object;)Z
+	protected abstract fun matchesSafely (Ljava/lang/Object;Lkt/mobius/test/matcher/Description;)Z
+}
+

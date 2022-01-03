@@ -44,6 +44,12 @@ kotlin {
             }
         }
 
+        val commonTest by getting {
+            dependencies {
+                implementation(projects.mobiusktCore)
+            }
+        }
+
         val jvmMain by getting {
             dependencies {
                 implementation(kotlin("test"))
