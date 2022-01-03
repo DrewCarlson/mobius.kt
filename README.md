@@ -266,6 +266,7 @@ repositories {
 
 dependencies {
     implementation("org.drewcarlson:mobiuskt-core:$MOBIUS_VERSION")
+    implementation("org.drewcarlson:mobiuskt-test:$MOBIUS_VERSION")
     implementation("org.drewcarlson:mobiuskt-extras:$MOBIUS_VERSION")
     implementation("org.drewcarlson:mobiuskt-android:$MOBIUS_VERSION")
     implementation("org.drewcarlson:mobiuskt-coroutines:$MOBIUS_VERSION")
