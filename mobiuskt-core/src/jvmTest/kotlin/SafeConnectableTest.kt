@@ -1,5 +1,6 @@
 package kt.mobius
 
+import kt.mobius.test.RecordingConsumer
 import org.junit.Before
 import org.junit.Test
 import java.util.concurrent.Executors
@@ -118,7 +119,7 @@ class SafeConnectableTest {
                     throw RuntimeException(e)
                 }
             }
-            recordedEffects.add(value);
+            recordedEffects.add(value)
             eventConsumer.accept("Value is: $value")
             signalEffectHasBeenPerformed.release()
         }

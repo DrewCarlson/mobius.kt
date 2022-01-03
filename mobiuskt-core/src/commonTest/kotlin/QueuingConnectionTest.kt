@@ -1,5 +1,6 @@
 package kt.mobius
 
+import kt.mobius.test.RecordingConnection
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertFailsWith

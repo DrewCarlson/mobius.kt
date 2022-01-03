@@ -5,6 +5,7 @@ import kt.mobius.Effects.effects
 import kt.mobius.Next.Companion.next
 import kt.mobius.functions.Consumer
 import kt.mobius.runners.ExecutorServiceWorkRunner
+import kt.mobius.test.SimpleConnection
 import kt.mobius.test.TestWorkRunner
 import kt.mobius.testdomain.*
 import org.awaitility.Awaitility.await

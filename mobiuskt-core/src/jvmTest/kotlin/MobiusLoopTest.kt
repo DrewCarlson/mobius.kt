@@ -7,6 +7,9 @@ import kt.mobius.functions.Consumer
 import kt.mobius.runners.ExecutorServiceWorkRunner
 import kt.mobius.runners.ImmediateWorkRunner
 import kt.mobius.runners.WorkRunner
+import kt.mobius.test.RecordingConsumer
+import kt.mobius.test.RecordingModelObserver
+import kt.mobius.test.SimpleConnection
 import kt.mobius.testdomain.*
 import java.util.concurrent.Executors
 import kotlin.test.AfterTest

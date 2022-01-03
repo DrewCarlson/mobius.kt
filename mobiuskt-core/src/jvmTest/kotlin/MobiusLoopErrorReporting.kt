@@ -3,6 +3,7 @@ package kt.mobius
 import kt.mobius.MobiusLoop.Companion.create
 import kt.mobius.runners.ExecutorServiceWorkRunner
 import kt.mobius.runners.WorkRunner
+import kt.mobius.test.RecordingModelObserver
 import kt.mobius.testdomain.TestEvent
 import java.util.concurrent.Executors
 import kotlin.test.Test

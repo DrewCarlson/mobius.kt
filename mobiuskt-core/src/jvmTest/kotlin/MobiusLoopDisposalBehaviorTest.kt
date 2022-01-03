@@ -8,6 +8,8 @@ import kt.mobius.Next.Companion.next
 import kt.mobius.Next.Companion.noChange
 import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
+import kt.mobius.test.RecordingConsumer
+import kt.mobius.test.RecordingModelObserver
 import kt.mobius.test.TestWorkRunner
 import kt.mobius.testdomain.EventWithSafeEffect
 import kt.mobius.testdomain.SafeEffect
@@ -76,8 +78,8 @@ class MobiusLoopDisposalBehavior : MobiusLoopTest() {
             "Expected message to contain '$event'"
         )
         assertTrue(
-            error.message?.contains(mobiusLoop.mostRecentModel.toString()) ?: false,
-            "Expected message to contain '${mobiusLoop.mostRecentModel.toString()}'"
+            error.message?.contains(mobiusLoop.mostRecentModel) ?: false,
+            "Expected message to contain '${mobiusLoop.mostRecentModel}'"
         )
         observer.assertStates("init", "init->one")
     }

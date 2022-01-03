@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.yield
-import kt.mobius.RecordingConsumer
+import kt.mobius.test.RecordingConsumer
 import kotlin.test.Test
 import kotlin.test.assertTrue
 

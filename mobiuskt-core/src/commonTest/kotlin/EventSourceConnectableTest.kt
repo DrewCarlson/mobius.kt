@@ -2,6 +2,7 @@ package kt.mobius
 
 import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
+import kt.mobius.test.RecordingConsumer
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals

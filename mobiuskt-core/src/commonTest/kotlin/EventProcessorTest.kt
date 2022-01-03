@@ -1,6 +1,7 @@
 package kt.mobius
 
 import kt.mobius.MobiusStore.Companion.create
+import kt.mobius.test.RecordingConsumer
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 

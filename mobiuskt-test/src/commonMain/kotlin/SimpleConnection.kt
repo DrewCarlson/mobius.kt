@@ -1,4 +1,6 @@
-package kt.mobius
+package kt.mobius.test
+
+import kt.mobius.Connection
 
 public interface SimpleConnection<F> : Connection<F> {
 

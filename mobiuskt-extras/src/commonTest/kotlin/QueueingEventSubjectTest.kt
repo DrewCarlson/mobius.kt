@@ -1,6 +1,6 @@
 package kt.mobius.extras
 
-import kt.mobius.RecordingConsumer
+import kt.mobius.test.RecordingConsumer
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertFailsWith

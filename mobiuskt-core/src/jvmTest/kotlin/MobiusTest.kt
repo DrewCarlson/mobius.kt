@@ -7,6 +7,7 @@ import kt.mobius.functions.Consumer
 import kt.mobius.runners.ImmediateWorkRunner
 import kt.mobius.runners.WorkRunner
 import kt.mobius.runners.WorkRunners
+import kt.mobius.test.SimpleConnection
 import org.awaitility.Awaitility.await
 import org.hamcrest.Matchers.contains
 import org.hamcrest.core.Is.`is`
@@ -81,22 +82,22 @@ class MobiusTest {
 
     @Test
     fun shouldPermitUsingEventSource() {
-        val eventSource = TestEventSource();
+        val eventSource = TestEventSource()
 
         loop = loop(UPDATE, HANDLER)
             .eventRunner(WorkRunners::immediate)
             .eventSource(eventSource)
             .startFrom(MY_MODEL)
 
-        eventSource.consumer.accept(7);
+        eventSource.consumer.accept(7)
 
-        await().atMost(Duration.ofSeconds(1)).until({ loop.mostRecentModel }, `is`("start7"));
+        await().atMost(Duration.ofSeconds(1)).until({ loop.mostRecentModel }, `is`("start7"))
     }
 
 
     @Test
     fun shouldPermitUsingConnectablesAsAnEventSource() {
-        val eventSource = ConnectableTestEventSource();
+        val eventSource = ConnectableTestEventSource()
 
         loop = loop(UPDATE, HANDLER)
                 .eventRunner(WorkRunners::immediate)

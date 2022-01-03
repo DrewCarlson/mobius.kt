@@ -66,7 +66,7 @@ class InitSpecAndFirstMatcherTests {
 
         assertEquals(
             "\nExpected: has effects: (a collection containing <${descriptionOf(TestEffect.SideEffect1)}>)\n" +
-                    "     but: bad effects: a collection containing <${descriptionOf(TestEffect.SideEffect1)}> mismatches were: [was <SetString(string=Hello World!)>]",
+                    "     but: bad effects: a collection containing <${descriptionOf(TestEffect.SideEffect1)}> mismatches were: [was <SideEffect2(string=Hello World!)>]",
             error.message
         )
     }

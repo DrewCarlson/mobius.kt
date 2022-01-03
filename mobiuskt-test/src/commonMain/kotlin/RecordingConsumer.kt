@@ -1,4 +1,4 @@
-package kt.mobius
+package kt.mobius.test
 
 import kotlinx.atomicfu.locks.SynchronizedObject
 import kotlinx.atomicfu.locks.synchronized

@@ -1,4 +1,4 @@
-package kt.mobius
+package kt.mobius.test
 
 import kt.mobius.functions.Consumer
 

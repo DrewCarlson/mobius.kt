@@ -1,5 +1,6 @@
-package kt.mobius
+package kt.mobius.test
 
+import kt.mobius.Connection
 import kotlin.jvm.Volatile
 
 public class RecordingConnection<V> : RecordingConsumer<V>(), Connection<V> {

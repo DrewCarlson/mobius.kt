@@ -2,6 +2,7 @@ package kt.mobius
 
 import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
+import kt.mobius.test.RecordingConsumer
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
@@ -42,7 +43,7 @@ class MergedEventSourceTest {
             private set
 
         override fun subscribe(eventConsumer: Consumer<T>): Disposable {
-            this.eventConsumer = eventConsumer;
+            this.eventConsumer = eventConsumer
             return Disposable {
                 disposed = true
                 this.eventConsumer = null

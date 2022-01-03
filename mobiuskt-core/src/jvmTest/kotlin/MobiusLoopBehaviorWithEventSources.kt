@@ -4,6 +4,8 @@ import kt.mobius.Next.Companion.next
 import kt.mobius.Next.Companion.noChange
 import kt.mobius.functions.Consumer
 import kt.mobius.runners.WorkRunners
+import kt.mobius.test.RecordingConsumer
+import kt.mobius.test.RecordingModelObserver
 import kt.mobius.testdomain.EventWithSafeEffect
 import kt.mobius.testdomain.TestEffect
 import kt.mobius.testdomain.TestEvent
