@@ -5,7 +5,7 @@
 ![](https://github.com/DrewCarlson/mobius.kt/workflows/Js/badge.svg)
 ![](https://github.com/DrewCarlson/mobius.kt/workflows/Native/badge.svg)
 
-Kotlin Multiplatform [Mobius](https://github.com/spotify/mobius) implementation.
+Kotlin Multiplatform framework for managing state evolution and side-effects, based on [spotify/Mobius](https://github.com/spotify/mobius).
 
 ## What is Mobius?
 
@@ -23,12 +23,12 @@ In a Spotify context, there is usually one loop per feature such as “the album
 > The Model can be observed by the user interface, and the Effects are received and executed by an [Effect Handler](https://github.com/spotify/mobius/wiki/Effect-Handler).
 
 'Pure' in the diagram refers to pure functions, functions whose output only depends on their inputs, and whose execution has no observable side effects.
- See [Pure vs Impure Functions](https://github.com/spotify/mobius/wiki/Pure-vs-Impure-Functions) for more details.
+See [Pure vs Impure Functions](https://github.com/spotify/mobius/wiki/Pure-vs-Impure-Functions) for more details.
 
-_(Source: [Spotify/Mobius](https://github.com/spotify/mobius/) - [Concepts > Mobius Loop](https://github.com/spotify/mobius/wiki/Concepts/53777574e070e168f2c3bdebc1be544edfcee2cf#mobius-loop))_
+_(Source: [Spotify/Mobius](https://github.com/spotify/mobius/) - [Concepts > Mobius Loop](https://github.com/spotify/mobius/wiki/Concepts/66d6eef10cd91002f780e141d71dd57e6adebe78#mobius-loop))_
 
-By combining this concept with Kotlin's MPP features, mobius.kt allows you to write and test all of your pure functions (application and/or business logic) in Kotlin and deploy it everywhere.
-This leaves impure functions to the native platform, which can be written in their primary language (Js, Java, Objective-c/Swift) or in Kotlin!
+By combining Mobius Loops with Kotlin's MPP features, mobius.kt allows you to write and test pure functions (application and/or business logic) in Kotlin and deploy them everywhere.
+This leaves impure functions to be written in multiplatform Kotlin code or the target platform's primary language (Js, Java, Objective-c/Swift), depending on your use-case.
 
 ## Example
 
@@ -119,14 +119,34 @@ loopController.disconnect()
 ```
 </details>
 
+## Modules
 
-## Notes
+### Testing
 
-### External dependencies
+The `mobiuskt-test` module provides a DSL for behavior driven tests and a light re-implementation of Hamcrest style APIs to test mobius loops (See [Download](#Download)).
 
-Mobius.kt depends on [kotlinx.atomicfu](https://github.com/Kotlin/kotlinx.atomicfu) for object synchronization, this results in a runtime dependency for Kotlin/Native targets only.
+<details>
+<summary>Behavior testing DSL Example (Click to expand)</summary>
 
-### Coroutines Support
+```kotlin
+// Note that `update` is from the README example above
+UpdateSpec(update)
+    .given(0) // given model of 0
+    .whenEvent(Event.ADD) // when Event.Add occurs
+    .then(assertThatNext(hasModel())) // assert the Next object contains any model
+// No AssertionError, test passed.
+
+UpdateSpec(update)
+    .given(0)
+    .whenEvent(Event.ADD)
+    .then(assertThatNext(hasModel(-1)))
+// AssertionError: expected -1 but received 1, test failed.
+```
+</details>
+
+For more details on the available matchers, see the [API documentation](https://drewcarlson.github.io/mobius.kt/mobiuskt-test/kt.mobius.test/-next-matchers/index.html).
+
+### Coroutines
 
 Coroutines and Flows are supported with the `mobiuskt-coroutines` module (See [Download](#Download)).
 
@@ -165,15 +185,22 @@ val loopFactory = FlowMobius.loop(update, effectHandler)
 ```
 </details>
 
+
+## Notes
+
+### External dependencies
+
+Mobius.kt depends on [kotlinx.atomicfu](https://github.com/Kotlin/kotlinx.atomicfu) for object synchronization, this results in a runtime dependency for Kotlin/Native targets only.
+
 ### Language Support
 
 `MobiusLoop`s can be created and managed in Javascript, Swift, and Java code without major interoperability concerns.
 Using Mobius.kt for shared logic does not require consuming projects to be written in or know about Kotlin.
 
 ### Kotlin/Native
- 
-Kotlin/Native's [new memory manager](https://blog.jetbrains.com/kotlin/2021/08/try-the-new-kotlin-native-memory-manager-development-preview/) is generally supported but may result in higher memory usage and in rare cases, delayed runtime errors.
-The following notes are relevant only to the original memory manager where shared state cannot be mutable.
+
+Kotlin/Native's [new memory manager](https://blog.jetbrains.com/kotlin/2021/08/try-the-new-kotlin-native-memory-manager-development-preview/) is generally supported but as of Kotlin 1.6.10 may result in higher memory usage and in rare cases, delayed runtime errors.
+The following notes are relevant only to the original memory manager where state shared across threads cannot be mutated.
 
 A `MobiusLoop` is single-threaded on native targets and cannot be [frozen](https://kotlinlang.org/docs/native-immutability.html).
 Generally this is acceptable behavior, even when the loop exists on the main thread.
