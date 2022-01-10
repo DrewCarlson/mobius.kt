@@ -12,6 +12,7 @@ kotlin {
     iosSimulatorArm64()
     tvosSimulatorArm64()
     watchosSimulatorArm64()
+    watchosX86()
     macosArm64()
     macosX64("macos")
     linuxX64("linux")
@@ -37,16 +38,10 @@ kotlin {
 
         val commonMain by getting {
             dependencies {
-                compileOnly(projects.mobiusktCore)
+                implementation(projects.mobiusktCore)
                 implementation(libs.atomicfu)
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
-            }
-        }
-
-        val commonTest by getting {
-            dependencies {
-                implementation(projects.mobiusktCore)
             }
         }
 
