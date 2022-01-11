@@ -32,11 +32,11 @@ kotlin {
         watchosSimulatorArm64(),
         // watchosX86(),
         watchosX64(),
-        macosX64("macos"),
+        macosX64(),
         macosArm64(),
-        linuxX64("linux"),
-        mingwX64("windows"),
-        // mingwX86("windowsX86"),
+        linuxX64(),
+        mingwX64(),
+        // mingwX86(),
     )
     configure(nativeTargets) {
         compilations.getByName("test") {
