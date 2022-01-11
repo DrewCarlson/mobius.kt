@@ -45,16 +45,26 @@ kotlin {
             }
         }
 
-        val jvmTest by getting {
+        val jvmMain by getting {
             dependencies {
                 implementation(kotlin("test"))
+            }
+        }
+
+        val jsMain by getting {
+            dependencies {
+                implementation(kotlin("test"))
+            }
+        }
+
+        val jvmTest by getting {
+            dependencies {
                 implementation(kotlin("test-junit"))
             }
         }
 
         val jsTest by getting {
             dependencies {
-                implementation(kotlin("test"))
                 implementation(kotlin("test-js"))
             }
         }
