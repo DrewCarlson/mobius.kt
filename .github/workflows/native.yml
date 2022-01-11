@@ -40,12 +40,12 @@ jobs:
         name: Test Apple Targets
         if: ${{ startsWith(matrix.os, 'macos') }}
         with:
-          arguments: macosX64 iosX64Test # tvosX64Test watchosX86Test
+          arguments: macosX64Test iosX64Test # tvosX64Test watchosX86Test
       - uses: gradle/gradle-build-action@v2
         name: Test Apple Targets (New MM)
         if: ${{ startsWith(matrix.os, 'macos') }}
         with:
-          arguments: macosX64 iosX64Test -Pkotlin.native.binary.memoryModel=experimental # tvosX64Test watchosX86Test
+          arguments: macosX64Test iosX64Test -Pkotlin.native.binary.memoryModel=experimental # tvosX64Test watchosX86Test
       - uses: gradle/gradle-build-action@v2
         name: Test Linux Target
         if: ${{ startsWith(matrix.os, 'ubuntu') }}
