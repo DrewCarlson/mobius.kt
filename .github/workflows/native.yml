@@ -30,29 +30,29 @@ jobs:
         name: Test Windows Target
         if: ${{ startsWith(matrix.os, 'windows') }}
         with:
-          arguments: windowsTest
+          arguments: mingwX64Test
       - uses: gradle/gradle-build-action@v2
         name: Test Windows Target (New MM)
         if: ${{ startsWith(matrix.os, 'windows') }}
         with:
-          arguments: windowsTest -Pkotlin.native.binary.memoryModel=experimental
+          arguments: mingwX64Test -Pkotlin.native.binary.memoryModel=experimental
       - uses: gradle/gradle-build-action@v2
         name: Test Apple Targets
         if: ${{ startsWith(matrix.os, 'macos') }}
         with:
-          arguments: macosTest iosX64Test # tvosX64Test watchosX86Test
+          arguments: macosX64 iosX64Test # tvosX64Test watchosX86Test
       - uses: gradle/gradle-build-action@v2
         name: Test Apple Targets (New MM)
         if: ${{ startsWith(matrix.os, 'macos') }}
         with:
-          arguments: macosTest iosX64Test -Pkotlin.native.binary.memoryModel=experimental # tvosX64Test watchosX86Test
+          arguments: macosX64 iosX64Test -Pkotlin.native.binary.memoryModel=experimental # tvosX64Test watchosX86Test
       - uses: gradle/gradle-build-action@v2
         name: Test Linux Target
         if: ${{ startsWith(matrix.os, 'ubuntu') }}
         with:
-          arguments: linuxTest
+          arguments: linuxX64Test
       - uses: gradle/gradle-build-action@v2
         name: Test Linux Target (New MM)
         if: ${{ startsWith(matrix.os, 'ubuntu') }}
         with:
-          arguments: linuxTest -Pkotlin.native.binary.memoryModel=experimental
+          arguments: linuxX64Test -Pkotlin.native.binary.memoryModel=experimental
