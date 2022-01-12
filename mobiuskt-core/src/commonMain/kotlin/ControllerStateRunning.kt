@@ -7,7 +7,7 @@ public class ControllerStateRunning<M, E, F>(
     private val renderer: Connection<M>,
     loopFactory: MobiusLoop.Factory<M, E, F>,
     modelToStartFrom: M,
-    private val init: Init<M, F>?,
+    init: Init<M, F>?,
 ) : ControllerStateBase<M, E>() {
 
     private val startModel: M
