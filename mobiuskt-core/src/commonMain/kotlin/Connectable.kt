@@ -43,5 +43,6 @@ public fun interface Connectable<I, O> {
      * Connectable, and is considered an irrecoverable error
      */
     @JsName("connect")
+    @Throws(ConnectionLimitExceededException::class)
     public fun connect(output: Consumer<O>): Connection<I>
 }

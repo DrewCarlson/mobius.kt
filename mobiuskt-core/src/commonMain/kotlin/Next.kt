@@ -51,6 +51,7 @@ public class Next<M, F> internal constructor(
      *
      * @throws NoSuchElementException if this Next has no model
      */
+    @Throws(NoSuchElementException::class)
     public fun modelUnsafe(): M {
         if (!hasModel()) {
             throw NoSuchElementException("there is no model in this Next<>")

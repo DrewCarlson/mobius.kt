@@ -17,7 +17,6 @@ import java.util.concurrent.Executors
 
 class MobiusLoopBehaviorWithEffectHandlers : MobiusLoopTest() {
     @Test
-    @Throws(Exception::class)
     fun shouldSurviveEffectPerformerThrowing() {
         mobiusLoop.dispatchEvent(EventWithCrashingEffect())
         mobiusLoop.dispatchEvent(TestEvent("should happen"))
@@ -25,7 +24,6 @@ class MobiusLoopBehaviorWithEffectHandlers : MobiusLoopTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun shouldSurviveEffectPerformerThrowingMultipleTimes() {
         mobiusLoop.dispatchEvent(EventWithCrashingEffect())
         mobiusLoop.dispatchEvent(TestEvent("should happen"))
@@ -41,7 +39,6 @@ class MobiusLoopBehaviorWithEffectHandlers : MobiusLoopTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun shouldSupportEffectsThatGenerateEvents() {
         setupWithEffects(
             Connectable { eventConsumer: Consumer<TestEvent> ->
@@ -58,7 +55,6 @@ class MobiusLoopBehaviorWithEffectHandlers : MobiusLoopTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun shouldOrderStateChangesCorrectlyWhenEffectsAreSlow() {
         val future = SettableFuture.create<TestEvent>()
         setupWithEffects(

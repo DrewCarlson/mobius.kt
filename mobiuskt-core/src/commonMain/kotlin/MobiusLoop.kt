@@ -157,6 +157,7 @@ public class MobiusLoop<M, E, F> private constructor(
      * @return a [Disposable] that can be used to stop further notifications to the observer
      * @throws IllegalStateException if the loop has been disposed
      */
+    @Throws(IllegalStateException::class)
     public fun observe(observer: Consumer<M>): Disposable {
         check(runState != RunState.DISPOSED) {
             "This loop has already been disposed. You cannot observe a disposed loop"
@@ -328,6 +329,7 @@ public class MobiusLoop<M, E, F> private constructor(
          * connected
          */
         @JsName("connect")
+        @Throws(IllegalStateException::class)
         public fun connect(view: Connectable<M, E>)
 
         /**
@@ -335,6 +337,7 @@ public class MobiusLoop<M, E, F> private constructor(
          *
          * @throws IllegalStateException if the loop is running or if there isn't anything to disconnect
          */
+        @Throws(IllegalStateException::class)
         public fun disconnect()
 
         /**
@@ -342,6 +345,7 @@ public class MobiusLoop<M, E, F> private constructor(
          *
          * @throws IllegalStateException if the loop already is running or no view has been connected
          */
+        @Throws(IllegalStateException::class)
         public fun start()
 
         /**
@@ -353,6 +357,7 @@ public class MobiusLoop<M, E, F> private constructor(
          *
          * @throws IllegalStateException if the loop isn't running
          */
+        @Throws(IllegalStateException::class)
         public fun stop()
 
         /**
@@ -362,6 +367,7 @@ public class MobiusLoop<M, E, F> private constructor(
          * @throws IllegalStateException if the loop is running
          */
         @JsName("replaceModel")
+        @Throws(IllegalStateException::class)
         public fun replaceModel(model: M)
     }
 

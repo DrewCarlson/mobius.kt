@@ -37,18 +37,22 @@ public class MobiusLoopController<M, E, F>(
         currentState!!.onUpdateView(model)
     }
 
+    @Throws(IllegalStateException::class)
     override fun connect(view: Connectable<M, E>): Unit = synchronized(lock) {
         currentState!!.onConnect(view)
     }
 
+    @Throws(IllegalStateException::class)
     override fun disconnect(): Unit = synchronized(lock) {
         currentState!!.onDisconnect()
     }
 
+    @Throws(IllegalStateException::class)
     override fun start(): Unit = synchronized(lock) {
         currentState!!.onStart()
     }
 
+    @Throws(IllegalStateException::class)
     override fun stop(): Unit = synchronized(lock) {
         currentState!!.onStop()
     }
