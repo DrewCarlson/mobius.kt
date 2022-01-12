@@ -1,7 +1,6 @@
 package kt.mobius
 
 import kt.mobius.functions.Consumer
-import kt.mobius.functions.Producer
 import kt.mobius.runners.ImmediateWorkRunner
 import kt.mobius.runners.WorkRunner
 import kt.mobius.runners.WorkRunners
@@ -26,29 +25,17 @@ class MobiusLoopControllerTest {
                 }
             }
         }
-
-        inline fun <V> createConnection(crossinline block: (V) -> Unit): Connection<V> {
-            return object : Connection<V> {
-                override fun accept(value: V) {
-                    block(value)
-                }
-
-                override fun dispose() {
-                }
-            }
-        }
     }
 
     class Lifecycle {
-        val underTest = MobiusLoopController(
+        val underTest = Mobius.controller(
             Mobius.loop<String, String, String>(
-                Update { model, event -> Next.next(model + event) },
+                { model, event -> Next.next(model + event) },
                 effectHandler
             )
-                .eventRunner(Producer { WorkRunners.immediate() })
-                .effectRunner(Producer { WorkRunners.immediate() }),
-            "init",
-            WorkRunners.immediate()
+                .eventRunner { WorkRunners.immediate() }
+                .effectRunner { WorkRunners.immediate() },
+            "init"
         )
 
         @Test
@@ -166,15 +153,14 @@ class MobiusLoopControllerTest {
     }
 
     class StateSaveRestore {
-        val underTest = MobiusLoopController(
+        val underTest = Mobius.controller(
             Mobius.loop<String, String, String>(
-                Update { model, event -> Next.next(model + event) },
+                { model, event -> Next.next(model + event) },
                 effectHandler
             )
-                .eventRunner(Producer { WorkRunners.immediate() })
-                .effectRunner(Producer { WorkRunners.immediate() }),
-            "init",
-            WorkRunners.immediate()
+                .eventRunner { WorkRunners.immediate() }
+                .effectRunner { WorkRunners.immediate() },
+            "init"
         )
 
         @Test
@@ -254,15 +240,14 @@ class MobiusLoopControllerTest {
     }
 
     class Loop {
-        val underTest = MobiusLoopController(
+        val underTest = Mobius.controller(
             Mobius.loop<String, String, String>(
-                Update { model, event -> Next.next(model + event) },
+                { model, event -> Next.next(model + event) },
                 effectHandler
             )
-                .eventRunner(Producer { WorkRunners.immediate() })
-                .effectRunner(Producer { WorkRunners.immediate() }),
+                .eventRunner { WorkRunners.immediate() }
+                .effectRunner { WorkRunners.immediate() },
             "init",
-            WorkRunners.immediate()
         )
 
         @Test
@@ -305,15 +290,14 @@ class MobiusLoopControllerTest {
     }
 
     class Connect {
-        val underTest = MobiusLoopController(
+        val underTest = Mobius.controller(
             Mobius.loop<String, String, String>(
-                Update { model, event -> Next.next(model + event) },
+                { model, event -> Next.next(model + event) },
                 effectHandler
             )
-                .eventRunner(Producer { WorkRunners.immediate() })
-                .effectRunner(Producer { WorkRunners.immediate() }),
-            "init",
-            WorkRunners.immediate()
+                .eventRunner { WorkRunners.immediate() }
+                .effectRunner { WorkRunners.immediate() },
+            "init"
         )
 
         @Test
@@ -341,7 +325,7 @@ class MobiusLoopControllerTest {
     class EventsAndUpdates {
 
         val mainThreadRunner = ImmediateWorkRunner()
-        lateinit var underTest: MobiusLoopController<String, String, String>
+        lateinit var underTest: MobiusLoop.Controller<String, String>
 
         @BeforeTest
         fun setUp() {
@@ -349,12 +333,12 @@ class MobiusLoopControllerTest {
         }
 
         fun createWithWorkRunner(mainThreadRunner: WorkRunner) =
-            MobiusLoopController(
-                Mobius.loop<String, String, String>(Update { model, event ->
+            Mobius.controller(
+                Mobius.loop<String, String, String>({ model, event ->
                     Next.next(model + event)
                 }, effectHandler)
-                    .eventRunner(Producer { WorkRunners.immediate() })
-                    .effectRunner(Producer { WorkRunners.immediate() }),
+                    .eventRunner { WorkRunners.immediate() }
+                    .effectRunner { WorkRunners.immediate() },
                 "init",
                 mainThreadRunner
             )
@@ -430,7 +414,7 @@ class MobiusLoopControllerTest {
             private set
 
         override fun accept(value: I) {
-            values += value
+            values = values + value
         }
 
         override fun dispose() {

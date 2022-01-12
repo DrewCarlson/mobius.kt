@@ -24,6 +24,7 @@ public final class kt/mobius/android/BuildConfig {
 public final class kt/mobius/android/MobiusAndroid {
 	public static final field INSTANCE Lkt/mobius/android/MobiusAndroid;
 	public static final fun controller (Lkt/mobius/MobiusLoop$Factory;Ljava/lang/Object;)Lkt/mobius/MobiusLoop$Controller;
+	public static final fun controller (Lkt/mobius/MobiusLoop$Factory;Ljava/lang/Object;Lkt/mobius/Init;)Lkt/mobius/MobiusLoop$Controller;
 }
 
 public class kt/mobius/android/runners/LooperWorkRunner : kt/mobius/runners/WorkRunner {

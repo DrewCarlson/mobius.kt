@@ -6,10 +6,23 @@ public class ControllerStateRunning<M, E, F>(
     private val actions: ControllerActions<M, E>,
     private val renderer: Connection<M>,
     loopFactory: MobiusLoop.Factory<M, E, F>,
-    private val startModel: M
+    modelToStartFrom: M,
+    private val init: Init<M, F>?,
 ) : ControllerStateBase<M, E>() {
 
-    private val loop = loopFactory.startFrom(startModel)
+    private val startModel: M
+    private val loop: MobiusLoop<M, E, F>
+
+    init {
+        if (init == null) {
+            loop = loopFactory.startFrom(modelToStartFrom)
+            startModel = modelToStartFrom
+        } else {
+            val first = init.init(modelToStartFrom)
+            loop = loopFactory.startFrom(first.model(), first.effects())
+            startModel = first.model()
+        }
+    }
 
     override val stateName: String
         get() = "running"

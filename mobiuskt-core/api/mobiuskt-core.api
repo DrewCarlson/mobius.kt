@@ -59,7 +59,7 @@ public final class kt/mobius/ControllerStateInit : kt/mobius/ControllerStateBase
 }
 
 public final class kt/mobius/ControllerStateRunning : kt/mobius/ControllerStateBase {
-	public fun <init> (Lkt/mobius/ControllerActions;Lkt/mobius/Connection;Lkt/mobius/MobiusLoop$Factory;Ljava/lang/Object;)V
+	public fun <init> (Lkt/mobius/ControllerActions;Lkt/mobius/Connection;Lkt/mobius/MobiusLoop$Factory;Ljava/lang/Object;Lkt/mobius/Init;)V
 	public fun isRunning ()Z
 	public fun onDispatchEvent (Ljava/lang/Object;)V
 	public fun onGetModel ()Ljava/lang/Object;
@@ -175,6 +175,8 @@ public final class kt/mobius/MergedEventSource$Companion {
 public final class kt/mobius/Mobius {
 	public static final field INSTANCE Lkt/mobius/Mobius;
 	public static final fun controller (Lkt/mobius/MobiusLoop$Factory;Ljava/lang/Object;)Lkt/mobius/MobiusLoop$Controller;
+	public final fun controller (Lkt/mobius/MobiusLoop$Factory;Ljava/lang/Object;Lkt/mobius/Init;)Lkt/mobius/MobiusLoop$Controller;
+	public final fun controller (Lkt/mobius/MobiusLoop$Factory;Ljava/lang/Object;Lkt/mobius/Init;Lkt/mobius/runners/WorkRunner;)Lkt/mobius/MobiusLoop$Controller;
 	public static final fun controller (Lkt/mobius/MobiusLoop$Factory;Ljava/lang/Object;Lkt/mobius/runners/WorkRunner;)Lkt/mobius/MobiusLoop$Controller;
 	public static final fun loop (Lkt/mobius/Update;Lkt/mobius/Connectable;)Lkt/mobius/MobiusLoop$Builder;
 }
@@ -257,7 +259,7 @@ public abstract interface class kt/mobius/MobiusLoop$Logger {
 }
 
 public final class kt/mobius/MobiusLoopController : kt/mobius/ControllerActions, kt/mobius/MobiusLoop$Controller {
-	public fun <init> (Lkt/mobius/MobiusLoop$Factory;Ljava/lang/Object;Lkt/mobius/runners/WorkRunner;)V
+	public fun <init> (Lkt/mobius/MobiusLoop$Factory;Ljava/lang/Object;Lkt/mobius/Init;Lkt/mobius/runners/WorkRunner;)V
 	public fun connect (Lkt/mobius/Connectable;)V
 	public fun disconnect ()V
 	public fun getModel ()Ljava/lang/Object;

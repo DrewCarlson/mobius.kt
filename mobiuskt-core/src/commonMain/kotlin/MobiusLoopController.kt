@@ -8,6 +8,7 @@ import kt.mobius.runners.WorkRunner
 public class MobiusLoopController<M, E, F>(
     private val loopFactory: MobiusLoop.Factory<M, E, F>,
     private val defaultModel: M,
+    private val init: Init<M, F>,
     private val mainThreadRunner: WorkRunner
 ) : MobiusLoop.Controller<M, E>, ControllerActions<M, E> {
     private val lock = SynchronizedObject()
@@ -86,7 +87,7 @@ public class MobiusLoopController<M, E, F>(
 
     override fun goToStateRunning(renderer: Connection<M>, nextModelToStartFrom: M): Unit =
         synchronized(lock) {
-            val stateRunning = ControllerStateRunning(this, renderer, loopFactory, nextModelToStartFrom)
+            val stateRunning = ControllerStateRunning(this, renderer, loopFactory, nextModelToStartFrom, init)
 
             currentState = stateRunning
 

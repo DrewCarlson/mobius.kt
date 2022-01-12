@@ -83,8 +83,11 @@ public object Mobius {
      */
     @JvmStatic
     @JsName("controller")
-    public fun <M, E, F> controller(loopFactory: MobiusLoop.Factory<M, E, F>, defaultModel: M): MobiusLoop.Controller<M, E> {
-        return MobiusLoopController(loopFactory, defaultModel, ImmediateWorkRunner())
+    public fun <M, E, F> controller(
+        loopFactory: MobiusLoop.Factory<M, E, F>,
+        defaultModel: M
+    ): MobiusLoop.Controller<M, E> {
+        return MobiusLoopController(loopFactory, defaultModel, First.Companion::first, ImmediateWorkRunner())
     }
 
     /**
@@ -102,7 +105,41 @@ public object Mobius {
         defaultModel: M,
         modelRunner: WorkRunner
     ): MobiusLoop.Controller<M, E> {
-        return MobiusLoopController(loopFactory, defaultModel, modelRunner)
+        return MobiusLoopController(loopFactory, defaultModel, First.Companion::first, modelRunner)
+    }
+
+    /**
+     * Create a [MobiusLoop.Controller] that allows you to start, stop, and restart MobiusLoops.
+     *
+     * @param loopFactory a factory for creating loops
+     * @param defaultModel the model the controller should start from
+     * @param init the init function to run when a loop starts
+     * @return a new controller
+     */
+    public fun <M, E, F> controller(
+        loopFactory: MobiusLoop.Factory<M, E, F>,
+        defaultModel: M,
+        init: Init<M, F>
+    ): MobiusLoop.Controller<M, E> {
+        return MobiusLoopController(loopFactory, defaultModel, init, ImmediateWorkRunner())
+    }
+
+    /**
+     * Create a [MobiusLoop.Controller] that allows you to start, stop, and restart MobiusLoops.
+     *
+     * @param loopFactory a factory for creating loops
+     * @param defaultModel the model the controller should start from
+     * @param init the init function to run when a loop starts
+     * @param modelRunner the WorkRunner to use when observing model changes
+     * @return a new controller
+     */
+    public fun <M, E, F> controller(
+        loopFactory: MobiusLoop.Factory<M, E, F>,
+        defaultModel: M,
+        init: Init<M, F>,
+        modelRunner: WorkRunner
+    ): MobiusLoop.Controller<M, E> {
+        return MobiusLoopController(loopFactory, defaultModel, init, modelRunner)
     }
 
     public data class Builder<M, E, F>(
