@@ -13,16 +13,16 @@ public class MobiusLoopController<M, E, F>(
 ) : MobiusLoop.Controller<M, E>, ControllerActions<M, E> {
     private val lock = SynchronizedObject()
 
-    private var currentState: ControllerStateBase<M, E>? = null
+    private lateinit var currentState: ControllerStateBase<M, E>
 
     override val isRunning: Boolean
         get() = synchronized(lock) {
-            currentState!!.isRunning
+            currentState.isRunning
         }
 
     override val model: M
         get() = synchronized(lock) {
-            currentState!!.onGetModel()
+            currentState.onGetModel()
         }
 
     init {
@@ -30,35 +30,35 @@ public class MobiusLoopController<M, E, F>(
     }
 
     private fun dispatchEvent(event: E) {
-        currentState!!.onDispatchEvent(event)
+        currentState.onDispatchEvent(event)
     }
 
     private fun updateView(model: M) {
-        currentState!!.onUpdateView(model)
+        currentState.onUpdateView(model)
     }
 
     @Throws(IllegalStateException::class)
     override fun connect(view: Connectable<M, E>): Unit = synchronized(lock) {
-        currentState!!.onConnect(view)
+        currentState.onConnect(view)
     }
 
     @Throws(IllegalStateException::class)
     override fun disconnect(): Unit = synchronized(lock) {
-        currentState!!.onDisconnect()
+        currentState.onDisconnect()
     }
 
     @Throws(IllegalStateException::class)
     override fun start(): Unit = synchronized(lock) {
-        currentState!!.onStart()
+        currentState.onStart()
     }
 
     @Throws(IllegalStateException::class)
     override fun stop(): Unit = synchronized(lock) {
-        currentState!!.onStop()
+        currentState.onStop()
     }
 
     override fun replaceModel(model: M): Unit = synchronized(lock) {
-        currentState!!.onReplaceModel(model)
+        currentState.onReplaceModel(model)
     }
 
     override fun postUpdateView(model: M) {
@@ -81,10 +81,8 @@ public class MobiusLoopController<M, E, F>(
         }
 
     override fun goToStateCreated(view: Connectable<M, E>, nextModelToStartFrom: M) {
-
         val safeModelHandler = SafeConnectable(view)
-
-        val modelConnection = safeModelHandler.connect { event -> dispatchEvent(event) }
+        val modelConnection = safeModelHandler.connect(::dispatchEvent)
 
         goToStateCreated(modelConnection, nextModelToStartFrom)
     }

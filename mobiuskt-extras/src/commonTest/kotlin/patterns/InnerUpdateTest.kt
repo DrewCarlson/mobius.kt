@@ -1,10 +1,7 @@
 package kt.mobius.extras.patterns
 
 import kt.mobius.Next
-import kt.mobius.Update
 import kt.mobius.extras.patterns.InnerEffectHandlers.ignoreEffects
-import kt.mobius.functions.BiFunction
-import kt.mobius.functions.Function
 import kotlin.test.*
 
 class InnerUpdateTest {

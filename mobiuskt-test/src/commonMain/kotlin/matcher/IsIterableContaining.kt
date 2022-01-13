@@ -40,17 +40,17 @@ public class IsIterableContaining<T>(
             .appendDescriptionOf(elementMatcher)
     }
 
-    internal companion object {
-        internal fun <T> hasItem(itemMatcher: Matcher<T>): Matcher<Iterable<T>> {
+    public companion object {
+        public fun <T> hasItem(itemMatcher: Matcher<T>): Matcher<Iterable<T>> {
             return IsIterableContaining(itemMatcher)
         }
 
-        internal fun <T> hasItem(item: T): Matcher<Iterable<T>> {
+        public fun <T> hasItem(item: T): Matcher<Iterable<T>> {
             // Doesn't forward to hasItem() method so compiler can sort out generics.
             return IsIterableContaining<T>(equalTo(item))
         }
 
-        internal fun <T> hasItems(vararg itemMatchers: Matcher<T>): Matcher<Iterable<T>> {
+        public fun <T> hasItems(vararg itemMatchers: Matcher<T>): Matcher<Iterable<T>> {
             val all: MutableList<Matcher<in Iterable<T>>> = ArrayList(itemMatchers.size)
             for (elementMatcher in itemMatchers) {
                 // Doesn't forward to hasItem() method so compiler can sort out generics.
@@ -59,7 +59,7 @@ public class IsIterableContaining<T>(
             return allOf(all)
         }
 
-        internal fun <T> hasItems(vararg items: T): Matcher<Iterable<T>> {
+        public fun <T> hasItems(vararg items: T): Matcher<Iterable<T>> {
             val all: MutableList<Matcher<in Iterable<T>>> = ArrayList(items.size)
             for (item in items) {
                 all.add(hasItem(item))

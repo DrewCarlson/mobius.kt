@@ -1,7 +1,5 @@
 package kt.mobius
 
-import kt.mobius.functions.Consumer
-
 public class ControllerStateRunning<M, E, F>(
     private val actions: ControllerActions<M, E>,
     private val renderer: Connection<M>,
@@ -31,10 +29,7 @@ public class ControllerStateRunning<M, E, F>(
         get() = true
 
     public fun start() {
-        loop.observe(
-            Consumer { model ->
-                actions.postUpdateView(model)
-            })
+        loop.observe(actions::postUpdateView)
     }
 
     override fun onDispatchEvent(event: E) {

@@ -7,7 +7,6 @@ import kotlin.js.JsName
 /**
  * Interface for event sources.
  *
- *
  * The event source is used for subscribing to events that are external to the Mobius
  * application. This is primarily meant to be used for environmental events - events that come from
  * external signals, like change of network connectivity or a periodic timer, rather than happening

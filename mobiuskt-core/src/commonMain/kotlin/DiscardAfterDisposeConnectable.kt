@@ -20,7 +20,9 @@ public class DiscardAfterDisposeConnectable<I, O>(
         val safeOutput = wrapConsumer(output)
         val input = actual.connect(safeOutput)
         val safeInput = wrapConnection(input)
+
         val disposable = CompositeDisposable.from(safeInput, safeOutput)
+
         return object : Connection<I> {
             override fun accept(value: I) {
                 safeInput.accept(value)

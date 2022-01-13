@@ -46,7 +46,6 @@ public class Next<M, F> internal constructor(
      * Get the model of this Next. This version is unsafe - if this next doesn't have a model, calling
      * this method will cause an exception to be thrown.
      *
-     *
      * In almost all cases you should use [modelOrElse] or [ifHasModel] instead.
      *
      * @throws NoSuchElementException if this Next has no model

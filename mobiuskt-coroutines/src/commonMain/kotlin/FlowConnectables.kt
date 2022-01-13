@@ -52,7 +52,6 @@ public fun <I, O> FlowTransformer<I, O>.asConnectable(): Connectable<I, O> =
  * Transforms a [Flow] of [I] into a [Flow] of [O] using
  * the provided [Connectable] [connectable].
  */
-@OptIn(ExperimentalCoroutinesApi::class)
 public fun <I, O> Flow<I>.transform(
     connectable: Connectable<I, O>
 ): Flow<O> = callbackFlow {

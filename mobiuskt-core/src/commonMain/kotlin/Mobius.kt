@@ -10,6 +10,7 @@ import kotlin.jvm.JvmStatic
 
 public object Mobius {
 
+    @Suppress("ClassName")
     private object NOOP_EVENT_SOURCE : Connectable<Any, Any> {
         override fun connect(output: Consumer<Any>): Connection<Any> {
             return object : Connection<Any> {
@@ -19,6 +20,7 @@ public object Mobius {
         }
     }
 
+    @Suppress("ClassName")
     private object NOOP_LOGGER : MobiusLoop.Logger<Any, Any, Any> {
         override fun beforeInit(model: Any) {
             /* noop */

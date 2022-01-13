@@ -20,6 +20,7 @@ internal inline fun <reified T : Any> extractKClass(): KClass<T> {
     return typeOf<T>().classifier as KClass<T>
 }
 
+@Suppress("RemoveExplicitTypeArguments")
 public class SubtypeEffectHandlerBuilder<F : Any, E> {
     private val effectPerformerMap = hashMapOf<KClass<*>, FlowTransformer<F, E>>()
 

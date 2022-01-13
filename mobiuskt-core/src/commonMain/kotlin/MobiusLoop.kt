@@ -376,7 +376,6 @@ public class MobiusLoop<M, E, F> private constructor(
         /**
          * Called right before the [Init.init] function is called.
          *
-         *
          * This method mustn't block, as it'll hinder the loop from running. It will be called on the
          * same thread as the init function.
          *
@@ -387,7 +386,6 @@ public class MobiusLoop<M, E, F> private constructor(
 
         /**
          * Called right after the [Init.init] function is called.
-         *
          *
          * This method mustn't block, as it'll hinder the loop from running. It will be called on the
          * same thread as the init function.
@@ -411,7 +409,6 @@ public class MobiusLoop<M, E, F> private constructor(
         /**
          * Called right before the [Update.update] function is called.
          *
-         *
          * This method mustn't block, as it'll hinder the loop from running. It will be called on the
          * same thread as the update function.
          *
@@ -423,7 +420,6 @@ public class MobiusLoop<M, E, F> private constructor(
 
         /**
          * Called right after the [Update.update] function is called.
-         *
          *
          * This method mustn't block, as it'll hinder the loop from running. It will be called on the
          * same thread as the update function.

@@ -9,7 +9,6 @@ import kt.mobius.functions.Consumer
  * A [Connectable] that ensures that an inner [Connection] doesn't emit or receive any
  * values after being disposed.
  *
- *
  * This only acts as a safeguard, you still need to make sure that the Connectable disposes of
  * resources correctly.
  */

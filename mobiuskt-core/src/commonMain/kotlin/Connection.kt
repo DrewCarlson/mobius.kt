@@ -6,7 +6,6 @@ import kt.mobius.functions.Consumer
 /**
  * Handle for a connection created by [Connectable].
  *
- *
  * Used for sending values to the connection and to dispose of it and all resources associated
  * with it.
  */
@@ -22,7 +21,6 @@ public interface Connection<I> : Disposable, Consumer<I> {
 
     /**
      * Disconnect this connection and dispose of all resources associated with it.
-     *
      *
      * The connection will no longer be valid after dispose has been called. No further values will
      * be accepted, and any repeated calls to dispose should be ignored.

@@ -14,7 +14,7 @@ public class ExecutorServiceWorkRunner(private val service: ExecutorService) : W
         try {
             val runnables = service.shutdownNow()
 
-            if (!runnables.isEmpty()) {
+            if (runnables.isNotEmpty()) {
                 println("Disposing ExecutorServiceWorkRunner with ${runnables.size} outstanding tasks.")
             }
 

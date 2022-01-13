@@ -6,13 +6,11 @@ import kotlin.js.JsName
 /**
  * API for something that can be connected to be part of a [MobiusLoop].
  *
- *
  * Primarily used in [Mobius.loop] to define the effect handler of a
  * Mobius loop. In that case, the incoming values will be effects, and the outgoing values will be
  * events that should be sent back to the loop.
  *
- *
- * Alternatively used in [Controller.connect] to connect a view to the
+ * Alternatively used in [MobiusLoop.Controller.connect] to connect a view to the
  * controller. In that case, the incoming values will be models, and the outgoing values will be
  * events.
  *
@@ -25,11 +23,9 @@ public fun interface Connectable<I, O> {
      * Create a new connection that accepts input values and sends outgoing values to a supplied
      * consumer.
      *
-     *
      * Must return a new [Connection] that accepts incoming values. After [Connection.dispose]
      * is called on the returned [Connection], the connection must be broken, and no more values
      * may be sent to the output consumer.
-     *
      *
      * Every call to this method should create a new independent connection that can be disposed of
      * individually without affecting the other connections. If your Connectable doesn't support this,
