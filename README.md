@@ -186,7 +186,7 @@ val loopFactory = FlowMobius.loop(update, effectHandler)
 </details>
 
 
-## Update Spec
+### Update Spec
 
 Using [KSP](https://github.com/google/ksp/), `mobiuskt-update-spec` provides code generation to reduce manual boilerplate when writing complex `Update` functions.
 Given a `sealed class Event` declaration, this module generates an interface defining update methods for each `Event` subclass and an exhaustive `when` block in the `update` method.
