@@ -180,9 +180,17 @@ public final class kt/mobius/test/matcher/IsEqual$Companion {
 }
 
 public final class kt/mobius/test/matcher/IsIterableContaining : kt/mobius/test/matcher/TypeSafeDiagnosingMatcher {
+	public static final field Companion Lkt/mobius/test/matcher/IsIterableContaining$Companion;
 	public fun <init> (Lkt/mobius/test/matcher/Matcher;)V
 	public fun describeTo (Lkt/mobius/test/matcher/Description;)V
 	public synthetic fun matchesSafely (Ljava/lang/Object;Lkt/mobius/test/matcher/Description;)Z
+}
+
+public final class kt/mobius/test/matcher/IsIterableContaining$Companion {
+	public final fun hasItem (Ljava/lang/Object;)Lkt/mobius/test/matcher/Matcher;
+	public final fun hasItem (Lkt/mobius/test/matcher/Matcher;)Lkt/mobius/test/matcher/Matcher;
+	public final fun hasItems ([Ljava/lang/Object;)Lkt/mobius/test/matcher/Matcher;
+	public final fun hasItems ([Lkt/mobius/test/matcher/Matcher;)Lkt/mobius/test/matcher/Matcher;
 }
 
 public abstract interface class kt/mobius/test/matcher/Matcher : kt/mobius/test/matcher/SelfDescribing {
