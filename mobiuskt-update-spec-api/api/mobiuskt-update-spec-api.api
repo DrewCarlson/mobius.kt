@@ -1,0 +1,5 @@
+public abstract interface annotation class kt/mobius/gen/UpdateSpec : java/lang/annotation/Annotation {
+	public abstract fun effectClass ()Ljava/lang/Class;
+	public abstract fun eventClass ()Ljava/lang/Class;
+}
+

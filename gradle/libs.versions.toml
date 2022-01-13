@@ -9,12 +9,15 @@ atomicfu = "0.17.0"
 binary_compat = "0.8.0"
 kover = "0.5.0-RC"
 slf4j = "1.7.25"
+ksp = "1.6.10-1.0.2"
+kotlinpoet = "1.10.2"
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 binaryCompat = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary_compat" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 [libraries]
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -25,3 +28,6 @@ agp = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
 awaitility = { module = "org.awaitility:awaitility", version.ref = "awaitility" }
 slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+ksp = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
+kotlinpoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinpoet" }
+kotlinpoet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlinpoet" }

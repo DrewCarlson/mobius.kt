@@ -6,6 +6,9 @@ include(
         ":mobiuskt-extras",
         ":mobiuskt-android",
         ":mobiuskt-coroutines",
+        ":mobiuskt-update-spec",
+        ":mobiuskt-update-spec-api",
+        ":mobiuskt-update-spec-test",
 )
 
 enableFeaturePreview("VERSION_CATALOGS")

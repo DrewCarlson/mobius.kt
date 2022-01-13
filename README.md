@@ -186,6 +186,120 @@ val loopFactory = FlowMobius.loop(update, effectHandler)
 </details>
 
 
+## Update Spec
+
+Using [KSP](https://github.com/google/ksp/), `mobiuskt-update-spec` provides code generation to reduce manual boilerplate when writing complex `Update` functions.
+Given a `sealed class Event` declaration, this module generates an interface defining update methods for each `Event` subclass and an exhaustive `when` block in the `update` method.
+
+Take the following loop components as an example with the `@UpdateSpec` annotation applied to the Model class:
+<details>
+<summary>Loop components (Click to expand)</summary>
+
+```kotlin
+@UpdateSpec(
+    eventClass = TestEvent::class,
+    effectClass = TestEffect::class,
+)
+data class TestModel(
+    val counter: Int,
+)
+
+sealed class TestEvent {
+    object Increment : TestEvent()
+    object Decrement : TestEvent()
+    data class SetValue(val newCounter: Int) : TestEvent()
+}
+
+sealed class TestEffect
+```
+</details>
+
+<details>
+<summary>Generated output (Click to expand)</summary>
+
+```kotlin
+interface TestUpdateSpec : Update<TestModel, TestEvent, TestEffect> {
+    override fun update(model: TestModel, event: TestEvent): Next<TestModel, TestEffect> {
+        return when (event) {
+            TestEvent.Increment -> increment(model)
+            TestEvent.Decrement -> decrement(model)
+            is TestEvent.SetValue -> setValue(model, event)
+        }
+    }
+    
+    fun increment(model: TestModel): Next<TestModel, TestEffect>
+    
+    fun decrement(model: TestModel): Next<TestModel, TestEffect>
+    
+    fun setValue(model: TestModel, event: TestEvent.SetValue): Next<TestModel, TestEffect>
+}
+```
+</details>
+
+Use the following kts gradle configuration to apply the Update spec generator in your project:
+
+<details>
+<summary>Kotlin Gradle Script - JVM/Android (Click to expand)</summary>
+
+```kotlin
+plugins {
+    kotlin("jvm") // or kotlin("android")
+    id("com.google.devtools.ksp") version "<KSP-Version>"
+}
+
+kotlin {
+    sourceSets.main {
+        kotlin.srcDir("build/generated/ksp/$name/kotlin")
+    }
+}
+
+dependencies {
+    implementation("org.drewcarlson:mobiuskt-update-spec-api:$mobiuskt_version")
+    ksp("org.drewcarlson:mobiuskt-update-spec:$mobiuskt_version")
+}
+```
+</details>
+
+<details>
+<summary>Kotlin Gradle Script - Multiplatform (Click to expand)</summary>
+
+```kotlin
+plugins {
+    kotlin("multiplatform")
+    id("com.google.devtools.ksp") version "<KSP-Version>"
+}
+
+kotlin {
+    sourceSets {
+        val commonMain by getting {
+            kotlin.srcDir("build/generated/ksp/$name/kotlin")
+            dependencies {
+                implementation("org.drewcarlson:mobiuskt-update-spec-api:$mobiuskt_version")
+            }
+        }
+    }
+}
+
+// Note this must be in a top-level `dependencies` block, not `kotlin { sourceSets { .. } }`
+dependencies {
+    add("kspMetadata", "org.drewcarlson:mobiuskt-update-spec:$mobiuskt_version")
+}
+
+// This hack ensures that when compiling for any target, your `commonMain`
+// sources are scanned and code is generated to `build/generated/ksp/commonMain`
+// instead of a directory for the specific target.
+// See https://github.com/google/ksp/issues/567#issuecomment-955035157
+tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().all {
+    if (name != "kspKotlinMetadata") {
+        dependsOn("kspKotlinMetadata")
+    }
+}
+```
+</details>
+
+For more details see the official [KSP documentation](https://github.com/google/ksp/blob/main/docs/kmp.md).
+
+
 ## Notes
 
 ### External dependencies
@@ -206,7 +320,7 @@ A `MobiusLoop` is single-threaded on native targets and cannot be [frozen](https
 Generally this is acceptable behavior, even when the loop exists on the main thread.
 If required, Effect Handlers are responsible for passing `Effect`s into and `Event`s out of a background thread.
 
-Coroutines and Flows are ideal for handing Effects in the background with the [`mobiuskt-coroutines`](#Coroutines-Support) module or manual example below.
+Coroutines and Flows are ideal for handing Effects in the background with the [`mobiuskt-coroutines`](#Coroutines) module or manual example below.
 
 <details>
 <summary>Coroutine Example (Click to expand)</summary>
@@ -297,5 +411,9 @@ dependencies {
     implementation("org.drewcarlson:mobiuskt-extras:$MOBIUS_VERSION")
     implementation("org.drewcarlson:mobiuskt-android:$MOBIUS_VERSION")
     implementation("org.drewcarlson:mobiuskt-coroutines:$MOBIUS_VERSION")
+    
+    // Update Spec Generator:
+    implementation("org.drewcarlson:mobiuskt-update-spec-api:$mobiuskt_version")
+    ksp("org.drewcarlson:mobiuskt-update-spec:$mobiuskt_version")
 }
 ```
