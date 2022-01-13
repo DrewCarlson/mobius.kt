@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.*
 import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.reflect.KClass
 
-public class MobiusEffectRouter<F : Any, E>(
+internal class MobiusEffectRouter<F : Any, E>(
     private val effectClasses: Set<KClass<*>>,
     private val effectPerformers: List<FlowTransformer<F, E>>
 ) : FlowTransformer<F, E> {

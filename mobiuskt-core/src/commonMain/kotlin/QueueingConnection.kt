@@ -8,7 +8,7 @@ import kotlinx.atomicfu.locks.synchronized
  * Useful for setting up circular dependencies safely. All methods are synchronized for ease of
  * implementation.
  */
-internal class QueuingConnection<I> : Connection<I> {
+internal class QueueingConnection<I> : Connection<I> {
     private val lock = SynchronizedObject()
 
     private val queue: MutableList<I> = arrayListOf()

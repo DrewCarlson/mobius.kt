@@ -70,7 +70,7 @@ public class MobiusLoop<M, E, F> private constructor(
     // NOTE: lateinit var required for out of order delegate creation, only set once
     private lateinit var eventProcessor: EventProcessor<M, E, F>
     private lateinit var effectConsumer: Connection<F>
-    private val eventSourceModelConsumer: QueuingConnection<M> = QueuingConnection()
+    private val eventSourceModelConsumer: QueueingConnection<M> = QueueingConnection()
 
     private var modelObservers = arrayListOf<Consumer<M>>()
 

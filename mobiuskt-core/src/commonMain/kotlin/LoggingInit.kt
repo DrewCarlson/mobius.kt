@@ -2,7 +2,7 @@ package kt.mobius
 
 import kt.mobius.internal_util.Throwables
 
-public class LoggingInit<M, F> internal constructor(
+internal class LoggingInit<M, F> internal constructor(
     private val actualInit: Init<M, F>,
     private val logger: MobiusLoop.Logger<M, *, F>
 ) : Init<M, F> {

@@ -8,13 +8,13 @@ import kotlin.test.assertTrue
 
 
 class QueuingConnectionTest {
-    private lateinit var connection: QueuingConnection<String>
+    private lateinit var connection: QueueingConnection<String>
     private lateinit var delegate: RecordingConnection<String>
 
     @BeforeTest
     fun setUp() {
         delegate = RecordingConnection()
-        connection = QueuingConnection()
+        connection = QueueingConnection()
     }
 
     @Test

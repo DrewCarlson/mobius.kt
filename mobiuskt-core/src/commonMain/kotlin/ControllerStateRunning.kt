@@ -1,6 +1,6 @@
 package kt.mobius
 
-public class ControllerStateRunning<M, E, F>(
+internal class ControllerStateRunning<M, E, F>(
     private val actions: ControllerActions<M, E>,
     private val renderer: Connection<M>,
     loopFactory: MobiusLoop.Factory<M, E, F>,
@@ -28,7 +28,7 @@ public class ControllerStateRunning<M, E, F>(
     override val isRunning: Boolean
         get() = true
 
-    public fun start() {
+    fun start() {
         loop.observe(actions::postUpdateView)
     }
 

@@ -5,7 +5,7 @@ import kotlinx.atomicfu.locks.synchronized
 import kt.mobius.runners.Runnable
 import kt.mobius.runners.WorkRunner
 
-public class MobiusLoopController<M, E, F>(
+internal class MobiusLoopController<M, E, F>(
     private val loopFactory: MobiusLoop.Factory<M, E, F>,
     private val defaultModel: M,
     private val init: Init<M, F>,

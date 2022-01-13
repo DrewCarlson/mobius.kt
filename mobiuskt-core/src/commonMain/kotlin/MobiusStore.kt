@@ -6,7 +6,7 @@ import mpp.ensureNeverFrozen
 import kotlin.jvm.JvmStatic
 
 /** Responsible for holding and updating the current model. */
-public class MobiusStore<M, E, F> internal constructor(
+internal class MobiusStore<M, E, F> internal constructor(
     private val update: Update<M, E, F>,
     startModel: M
 ) {
@@ -18,15 +18,14 @@ public class MobiusStore<M, E, F> internal constructor(
         ensureNeverFrozen()
     }
 
-    public fun update(event: E): Next<M, F> = synchronized(lock) {
+    fun update(event: E): Next<M, F> = synchronized(lock) {
         update.update(currentModel, event).also { next ->
             currentModel = next.modelOrElse(currentModel)
         }
     }
 
-    public companion object {
-        @JvmStatic
-        public fun <M, E, F> create(update: Update<M, E, F>, startModel: M): MobiusStore<M, E, F> {
+    companion object {
+        fun <M, E, F> create(update: Update<M, E, F>, startModel: M): MobiusStore<M, E, F> {
             return MobiusStore(update, startModel)
         }
     }

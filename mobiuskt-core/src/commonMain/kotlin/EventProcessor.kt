@@ -12,14 +12,14 @@ import kotlin.js.JsName
  * @param [E] event type
  * @param [F] effect descriptor type
  */
-public class EventProcessor<M, E, F> internal constructor(
+internal class EventProcessor<M, E, F> internal constructor(
     private val store: MobiusStore<M, E, F>,
     private val effectConsumer: Consumer<F>,
     private val modelConsumer: Consumer<M>
 ) {
     private val lock = SynchronizedObject()
 
-    public fun update(event: E): Unit = synchronized(lock) {
+    fun update(event: E): Unit = synchronized(lock) {
         val next = store.update(event)
 
         next.ifHasModel(
@@ -48,10 +48,10 @@ public class EventProcessor<M, E, F> internal constructor(
      * @param [E] event type
      * @param [F] effect descriptor type
      */
-    public data class Factory<M, E, F>(val store: MobiusStore<M, E, F>) {
+    data class Factory<M, E, F>(val store: MobiusStore<M, E, F>) {
 
         @JsName("create")
-        public fun create(effectConsumer: Consumer<F>, modelConsumer: Consumer<M>): EventProcessor<M, E, F> {
+        fun create(effectConsumer: Consumer<F>, modelConsumer: Consumer<M>): EventProcessor<M, E, F> {
             return EventProcessor(store, effectConsumer, modelConsumer)
         }
     }

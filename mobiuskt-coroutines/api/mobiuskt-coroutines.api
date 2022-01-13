@@ -33,11 +33,6 @@ public final class kt/mobius/flow/FlowTransformerKt {
 	public static final fun flowTransformer (Lkt/mobius/flow/FlowTransformer;)Lkt/mobius/flow/FlowTransformer;
 }
 
-public final class kt/mobius/flow/MobiusEffectRouter : kt/mobius/flow/FlowTransformer {
-	public fun <init> (Ljava/util/Set;Ljava/util/List;)V
-	public fun invoke (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
-}
-
 public final class kt/mobius/flow/SubtypeEffectHandlerBuilder {
 	public fun <init> ()V
 	public final fun addAction (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function1;)V
