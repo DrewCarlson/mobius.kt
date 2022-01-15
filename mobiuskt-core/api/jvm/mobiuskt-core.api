@@ -1,0 +1,314 @@
+public abstract interface class kt/mobius/Connectable {
+	public abstract fun connect (Lkt/mobius/functions/Consumer;)Lkt/mobius/Connection;
+}
+
+public abstract interface class kt/mobius/Connection : kt/mobius/disposables/Disposable, kt/mobius/functions/Consumer {
+	public abstract fun accept (Ljava/lang/Object;)V
+	public abstract fun dispose ()V
+}
+
+public final class kt/mobius/ConnectionException : java/lang/RuntimeException {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Throwable;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEffect ()Ljava/lang/Object;
+	public fun hashCode ()I
+}
+
+public final class kt/mobius/ConnectionLimitExceededException : java/lang/RuntimeException {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class kt/mobius/DiscardAfterDisposeConnectable : kt/mobius/Connectable {
+	public fun <init> (Lkt/mobius/Connectable;)V
+	public fun connect (Lkt/mobius/functions/Consumer;)Lkt/mobius/Connection;
+}
+
+public final class kt/mobius/DiscardAfterDisposeWrapper : kt/mobius/disposables/Disposable, kt/mobius/functions/Consumer {
+	public static final field Companion Lkt/mobius/DiscardAfterDisposeWrapper$Companion;
+	public synthetic fun <init> (Lkt/mobius/functions/Consumer;Lkt/mobius/disposables/Disposable;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun accept (Ljava/lang/Object;)V
+	public fun dispose ()V
+}
+
+public final class kt/mobius/DiscardAfterDisposeWrapper$Companion {
+	public final fun wrapConnection (Lkt/mobius/Connection;)Lkt/mobius/DiscardAfterDisposeWrapper;
+	public final fun wrapConsumer (Lkt/mobius/functions/Consumer;)Lkt/mobius/DiscardAfterDisposeWrapper;
+}
+
+public final class kt/mobius/Effects {
+	public static final field INSTANCE Lkt/mobius/Effects;
+	public static final fun effects ([Ljava/lang/Object;)Ljava/util/Set;
+}
+
+public abstract interface class kt/mobius/EventSource {
+	public abstract fun subscribe (Lkt/mobius/functions/Consumer;)Lkt/mobius/disposables/Disposable;
+}
+
+public final class kt/mobius/EventSourceConnectable : kt/mobius/Connectable {
+	public static final field Companion Lkt/mobius/EventSourceConnectable$Companion;
+	public synthetic fun <init> (Lkt/mobius/EventSource;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun connect (Lkt/mobius/functions/Consumer;)Lkt/mobius/Connection;
+}
+
+public final class kt/mobius/EventSourceConnectable$Companion {
+	public final fun create (Lkt/mobius/EventSource;)Lkt/mobius/Connectable;
+}
+
+public final class kt/mobius/First {
+	public static final field Companion Lkt/mobius/First$Companion;
+	public final fun copy (Ljava/lang/Object;Ljava/util/Set;)Lkt/mobius/First;
+	public static synthetic fun copy$default (Lkt/mobius/First;Ljava/lang/Object;Ljava/util/Set;ILjava/lang/Object;)Lkt/mobius/First;
+	public final fun effects ()Ljava/util/Set;
+	public fun equals (Ljava/lang/Object;)Z
+	public static final fun first (Ljava/lang/Object;)Lkt/mobius/First;
+	public static final fun first (Ljava/lang/Object;Ljava/util/Set;)Lkt/mobius/First;
+	public static final fun first (Ljava/lang/Object;[Ljava/lang/Object;)Lkt/mobius/First;
+	public final fun hasEffects ()Z
+	public fun hashCode ()I
+	public final fun model ()Ljava/lang/Object;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class kt/mobius/First$Companion {
+	public final fun first (Ljava/lang/Object;)Lkt/mobius/First;
+	public final fun first (Ljava/lang/Object;Ljava/util/Set;)Lkt/mobius/First;
+	public final fun first (Ljava/lang/Object;[Ljava/lang/Object;)Lkt/mobius/First;
+	public static synthetic fun first$default (Lkt/mobius/First$Companion;Ljava/lang/Object;Ljava/util/Set;ILjava/lang/Object;)Lkt/mobius/First;
+}
+
+public abstract interface class kt/mobius/Init {
+	public abstract fun init (Ljava/lang/Object;)Lkt/mobius/First;
+	public abstract fun invoke (Ljava/lang/Object;)Lkt/mobius/First;
+}
+
+public final class kt/mobius/Init$DefaultImpls {
+	public static fun invoke (Lkt/mobius/Init;Ljava/lang/Object;)Lkt/mobius/First;
+}
+
+public final class kt/mobius/MergedEventSource : kt/mobius/EventSource {
+	public static final field Companion Lkt/mobius/MergedEventSource$Companion;
+	public synthetic fun <init> (Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public static final fun from ([Lkt/mobius/EventSource;)Lkt/mobius/EventSource;
+	public fun subscribe (Lkt/mobius/functions/Consumer;)Lkt/mobius/disposables/Disposable;
+}
+
+public final class kt/mobius/MergedEventSource$Companion {
+	public final fun from ([Lkt/mobius/EventSource;)Lkt/mobius/EventSource;
+}
+
+public final class kt/mobius/Mobius {
+	public static final field INSTANCE Lkt/mobius/Mobius;
+	public static final fun controller (Lkt/mobius/MobiusLoop$Factory;Ljava/lang/Object;)Lkt/mobius/MobiusLoop$Controller;
+	public final fun controller (Lkt/mobius/MobiusLoop$Factory;Ljava/lang/Object;Lkt/mobius/Init;)Lkt/mobius/MobiusLoop$Controller;
+	public final fun controller (Lkt/mobius/MobiusLoop$Factory;Ljava/lang/Object;Lkt/mobius/Init;Lkt/mobius/runners/WorkRunner;)Lkt/mobius/MobiusLoop$Controller;
+	public static final fun controller (Lkt/mobius/MobiusLoop$Factory;Ljava/lang/Object;Lkt/mobius/runners/WorkRunner;)Lkt/mobius/MobiusLoop$Controller;
+	public static final fun loop (Lkt/mobius/Update;Lkt/mobius/Connectable;)Lkt/mobius/MobiusLoop$Builder;
+}
+
+public final class kt/mobius/Mobius$Builder : kt/mobius/MobiusLoop$Builder {
+	public fun <init> (Lkt/mobius/Update;Lkt/mobius/Connectable;Lkt/mobius/Init;Lkt/mobius/Connectable;Lkt/mobius/functions/Producer;Lkt/mobius/functions/Producer;Lkt/mobius/MobiusLoop$Logger;)V
+	public final fun copy (Lkt/mobius/Update;Lkt/mobius/Connectable;Lkt/mobius/Init;Lkt/mobius/Connectable;Lkt/mobius/functions/Producer;Lkt/mobius/functions/Producer;Lkt/mobius/MobiusLoop$Logger;)Lkt/mobius/Mobius$Builder;
+	public static synthetic fun copy$default (Lkt/mobius/Mobius$Builder;Lkt/mobius/Update;Lkt/mobius/Connectable;Lkt/mobius/Init;Lkt/mobius/Connectable;Lkt/mobius/functions/Producer;Lkt/mobius/functions/Producer;Lkt/mobius/MobiusLoop$Logger;ILjava/lang/Object;)Lkt/mobius/Mobius$Builder;
+	public fun effectRunner (Lkt/mobius/functions/Producer;)Lkt/mobius/MobiusLoop$Builder;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eventRunner (Lkt/mobius/functions/Producer;)Lkt/mobius/MobiusLoop$Builder;
+	public fun eventSource (Lkt/mobius/Connectable;)Lkt/mobius/MobiusLoop$Builder;
+	public fun eventSource (Lkt/mobius/EventSource;)Lkt/mobius/MobiusLoop$Builder;
+	public fun eventSources ([Lkt/mobius/EventSource;)Lkt/mobius/MobiusLoop$Builder;
+	public fun hashCode ()I
+	public fun init (Lkt/mobius/Init;)Lkt/mobius/MobiusLoop$Builder;
+	public fun logger (Lkt/mobius/MobiusLoop$Logger;)Lkt/mobius/MobiusLoop$Builder;
+	public fun startFrom (Ljava/lang/Object;)Lkt/mobius/MobiusLoop;
+	public fun startFrom (Ljava/lang/Object;Ljava/util/Set;)Lkt/mobius/MobiusLoop;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class kt/mobius/MobiusHooks {
+	public static final field INSTANCE Lkt/mobius/MobiusHooks;
+	public final fun handleError (Ljava/lang/Throwable;)V
+	public final fun setDefaultErrorHandler ()V
+	public final fun setErrorHandler (Lkt/mobius/MobiusHooks$ErrorHandler;)V
+}
+
+public abstract interface class kt/mobius/MobiusHooks$ErrorHandler {
+	public abstract fun handleError (Ljava/lang/Throwable;)V
+}
+
+public final class kt/mobius/MobiusLoop : kt/mobius/disposables/Disposable {
+	public static final field Companion Lkt/mobius/MobiusLoop$Companion;
+	public synthetic fun <init> (Lkt/mobius/EventProcessor$Factory;Ljava/lang/Object;Ljava/util/Set;Lkt/mobius/Connectable;Lkt/mobius/Connectable;Lkt/mobius/runners/WorkRunner;Lkt/mobius/runners/WorkRunner;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public static final fun create (Lkt/mobius/Update;Ljava/lang/Object;Ljava/util/Set;Lkt/mobius/Connectable;Lkt/mobius/Connectable;Lkt/mobius/runners/WorkRunner;Lkt/mobius/runners/WorkRunner;)Lkt/mobius/MobiusLoop;
+	public final fun dispatchEvent (Ljava/lang/Object;)V
+	public fun dispose ()V
+	public final fun getMostRecentModel ()Ljava/lang/Object;
+	public final fun observe (Lkt/mobius/functions/Consumer;)Lkt/mobius/disposables/Disposable;
+}
+
+public abstract interface class kt/mobius/MobiusLoop$Builder : kt/mobius/MobiusLoop$Factory {
+	public abstract fun effectRunner (Lkt/mobius/functions/Producer;)Lkt/mobius/MobiusLoop$Builder;
+	public abstract fun eventRunner (Lkt/mobius/functions/Producer;)Lkt/mobius/MobiusLoop$Builder;
+	public abstract fun eventSource (Lkt/mobius/Connectable;)Lkt/mobius/MobiusLoop$Builder;
+	public abstract fun eventSource (Lkt/mobius/EventSource;)Lkt/mobius/MobiusLoop$Builder;
+	public abstract fun eventSources ([Lkt/mobius/EventSource;)Lkt/mobius/MobiusLoop$Builder;
+	public abstract fun init (Lkt/mobius/Init;)Lkt/mobius/MobiusLoop$Builder;
+	public abstract fun logger (Lkt/mobius/MobiusLoop$Logger;)Lkt/mobius/MobiusLoop$Builder;
+}
+
+public final class kt/mobius/MobiusLoop$Companion {
+	public final fun create (Lkt/mobius/Update;Ljava/lang/Object;Ljava/util/Set;Lkt/mobius/Connectable;Lkt/mobius/Connectable;Lkt/mobius/runners/WorkRunner;Lkt/mobius/runners/WorkRunner;)Lkt/mobius/MobiusLoop;
+}
+
+public abstract interface class kt/mobius/MobiusLoop$Controller {
+	public abstract fun connect (Lkt/mobius/Connectable;)V
+	public abstract fun disconnect ()V
+	public abstract fun getModel ()Ljava/lang/Object;
+	public abstract fun isRunning ()Z
+	public abstract fun replaceModel (Ljava/lang/Object;)V
+	public abstract fun start ()V
+	public abstract fun stop ()V
+}
+
+public abstract interface class kt/mobius/MobiusLoop$Factory {
+	public abstract fun startFrom (Ljava/lang/Object;)Lkt/mobius/MobiusLoop;
+	public abstract fun startFrom (Ljava/lang/Object;Ljava/util/Set;)Lkt/mobius/MobiusLoop;
+}
+
+public abstract interface class kt/mobius/MobiusLoop$Logger {
+	public abstract fun afterInit (Ljava/lang/Object;Lkt/mobius/First;)V
+	public abstract fun afterUpdate (Ljava/lang/Object;Ljava/lang/Object;Lkt/mobius/Next;)V
+	public abstract fun beforeInit (Ljava/lang/Object;)V
+	public abstract fun beforeUpdate (Ljava/lang/Object;Ljava/lang/Object;)V
+	public abstract fun exceptionDuringInit (Ljava/lang/Object;Ljava/lang/Throwable;)V
+	public abstract fun exceptionDuringUpdate (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Throwable;)V
+}
+
+public final class kt/mobius/Next {
+	public static final field Companion Lkt/mobius/Next$Companion;
+	public static final fun dispatch (Ljava/util/Set;)Lkt/mobius/Next;
+	public static final fun dispatch ([Ljava/lang/Object;)Lkt/mobius/Next;
+	public final fun effects ()Ljava/util/Set;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun hasEffects ()Z
+	public final fun hasModel ()Z
+	public fun hashCode ()I
+	public final fun ifHasModel (Lkt/mobius/functions/Consumer;)V
+	public final fun model ()Ljava/lang/Object;
+	public final fun modelOrElse (Ljava/lang/Object;)Ljava/lang/Object;
+	public final fun modelUnsafe ()Ljava/lang/Object;
+	public static final fun next (Ljava/lang/Object;)Lkt/mobius/Next;
+	public static final fun next (Ljava/lang/Object;Ljava/util/Set;)Lkt/mobius/Next;
+	public static final fun next (Ljava/lang/Object;[Ljava/lang/Object;)Lkt/mobius/Next;
+	public static final fun noChange ()Lkt/mobius/Next;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class kt/mobius/Next$Companion {
+	public final fun dispatch (Ljava/util/Set;)Lkt/mobius/Next;
+	public final fun dispatch ([Ljava/lang/Object;)Lkt/mobius/Next;
+	public final fun next (Ljava/lang/Object;)Lkt/mobius/Next;
+	public final fun next (Ljava/lang/Object;Ljava/util/Set;)Lkt/mobius/Next;
+	public final fun next (Ljava/lang/Object;[Ljava/lang/Object;)Lkt/mobius/Next;
+	public static synthetic fun next$default (Lkt/mobius/Next$Companion;Ljava/lang/Object;Ljava/util/Set;ILjava/lang/Object;)Lkt/mobius/Next;
+	public final fun noChange ()Lkt/mobius/Next;
+}
+
+public final class kt/mobius/SafeConnectable : kt/mobius/Connectable {
+	public fun <init> (Lkt/mobius/Connectable;)V
+	public fun connect (Lkt/mobius/functions/Consumer;)Lkt/mobius/Connection;
+}
+
+public final class kt/mobius/SafeConnectable$SafeConsumer : kt/mobius/Connection {
+	public fun <init> (Lkt/mobius/functions/Consumer;)V
+	public fun accept (Ljava/lang/Object;)V
+	public fun dispose ()V
+}
+
+public final class kt/mobius/SafeConnectable$SafeEffectConsumer : kt/mobius/Connection {
+	public fun <init> (Lkt/mobius/Connection;)V
+	public fun accept (Ljava/lang/Object;)V
+	public fun dispose ()V
+}
+
+public final class kt/mobius/SimpleLogger : kt/mobius/MobiusLoop$Logger {
+	public fun <init> (Ljava/lang/String;)V
+	public fun afterInit (Ljava/lang/Object;Lkt/mobius/First;)V
+	public fun afterUpdate (Ljava/lang/Object;Ljava/lang/Object;Lkt/mobius/Next;)V
+	public fun beforeInit (Ljava/lang/Object;)V
+	public fun beforeUpdate (Ljava/lang/Object;Ljava/lang/Object;)V
+	public fun exceptionDuringInit (Ljava/lang/Object;Ljava/lang/Throwable;)V
+	public fun exceptionDuringUpdate (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Throwable;)V
+}
+
+public abstract interface class kt/mobius/Update {
+	public abstract fun invoke (Ljava/lang/Object;Ljava/lang/Object;)Lkt/mobius/Next;
+	public abstract fun update (Ljava/lang/Object;Ljava/lang/Object;)Lkt/mobius/Next;
+}
+
+public final class kt/mobius/Update$DefaultImpls {
+	public static fun invoke (Lkt/mobius/Update;Ljava/lang/Object;Ljava/lang/Object;)Lkt/mobius/Next;
+}
+
+public final class kt/mobius/disposables/CompositeDisposable : kt/mobius/disposables/Disposable {
+	public static final field Companion Lkt/mobius/disposables/CompositeDisposable$Companion;
+	public synthetic fun <init> ([Lkt/mobius/disposables/Disposable;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun dispose ()V
+	public static final fun from ([Lkt/mobius/disposables/Disposable;)Lkt/mobius/disposables/Disposable;
+}
+
+public final class kt/mobius/disposables/CompositeDisposable$Companion {
+	public final fun from ([Lkt/mobius/disposables/Disposable;)Lkt/mobius/disposables/Disposable;
+}
+
+public abstract interface class kt/mobius/disposables/Disposable {
+	public abstract fun dispose ()V
+}
+
+public abstract interface class kt/mobius/functions/BiFunction {
+	public abstract fun apply (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+}
+
+public abstract interface class kt/mobius/functions/Consumer {
+	public abstract fun accept (Ljava/lang/Object;)V
+}
+
+public abstract interface class kt/mobius/functions/Function {
+	public abstract fun apply (Ljava/lang/Object;)Ljava/lang/Object;
+}
+
+public abstract interface class kt/mobius/functions/Producer {
+	public abstract fun get ()Ljava/lang/Object;
+}
+
+public final class kt/mobius/runners/ExecutorServiceWorkRunner : kt/mobius/runners/WorkRunner {
+	public fun <init> (Ljava/util/concurrent/ExecutorService;)V
+	public fun dispose ()V
+	public fun post (Ljava/lang/Runnable;)V
+}
+
+public final class kt/mobius/runners/ImmediateWorkRunner : kt/mobius/runners/WorkRunner {
+	public fun <init> ()V
+	public fun dispose ()V
+	public fun post (Ljava/lang/Runnable;)V
+}
+
+public abstract interface class kt/mobius/runners/WorkRunner : kt/mobius/disposables/Disposable {
+	public static final field Companion Lkt/mobius/runners/WorkRunner$Companion;
+	public abstract fun post (Ljava/lang/Runnable;)V
+}
+
+public final class kt/mobius/runners/WorkRunner$Companion {
+	public final fun invoke (Lkotlin/jvm/functions/Function1;)Lkt/mobius/runners/WorkRunner;
+}
+
+public final class kt/mobius/runners/WorkRunners {
+	public static final field INSTANCE Lkt/mobius/runners/WorkRunners;
+	public static final fun cachedThreadPool ()Lkt/mobius/runners/WorkRunner;
+	public static final fun fixedThreadPool (I)Lkt/mobius/runners/WorkRunner;
+	public static final fun from (Ljava/util/concurrent/ExecutorService;)Lkt/mobius/runners/WorkRunner;
+	public static final fun immediate ()Lkt/mobius/runners/WorkRunner;
+	public static final fun singleThread ()Lkt/mobius/runners/WorkRunner;
+}
+

@@ -4,7 +4,6 @@ include(
         ":mobiuskt-core",
         ":mobiuskt-test",
         ":mobiuskt-extras",
-        ":mobiuskt-android",
         ":mobiuskt-coroutines",
         ":mobiuskt-update-spec",
         ":mobiuskt-update-spec-api",

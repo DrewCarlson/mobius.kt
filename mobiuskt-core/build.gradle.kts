@@ -1,12 +1,30 @@
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.kotlinx.binary-compatibility-validator")
+    id("com.android.library")
 }
 
 apply(plugin = "kotlinx-atomicfu")
 apply(from = "../gradle/publishing.gradle.kts")
 
+android {
+    compileSdk = 28
+    defaultConfig {
+        minSdk = 21
+    }
+    lint {
+        disable("InvalidPackage")
+    }
+
+    sourceSets {
+        getByName("main") {
+            manifest.srcFile("src/androidMain/AndroidManifest.xml")
+        }
+    }
+}
+
 kotlin {
+    android()
     jvm()
     js(IR) {
         nodejs()
@@ -72,6 +90,18 @@ kotlin {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
             }
+        }
+
+        val jvmCommonMain by creating {
+            dependsOn(commonMain)
+        }
+
+        val androidMain by getting {
+            dependsOn(jvmCommonMain)
+        }
+
+        val jvmMain by getting {
+            dependsOn(jvmCommonMain)
         }
 
         val jvmTest by getting {
