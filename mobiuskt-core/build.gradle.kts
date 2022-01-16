@@ -92,16 +92,10 @@ kotlin {
             }
         }
 
-        val jvmCommonMain by creating {
-            dependsOn(commonMain)
-        }
+        val jvmMain by getting
 
         val androidMain by getting {
-            dependsOn(jvmCommonMain)
-        }
-
-        val jvmMain by getting {
-            dependsOn(jvmCommonMain)
+            dependsOn(jvmMain)
         }
 
         val jvmTest by getting {
