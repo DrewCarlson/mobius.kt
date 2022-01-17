@@ -49,7 +49,8 @@ public class SubtypeEffectHandlerBuilder<F : Any, E> {
         noinline effectHandler: suspend FlowCollector<E>.(G) -> Unit
     ) { addTransformer(extractKClass<G>()) { it.transformLatest(effectHandler) } }
 
-    public fun <G : F> addTransformer(
+    @PublishedApi
+    internal fun <G : F> addTransformer(
         effectClass: KClass<G>,
         effectHandler: FlowTransformer<G, E>
     ) {
@@ -70,7 +71,8 @@ public class SubtypeEffectHandlerBuilder<F : Any, E> {
         }
     }
 
-    public fun <G : F> addFunction(
+    @PublishedApi
+    internal fun <G : F> addFunction(
         effectClass: KClass<G>,
         effectHandler: suspend (effect: G) -> E
     ) {
@@ -79,7 +81,8 @@ public class SubtypeEffectHandlerBuilder<F : Any, E> {
         }
     }
 
-    public fun <G : F> addConsumer(
+    @PublishedApi
+    internal fun <G : F> addConsumer(
         effectClass: KClass<G>,
         effectHandler: suspend (effect: G) -> Unit
     ) {
@@ -88,7 +91,8 @@ public class SubtypeEffectHandlerBuilder<F : Any, E> {
         }
     }
 
-    public fun <G : F> addAction(
+    @PublishedApi
+    internal fun <G : F> addAction(
         effectClass: KClass<G>,
         effectHandler: suspend () -> Unit
     ) {
