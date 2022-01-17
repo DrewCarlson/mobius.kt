@@ -8,12 +8,23 @@ import kt.mobius.runners.WorkRunner
 internal class MobiusLoopController<M, E, F>(
     private val loopFactory: MobiusLoop.Factory<M, E, F>,
     private val defaultModel: M,
-    private val init: Init<M, F>,
+    init: Init<M, F>?,
     private val mainThreadRunner: WorkRunner
 ) : MobiusLoop.Controller<M, E>, ControllerActions<M, E> {
     private val lock = SynchronizedObject()
 
     private lateinit var currentState: ControllerStateBase<M, E>
+    private val init: Init<M, F>?
+
+    init {
+        this.init = if (init == null) null else {
+            if (loopFactory is Mobius.Builder) {
+                LoggingInit(init, loopFactory.logger)
+            } else {
+                init
+            }
+        }
+    }
 
     override val isRunning: Boolean
         get() = synchronized(lock) {

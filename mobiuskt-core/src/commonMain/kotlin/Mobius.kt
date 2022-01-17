@@ -89,7 +89,7 @@ public object Mobius {
         loopFactory: MobiusLoop.Factory<M, E, F>,
         defaultModel: M
     ): MobiusLoop.Controller<M, E> {
-        return MobiusLoopController(loopFactory, defaultModel, First.Companion::first, ImmediateWorkRunner())
+        return MobiusLoopController(loopFactory, defaultModel, null, ImmediateWorkRunner())
     }
 
     /**
@@ -107,7 +107,7 @@ public object Mobius {
         defaultModel: M,
         modelRunner: WorkRunner
     ): MobiusLoop.Controller<M, E> {
-        return MobiusLoopController(loopFactory, defaultModel, First.Companion::first, modelRunner)
+        return MobiusLoopController(loopFactory, defaultModel, null, modelRunner)
     }
 
     /**
@@ -144,14 +144,14 @@ public object Mobius {
         return MobiusLoopController(loopFactory, defaultModel, init, modelRunner)
     }
 
-    public data class Builder<M, E, F>(
+    internal data class Builder<M, E, F>(
         private val update: Update<M, E, F>,
         private val effectHandler: Connectable<F, E>,
         private val init: Init<M, F>?,
         private val eventSource: Connectable<M, E>,
         private val eventRunner: Producer<WorkRunner>,
         private val effectRunner: Producer<WorkRunner>,
-        private val logger: MobiusLoop.Logger<M, E, F>
+        internal val logger: MobiusLoop.Logger<M, E, F>
     ) : MobiusLoop.Builder<M, E, F> {
 
         @Suppress("OverridingDeprecatedMember")
