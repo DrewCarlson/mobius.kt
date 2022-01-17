@@ -108,24 +108,6 @@ public final class kt/mobius/Mobius {
 	public static final fun loop (Lkt/mobius/Update;Lkt/mobius/Connectable;)Lkt/mobius/MobiusLoop$Builder;
 }
 
-public final class kt/mobius/Mobius$Builder : kt/mobius/MobiusLoop$Builder {
-	public fun <init> (Lkt/mobius/Update;Lkt/mobius/Connectable;Lkt/mobius/Init;Lkt/mobius/Connectable;Lkt/mobius/functions/Producer;Lkt/mobius/functions/Producer;Lkt/mobius/MobiusLoop$Logger;)V
-	public final fun copy (Lkt/mobius/Update;Lkt/mobius/Connectable;Lkt/mobius/Init;Lkt/mobius/Connectable;Lkt/mobius/functions/Producer;Lkt/mobius/functions/Producer;Lkt/mobius/MobiusLoop$Logger;)Lkt/mobius/Mobius$Builder;
-	public static synthetic fun copy$default (Lkt/mobius/Mobius$Builder;Lkt/mobius/Update;Lkt/mobius/Connectable;Lkt/mobius/Init;Lkt/mobius/Connectable;Lkt/mobius/functions/Producer;Lkt/mobius/functions/Producer;Lkt/mobius/MobiusLoop$Logger;ILjava/lang/Object;)Lkt/mobius/Mobius$Builder;
-	public fun effectRunner (Lkt/mobius/functions/Producer;)Lkt/mobius/MobiusLoop$Builder;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun eventRunner (Lkt/mobius/functions/Producer;)Lkt/mobius/MobiusLoop$Builder;
-	public fun eventSource (Lkt/mobius/Connectable;)Lkt/mobius/MobiusLoop$Builder;
-	public fun eventSource (Lkt/mobius/EventSource;)Lkt/mobius/MobiusLoop$Builder;
-	public fun eventSources ([Lkt/mobius/EventSource;)Lkt/mobius/MobiusLoop$Builder;
-	public fun hashCode ()I
-	public fun init (Lkt/mobius/Init;)Lkt/mobius/MobiusLoop$Builder;
-	public fun logger (Lkt/mobius/MobiusLoop$Logger;)Lkt/mobius/MobiusLoop$Builder;
-	public fun startFrom (Ljava/lang/Object;)Lkt/mobius/MobiusLoop;
-	public fun startFrom (Ljava/lang/Object;Ljava/util/Set;)Lkt/mobius/MobiusLoop;
-	public fun toString ()Ljava/lang/String;
-}
-
 public final class kt/mobius/MobiusHooks {
 	public static final field INSTANCE Lkt/mobius/MobiusHooks;
 	public final fun handleError (Ljava/lang/Throwable;)V
