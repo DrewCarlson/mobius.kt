@@ -256,10 +256,45 @@ public final class kt/mobius/android/BuildConfig {
 	public fun <init> ()V
 }
 
+public abstract interface class kt/mobius/android/LiveQueue {
+	public abstract fun clearObserver ()V
+	public abstract fun hasActiveObserver ()Z
+	public abstract fun hasObserver ()Z
+	public abstract fun setObserver (Landroidx/lifecycle/LifecycleOwner;Landroidx/lifecycle/Observer;)V
+	public abstract fun setObserver (Landroidx/lifecycle/LifecycleOwner;Landroidx/lifecycle/Observer;Landroidx/lifecycle/Observer;)V
+}
+
 public final class kt/mobius/android/MobiusAndroid {
 	public static final field INSTANCE Lkt/mobius/android/MobiusAndroid;
 	public static final fun controller (Lkt/mobius/MobiusLoop$Factory;Ljava/lang/Object;)Lkt/mobius/MobiusLoop$Controller;
 	public static final fun controller (Lkt/mobius/MobiusLoop$Factory;Ljava/lang/Object;Lkt/mobius/Init;)Lkt/mobius/MobiusLoop$Controller;
+}
+
+public abstract interface class kt/mobius/android/MobiusLoopFactoryProvider {
+	public abstract fun create (Lkt/mobius/functions/Consumer;Lkt/mobius/EventSource;)Lkt/mobius/MobiusLoop$Factory;
+}
+
+public class kt/mobius/android/MobiusLoopViewModel : androidx/lifecycle/ViewModel {
+	public static final field Companion Lkt/mobius/android/MobiusLoopViewModel$Companion;
+	protected fun <init> (Lkt/mobius/android/MobiusLoopFactoryProvider;Ljava/lang/Object;Lkt/mobius/Init;Lkt/mobius/runners/WorkRunner;I)V
+	protected fun <init> (Lkt/mobius/functions/Function;Ljava/lang/Object;Lkt/mobius/Init;Lkt/mobius/runners/WorkRunner;I)V
+	public static final fun create (Lkt/mobius/android/MobiusLoopFactoryProvider;Ljava/lang/Object;Lkt/mobius/Init;)Lkt/mobius/android/MobiusLoopViewModel;
+	public static final fun create (Lkt/mobius/android/MobiusLoopFactoryProvider;Ljava/lang/Object;Lkt/mobius/Init;I)Lkt/mobius/android/MobiusLoopViewModel;
+	public static final fun create (Lkt/mobius/functions/Function;Ljava/lang/Object;Lkt/mobius/Init;)Lkt/mobius/android/MobiusLoopViewModel;
+	public static final fun create (Lkt/mobius/functions/Function;Ljava/lang/Object;Lkt/mobius/Init;I)Lkt/mobius/android/MobiusLoopViewModel;
+	public final fun dispatchEvent (Ljava/lang/Object;)V
+	public final fun getModel ()Ljava/lang/Object;
+	public final fun getModels ()Landroidx/lifecycle/LiveData;
+	public final fun getViewEffects ()Lkt/mobius/android/LiveQueue;
+	public final fun onCleared ()V
+	protected fun onClearedInternal ()V
+}
+
+public final class kt/mobius/android/MobiusLoopViewModel$Companion {
+	public final fun create (Lkt/mobius/android/MobiusLoopFactoryProvider;Ljava/lang/Object;Lkt/mobius/Init;)Lkt/mobius/android/MobiusLoopViewModel;
+	public final fun create (Lkt/mobius/android/MobiusLoopFactoryProvider;Ljava/lang/Object;Lkt/mobius/Init;I)Lkt/mobius/android/MobiusLoopViewModel;
+	public final fun create (Lkt/mobius/functions/Function;Ljava/lang/Object;Lkt/mobius/Init;)Lkt/mobius/android/MobiusLoopViewModel;
+	public final fun create (Lkt/mobius/functions/Function;Ljava/lang/Object;Lkt/mobius/Init;I)Lkt/mobius/android/MobiusLoopViewModel;
 }
 
 public class kt/mobius/android/runners/LooperWorkRunner : kt/mobius/runners/WorkRunner {
