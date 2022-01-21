@@ -4,8 +4,6 @@ import androidx.lifecycle.*
 import kt.mobius.*
 import kt.mobius.android.MobiusLoopViewModel.Companion.create
 import kt.mobius.android.runners.*
-import kt.mobius.functions.*
-import kt.mobius.functions.Function
 import kt.mobius.runners.*
 import java.util.concurrent.atomic.*
 
@@ -17,7 +15,6 @@ import java.util.concurrent.atomic.*
  * and onPause. To allow the normal effect handler to send these, the view model will provide a
  * Consumer of these View Effects to the Loop Factory Provider, which can then be passed into the
  * normal Effect handler, so it can delegate view effects where necessary.
- *
  *
  * Since it's based on Android View model, this view model will keep the loop alive as long as
  * the lifecycle owner it is associated with (via a factory to produce it) is not destroyed -
@@ -51,22 +48,6 @@ public open class MobiusLoopViewModel<M, E, F, V> protected constructor(
     private val loop: MobiusLoop<M, E, F>
     private val startModel: M
     private val loopActive = AtomicBoolean(true)
-
-    protected constructor(
-        loopFactoryProvider: Function<Consumer<V>, MobiusLoop.Factory<M, E, F>>,
-        modelToStartFrom: M,
-        init: Init<M, F>?,
-        mainLoopWorkRunner: WorkRunner,
-        maxEffectQueueSize: Int
-    ) : this(
-        { viewEffectConsumer: Consumer<V>, _: EventSource<Boolean> ->
-            loopFactoryProvider.apply(viewEffectConsumer)
-        },
-        modelToStartFrom,
-        init,
-        mainLoopWorkRunner,
-        maxEffectQueueSize
-    )
 
     init {
         viewEffectQueue = MutableLiveQueue(mainLoopWorkRunner, maxEffectQueueSize)
@@ -129,55 +110,6 @@ public open class MobiusLoopViewModel<M, E, F, V> protected constructor(
     }
 
     public companion object {
-        /**
-         * Creates a new MobiusLoopViewModel instance with a default maximum effect queue size.
-         *
-         * @param loopFactoryProvider provides a way to connect the view's view effect consumer
-         * to a loop factory
-         * @param modelToStartFrom the initial model for the loop
-         * @param init the [Init] function of the loop
-         * @param M the model type
-         * @param E the event type
-         * @param F the effect type
-         * @param V the view effect type
-         */
-        @JvmStatic
-        public fun <M, E, F, V> create(
-            loopFactoryProvider: Function<Consumer<V>, MobiusLoop.Factory<M, E, F>>,
-            modelToStartFrom: M,
-            init: Init<M, F>
-        ): MobiusLoopViewModel<M, E, F, V> {
-            return create(loopFactoryProvider, modelToStartFrom, init, 100)
-        }
-
-        /**
-         * Creates a new MobiusLoopViewModel instance.
-         *
-         * @param loopFactoryProvider provides a way to connect the view's view effect consumer
-         * to a loop factory
-         * @param modelToStartFrom the initial model for the loop
-         * @param init the [Init] function of the loop
-         * @param maxEffectsToQueue the maximum number of effects to queue while paused
-         * @param M the model type
-         * @param E the event type
-         * @param F the effect type
-         * @param V the view effect type
-         */
-        @JvmStatic
-        public fun <M, E, F, V> create(
-            loopFactoryProvider: Function<Consumer<V>, MobiusLoop.Factory<M, E, F>>,
-            modelToStartFrom: M,
-            init: Init<M, F>,
-            maxEffectsToQueue: Int
-        ): MobiusLoopViewModel<M, E, F, V> {
-            return MobiusLoopViewModel(
-                loopFactoryProvider,
-                modelToStartFrom,
-                init,
-                MainThreadWorkRunner.create(),
-                maxEffectsToQueue
-            )
-        }
 
         /**
          * Creates a new MobiusLoopViewModel instance with a default maximum effect queue size.
