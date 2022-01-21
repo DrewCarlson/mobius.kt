@@ -11,6 +11,9 @@ kover = "0.5.0-RC"
 slf4j = "1.7.25"
 ksp = "1.6.10-1.0.2"
 kotlinpoet = "1.10.2"
+ax_lifecycle = "2.3.1"
+ax_testing = "2.1.0"
+ax_runner = "1.4.0"
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
@@ -31,3 +34,9 @@ slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 ksp = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
 kotlinpoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinpoet" }
 kotlinpoet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlinpoet" }
+androidx-livedata = { module = "androidx.lifecycle:lifecycle-livedata", version.ref = "ax_lifecycle" }
+androidx-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "ax_lifecycle" }
+androidx-lifecycleRuntime = { module = "androidx.lifecycle:lifecycle-runtime", version.ref = "ax_lifecycle" }
+androidx-coreTesting = { module = "androidx.arch.core:core-testing", version.ref = "ax_testing" }
+androidx-test-runner = { module = "androidx.test:runner", version.ref = "ax_runner" }
+

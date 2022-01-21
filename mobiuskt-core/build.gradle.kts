@@ -11,6 +11,7 @@ android {
     compileSdk = 28
     defaultConfig {
         minSdk = 21
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     lint {
         disable("InvalidPackage")
@@ -96,10 +97,6 @@ kotlin {
 
         val jvmMain by getting
 
-        val androidMain by getting {
-            dependsOn(jvmMain)
-        }
-
         val jvmTest by getting {
             dependencies {
                 implementation(kotlin("test"))
@@ -107,6 +104,26 @@ kotlin {
                 implementation(libs.guava)
                 implementation(libs.awaitility)
                 implementation(libs.slf4j)
+            }
+        }
+
+        val androidMain by getting {
+            dependsOn(jvmMain)
+            dependencies {
+                implementation(libs.androidx.livedata)
+                implementation(libs.androidx.viewmodel)
+            }
+        }
+
+        val androidTest by getting {
+            dependsOn(jvmTest)
+            dependencies {
+                implementation(projects.mobiusktTest)
+                implementation(libs.androidx.lifecycleRuntime)
+                implementation(libs.androidx.coreTesting)
+                implementation(libs.androidx.test.runner)
+                implementation(kotlin("test"))
+                implementation(kotlin("test-junit"))
             }
         }
 
