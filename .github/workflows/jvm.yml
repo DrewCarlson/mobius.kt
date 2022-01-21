@@ -7,11 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-  gradle:
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-    runs-on: ${{ matrix.os }}
+  jvm-tests:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v2
@@ -27,3 +24,27 @@ jobs:
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: jvmTest apiCheck
+
+  android-tests:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: 11
+      - name: Cache Build files
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle
+          key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}-v1
+
+      - uses: reactivecircus/android-emulator-runner@v2
+        name: Test Android
+        with:
+          api-level: 30
+          target: google_apis
+          arch: x86_64
+          profile: Nexus 6
+          script: ./gradlew connectedCheck
