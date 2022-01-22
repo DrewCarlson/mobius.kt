@@ -14,8 +14,4 @@ public fun interface Init<M, F> {
 
     @JsName("init")
     public fun init(model: M): First<M, F>
-
-    public operator fun invoke(model: M): First<M, F> {
-        return init(model)
-    }
 }

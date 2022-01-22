@@ -14,8 +14,4 @@ public fun interface Update<M, E, F> {
 
     @JsName("update")
     public fun update(model: M, event: E): Next<M, F>
-
-    public operator fun invoke(model: M, event: E): Next<M, F> {
-        return update(model, event)
-    }
 }
