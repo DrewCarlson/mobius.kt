@@ -13,6 +13,7 @@ import kotlin.test.Test
 
 public class MobiusLoopViewModelTest {
     @Rule
+    @JvmField
     public var rule: InstantTaskExecutorRule = InstantTaskExecutorRule()
     private var recordedEvents: MutableList<TestEvent> = ArrayList()
     private val updateFunction = Update { _: TestModel, event: TestEvent ->

@@ -1,9 +1,8 @@
 # Mobius.kt
 
 [![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/mobiuskt-core-jvm?label=maven&color=blue)](https://search.maven.org/search?q=g:org.drewcarlson%20a:mobiuskt-*)
-![](https://github.com/DrewCarlson/mobius.kt/workflows/Jvm/badge.svg)
-![](https://github.com/DrewCarlson/mobius.kt/workflows/Js/badge.svg)
-![](https://github.com/DrewCarlson/mobius.kt/workflows/Native/badge.svg)
+![](https://github.com/DrewCarlson/mobius.kt/workflows/Tests/badge.svg)
+![Codecov](https://img.shields.io/codecov/c/github/drewcarlson/mobius.kt?token=7DKJUD60BO)
 
 Kotlin Multiplatform framework for managing state evolution and side-effects, based on [spotify/Mobius](https://github.com/spotify/mobius).
 

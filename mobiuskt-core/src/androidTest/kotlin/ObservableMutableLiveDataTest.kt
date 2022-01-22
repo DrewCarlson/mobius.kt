@@ -9,6 +9,7 @@ import kotlin.test.Test
 
 public class ObservableMutableLiveDataTest {
     @Rule
+    @JvmField
     public var rule: InstantTaskExecutorRule = InstantTaskExecutorRule()
     private val lifecycleOwner1 = FakeLifecycleOwner()
     private val underTest = ObservableMutableLiveData<TestModel>()
@@ -21,7 +22,7 @@ public class ObservableMutableLiveDataTest {
         underTest.subscribe { e -> receivedEvents.add(e) }
         lifecycleOwner1.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
         assertEquals(1, receivedEvents.size)
-        assertFalse(receivedEvents.first())
+        assertTrue(receivedEvents.first())
     }
 
     @Test
