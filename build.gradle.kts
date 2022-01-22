@@ -37,6 +37,9 @@ System.getenv("GITHUB_REF")?.let { ref ->
     }
 }
 
+tasks.koverXmlReport {
+    excludes = listOf("kt.mobius.test.matcher.*")
+}
 
 tasks.dokkaHtmlMultiModule.configure {
     removeChildTasks(listOf(projects.mobiusktUpdateSpec.dependencyProject))
