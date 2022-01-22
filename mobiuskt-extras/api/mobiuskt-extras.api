@@ -63,7 +63,6 @@ public final class kt/mobius/extras/patterns/InnerUpdate : kt/mobius/Update {
 	public final fun getInnerUpdate ()Lkt/mobius/Update;
 	public final fun getModelExtractor ()Lkt/mobius/functions/Function;
 	public final fun getModelUpdater ()Lkt/mobius/functions/BiFunction;
-	public fun invoke (Ljava/lang/Object;Ljava/lang/Object;)Lkt/mobius/Next;
 	public fun update (Ljava/lang/Object;Ljava/lang/Object;)Lkt/mobius/Next;
 }
 

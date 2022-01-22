@@ -81,11 +81,6 @@ public final class kt/mobius/First$Companion {
 
 public abstract interface class kt/mobius/Init {
 	public abstract fun init (Ljava/lang/Object;)Lkt/mobius/First;
-	public abstract fun invoke (Ljava/lang/Object;)Lkt/mobius/First;
-}
-
-public final class kt/mobius/Init$DefaultImpls {
-	public static fun invoke (Lkt/mobius/Init;Ljava/lang/Object;)Lkt/mobius/First;
 }
 
 public final class kt/mobius/MergedEventSource : kt/mobius/EventSource {
@@ -225,12 +220,7 @@ public final class kt/mobius/SimpleLogger : kt/mobius/MobiusLoop$Logger {
 }
 
 public abstract interface class kt/mobius/Update {
-	public abstract fun invoke (Ljava/lang/Object;Ljava/lang/Object;)Lkt/mobius/Next;
 	public abstract fun update (Ljava/lang/Object;Ljava/lang/Object;)Lkt/mobius/Next;
-}
-
-public final class kt/mobius/Update$DefaultImpls {
-	public static fun invoke (Lkt/mobius/Update;Ljava/lang/Object;Ljava/lang/Object;)Lkt/mobius/Next;
 }
 
 public final class kt/mobius/android/AndroidLogger : kt/mobius/MobiusLoop$Logger {
@@ -356,12 +346,7 @@ public final class kt/mobius/runners/ImmediateWorkRunner : kt/mobius/runners/Wor
 }
 
 public abstract interface class kt/mobius/runners/WorkRunner : kt/mobius/disposables/Disposable {
-	public static final field Companion Lkt/mobius/runners/WorkRunner$Companion;
 	public abstract fun post (Ljava/lang/Runnable;)V
-}
-
-public final class kt/mobius/runners/WorkRunner$Companion {
-	public final fun invoke (Lkotlin/jvm/functions/Function1;)Lkt/mobius/runners/WorkRunner;
 }
 
 public final class kt/mobius/runners/WorkRunners {
