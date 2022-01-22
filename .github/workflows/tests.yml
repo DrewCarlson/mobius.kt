@@ -1,0 +1,187 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  macos-tests:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: 11
+      - name: Cache Build files
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.konan
+            ~/.gradle
+          key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}-v1
+
+      - uses: gradle/gradle-build-action@v2
+        name: Test Apple Targets
+        with:
+          arguments: macosX64Test iosX64Test # tvosX64Test watchosX86Test
+
+      - uses: gradle/gradle-build-action@v2
+        name: Test Apple Targets (New MM)
+        with:
+          arguments: macosX64Test iosX64Test -Pkotlin.native.binary.memoryModel=experimental # tvosX64Test watchosX86Test
+
+      - name: Archive Reports
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: reports
+          path: '**/build/reports/*'
+
+      - name: Archive Test Results
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: test-results
+          path: '**/TEST-*.xml'
+
+  windows-tests:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: 11
+
+      - uses: gradle/gradle-build-action@v2
+        name: Test Windows Target
+        with:
+          arguments: mingwX64Test
+
+      - uses: gradle/gradle-build-action@v2
+        name: Test Windows Target (New MM)
+        with:
+          arguments: mingwX64Test -Pkotlin.native.binary.memoryModel=experimental
+
+      - name: Archive Reports
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: reports
+          path: '**/build/reports/*'
+
+      - name: Archive Test Results
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: test-results
+          path: '**/TEST-*.xml'
+
+  linux-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: 11
+      - name: Cache Build files
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.konan
+            ~/.gradle
+          key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}-v1
+
+      - uses: gradle/gradle-build-action@v2
+        name: Test Jvm
+        with:
+          arguments: jvmTest koverXmlReport apiCheck
+
+      - uses: gradle/gradle-build-action@v2
+        name: Test Linux Target
+        with:
+          arguments: linuxX64Test
+
+      - uses: gradle/gradle-build-action@v2
+        name: Test Linux Target (New MM)
+        with:
+          arguments: linuxX64Test -Pkotlin.native.binary.memoryModel=experimental
+
+      - name: Archive Reports
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: reports
+          path: '**/build/reports/*'
+
+      - name: Archive Test Results
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: test-results
+          path: '**/TEST-*.xml'
+
+  js-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: 11
+      - name: Cache Build files
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle
+          key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}-v1
+      - uses: gradle/gradle-build-action@v2
+        with:
+          arguments: jsNodeTest jsBrowserTest
+
+      - name: Archive Reports
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: reports
+          path: '**/build/reports/*'
+
+      - name: Archive Test Results
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: test-results
+          path: '**/TEST-*.xml'
+
+  upload-kover-reports:
+    runs-on: ubuntu-latest
+    needs: [ linux-tests ]
+    steps:
+      - uses: actions/checkout@master
+      - name: Download kover reports
+        uses: actions/download-artifact@v2
+        with:
+          name: reports
+      - uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: "**/build/reports/kover/**/*.xml"
+
+  upload-junit-results:
+    runs-on: ubuntu-latest
+    needs: [ linux-tests, macos-tests, windows-tests, js-tests ]
+    steps:
+      - uses: actions/checkout@master
+      - name: Download test results
+        uses: actions/download-artifact@v2
+        with:
+          name: test-results
+      - name: Publish Unit Test Results
+        uses: mikepenz/action-junit-report@v2
+        if: ${{ always() }}
+        with:
+          report_paths: '**/TEST-*.xml'

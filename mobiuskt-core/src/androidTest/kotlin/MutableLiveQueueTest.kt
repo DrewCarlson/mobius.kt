@@ -1,13 +1,18 @@
 package kt.mobius.android
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.*
 import kt.mobius.runners.*
 import kt.mobius.test.*
+import org.junit.Rule
+import org.junit.rules.TestRule
 import java.util.*
 import kotlin.test.*
 
 public class MutableLiveQueueTest {
-
+    @Rule
+    @JvmField
+    public var rule: TestRule = InstantTaskExecutorRule()
     private lateinit var mutableLiveQueue: MutableLiveQueue<String>
     private lateinit var fakeLifecycleOwner1: FakeLifecycleOwner
     private lateinit var fakeLifecycleOwner2: FakeLifecycleOwner
