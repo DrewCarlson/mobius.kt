@@ -110,10 +110,7 @@ public class MutableLiveQueueTest {
     @Test
     public fun shouldSendQueuedEffectsIfObserverSwappedToResumedOneClearing() {
         fakeLifecycleOwner1.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-        mutableLiveQueue.setObserver(
-            fakeLifecycleOwner1,
-            { s: String? -> }
-        ) { s: Iterable<String?>? -> }
+        mutableLiveQueue.setObserver(fakeLifecycleOwner1, { }) { }
         mutableLiveQueue.post("one")
         mutableLiveQueue.post("two")
         fakeLifecycleOwner2.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -125,10 +122,7 @@ public class MutableLiveQueueTest {
     @Test
     public fun shouldSendQueuedEffectsIfObserverSwappedWithoutClearing() {
         fakeLifecycleOwner1.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-        mutableLiveQueue.setObserver(
-            fakeLifecycleOwner1,
-            { s: String? -> }
-        ) { s: Iterable<String?>? -> }
+        mutableLiveQueue.setObserver(fakeLifecycleOwner1, { }) { }
         mutableLiveQueue.post("one")
         mutableLiveQueue.post("two")
         mutableLiveQueue.setObserver(fakeLifecycleOwner2, liveObserver, pausedObserver)
@@ -140,10 +134,7 @@ public class MutableLiveQueueTest {
     @Test
     public fun shouldClearQueueIfObserverCleared() {
         fakeLifecycleOwner1.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-        mutableLiveQueue.setObserver(
-            fakeLifecycleOwner1,
-            { s: String? -> }
-        ) { s: Iterable<String?>? -> }
+        mutableLiveQueue.setObserver(fakeLifecycleOwner1, { }) { }
         mutableLiveQueue.post("one")
         mutableLiveQueue.post("two")
         mutableLiveQueue.clearObserver()
@@ -172,7 +163,7 @@ public class MutableLiveQueueTest {
         mutableLiveQueue.post("2")
         mutableLiveQueue.post("3")
         mutableLiveQueue.post("4")
-        val error = assertFails { mutableLiveQueue.post("this one breaks")  }
+        val error = assertFails { mutableLiveQueue.post("this one breaks") }
         assertIs<IllegalStateException>(error)
         assertTrue(error.message.orEmpty().contains("this one breaks"))
         assertTrue(error.message.orEmpty().contains(QUEUE_CAPACITY.toString()))

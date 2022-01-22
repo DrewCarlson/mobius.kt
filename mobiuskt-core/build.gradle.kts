@@ -16,6 +16,11 @@ android {
     lint {
         disable("InvalidPackage")
     }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
 
     sourceSets {
         getByName("main") {
@@ -122,6 +127,7 @@ kotlin {
                 implementation(libs.androidx.lifecycleRuntime)
                 implementation(libs.androidx.coreTesting)
                 implementation(libs.androidx.test.runner)
+                implementation(libs.robolectric)
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
             }

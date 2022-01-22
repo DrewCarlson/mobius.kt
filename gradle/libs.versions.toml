@@ -14,6 +14,7 @@ kotlinpoet = "1.10.2"
 ax_lifecycle = "2.3.1"
 ax_testing = "2.1.0"
 ax_runner = "1.4.0"
+robolectric = "4.6"
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
@@ -39,4 +40,4 @@ androidx-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", versio
 androidx-lifecycleRuntime = { module = "androidx.lifecycle:lifecycle-runtime", version.ref = "ax_lifecycle" }
 androidx-coreTesting = { module = "androidx.arch.core:core-testing", version.ref = "ax_testing" }
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "ax_runner" }
-
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
