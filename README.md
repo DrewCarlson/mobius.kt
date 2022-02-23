@@ -185,20 +185,16 @@ val loopFactory = FlowMobius.loop(update, effectHandler)
 </details>
 
 
-### Update Spec
+### Update Generator
 
-Using [KSP](https://github.com/google/ksp/), `mobiuskt-update-spec` provides code generation to reduce manual boilerplate when writing complex `Update` functions.
+Using [KSP](https://github.com/google/ksp/), `mobiuskt-update-generator` provides code generation to reduce manual boilerplate when writing complex `Update` functions.
 Given a `sealed class Event` declaration, this module generates an interface defining update methods for each `Event` subclass and an exhaustive `when` block in the `update` method.
 
-Take the following loop components as an example with the `@UpdateSpec` annotation applied to the Model class:
+See the following example loop components with the `@GenerateUpdate` annotation applied to the Update function class definition, including the `TestGeneratedUpdate` parent:
 <details>
 <summary>Loop components (Click to expand)</summary>
 
 ```kotlin
-@UpdateSpec(
-    eventClass = TestEvent::class,
-    effectClass = TestEffect::class,
-)
 data class TestModel(
     val counter: Int,
 )
@@ -209,7 +205,12 @@ sealed class TestEvent {
     data class SetValue(val newCounter: Int) : TestEvent()
 }
 
-sealed class TestEffect
+sealed class TestEffect {}
+
+@GenerateUpdate
+object TestUpdate : Update<TestModel, TestEvent, TestEffect>, TestGeneratedUpdate {
+  // ...
+}
 ```
 </details>
 
@@ -217,7 +218,7 @@ sealed class TestEffect
 <summary>Generated output (Click to expand)</summary>
 
 ```kotlin
-interface TestUpdateSpec : Update<TestModel, TestEvent, TestEffect> {
+interface TestGeneratedUpdate : Update<TestModel, TestEvent, TestEffect> {
     override fun update(model: TestModel, event: TestEvent): Next<TestModel, TestEffect> {
         return when (event) {
             TestEvent.Increment -> increment(model)
@@ -235,7 +236,7 @@ interface TestUpdateSpec : Update<TestModel, TestEvent, TestEffect> {
 ```
 </details>
 
-Use the following kts gradle configuration to apply the Update spec generator in your project:
+Use the following kts gradle configuration to apply the Update generator in your project:
 
 <details>
 <summary>Kotlin Gradle Script - JVM/Android (Click to expand)</summary>
@@ -253,8 +254,8 @@ kotlin {
 }
 
 dependencies {
-    implementation("org.drewcarlson:mobiuskt-update-spec-api:$mobiuskt_version")
-    ksp("org.drewcarlson:mobiuskt-update-spec:$mobiuskt_version")
+    implementation("org.drewcarlson:mobiuskt-update-generator-api:$mobiuskt_version")
+    ksp("org.drewcarlson:mobiuskt-update-generator:$mobiuskt_version")
 }
 ```
 </details>
@@ -273,7 +274,7 @@ kotlin {
         val commonMain by getting {
             kotlin.srcDir("build/generated/ksp/$name/kotlin")
             dependencies {
-                implementation("org.drewcarlson:mobiuskt-update-spec-api:$mobiuskt_version")
+                implementation("org.drewcarlson:mobiuskt-update-generator-api:$mobiuskt_version")
             }
         }
     }
@@ -281,7 +282,7 @@ kotlin {
 
 // Note this must be in a top-level `dependencies` block, not `kotlin { sourceSets { .. } }`
 dependencies {
-    add("kspMetadata", "org.drewcarlson:mobiuskt-update-spec:$mobiuskt_version")
+    add("kspMetadata", "org.drewcarlson:mobiuskt-update-generator:$mobiuskt_version")
 }
 
 // This hack ensures that when compiling for any target, your `commonMain`
@@ -411,7 +412,7 @@ dependencies {
     implementation("org.drewcarlson:mobiuskt-coroutines:$MOBIUS_VERSION")
     
     // Update Spec Generator:
-    implementation("org.drewcarlson:mobiuskt-update-spec-api:$mobiuskt_version")
-    ksp("org.drewcarlson:mobiuskt-update-spec:$mobiuskt_version")
+    implementation("org.drewcarlson:mobiuskt-update-generator-api:$mobiuskt_version")
+    ksp("org.drewcarlson:mobiuskt-update-generator:$mobiuskt_version")
 }
 ```

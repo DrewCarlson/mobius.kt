@@ -7,28 +7,29 @@ import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.ksp.*
 import kt.mobius.*
 
-class UpdateSpecSymbolProcessor(
+class UpdateGeneratorSymbolProcessor(
     private val codeGenerator: CodeGenerator,
 ) : SymbolProcessor {
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
-        val updateSpecs = resolver.getSymbolsWithAnnotation(UpdateSpec::class.qualifiedName!!)
-        updateSpecs.map(::generateSpecFile).forEach { specFile ->
+        val targets = resolver.getSymbolsWithAnnotation(GenerateUpdate::class.qualifiedName!!)
+        targets.map(::generateSpecFile).forEach { specFile ->
             specFile.writeTo(codeGenerator, specFile.kspDependencies(true))
         }
         return emptyList()
     }
 
-    private fun generateSpecFile(modelSymbol: KSAnnotated): FileSpec {
-        val specName = modelSymbol.toString().removeSuffix("Model") + "UpdateSpec"
-
-        val annotationArgs = modelSymbol.annotations.first().arguments
-        val eventSymbol = annotationArgs.first { it.name?.getShortName() == "eventClass" }.value
-        val effectSymbol = annotationArgs.first { it.name?.getShortName() == "effectClass" }.value
-
-        val modelClassDec = modelSymbol as KSClassDeclaration
-        val eventClassDec = ((eventSymbol as KSType).declaration) as KSClassDeclaration
-        val effectClassDec = ((effectSymbol as KSType).declaration) as KSClassDeclaration
+    private fun generateSpecFile(updateSymbol: KSAnnotated): FileSpec {
+        val updateParent = (updateSymbol as KSClassDeclaration).superTypes.firstOrNull { typeRef ->
+            typeRef.element?.typeArguments?.size == 3
+        }
+        checkNotNull(updateParent) {
+            "Classes annotated with @GenerateUpdate must implement Update<M, E, F>: ${updateSymbol.simpleName}"
+        }
+        val typeArgs = updateParent.element?.typeArguments.orEmpty()
+        val modelClassDec = checkNotNull(typeArgs[0].type?.resolve()).declaration as KSClassDeclaration
+        val eventClassDec = checkNotNull(typeArgs[1].type?.resolve()).declaration as KSClassDeclaration
+        val effectClassDec = checkNotNull(typeArgs[2].type?.resolve()).declaration as KSClassDeclaration
 
         val modelClassName = modelClassDec.toClassName()
         val eventClassName = eventClassDec.toClassName()
@@ -41,10 +42,12 @@ class UpdateSpecSymbolProcessor(
 
         val nextReturnTypeName = Next::class.asTypeName()
             .parameterizedBy(modelClassName, effectClassName)
+        val specName = "${modelClassDec.simpleName.asString().removeSuffix("Model")}GeneratedUpdate"
 
         return FileSpec.builder(modelClassDec.packageName.asString(), specName)
             .addType(
                 TypeSpec.interfaceBuilder(specName)
+                    .addModifiers(KModifier.INTERNAL)
                     .addSuperinterface(
                         Update::class.asTypeName()
                             .parameterizedBy(modelClassName, eventClassName, effectClassName)
@@ -103,7 +106,8 @@ class UpdateSpecSymbolProcessor(
                             .returns(nextReturnTypeName)
                             .build()
                     }.toList())
-                    .addOriginatingKSFile(modelSymbol.containingFile!!)
+                    .addOriginatingKSFile(updateSymbol.containingFile!!)
+                    .addOriginatingKSFile(modelClassDec.containingFile!!)
                     .addOriginatingKSFile(eventClassDec.containingFile!!)
                     .addOriginatingKSFile(effectClassDec.containingFile!!)
                     .build()

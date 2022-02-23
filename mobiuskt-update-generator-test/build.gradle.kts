@@ -10,6 +10,6 @@ sourceSets {
 
 dependencies {
     implementation(projects.mobiusktCore)
-    implementation(projects.mobiusktUpdateSpecApi)
-    ksp(projects.mobiusktUpdateSpec)
+    implementation(projects.mobiusktGenerateUpdateApi)
+    ksp(projects.mobiusktGenerateUpdate)
 }

@@ -2,12 +2,9 @@ package demo
 
 import kt.mobius.*
 import kt.mobius.Next.Companion.next
+import kt.mobius.functions.Consumer
 import kt.mobius.gen.*
 
-@UpdateSpec(
-    eventClass = TestEvent::class,
-    effectClass = TestEffect::class,
-)
 data class TestModel(
     val counter: Int,
 )
@@ -21,7 +18,8 @@ sealed class TestEvent {
 sealed class TestEffect
 
 @Suppress("unused")
-object TestUpdate : TestUpdateSpec {
+@GenerateUpdate
+object TestUpdate : Update<TestModel, TestEvent, TestEffect>, TestGeneratedUpdate {
     override fun increment(model: TestModel): Next<TestModel, TestEffect> {
         return next(model.copy(counter = model.counter + 1))
     }
@@ -33,4 +31,18 @@ object TestUpdate : TestUpdateSpec {
     override fun setValue(model: TestModel, event: TestEvent.SetValue): Next<TestModel, TestEffect> {
         return next(model.copy(counter = event.newCounter))
     }
+}
+
+fun createHandler(consumer: Consumer<TestEvent>) = object : Connection<TestEffect> {
+    override fun accept(value: TestEffect) = Unit
+    override fun dispose() = Unit
+}
+
+fun main() {
+    val loopFactory = Mobius.loop(TestUpdate, ::createHandler)
+    val loop = loopFactory.startFrom(TestModel(0))
+    loop.observe(::println)
+    loop.dispatchEvent(TestEvent.Increment)
+    loop.dispatchEvent(TestEvent.SetValue(3))
+    loop.dispatchEvent(TestEvent.Decrement)
 }

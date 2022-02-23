@@ -2,10 +2,10 @@ package kt.mobius.gen
 
 import com.google.devtools.ksp.processing.*
 
-class UpdateSpecSymbolProcessorProvider : SymbolProcessorProvider {
+class UpdateGeneratorSymbolProcessorProvider : SymbolProcessorProvider {
 
     override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
-        return UpdateSpecSymbolProcessor(
+        return UpdateGeneratorSymbolProcessor(
             codeGenerator = environment.codeGenerator,
         )
     }

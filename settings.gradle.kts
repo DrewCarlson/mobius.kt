@@ -5,9 +5,9 @@ include(
         ":mobiuskt-test",
         ":mobiuskt-extras",
         ":mobiuskt-coroutines",
-        ":mobiuskt-update-spec",
-        ":mobiuskt-update-spec-api",
-        ":mobiuskt-update-spec-test",
+        ":mobiuskt-update-generator",
+        ":mobiuskt-update-generator-api",
+        ":mobiuskt-update-generator-test",
 )
 
 enableFeaturePreview("VERSION_CATALOGS")

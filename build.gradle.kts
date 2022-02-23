@@ -42,5 +42,5 @@ tasks.koverXmlReport {
 }
 
 tasks.dokkaHtmlMultiModule.configure {
-    removeChildTasks(listOf(projects.mobiusktUpdateSpec.dependencyProject))
+    removeChildTasks(listOf(projects.mobiusktGenerateUpdate.dependencyProject))
 }
