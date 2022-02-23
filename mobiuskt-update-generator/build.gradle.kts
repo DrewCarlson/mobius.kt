@@ -15,5 +15,5 @@ dependencies {
     implementation(libs.kotlinpoet)
     implementation(libs.kotlinpoet.ksp)
     implementation(projects.mobiusktCore)
-    implementation(projects.mobiusktGenerateUpdateApi)
+    implementation(projects.mobiusktUpdateGeneratorApi)
 }
