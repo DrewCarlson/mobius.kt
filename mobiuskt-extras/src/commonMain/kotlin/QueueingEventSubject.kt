@@ -5,6 +5,7 @@ import kotlinx.atomicfu.locks.synchronized
 import kt.mobius.EventSource
 import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
+import kotlin.js.JsExport
 
 /**
  * An EventSource that can also consume events. If it has a subscriber, events will be immediately
@@ -12,6 +13,8 @@ import kt.mobius.functions.Consumer
  * maximum capacity specified in the constructor), and forward all queued events to the next
  * subscriber. Only a single subscription at a time is permitted.
  */
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 public class QueueingEventSubject<E>(
     private val capacity: Int
 ) : SynchronizedObject(), EventSource<E>, Consumer<E> {

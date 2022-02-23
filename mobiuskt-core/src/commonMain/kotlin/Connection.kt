@@ -2,6 +2,7 @@ package kt.mobius
 
 import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
+import kotlin.js.JsExport
 
 /**
  * Handle for a connection created by [Connectable].
@@ -9,6 +10,8 @@ import kt.mobius.functions.Consumer
  * Used for sending values to the connection and to dispose of it and all resources associated
  * with it.
  */
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 public interface Connection<I> : Disposable, Consumer<I> {
 
     /**

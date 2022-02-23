@@ -2,10 +2,12 @@ package kt.mobius.disposables
 
 import kotlinx.atomicfu.locks.SynchronizedObject
 import kotlinx.atomicfu.locks.synchronized
+import kotlin.js.JsExport
 import kotlin.js.JsName
 import kotlin.jvm.JvmStatic
 
 /** A [Disposable] that disposes of other disposables. */
+@JsExport
 public class CompositeDisposable private constructor(disposables: Array<out Disposable>) : Disposable {
     private val lock = SynchronizedObject()
 

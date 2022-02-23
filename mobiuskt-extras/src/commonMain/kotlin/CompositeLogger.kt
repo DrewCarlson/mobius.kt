@@ -3,6 +3,7 @@ package kt.mobius.extras
 import kt.mobius.First
 import kt.mobius.MobiusLoop.Logger
 import kt.mobius.Next
+import kotlin.js.JsExport
 import kotlin.js.JsName
 import kotlin.jvm.JvmStatic
 
@@ -15,6 +16,8 @@ import kotlin.jvm.JvmStatic
  * @param E The loop's Event type
  * @param F The loop's Effect type
  */
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 public class CompositeLogger<M, E, F> private constructor(
     private val loggers: List<Logger<M, E, F>>
 ) : Logger<M, E, F> {

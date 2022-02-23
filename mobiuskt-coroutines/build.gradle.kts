@@ -11,6 +11,7 @@ kotlin {
     tvos()
     jvm()
     js(IR) {
+        binaries.executable()
         nodejs()
         browser {
             testTask {
@@ -49,6 +50,7 @@ kotlin {
         all {
             explicitApi()
             languageSettings.apply {
+                optIn("kotlin.js.ExperimentalJsExport")
                 optIn("kotlin.RequiresOptIn")
                 if (name.endsWith("Test")) {
                     optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")

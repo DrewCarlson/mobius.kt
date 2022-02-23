@@ -2,6 +2,7 @@ package kt.mobius
 
 import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
+import kotlin.js.JsExport
 import kotlin.js.JsName
 
 /**
@@ -14,6 +15,7 @@ import kotlin.js.JsName
  *
  * @param [E] the event class
  */
+@JsExport
 public fun interface EventSource<E> {
 
     /**
@@ -24,6 +26,7 @@ public fun interface EventSource<E> {
      * @param eventConsumer the consumer that should receive events from the source
      * @return a disposable used to stop the source from emitting any more events to this consumer
      */
+    @Suppress("NON_EXPORTABLE_TYPE")
     @JsName("subscribe")
     public fun subscribe(eventConsumer: Consumer<E>): Disposable
 }

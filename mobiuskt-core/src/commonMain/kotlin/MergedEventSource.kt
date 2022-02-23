@@ -2,6 +2,7 @@ package kt.mobius
 
 import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
+import kotlin.js.JsExport
 import kotlin.js.JsName
 import kotlin.jvm.JvmStatic
 
@@ -10,6 +11,8 @@ import kotlin.jvm.JvmStatic
  *
  * @param E The type of Events the sources will emit
  */
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 public class MergedEventSource<E> private constructor(
     private val eventSources: List<EventSource<E>>
 ) : EventSource<E> {

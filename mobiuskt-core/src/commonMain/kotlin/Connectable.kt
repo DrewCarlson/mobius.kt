@@ -1,6 +1,7 @@
 package kt.mobius
 
 import kt.mobius.functions.Consumer
+import kotlin.js.JsExport
 import kotlin.js.JsName
 
 /**
@@ -17,6 +18,7 @@ import kotlin.js.JsName
  * @param I the incoming value type
  * @param O the outgoing value type
  */
+@JsExport
 public fun interface Connectable<I, O> {
 
     /**
@@ -38,6 +40,7 @@ public fun interface Connectable<I, O> {
      * connections to this Connectable; this should be caused by incorrect usage of the
      * Connectable, and is considered an irrecoverable error
      */
+    @Suppress("NON_EXPORTABLE_TYPE")
     @JsName("connect")
     @Throws(ConnectionLimitExceededException::class)
     public fun connect(output: Consumer<O>): Connection<I>

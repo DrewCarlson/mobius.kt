@@ -1,11 +1,13 @@
 package kt.mobius
 
 import kotlinx.atomicfu.atomic
+import kotlin.js.JsExport
 
 /**
  * Allows configuration of how Mobius handles programmer errors through setting a custom [ErrorHandler]
  * via the [setErrorHandler] method. The default handler prints errors with [println].
  */
+@JsExport
 public object MobiusHooks {
     private val DEFAULT_ERROR_HANDLER = ErrorHandler { error ->
         println("Uncaught error: ${error.stackTraceToString()}")

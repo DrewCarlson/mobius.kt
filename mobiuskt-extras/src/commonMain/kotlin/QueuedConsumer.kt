@@ -3,11 +3,13 @@ package kt.mobius.extras
 import kotlinx.atomicfu.locks.SynchronizedObject
 import kotlinx.atomicfu.locks.synchronized
 import kt.mobius.functions.Consumer
+import kotlin.js.JsExport
 
 /**
  * Collects events and passes them in order to a new consumer via [dequeueAll].
  */
-@Suppress("unused")
+@Suppress("unused", "NON_EXPORTABLE_TYPE")
+@JsExport
 public class QueuedConsumer<V> : Consumer<V> {
 
     private val lock = SynchronizedObject()

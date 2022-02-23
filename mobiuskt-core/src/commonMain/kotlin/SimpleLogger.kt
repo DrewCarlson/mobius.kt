@@ -1,5 +1,9 @@
 package kt.mobius
 
+import kotlin.js.JsExport
+
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 public class SimpleLogger<M, E, F>(private val tag: String) : MobiusLoop.Logger<M, E, F> {
     override fun beforeInit(model: M) {
         println("[$tag] Initializing loop")

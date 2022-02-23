@@ -20,6 +20,7 @@ kotlin {
     //mingwX86()
     jvm()
     js(IR) {
+        binaries.library()
         nodejs()
         browser {
             testTask {
@@ -34,6 +35,7 @@ kotlin {
     sourceSets {
         all {
             explicitApi()
+            languageSettings.optIn("kotlin.js.ExperimentalJsExport")
         }
 
         val commonMain by getting {

@@ -3,6 +3,7 @@ package kt.mobius.extras
 import kt.mobius.Connectable
 import kt.mobius.Connection
 import kt.mobius.functions.Consumer
+import kotlin.js.JsExport
 import kotlin.js.JsName
 import kotlin.jvm.JvmStatic
 
@@ -10,6 +11,8 @@ import kotlin.jvm.JvmStatic
  * Creates a [Connectable] that delegates connection creation to [effectHandlers]
  * and the corresponding [Connection]s.
  */
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 public class CompositeEffectHandler<I, O> private constructor(
     private val effectHandlers: Array<out Connectable<I, O>>
 ) : Connectable<I, O> {

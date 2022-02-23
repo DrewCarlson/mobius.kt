@@ -7,6 +7,7 @@ import kt.mobius.functions.Consumer
 import kt.mobius.functions.Producer
 import kt.mobius.runners.WorkRunner
 import mpp.ensureNeverFrozen
+import kotlin.js.JsExport
 import kotlin.js.JsName
 import kotlin.jvm.JvmStatic
 import kotlin.jvm.Volatile
@@ -18,6 +19,8 @@ import kotlin.jvm.Volatile
  * It hooks up all the different parts of the main Mobius loop, and dispatches messages
  * internally on the appropriate executors.
  */
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 public class MobiusLoop<M, E, F> private constructor(
     eventProcessorFactory: EventProcessor.Factory<M, E, F>,
     startModel: M,

@@ -3,7 +3,10 @@ package kt.mobius.flow
 import kt.mobius.Mobius
 import kt.mobius.MobiusLoop
 import kt.mobius.Update
+import kotlin.js.JsExport
 
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 public object FlowMobius {
 
     public fun <M, E, F> loopFrom(

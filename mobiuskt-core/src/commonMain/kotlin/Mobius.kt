@@ -5,9 +5,12 @@ import kt.mobius.functions.Producer
 import kt.mobius.runners.DefaultWorkRunners
 import kt.mobius.runners.ImmediateWorkRunner
 import kt.mobius.runners.WorkRunner
+import kotlin.js.JsExport
 import kotlin.js.JsName
 import kotlin.jvm.JvmStatic
 
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 public object Mobius {
 
     @Suppress("ClassName")
@@ -118,6 +121,7 @@ public object Mobius {
      * @param init the init function to run when a loop starts
      * @return a new controller
      */
+    @JsName("controllerWithInit")
     public fun <M, E, F> controller(
         loopFactory: MobiusLoop.Factory<M, E, F>,
         defaultModel: M,
@@ -135,6 +139,7 @@ public object Mobius {
      * @param modelRunner the WorkRunner to use when observing model changes
      * @return a new controller
      */
+    @JsName("controllerWithInitAndModelRunner")
     public fun <M, E, F> controller(
         loopFactory: MobiusLoop.Factory<M, E, F>,
         defaultModel: M,
@@ -154,7 +159,7 @@ public object Mobius {
         internal val logger: MobiusLoop.Logger<M, E, F>
     ) : MobiusLoop.Builder<M, E, F> {
 
-        @Suppress("OverridingDeprecatedMember")
+        @Suppress("OverridingDeprecatedMember", "OVERRIDE_DEPRECATION")
         override fun init(init: Init<M, F>): MobiusLoop.Builder<M, E, F> {
             return copy(init = init)
         }

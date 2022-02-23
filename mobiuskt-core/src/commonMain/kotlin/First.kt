@@ -1,10 +1,13 @@
 package kt.mobius
 
+import kotlin.js.JsExport
 import kotlin.js.JsName
 import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmStatic
 
 /** Defines the entry into the initial state of a Mobius loop. */
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 public data class First<M, F> internal constructor(
     /** the initial model to use */
     private val model: M,
@@ -41,7 +44,7 @@ public data class First<M, F> internal constructor(
          */
         @JvmStatic
         @JvmOverloads
-        @JsName("first")
+        @JsName("firstWithSet")
         public fun <M, F> first(model: M, effects: Set<F> = emptySet()): First<M, F> {
             return First(model, effects)
         }

@@ -1,5 +1,6 @@
 package kt.mobius
 
+import kotlin.js.JsExport
 import kotlin.js.JsName
 
 /**
@@ -10,6 +11,8 @@ import kotlin.js.JsName
  * side-effects. This means that given the same arguments, the function must always return the same
  * [First].
  */
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 public fun interface Init<M, F> {
 
     @JsName("init")

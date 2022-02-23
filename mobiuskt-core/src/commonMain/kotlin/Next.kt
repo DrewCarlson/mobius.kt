@@ -1,6 +1,7 @@
 package kt.mobius
 
 import kt.mobius.functions.Consumer
+import kotlin.js.JsExport
 import kotlin.js.JsName
 import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmStatic
@@ -12,6 +13,8 @@ import kotlin.jvm.JvmStatic
  * contains the new Model (if there is one) and Effect objects that describe which side-effects
  * should take place.
  */
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 public class Next<M, F> internal constructor(
     /** Get the model of this Next, if it has one. Might return null. */
     private val model: M?,
@@ -87,20 +90,21 @@ public class Next<M, F> internal constructor(
         /** Create a Next that updates the model and dispatches the optional effects. */
         @JvmStatic
         @JvmOverloads
-        @JsName("next")
+        @JsName("nextWithSet")
         public fun <M, F> next(model: M, effects: Set<F> = emptySet()): Next<M, F> {
             return Next(model, effects.toSet())
         }
 
         /** Create a Next that updates the model and dispatches the optional effects. */
         @JvmStatic
+        @JsName("next")
         public fun <M, F> next(model: M, vararg effects: F): Next<M, F> {
             return Next(model, effects.toSet())
         }
 
         /** Create a Next that doesn't update the model but dispatches the supplied effects. */
         @JvmStatic
-        @JsName("dispatch")
+        @JsName("dispatchWithSet")
         public fun <M, F> dispatch(effects: Set<F>): Next<M, F> {
             return Next(null, effects)
         }

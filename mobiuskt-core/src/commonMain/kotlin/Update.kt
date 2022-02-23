@@ -1,5 +1,6 @@
 package kt.mobius
 
+import kotlin.js.JsExport
 import kotlin.js.JsName
 
 /**
@@ -10,6 +11,8 @@ import kotlin.js.JsName
  * side-effects. This means that given the same arguments, the function must always return the same
  * Next. Each time a new event occurs, the update method will be called and a Next is expected.
  */
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 public fun interface Update<M, E, F> {
 
     @JsName("update")

@@ -1,10 +1,13 @@
 package kt.mobius.disposables
 
+import kotlin.js.JsExport
+
 /**
  * A [Disposable] is an object that may be holding on to references or resources that need to
  * be released when the object is no longer needed. The dispose method is invoked to release
  * resources that the object is holding.
  */
+@JsExport
 public fun interface Disposable {
 
     /**
