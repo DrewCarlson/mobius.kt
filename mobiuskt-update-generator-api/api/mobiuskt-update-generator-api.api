@@ -1,0 +1,3 @@
+public abstract interface annotation class kt/mobius/gen/GenerateUpdate : java/lang/annotation/Annotation {
+}
+
