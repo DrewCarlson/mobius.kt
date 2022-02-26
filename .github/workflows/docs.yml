@@ -12,7 +12,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-java@v2
+      - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
           java-version: 11
@@ -30,7 +30,7 @@ jobs:
         with:
           arguments: clean dokkaHtmlMultiModule
       - name: Publish Docs
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@4
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -35,7 +35,14 @@ kotlin {
     }
     jvm()
     js(IR) {
+<<<<<<< Updated upstream
         binaries.library()
+=======
+        compilations.getByName("main") {
+            packageJson {
+            }
+        }
+>>>>>>> Stashed changes
         nodejs()
         browser {
             testTask {
