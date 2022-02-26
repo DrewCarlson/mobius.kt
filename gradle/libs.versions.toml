@@ -1,7 +1,7 @@
 [versions]
 kotlin = "1.6.20-RC"
 dokka = "1.6.10"
-agp = "7.0.4"
+agp = "7.1.2"
 coroutines = "1.6.0-native-mt"
 guava = "31.0.1-android"
 awaitility = "4.1.1"
