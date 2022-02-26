@@ -8,7 +8,7 @@ apply(plugin = "kotlinx-atomicfu")
 apply(from = "../gradle/publishing.gradle.kts")
 
 android {
-    compileSdk = 28
+    compileSdk = 31
     defaultConfig {
         minSdk = 21
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
