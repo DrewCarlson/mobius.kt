@@ -163,7 +163,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Download kover reports
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: reports
       - uses: codecov/codecov-action@v2
@@ -177,7 +177,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Download test results
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: test-results
       - name: Publish Unit Test Results
