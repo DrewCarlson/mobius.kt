@@ -34,14 +34,14 @@ jobs:
           arguments: macosX64Test iosX64Test -Pkotlin.native.binary.memoryModel=experimental # tvosX64Test watchosX86Test
 
       - name: Archive Reports
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
           name: reports
           path: '**/build/reports/*'
 
       - name: Archive Test Results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
           name: test-results
@@ -67,14 +67,14 @@ jobs:
           arguments: mingwX64Test -Pkotlin.native.binary.memoryModel=experimental
 
       - name: Archive Reports
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
           name: reports
           path: '**/build/reports/*'
 
       - name: Archive Test Results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
           name: test-results
@@ -112,14 +112,14 @@ jobs:
           arguments: linuxX64Test -Pkotlin.native.binary.memoryModel=experimental
 
       - name: Archive Reports
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
           name: reports
           path: '**/build/reports/*'
 
       - name: Archive Test Results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
           name: test-results
@@ -144,14 +144,14 @@ jobs:
           arguments: jsNodeTest jsBrowserTest
 
       - name: Archive Reports
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
           name: reports
           path: '**/build/reports/*'
 
       - name: Archive Test Results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
           name: test-results
