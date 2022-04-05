@@ -166,7 +166,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: reports
-      - uses: codecov/codecov-action@v2
+      - uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: "**/build/reports/kover/**/*.xml"
