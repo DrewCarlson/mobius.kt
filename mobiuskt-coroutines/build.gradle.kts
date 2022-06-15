@@ -51,7 +51,6 @@ kotlin {
             explicitApi()
             languageSettings.apply {
                 optIn("kotlin.js.ExperimentalJsExport")
-                optIn("kotlin.RequiresOptIn")
                 if (name.endsWith("Test")) {
                     optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
                 }

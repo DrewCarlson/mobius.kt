@@ -7,10 +7,9 @@ import kt.mobius.runners.WorkRunners
 import kt.mobius.test.RecordingConsumer
 import kt.mobius.test.RecordingModelObserver
 import kt.mobius.testdomain.EventWithSafeEffect
-import kt.mobius.testdomain.TestEffect
 import kt.mobius.testdomain.TestEvent
+import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.Is.`is`
-import org.junit.Assert.assertThat
 import org.junit.Test
 import kotlin.test.assertTrue
 

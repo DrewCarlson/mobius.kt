@@ -5,8 +5,10 @@ plugins {
 apply(from = "../gradle/publishing.gradle.kts")
 
 kotlin {
-    target.compilations.all {
-        languageSettings.optIn("com.squareup.kotlinpoet.ksp.KotlinPoetKspPreview")
+    sourceSets.all {
+        languageSettings {
+            optIn("com.squareup.kotlinpoet.ksp.KotlinPoetKspPreview")
+        }
     }
 }
 
