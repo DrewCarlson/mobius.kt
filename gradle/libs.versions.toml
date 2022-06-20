@@ -2,7 +2,7 @@
 kotlin = "1.7.0"
 dokka = "1.6.21"
 agp = "7.0.4"
-coroutines = "1.6.1"
+coroutines = "1.6.3"
 guava = "31.0.1-android"
 awaitility = "4.2.0"
 atomicfu = "0.18.0"
