@@ -14,7 +14,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     lint {
-        disable("InvalidPackage")
+        disable.add("InvalidPackage")
     }
     testOptions {
         unitTests {
