@@ -8,6 +8,9 @@ import kt.mobius.Next.Companion.next
 import kt.mobius.Next.Companion.noChange
 import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
+import kt.mobius.functions.Producer
+import kt.mobius.runners.WorkRunner
+import kt.mobius.runners.WorkRunners
 import kt.mobius.test.RecordingConsumer
 import kt.mobius.test.RecordingModelObserver
 import kt.mobius.test.TestWorkRunner
@@ -17,6 +20,7 @@ import kt.mobius.testdomain.TestEffect
 import kt.mobius.testdomain.TestEvent
 import java.util.*
 import java.util.concurrent.ExecutionException
+import java.util.concurrent.Executors
 import java.util.concurrent.Semaphore
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.annotation.Nonnull
@@ -221,6 +225,38 @@ class MobiusLoopDisposalBehavior : MobiusLoopTest() {
             Thread.sleep(random.nextInt(30).toLong())
             mobiusLoop.dispose()
         }
+    }
+
+    @Test
+    fun shouldSafelyDisposeWhenDisposeAndEventsAreOnDifferentThreads() {
+        val random = Random()
+        val builder: MobiusLoop.Builder<String, TestEvent, TestEffect> = loop(update, effectHandler)
+            .eventRunner { WorkRunners.from(Executors.newFixedThreadPool(4)) }
+        val thread = Thread {
+            for (i in 0..99) {
+                mobiusLoop = builder.startFrom("foo")
+                try {
+                    Thread.sleep(random.nextInt(10).toLong())
+                } catch (e: InterruptedException) {
+                    throw java.lang.RuntimeException(e)
+                }
+                mobiusLoop.dispose()
+            }
+        }
+        thread.start()
+        for (i in 0..999) {
+            try {
+                mobiusLoop.dispatchEvent(TestEvent("bar"))
+                Thread.sleep(1)
+            } catch (e: java.lang.IllegalStateException) {
+                if (e.message != null) {
+                    assertFalse(e.message!!.startsWith("Exception processing event"))
+                }
+            } catch (e: InterruptedException) {
+                throw RuntimeException(e)
+            }
+        }
+        thread.join()
     }
 
     internal class EmitDuringDisposeEventSource(private val event: TestEvent) : EventSource<TestEvent> {

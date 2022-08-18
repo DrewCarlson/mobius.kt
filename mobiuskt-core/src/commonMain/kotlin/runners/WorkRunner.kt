@@ -7,6 +7,10 @@ import kotlin.js.JsExport
 @JsExport
 public interface WorkRunner : Disposable {
 
+    /**
+     * Must discard any new [Runnable] immediately after dispose method of [Disposable] is
+     * called. Not doing this may result in undesired side effects, crashes, race conditions etc.
+     */
     @Suppress("NON_EXPORTABLE_TYPE")
     public fun post(runnable: Runnable)
 }

@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlinx.binary-compatibility-validator")
 }
 
+apply(plugin = "kotlinx-atomicfu")
 apply(from = "../gradle/publishing.gradle.kts")
 
 kotlin {
@@ -60,13 +61,13 @@ kotlin {
             dependencies {
                 implementation(projects.mobiusktCore)
                 implementation(libs.coroutines.core)
+                implementation(libs.atomicfu)
             }
         }
 
         named("commonTest") {
             dependencies {
                 implementation(projects.mobiusktTest)
-                implementation(libs.atomicfu)
                 implementation(libs.coroutines.test)
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))

@@ -1,5 +1,7 @@
 package kt.mobius.flow
 
+import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.atomicfu.locks.synchronized
 import kt.mobius.runners.WorkRunner
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -9,7 +11,7 @@ import kotlinx.coroutines.launch
 import kt.mobius.runners.Runnable
 import kt.mobius.runners.WorkRunners
 
-@Suppress("unused")
+@Suppress("UnusedReceiverParameter")
 public fun WorkRunners.fromDispatcher(dispatcher: CoroutineDispatcher): WorkRunner {
     return DispatcherWorkRunner(dispatcher)
 }
@@ -19,13 +21,18 @@ public class DispatcherWorkRunner(
     dispatcher: CoroutineDispatcher
 ) : WorkRunner {
 
+    private val lock = SynchronizedObject()
     private val scope = CoroutineScope(dispatcher + SupervisorJob())
 
     override fun post(runnable: Runnable) {
-        scope.launch { runnable.run() }
+        synchronized(lock) {
+            scope.launch { runnable.run() }
+        }
     }
 
     override fun dispose() {
-        scope.cancel()
+        synchronized(lock) {
+            scope.cancel()
+        }
     }
 }

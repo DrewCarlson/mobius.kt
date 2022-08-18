@@ -73,20 +73,24 @@ class ExecutorServiceWorkRunnerTest {
     }
 
     @Test
-    fun tasksShouldBeRejectedAfterDispose() {
+    fun tasksShouldBeSkippedAfterDispose() {
+        val output = CopyOnWriteArrayList<Int>()
         val service = Executors.newSingleThreadExecutor()
 
         underTest = ExecutorServiceWorkRunner(service)
+
+        underTest.post {
+            output.add(1)
+            output.add(2)
+        }
+
         underTest.dispose()
+        underTest.post {
+            output.add(3)
+            output.add(4)
+        }
 
-        thrown.expect(RejectedExecutionException::class.java)
-
-        underTest.post(
-            object : Runnable {
-                override fun run() {
-                    println("ERROR: this shouldn't run/be printed!")
-                }
-            })
+        assertEquals(output, listOf(1, 2))
     }
 
     @Test

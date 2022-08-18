@@ -1,5 +1,7 @@
 package kt.mobius.runners
 
+import kotlinx.atomicfu.locks.ReentrantLock
+import kotlinx.atomicfu.locks.withLock
 import platform.darwin.*
 
 @Suppress("UnusedReceiverParameter")
@@ -21,6 +23,8 @@ public class DispatchQueueWorkRunner(
     private val dispatchQueue: dispatch_queue_t
 ) : WorkRunner {
 
+    private val lock = ReentrantLock()
+
     init {
         check(Platform.memoryModel == MemoryModel.EXPERIMENTAL) {
             "Using DispatchQueueWorkRunner requires the experimental memory model.\nSee https://github.com/JetBrains/kotlin/blob/master/kotlin-native/NEW_MM.md"
@@ -28,7 +32,9 @@ public class DispatchQueueWorkRunner(
     }
 
     override fun post(runnable: Runnable) {
-        dispatch_async(dispatchQueue, runnable::run)
+        lock.withLock {
+            dispatch_async(dispatchQueue, runnable::run)
+        }
     }
 
     override fun dispose(): Unit = Unit

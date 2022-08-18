@@ -19,6 +19,7 @@ plugins {
     alias(libs.plugins.dokka)
     alias(libs.plugins.binaryCompat) apply false
     alias(libs.plugins.kover)
+    id("com.louiscad.complete-kotlin") version "1.1.0"
 }
 
 allprojects {
