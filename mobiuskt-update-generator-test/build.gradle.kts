@@ -4,6 +4,14 @@ plugins {
     kotlin("jvm")
 }
 
+kotlin {
+    sourceSets.all {
+        languageSettings {
+            optIn("kt.mobius.gen.ExperimentalUpdateGenerator")
+        }
+    }
+}
+
 sourceSets {
     main { java.srcDir(buildDir.resolve("generated/ksp/$name/kotlin")) }
 }

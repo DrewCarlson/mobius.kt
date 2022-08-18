@@ -8,6 +8,7 @@ kotlin {
     sourceSets.all {
         languageSettings {
             optIn("com.squareup.kotlinpoet.ksp.KotlinPoetKspPreview")
+            optIn("kt.mobius.gen.ExperimentalUpdateGenerator")
         }
     }
 }
