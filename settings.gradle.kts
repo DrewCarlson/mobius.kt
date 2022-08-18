@@ -10,5 +10,4 @@ include(
         ":mobiuskt-update-generator-test",
 )
 
-enableFeaturePreview("VERSION_CATALOGS")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
