@@ -35,7 +35,7 @@ public class DispatchQueueWorkRunner(
 
     public companion object {
         public fun main(): WorkRunner {
-            return DispatchQueueWorkRunner(dispatch_queue_main_t())
+            return DispatchQueueWorkRunner(dispatch_get_main_queue())
         }
 
         public fun global(): WorkRunner {
