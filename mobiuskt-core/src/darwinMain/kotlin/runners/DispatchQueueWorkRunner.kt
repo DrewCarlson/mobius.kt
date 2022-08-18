@@ -2,17 +2,17 @@ package kt.mobius.runners
 
 import platform.darwin.*
 
-@Suppress("unused")
+@Suppress("UnusedReceiverParameter")
 public fun WorkRunners.fromDispatchQueue(dispatchQueue: dispatch_queue_t): WorkRunner {
     return DispatchQueueWorkRunner(dispatchQueue)
 }
 
-@Suppress("unused")
+@Suppress("UnusedReceiverParameter")
 public fun WorkRunners.mainDispatchQueue(): WorkRunner {
     return DispatchQueueWorkRunner.main()
 }
 
-@Suppress("unused")
+@Suppress("UnusedReceiverParameter")
 public fun WorkRunners.globalDispatchQueue(): WorkRunner {
     return DispatchQueueWorkRunner.global()
 }
