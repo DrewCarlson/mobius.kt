@@ -31,15 +31,25 @@ allprojects {
     yarn.lockFileDirectory = rootDir.resolve("gradle/kotlin-js-store")
 }
 
+subprojects {
+    apply(plugin = "org.jetbrains.kotlinx.kover")
+    kover {}
+}
+
+extensions.configure<kotlinx.kover.api.KoverMergedConfig> {
+    enable()
+    filters {
+        projects {
+            excludes.add(":mobiuskt-test")
+        }
+    }
+}
+
 // Required for doc publishing
 System.getenv("GITHUB_REF")?.let { ref ->
     if (ref.startsWith("refs/tags/v")) {
         version = ref.substringAfterLast("refs/tags/v")
     }
-}
-
-tasks.koverXmlReport {
-    excludes = listOf("kt.mobius.test.matcher.*")
 }
 
 tasks.dokkaHtmlMultiModule.configure {
