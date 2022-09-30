@@ -9,7 +9,9 @@ buildscript {
 
     dependencies {
         classpath(libs.agp)
-        classpath(libs.atomicfu.plugin)
+        classpath(libs.atomicfu.plugin) {
+            exclude("org.jetbrains.kotlin", "kotlin-gradle-plugin-api")
+        }
     }
 }
 
