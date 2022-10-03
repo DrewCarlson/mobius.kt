@@ -313,7 +313,7 @@ Using Mobius.kt for shared logic does not require consuming projects to be writt
 
 ### Kotlin/Native
 
-Kotlin/Native's [new memory manager](https://blog.jetbrains.com/kotlin/2021/08/try-the-new-kotlin-native-memory-manager-development-preview/) is generally supported but as of Kotlin 1.6.10 may result in higher memory usage and in rare cases, delayed runtime errors.
+Mobius.kt supports Kotlin/Native's [new memory manager](https://blog.jetbrains.com/kotlin/2021/08/try-the-new-kotlin-native-memory-manager-development-preview/) and as of Kotlin 1.7.20 it is enabled by default.
 The following notes are relevant only to the original memory manager where state shared across threads cannot be mutated.
 
 A `MobiusLoop` is single-threaded on native targets and cannot be [frozen](https://kotlinlang.org/docs/native-immutability.html).
