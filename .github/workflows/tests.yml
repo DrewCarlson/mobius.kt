@@ -29,9 +29,9 @@ jobs:
           arguments: macosX64Test iosX64Test # tvosX64Test watchosX86Test
 
       - uses: gradle/gradle-build-action@v2
-        name: Test Apple Targets (New MM)
+        name: Test Apple Targets (Legacy MM)
         with:
-          arguments: macosX64Test iosX64Test -Pkotlin.native.binary.memoryModel=experimental # tvosX64Test watchosX86Test
+          arguments: macosX64Test iosX64Test  Pkotlin.native.binary.memoryModel=strict -Pkotlin.native.binary.freezing=enabled # tvosX64Test watchosX86Test
 
       - name: Archive Reports
         uses: actions/upload-artifact@v3
@@ -62,9 +62,9 @@ jobs:
           arguments: mingwX64Test
 
       - uses: gradle/gradle-build-action@v2
-        name: Test Windows Target (New MM)
+        name: Test Windows Target (Legacy MM)
         with:
-          arguments: mingwX64Test -Pkotlin.native.binary.memoryModel=experimental
+          arguments: mingwX64Test -Pkotlin.native.binary.memoryModel=strict -Pkotlin.native.binary.freezing=enabled
 
       - name: Archive Reports
         uses: actions/upload-artifact@v3
@@ -107,9 +107,9 @@ jobs:
           arguments: linuxX64Test
 
       - uses: gradle/gradle-build-action@v2
-        name: Test Linux Target (New MM)
+        name: Test Linux Target (Legacy MM)
         with:
-          arguments: linuxX64Test -Pkotlin.native.binary.memoryModel=experimental
+          arguments: linuxX64Test -Pkotlin.native.binary.memoryModel=strict -Pkotlin.native.binary.freezing=enabled
 
       - name: Archive Reports
         uses: actions/upload-artifact@v3
