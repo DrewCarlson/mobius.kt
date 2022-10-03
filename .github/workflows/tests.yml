@@ -31,7 +31,7 @@ jobs:
       - uses: gradle/gradle-build-action@v2
         name: Test Apple Targets (Legacy MM)
         with:
-          arguments: macosX64Test iosX64Test  Pkotlin.native.binary.memoryModel=strict -Pkotlin.native.binary.freezing=enabled # tvosX64Test watchosX86Test
+          arguments: macosX64Test iosX64Test -Pkotlin.native.binary.memoryModel=strict -Pkotlin.native.binary.freezing=enabled # tvosX64Test watchosX86Test
 
       - name: Archive Reports
         uses: actions/upload-artifact@v3
