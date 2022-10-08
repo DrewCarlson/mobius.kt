@@ -311,6 +311,19 @@ Mobius.kt depends on [kotlinx.atomicfu](https://github.com/Kotlin/kotlinx.atomic
 `MobiusLoop`s can be created and managed in Javascript, Swift, and Java code without major interoperability concerns.
 Using Mobius.kt for shared logic does not require consuming projects to be written in or know about Kotlin.
 
+### Useful Libraries
+
+[Kopykat](https://github.com/kopykat-kt/kopykat): When writing `Update` functions you will typically use the `copy` method
+provided by `data class`es to create updated model instances.  The standard `copy` method is adequate in simple cases but
+can quickly clutter your `Update` functions.  Kopykat provides generated builder `copy` methods which provide instance
+variables to set instead of a long list of function parameters.
+
+[redacted-compiler-plugin](https://github.com/ZacSweers/redacted-compiler-plugin):
+`data class`es provide a `toString` in Model classes which make Logging simple and useful in Mobius.kt.
+When Model's contain sensitive information you do not want logged, overriding and keeping the `toString` method updated
+is tedious.  With Redacted, you can annotate individual properties with `@Redacted` to omit the actual data from the
+standard `toString` implementation.
+
 ### Kotlin/Native
 
 Mobius.kt supports Kotlin/Native's [new memory manager](https://blog.jetbrains.com/kotlin/2021/08/try-the-new-kotlin-native-memory-manager-development-preview/) and as of Kotlin 1.7.20 it is enabled by default.
