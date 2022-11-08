@@ -13,7 +13,7 @@ ksp = "1.7.20-1.0.8"
 kotlinpoet = "1.12.0"
 ax_lifecycle = "2.5.1"
 ax_testing = "2.1.0"
-ax_runner = "1.4.0"
+ax_runner = "1.5.0"
 robolectric = "4.9"
 
 [plugins]
