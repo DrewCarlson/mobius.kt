@@ -1,5 +1,6 @@
 package kt.mobius
 
+import kotlinx.collections.immutable.persistentHashSetOf
 import kotlin.js.JsExport
 import kotlin.js.JsName
 import kotlin.jvm.JvmStatic
@@ -21,6 +22,6 @@ public object Effects {
     @JvmStatic
     @JsName("effects")
     public fun <F, G : F> effects(vararg effects: G): Set<F> {
-        return hashSetOf<F>(*effects.copyOf())
+        return persistentHashSetOf<F>(*effects)
     }
 }

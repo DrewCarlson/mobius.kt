@@ -1,5 +1,6 @@
 package kt.mobius.extras
 
+import kotlinx.collections.immutable.persistentListOf
 import kt.mobius.First
 import kt.mobius.MobiusLoop.Logger
 import kt.mobius.Next
@@ -51,7 +52,7 @@ public class CompositeLogger<M, E, F> private constructor(
         @JvmStatic
         @JsName("from")
         public fun <M, E, F> from(vararg loggers: Logger<M, E, F>): Logger<M, E, F> {
-            return CompositeLogger(loggers.toList())
+            return CompositeLogger(persistentListOf(*loggers))
         }
     }
 }

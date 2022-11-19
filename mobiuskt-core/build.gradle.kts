@@ -91,6 +91,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(libs.atomicfu)
+                implementation(libs.immutableCollections)
             }
         }
 
