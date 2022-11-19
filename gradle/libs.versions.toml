@@ -15,6 +15,7 @@ ax_lifecycle = "2.5.1"
 ax_testing = "2.1.0"
 ax_runner = "1.5.0"
 robolectric = "4.9"
+immutable_collections = "0.3.5"
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
@@ -26,6 +27,7 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 [libraries]
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+immutableCollections = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "immutable_collections" }
 atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "atomicfu" }
 atomicfu-plugin = { module = "org.jetbrains.kotlinx:atomicfu-gradle-plugin", version.ref = "atomicfu" }
 agp = { module = "com.android.tools.build:gradle", version.ref = "agp" }

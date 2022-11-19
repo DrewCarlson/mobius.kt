@@ -1,5 +1,7 @@
 package kt.mobius.flow
 
+import kotlinx.collections.immutable.toImmutableList
+import kotlinx.collections.immutable.toImmutableSet
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.transform
@@ -103,7 +105,7 @@ public class SubtypeEffectHandlerBuilder<F : Any, E> {
 
     public fun build(): FlowTransformer<F, E> =
         MobiusEffectRouter(
-            effectClasses = effectPerformerMap.keys.toSet(),
-            effectPerformers = effectPerformerMap.values.toList()
+            effectClasses = effectPerformerMap.keys.toImmutableSet(),
+            effectPerformers = effectPerformerMap.values.toImmutableList()
         )
 }
