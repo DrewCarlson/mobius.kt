@@ -12,16 +12,17 @@ import kt.mobius.DiscardAfterDisposeConnectable
  * Constructs a [Connectable] that applies [transform] to
  * map a [Flow] of [I] into a [Flow] of [O].
  */
+@OptIn(ExperimentalCoroutinesApi::class)
 public fun <I, O> flowConnectable(
     transform: FlowTransformer<I, O>
 ): Connectable<I, O> {
     val actual = Connectable<I, O> { consumer ->
         val scope = CoroutineScope(Dispatchers.Unconfined)
         val inputChannel = MutableSharedFlow<I>(
-                extraBufferCapacity = 64,
+                extraBufferCapacity = Int.MAX_VALUE,
                 onBufferOverflow = BufferOverflow.SUSPEND,
         )
-        scope.launch {
+        scope.launch(start = CoroutineStart.ATOMIC) {
             transform(inputChannel)
                 .onEach { output ->
                     ensureActive()
