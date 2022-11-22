@@ -70,6 +70,7 @@ kotlin {
             dependencies {
                 implementation(projects.mobiusktTest)
                 implementation(libs.coroutines.test)
+                implementation(libs.turbine)
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
             }

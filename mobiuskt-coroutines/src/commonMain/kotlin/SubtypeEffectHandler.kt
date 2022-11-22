@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.transform
 import kotlin.reflect.KClass
 import kotlin.reflect.cast
-import kotlin.reflect.typeOf
 
 public fun <F : Any, E> subtypeEffectHandler(
     block: SubtypeEffectHandlerBuilder<F, E>.() -> Unit
@@ -16,58 +15,50 @@ public fun <F : Any, E> subtypeEffectHandler(
         .apply(block)
         .build()
 
-@Suppress("UNCHECKED_CAST")
-@PublishedApi
-internal inline fun <reified T : Any> extractKClass(): KClass<T> {
-    return typeOf<T>().classifier as KClass<T>
-}
-
 @Suppress("RemoveExplicitTypeArguments")
 public class SubtypeEffectHandlerBuilder<F : Any, E> {
     private val effectPerformerMap = hashMapOf<KClass<*>, FlowTransformer<F, E>>()
 
     public inline fun <reified G : F> addTransformer(
         noinline effectHandler: (input: Flow<G>) -> Flow<E>
-    ) { addTransformer(extractKClass<G>(), effectHandler) }
+    ) { addTransformer(G::class, effectHandler) }
 
     public inline fun <reified G : F> addFunction(
         noinline effectHandler: suspend (effect: G) -> E
-    ) { addFunction(extractKClass<G>(), effectHandler) }
+    ) { addFunction(G::class, effectHandler) }
 
     public inline fun <reified G : F> addConsumer(
         noinline effectHandler: suspend (effect: G) -> Unit
-    ) { addConsumer(extractKClass<G>(), effectHandler) }
+    ) { addConsumer(G::class, effectHandler) }
 
     public inline fun <reified G : F> addAction(
         noinline effectHandler: suspend () -> Unit
-    ) { addAction(extractKClass<G>(), effectHandler) }
+    ) { addAction(G::class, effectHandler) }
 
     public inline fun <reified G : F> addValueCollector(
         noinline effectHandler: suspend FlowCollector<E>.(G) -> Unit
-    ) { addTransformer(extractKClass<G>()) { it.transform(effectHandler) } }
+    ) { addTransformer(G::class) { it.transform(effectHandler) } }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     public inline fun <reified G : F> addLatestValueCollector(
         noinline effectHandler: suspend FlowCollector<E>.(G) -> Unit
-    ) { addTransformer(extractKClass<G>()) { it.transformLatest(effectHandler) } }
+    ) { addTransformer(G::class) { it.transformLatest(effectHandler) } }
 
     @PublishedApi
     internal fun <G : F> addTransformer(
         effectClass: KClass<G>,
         effectHandler: FlowTransformer<G, E>
     ) {
-        effectPerformerMap
-            .keys
-            .forEach { cls ->
-                val assignable = cls.isInstance(effectClass) || effectClass.isInstance(cls)
-                check(!assignable) {
-                    "Sub-type effect handler already registered for '${effectClass.simpleName}'"
-                }
+        effectPerformerMap.keys.forEach { cls ->
+            val assignable = cls == effectClass
+            require(!assignable) {
+                "Sub-type effect handler already registered for '${effectClass.simpleName}'"
             }
+        }
         effectPerformerMap[effectClass] = FlowTransformer { effects ->
             effects
-                .filter { effect -> effectClass.isInstance(effect) }
-                .map { effect -> effectClass.cast(effect) }
+                .filter(effectClass::isInstance)
+                .map(effectClass::cast)
                 .run(effectHandler::invoke)
                 .catch { throw UnrecoverableIncomingException(it) }
         }

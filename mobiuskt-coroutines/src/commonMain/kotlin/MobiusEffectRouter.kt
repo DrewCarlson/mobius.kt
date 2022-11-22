@@ -1,8 +1,6 @@
 package kt.mobius.flow
 
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
-import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.reflect.KClass
 
 internal class MobiusEffectRouter<F : Any, E>(
@@ -23,10 +21,8 @@ internal class MobiusEffectRouter<F : Any, E>(
         }
 
     override fun invoke(input: Flow<F>): Flow<E> {
-        val scope = CoroutineScope(EmptyCoroutineContext)
-        val effectFlow = input.shareIn(scope, SharingStarted.Eagerly)
         return (effectPerformers + unhandledEffectHandler)
-            .map { transform -> transform(effectFlow) }
+            .map { transform -> transform(input) }
             .merge()
     }
 }

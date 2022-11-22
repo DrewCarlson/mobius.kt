@@ -16,6 +16,7 @@ ax_testing = "2.1.0"
 ax_runner = "1.5.1"
 robolectric = "4.9"
 immutable_collections = "0.3.5"
+turbine = "0.12.1"
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
@@ -34,6 +35,7 @@ agp = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
 awaitility = { module = "org.awaitility:awaitility", version.ref = "awaitility" }
 slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 ksp = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
 kotlinpoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinpoet" }
 kotlinpoet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlinpoet" }
