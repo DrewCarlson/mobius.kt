@@ -2,8 +2,6 @@ package kt.mobius
 
 import kotlinx.atomicfu.locks.SynchronizedObject
 import kotlinx.atomicfu.locks.synchronized
-import mpp.ensureNeverFrozen
-import kotlin.jvm.JvmStatic
 
 /** Responsible for holding and updating the current model. */
 internal class MobiusStore<M, E, F> internal constructor(
@@ -13,10 +11,6 @@ internal class MobiusStore<M, E, F> internal constructor(
     private val lock = SynchronizedObject()
 
     private var currentModel: M = startModel
-
-    init {
-        ensureNeverFrozen()
-    }
 
     fun update(event: E): Next<M, F> = synchronized(lock) {
         update.update(currentModel, event).also { next ->

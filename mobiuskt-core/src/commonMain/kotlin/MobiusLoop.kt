@@ -6,7 +6,6 @@ import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
 import kt.mobius.functions.Producer
 import kt.mobius.runners.WorkRunner
-import mpp.ensureNeverFrozen
 import kotlin.js.JsExport
 import kotlin.js.JsName
 import kotlin.jvm.JvmStatic
@@ -85,8 +84,6 @@ public class MobiusLoop<M, E, F> private constructor(
         private set
 
     init {
-        ensureNeverFrozen()
-
         val onModelChanged = Consumer<M> { model ->
             mostRecentModel = model
             eventSourceModelConsumer.accept(model)
@@ -122,8 +119,6 @@ public class MobiusLoop<M, E, F> private constructor(
                 dispatchEvent(value)
             }
         }
-
-        eventConsumer.ensureNeverFrozen()
 
         this.effectConsumer = effectHandler.connect(eventConsumer)
 
