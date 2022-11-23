@@ -285,13 +285,16 @@ dependencies {
     add("kspMetadata", "org.drewcarlson:mobiuskt-update-generator:$mobiuskt_version")
 }
 
-// This hack ensures that when compiling for any target, your `commonMain`
-// sources are scanned and code is generated to `build/generated/ksp/commonMain`
-// instead of a directory for the specific target.
-// See https://github.com/google/ksp/issues/567#issuecomment-955035157
-tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().all {
-    if (name != "kspKotlinMetadata") {
-        dependsOn("kspKotlinMetadata")
+// This ensures that when compiling for any target, your `commonMain` sources are
+// scanned and code is generated to `build/generated/ksp/commonMain` instead of a
+// directory for the specific target. See https://github.com/google/ksp/issues/567
+if (plugins.hasPlugin("com.google.devtools.ksp")) {
+    val ktCompileTasks = tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>()
+    val jvmCompileTasks = tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>()
+    (ktCompileTasks + jvmCompileTasks).forEach { task ->
+        if (task.name != "kspCommonMainKotlinMetadata") {
+            task.dependsOn("kspCommonMainKotlinMetadata")
+        }
     }
 }
 ```
