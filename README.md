@@ -432,3 +432,20 @@ dependencies {
     ksp("org.drewcarlson:mobiuskt-update-generator:$mobiuskt_version")
 }
 ```
+
+<details>
+<summary>Toml</summary>
+
+```toml
+[versions]
+mobiuskt = "1.0.0-rc02"
+
+[libraries]
+mobiuskt-core = { module = "org.drewcarlson:mobiuskt-core", version.ref = "mobiuskt" }
+mobiuskt-test = { module = "org.drewcarlson:mobiuskt-test", version.ref = "mobiuskt" }
+mobiuskt-extras = { module = "org.drewcarlson:mobiuskt-extras", version.ref = "mobiuskt" }
+mobiuskt-coroutines = { module = "org.drewcarlson:mobiuskt-coroutines", version.ref = "mobiuskt" }
+mobiuskt-updateGenerator = { module = "org.drewcarlson:mobiuskt-update-generator", version.ref = "mobiuskt" }
+mobiuskt-updateGenerator-api = { module = "org.drewcarlson:mobiuskt-update-generator-api", version.ref = "mobiuskt" }
+```
+</details>
