@@ -7,7 +7,7 @@ apply(from = "../gradle/publishing.gradle.kts")
 kotlin {
     sourceSets.all {
         languageSettings {
-            optIn("kt.mobius.gen.ExperimentalUpdateGenerator")
+            optIn("kt.mobius.autowire.ExperimentalAutoWire")
         }
     }
 }
@@ -16,6 +16,8 @@ dependencies {
     implementation(libs.ksp)
     implementation(libs.kotlinpoet)
     implementation(libs.kotlinpoet.ksp)
+    implementation(libs.coroutines.core)
     implementation(projects.mobiusktCore)
-    implementation(projects.mobiusktUpdateGeneratorApi)
+    implementation(projects.mobiusktCoroutines)
+    implementation(projects.mobiusktAutowireApi)
 }

@@ -1,0 +1,13 @@
+public abstract interface annotation class kt/mobius/autowire/AutoWireEffect : java/lang/annotation/Annotation {
+	public abstract fun latest ()Z
+}
+
+public abstract interface annotation class kt/mobius/autowire/AutoWireEvent : java/lang/annotation/Annotation {
+}
+
+public abstract interface annotation class kt/mobius/autowire/AutoWireInject : java/lang/annotation/Annotation {
+}
+
+public abstract interface annotation class kt/mobius/autowire/ExperimentalAutoWire : java/lang/annotation/Annotation {
+}
+
