@@ -14,7 +14,7 @@ kotlinpoet = "1.12.0"
 ax_lifecycle = "2.5.1"
 ax_testing = "2.1.0"
 ax_runner = "1.5.1"
-robolectric = "4.9"
+robolectric = "4.9.1"
 immutable_collections = "0.3.5"
 turbine = "0.12.1"
 
