@@ -37,7 +37,9 @@ class UpdateGeneratorSymbolProcessor(
 
         val eventSubclasses = eventClassDec.getSealedSubclasses()
         val objects = eventSubclasses.filter { it.classKind == ClassKind.OBJECT }
-        val dataClasses = eventSubclasses.filter { it.classKind == ClassKind.CLASS }
+        val dataClasses = eventSubclasses.filter {
+            it.classKind == ClassKind.CLASS || it.classKind == ClassKind.INTERFACE
+        }
         val sealedClasses = eventSubclasses.filter { it.modifiers.contains(Modifier.SEALED) }
 
         val nextReturnTypeName = Next::class.asTypeName()
