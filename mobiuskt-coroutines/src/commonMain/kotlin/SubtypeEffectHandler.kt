@@ -9,14 +9,17 @@ import kotlin.reflect.KClass
 import kotlin.reflect.cast
 
 public fun <F : Any, E> subtypeEffectHandler(
+    ignoredEffects: List<KClass<*>> = emptyList(),
     block: SubtypeEffectHandlerBuilder<F, E>.() -> Unit
 ): FlowTransformer<F, E> =
-    SubtypeEffectHandlerBuilder<F, E>()
+    SubtypeEffectHandlerBuilder<F, E>(ignoredEffects)
         .apply(block)
         .build()
 
 @Suppress("RemoveExplicitTypeArguments")
-public class SubtypeEffectHandlerBuilder<F : Any, E> {
+public class SubtypeEffectHandlerBuilder<F : Any, E>(
+    private val ignoredEffects: List<KClass<*>>
+) {
     private val effectPerformerMap = hashMapOf<KClass<*>, FlowTransformer<F, E>>()
 
     public inline fun <reified G : F> addTransformer(
@@ -97,6 +100,7 @@ public class SubtypeEffectHandlerBuilder<F : Any, E> {
     public fun build(): FlowTransformer<F, E> =
         MobiusEffectRouter(
             effectClasses = effectPerformerMap.keys.toImmutableSet(),
-            effectPerformers = effectPerformerMap.values.toImmutableList()
+            effectPerformers = effectPerformerMap.values.toImmutableList(),
+            ignoredEffects = ignoredEffects.toImmutableList()
         )
 }

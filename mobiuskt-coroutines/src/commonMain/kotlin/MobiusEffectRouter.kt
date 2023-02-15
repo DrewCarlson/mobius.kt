@@ -5,17 +5,19 @@ import kotlin.reflect.KClass
 
 internal class MobiusEffectRouter<F : Any, E>(
     private val effectClasses: Set<KClass<*>>,
-    private val effectPerformers: List<FlowTransformer<F, E>>
+    private val effectPerformers: List<FlowTransformer<F, E>>,
+    private val ignoredEffects: List<KClass<*>>
 ) : FlowTransformer<F, E> {
 
     private val unhandledEffectHandler =
         flowTransformer<F, E> { effects: Flow<F> ->
             effects
                 .filter { effect ->
-                    effectClasses
-                        .none { effectClass ->
-                            effectClass.isInstance(effect)
-                        }
+                    ignoredEffects.none { effectClass ->
+                        effectClass.isInstance(effect)
+                    } && effectClasses.none { effectClass ->
+                        effectClass.isInstance(effect)
+                    }
                 }
                 .map { effect -> throw UnknownEffectException(effect) }
         }

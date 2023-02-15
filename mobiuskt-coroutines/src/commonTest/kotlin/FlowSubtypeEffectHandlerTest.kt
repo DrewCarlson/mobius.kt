@@ -14,9 +14,11 @@ class FlowSubtypeEffectHandlerTest {
     private lateinit var action: RecordingConsumer<Effect.Test4>
     private lateinit var handler: FlowTransformer<Effect, Event>
 
+    private interface IEffect
+
     private sealed class Effect {
         data class Test1(val value: Int) : Effect()
-        data class Test2(val value: Int) : Effect()
+        data class Test2(val value: Int) : Effect(), IEffect
         data class Test3(val value: Int) : Effect()
         object Test4 : Effect()
 
@@ -84,6 +86,18 @@ class FlowSubtypeEffectHandlerTest {
             assertFailsWith<IllegalArgumentException> {
                 addAction<Effect.Test4> {  }
             }
+        }
+    }
+
+    @Test
+    fun testIgnoredEffectsDontThrow() = runTest {
+        handler = subtypeEffectHandler(
+            ignoredEffects = listOf(IEffect::class)
+        ) {
+            addConsumer<Effect.Test1> { }
+        }
+        handler(flowOf(Effect.Test2(1))).test {
+            awaitComplete()
         }
     }
 }
