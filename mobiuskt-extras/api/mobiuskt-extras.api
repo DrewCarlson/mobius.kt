@@ -27,6 +27,24 @@ public final class kt/mobius/extras/CompositeLogger$Companion {
 	public final fun from ([Lkt/mobius/MobiusLoop$Logger;)Lkt/mobius/MobiusLoop$Logger;
 }
 
+public final class kt/mobius/extras/ExcludingEffectHandler : kt/mobius/Connectable {
+	public static final field Companion Lkt/mobius/extras/ExcludingEffectHandler$Companion;
+	public fun <init> (Lkt/mobius/Connectable;Lkotlin/jvm/functions/Function1;)V
+	public fun connect (Lkt/mobius/functions/Consumer;)Lkt/mobius/Connection;
+	public static final fun from (Lkt/mobius/Connectable;Ljava/util/List;)Lkt/mobius/Connectable;
+	public static final fun from (Lkt/mobius/Connectable;[Lkotlin/reflect/KClass;)Lkt/mobius/Connectable;
+}
+
+public final class kt/mobius/extras/ExcludingEffectHandler$Companion {
+	public final fun from (Lkt/mobius/Connectable;Ljava/util/List;)Lkt/mobius/Connectable;
+	public final fun from (Lkt/mobius/Connectable;[Lkotlin/reflect/KClass;)Lkt/mobius/Connectable;
+}
+
+public final class kt/mobius/extras/ExcludingEffectHandlerKt {
+	public static final fun exclude (Lkt/mobius/Connectable;Ljava/util/List;)Lkt/mobius/Connectable;
+	public static final fun exclude (Lkt/mobius/Connectable;[Lkotlin/reflect/KClass;)Lkt/mobius/Connectable;
+}
+
 public final class kt/mobius/extras/QueuedConsumer : kt/mobius/functions/Consumer {
 	public fun <init> ()V
 	public fun accept (Ljava/lang/Object;)V

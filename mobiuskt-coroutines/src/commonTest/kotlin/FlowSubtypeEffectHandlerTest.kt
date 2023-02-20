@@ -88,16 +88,4 @@ class FlowSubtypeEffectHandlerTest {
             }
         }
     }
-
-    @Test
-    fun testIgnoredEffectsDontThrow() = runTest {
-        handler = subtypeEffectHandler(
-            ignoredEffects = listOf(IEffect::class)
-        ) {
-            addConsumer<Effect.Test1> { }
-        }
-        handler(flowOf(Effect.Test2(1))).test {
-            awaitComplete()
-        }
-    }
 }
