@@ -14,9 +14,9 @@ import kotlin.jvm.JvmStatic
  * Helper class for putting an update function inside another update function.
  *
  * It is sometimes useful to compose two update functions that each have their own model, events,
- * and effects. Typically when you do this you will store the inner model inside the outer model,
- * and route some of the outer events to the inner update function. This class helps you wire up
- * this conversion between inner and outer model, events, and effects.
+ * and effects. Typically, when you do this you will store the inner model inside the outer model,
+ * and route some outer events to the inner update function. This class helps you wire up this
+ * conversion between inner and outer model, events, and effects.
  *
  * The outer update function must still make the decision if the inner update function should be
  * called or not, this class only helps with converting the types of the inner update function
@@ -31,7 +31,7 @@ import kotlin.jvm.JvmStatic
 public class InnerUpdate<M, E, F, MI, EI, FI>(
     public val innerUpdate: Update<MI, EI, FI>,
     public val modelExtractor: Function<M, MI>,
-    public val eventExtractor: Function<E, EI>,
+    public val eventExtractor: Function<E, EI?>,
     public val modelUpdater: BiFunction<M, MI, M>,
     public val innerEffectHandler: InnerEffectHandler<M, F, FI>
 ) : Update<M, E, F> {
@@ -40,7 +40,7 @@ public class InnerUpdate<M, E, F, MI, EI, FI>(
         public class Builder<M, E, F, MI, EI, FI> {
             private lateinit var _innerUpdate: Update<MI, EI, FI>
             private lateinit var _modelExtractor: Function<M, MI>
-            private lateinit var _eventExtractor: Function<E, EI>
+            private lateinit var _eventExtractor: Function<E, EI?>
             private lateinit var _modelUpdater: BiFunction<M, MI, M>
             private lateinit var _innerEffectHandler: InnerEffectHandler<M, F, FI>
 
@@ -50,7 +50,7 @@ public class InnerUpdate<M, E, F, MI, EI, FI>(
             public fun modelExtractor(modelExtractor: Function<M, MI>): Builder<M, E, F, MI, EI, FI> =
                 apply { _modelExtractor = modelExtractor }
 
-            public fun eventExtractor(eventExtractor: Function<E, EI>): Builder<M, E, F, MI, EI, FI> =
+            public fun eventExtractor(eventExtractor: Function<E, EI?>): Builder<M, E, F, MI, EI, FI> =
                 apply { _eventExtractor = eventExtractor }
 
             public fun modelUpdater(modelUpdater: BiFunction<M, MI, M>): Builder<M, E, F, MI, EI, FI> =
@@ -86,7 +86,10 @@ public class InnerUpdate<M, E, F, MI, EI, FI>(
 
     override fun update(model: M, event: E): Next<M, F> {
         val innerModel = modelExtractor.apply(model)
-        val innerEvent = eventExtractor.apply(event)
+        val innerEvent = checkNotNull(eventExtractor.apply(event)) {
+            val className = event?.run { this::class.simpleName }.orEmpty()
+            "InnerUpdate cannot handle event '$className' because the `eventExtractor` returned null"
+        }
 
         val innerNext = innerUpdate.update(innerModel, innerEvent)
 
