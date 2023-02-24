@@ -46,6 +46,12 @@ public final class kt/mobius/extras/FilterEffectHandlerKt {
 	public static final fun filter (Lkt/mobius/Connectable;Lkotlin/jvm/functions/Function1;)Lkt/mobius/Connectable;
 }
 
+public final class kt/mobius/extras/MappedEffectHandler : kt/mobius/Connectable {
+	public fun <init> (Lkt/mobius/Connectable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+	public synthetic fun <init> (Lkt/mobius/Connectable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun connect (Lkt/mobius/functions/Consumer;)Lkt/mobius/Connection;
+}
+
 public final class kt/mobius/extras/QueuedConsumer : kt/mobius/functions/Consumer {
 	public fun <init> ()V
 	public fun accept (Ljava/lang/Object;)V
