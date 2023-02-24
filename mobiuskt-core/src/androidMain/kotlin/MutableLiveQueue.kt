@@ -15,10 +15,8 @@ internal class MutableLiveQueue<T>(
     private val effectsWorkRunner: WorkRunner,
     capacity: Int
 ) : LiveQueue<T> {
-    private inner class LifecycleObserverHelper : LifecycleObserver {
-        @Suppress("UNUSED_PARAMETER", "unused")
-        @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
-        fun onAny(owner: LifecycleOwner, event: Lifecycle.Event) {
+    private inner class LifecycleObserverHelper : LifecycleEventObserver {
+        override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
             onLifecycleChanged(event)
         }
     }
@@ -95,6 +93,7 @@ internal class MutableLiveQueue<T>(
                 lifecycleOwnerIsPaused = false
                 sendQueuedEffects()
             }
+
             Lifecycle.Event.ON_PAUSE -> synchronized(lock) { lifecycleOwnerIsPaused = true }
             Lifecycle.Event.ON_DESTROY -> synchronized(lock) { clearObserver() }
             else -> Unit
