@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.yarn.yarn
 
 buildscript {
@@ -30,7 +32,9 @@ allprojects {
         google()
     }
 
-    yarn.lockFileDirectory = rootDir.resolve("gradle/kotlin-js-store")
+    plugins.withType<NodeJsRootPlugin> {
+        the<YarnRootExtension>().lockFileDirectory = rootDir.resolve("gradle/kotlin-js-store")
+    }
 }
 
 subprojects {
