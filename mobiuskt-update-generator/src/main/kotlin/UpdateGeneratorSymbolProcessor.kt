@@ -131,7 +131,7 @@ class UpdateGeneratorSymbolProcessor(
                             .build()
                     )
                 }
-                add("else -> error(\"$specName: unexpected missing branch for \$event\")")
+                add("else -> error(%P)", "$specName: unexpected missing branch for \$event")
             }
             .unindent()
             .add("\n}\n")
