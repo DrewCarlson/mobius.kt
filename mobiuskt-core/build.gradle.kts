@@ -9,6 +9,7 @@ apply(from = "../gradle/publishing.gradle.kts")
 
 android {
     compileSdk = 31
+    namespace = "kt.mobius.android"
     defaultConfig {
         minSdk = 21
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
