@@ -1,8 +1,7 @@
 plugins {
     kotlin("jvm")
+    alias(libs.plugins.mavenPublish)
 }
-
-apply(from = "../gradle/publishing.gradle.kts")
 
 kotlin {
     sourceSets.all {

@@ -2,10 +2,10 @@ plugins {
     kotlin("multiplatform")
     id("org.jetbrains.kotlinx.binary-compatibility-validator")
     id("com.android.library")
+    alias(libs.plugins.mavenPublish)
 }
 
 apply(plugin = "kotlinx-atomicfu")
-apply(from = "../gradle/publishing.gradle.kts")
 
 android {
     compileSdk = 31
@@ -27,6 +27,11 @@ android {
         getByName("main") {
             manifest.srcFile("src/androidMain/AndroidManifest.xml")
         }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 

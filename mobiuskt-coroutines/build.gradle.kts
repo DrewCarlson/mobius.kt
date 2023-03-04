@@ -1,10 +1,10 @@
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.kotlinx.binary-compatibility-validator")
+    alias(libs.plugins.mavenPublish)
 }
 
 apply(plugin = "kotlinx-atomicfu")
-apply(from = "../gradle/publishing.gradle.kts")
 
 kotlin {
     ios()
