@@ -23,7 +23,7 @@ plugins {
     alias(libs.plugins.dokka)
     alias(libs.plugins.binaryCompat) apply false
     alias(libs.plugins.kover)
-    alias(libs.plugins.mavenPublish)
+    alias(libs.plugins.mavenPublish) apply false
     id("com.louiscad.complete-kotlin") version "1.1.0"
 }
 
