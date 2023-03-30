@@ -16,7 +16,7 @@ ax_testing = "2.1.0"
 ax_runner = "1.5.2"
 robolectric = "4.9.2"
 immutable_collections = "0.3.5"
-turbine = "0.12.1"
+turbine = "0.12.3"
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
