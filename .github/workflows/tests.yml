@@ -26,7 +26,7 @@ jobs:
       - uses: gradle/gradle-build-action@v2
         name: Test Apple Targets
         with:
-          arguments: macosX64Test iosX64Test # tvosX64Test watchosX86Test
+          arguments: macosX64Test iosX64Test # tvosX64Test
 
       - name: Archive Reports
         uses: actions/upload-artifact@v3
