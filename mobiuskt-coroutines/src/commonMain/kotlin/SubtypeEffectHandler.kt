@@ -2,6 +2,7 @@ package kt.mobius.flow
 
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableSet
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.transform
@@ -15,8 +16,7 @@ public fun <F : Any, E> subtypeEffectHandler(
         .apply(block)
         .build()
 
-@Suppress("RemoveExplicitTypeArguments")
-public class SubtypeEffectHandlerBuilder<F : Any, E>() {
+public class SubtypeEffectHandlerBuilder<F : Any, E> {
     private val effectPerformerMap = hashMapOf<KClass<*>, FlowTransformer<F, E>>()
 
     public inline fun <reified G : F> addTransformer(
@@ -60,7 +60,11 @@ public class SubtypeEffectHandlerBuilder<F : Any, E>() {
                 .filter(effectClass::isInstance)
                 .map(effectClass::cast)
                 .run(effectHandler::invoke)
-                .catch { throw UnrecoverableIncomingException(it) }
+                .catch { e ->
+                    if (e !is CancellationException) {
+                        throw UnrecoverableIncomingException(e)
+                    }
+                }
         }
     }
 

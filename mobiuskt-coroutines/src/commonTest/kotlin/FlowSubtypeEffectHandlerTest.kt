@@ -1,6 +1,7 @@
 package kt.mobius.flow
 
 import app.cash.turbine.test
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
@@ -21,6 +22,7 @@ class FlowSubtypeEffectHandlerTest {
         data class Test2(val value: Int) : Effect(), IEffect
         data class Test3(val value: Int) : Effect()
         object Test4 : Effect()
+        object Test5 : Effect()
 
         object Ignored : Effect()
     }
@@ -39,6 +41,7 @@ class FlowSubtypeEffectHandlerTest {
             addFunction<Effect.Test2> { Event.Test2(it.value) }
             addConsumer(consumer::accept)
             addAction<Effect.Test4> { action.accept(Effect.Test4) }
+            addAction<Effect.Test5> { throw CancellationException("") }
         }
     }
 
@@ -76,6 +79,13 @@ class FlowSubtypeEffectHandlerTest {
     fun testUnhandledEffect() = runTest {
         handler(flowOf(Effect.Ignored)).test {
             assertIs<UnknownEffectException>(awaitError())
+        }
+    }
+
+    @Test
+    fun testCancellationIsIgnored() = runTest {
+        handler(flowOf(Effect.Test5)).test {
+            awaitComplete()
         }
     }
 
