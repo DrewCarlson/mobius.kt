@@ -59,7 +59,7 @@ jobs:
           arguments: clean dokkaHtmlMultiModule
 
       - name: Publish Docs
-        uses: JamesIves/github-pages-deploy-action@v4.4.1
+        uses: JamesIves/github-pages-deploy-action@v4.4.3
         with:
           branch: docs
           folder: build/dokka/htmlMultiModule
