@@ -8,7 +8,7 @@ plugins {
 apply(plugin = "kotlinx-atomicfu")
 
 android {
-    compileSdk = 31
+    compileSdk = 33
     namespace = "kt.mobius.android"
     defaultConfig {
         minSdk = 21
