@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.test.runTest
 import kotlin.test.*
 
+@OptIn(DelicateCoroutinesApi::class)
 class FlowConnectablesTest {
 
     private lateinit var input: Channel<String>

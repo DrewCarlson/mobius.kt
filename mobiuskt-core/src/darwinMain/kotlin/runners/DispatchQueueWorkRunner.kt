@@ -25,12 +25,6 @@ public class DispatchQueueWorkRunner(
 
     private val lock = ReentrantLock()
 
-    init {
-        check(Platform.memoryModel == MemoryModel.EXPERIMENTAL) {
-            "Using DispatchQueueWorkRunner requires the experimental memory model.\nSee https://github.com/JetBrains/kotlin/blob/master/kotlin-native/NEW_MM.md"
-        }
-    }
-
     override fun post(runnable: Runnable) {
         lock.withLock {
             dispatch_async(dispatchQueue, runnable::run)

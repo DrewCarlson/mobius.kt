@@ -2,7 +2,7 @@ package kt.mobius
 
 import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
-import kotlin.jvm.Volatile
+import kotlin.concurrent.Volatile
 
 /**
  * Wraps a [Connection] or a [Consumer] and blocks them from receiving any

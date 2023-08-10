@@ -24,6 +24,7 @@ import java.util.concurrent.Executors
 import java.util.concurrent.Semaphore
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.annotation.Nonnull
+import kotlin.concurrent.Volatile
 import kotlin.test.*
 
 

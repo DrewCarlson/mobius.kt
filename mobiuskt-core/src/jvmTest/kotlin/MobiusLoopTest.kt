@@ -12,6 +12,7 @@ import kt.mobius.test.RecordingModelObserver
 import kt.mobius.test.SimpleConnection
 import kt.mobius.testdomain.*
 import java.util.concurrent.Executors
+import kotlin.concurrent.Volatile
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 

@@ -4,7 +4,7 @@ import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
 import kt.mobius.runners.Runnable
 import kt.mobius.runners.WorkRunner
-import kotlin.jvm.Volatile
+import kotlin.concurrent.Volatile
 
 /**
  * Dispatches messages to a given runner.

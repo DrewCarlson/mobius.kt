@@ -92,7 +92,10 @@ kotlin {
     sourceSets {
         all {
             explicitApi()
-            languageSettings.optIn("kotlin.js.ExperimentalJsExport")
+            languageSettings {
+                optIn("kotlin.js.ExperimentalJsExport")
+                optIn("kotlin.native.concurrent.ObsoleteWorkersApi")
+            }
         }
 
         val commonMain by getting {

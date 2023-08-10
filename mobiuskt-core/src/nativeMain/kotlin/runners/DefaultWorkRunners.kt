@@ -14,18 +14,10 @@ internal actual object DefaultWorkRunners {
     }
 
     actual fun eventWorkRunnerProducer(): Producer<WorkRunner> {
-        return if (Platform.memoryModel == MemoryModel.EXPERIMENTAL) {
-            Producer { WorkRunners.nativeWorker(createWorker()) }
-        } else {
-            Producer(WorkRunners::immediate)
-        }
+        return Producer { WorkRunners.nativeWorker(createWorker()) }
     }
 
     actual fun effectWorkRunnerProducer(): Producer<WorkRunner> {
-        return if (Platform.memoryModel == MemoryModel.EXPERIMENTAL) {
-            Producer { WorkRunners.nativeWorker(createWorker()) }
-        } else {
-            Producer(WorkRunners::immediate)
-        }
+        return Producer { WorkRunners.nativeWorker(createWorker()) }
     }
 }

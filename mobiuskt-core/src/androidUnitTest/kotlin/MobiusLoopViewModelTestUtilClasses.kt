@@ -2,6 +2,7 @@ package kt.mobius.android
 
 import kt.mobius.*
 import kt.mobius.functions.*
+import kotlin.concurrent.Volatile
 
 internal class TestEvent(val name: String)
 internal class TestEffect(val name: String)

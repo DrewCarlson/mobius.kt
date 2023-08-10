@@ -1,5 +1,6 @@
 package kt.mobius.flow
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.flowOf
@@ -9,6 +10,7 @@ import kt.mobius.test.RecordingConsumer
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
+@OptIn(DelicateCoroutinesApi::class)
 class FlowEventSourcesTest {
 
     @Test
