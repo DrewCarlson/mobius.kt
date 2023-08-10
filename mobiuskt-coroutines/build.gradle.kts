@@ -10,16 +10,18 @@ kotlin {
     ios()
     watchos()
     tvos()
-    jvm()
+    jvm {
+        jvmToolchain(11)
+    }
     js(IR) {
         binaries.executable()
         nodejs()
         browser {
-            testTask {
+            testTask(Action {
                 useKarma {
                     useFirefoxHeadless()
                 }
-            }
+            })
         }
     }
     val nativeTargets = listOf(

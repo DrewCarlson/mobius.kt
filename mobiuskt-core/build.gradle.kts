@@ -36,19 +36,22 @@ android {
 }
 
 kotlin {
-    android {
+    androidTarget {
+        jvmToolchain(11)
         publishLibraryVariants("release", "debug")
     }
-    jvm()
+    jvm {
+        jvmToolchain(11)
+    }
     js(IR) {
         binaries.library()
         nodejs()
         browser {
-            testTask {
+            testTask(Action {
                 useKarma {
                     useFirefoxHeadless()
                 }
-            }
+            })
         }
     }
 
@@ -127,7 +130,7 @@ kotlin {
             }
         }
 
-        val androidTest by getting {
+        val androidUnitTest by getting {
             dependsOn(jvmTest)
             dependencies {
                 implementation(projects.mobiusktTest)

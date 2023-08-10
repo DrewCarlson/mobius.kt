@@ -15,7 +15,9 @@ kotlin {
     macosX64()
     linuxX64()
     mingwX64()
-    jvm()
+    jvm {
+        jvmToolchain(11)
+    }
     js(IR) {
         nodejs()
         browser()
