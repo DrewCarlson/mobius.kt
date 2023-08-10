@@ -70,6 +70,7 @@ kotlin {
             macosX64(),
             macosArm64(),
             linuxX64(),
+            linuxArm64(),
             mingwX64(),
     )
     val darwinTargets = listOf("ios", "tvos", "watchos", "macos")
