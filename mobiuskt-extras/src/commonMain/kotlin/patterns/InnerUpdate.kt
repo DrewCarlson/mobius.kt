@@ -1,6 +1,5 @@
 package kt.mobius.extras.patterns
 
-import kotlinx.collections.immutable.toImmutableSet
 import kt.mobius.Next
 import kt.mobius.Next.Companion.dispatch
 import kt.mobius.Next.Companion.next
@@ -172,7 +171,7 @@ public object InnerEffectHandlers {
                 if (modelUpdated) next(model)
                 else noChange()
             } else {
-                val effects = innerEffects.map(f::apply).toImmutableSet()
+                val effects = innerEffects.map(f::apply).toSet()
                 if (modelUpdated) next(model, effects)
                 else dispatch(effects)
             }

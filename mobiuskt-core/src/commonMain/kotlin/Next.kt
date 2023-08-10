@@ -1,7 +1,5 @@
 package kt.mobius
 
-import kotlinx.collections.immutable.persistentSetOf
-import kotlinx.collections.immutable.toImmutableSet
 import kt.mobius.functions.Consumer
 import kotlin.js.JsExport
 import kotlin.js.JsName
@@ -94,33 +92,33 @@ public class Next<M, F> internal constructor(
         @JvmOverloads
         @JsName("nextWithSet")
         public fun <M, F> next(model: M, effects: Set<F> = emptySet()): Next<M, F> {
-            return Next(model, effects.toImmutableSet())
+            return Next(model, effects.toSet())
         }
 
         /** Create a Next that updates the model and dispatches the optional effects. */
         @JvmStatic
         @JsName("next")
         public fun <M, F> next(model: M, vararg effects: F): Next<M, F> {
-            return Next(model, persistentSetOf(*effects))
+            return Next(model, effects.toSet())
         }
 
         /** Create a Next that doesn't update the model but dispatches the supplied effects. */
         @JvmStatic
         @JsName("dispatchWithSet")
         public fun <M, F> dispatch(effects: Set<F>): Next<M, F> {
-            return Next(null, effects.toImmutableSet())
+            return Next(null, effects)
         }
 
         /** Create a Next that doesn't update the model but dispatches the supplied effects. */
         @JvmStatic
         public fun <M, F> dispatch(vararg effects: F): Next<M, F> {
-            return Next(null, persistentSetOf(*effects))
+            return Next(null, effects.toSet())
         }
 
         /** Create an empty Next that doesn't update the model or dispatch effects. */
         @JvmStatic
         public fun <M, F> noChange(): Next<M, F> {
-            return Next(null, persistentSetOf())
+            return Next(null, emptySet())
         }
     }
 }

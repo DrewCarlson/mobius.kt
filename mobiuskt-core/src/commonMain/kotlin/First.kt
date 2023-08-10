@@ -1,6 +1,5 @@
 package kt.mobius
 
-import kotlinx.collections.immutable.persistentSetOf
 import kotlin.js.JsExport
 import kotlin.js.JsName
 import kotlin.jvm.JvmOverloads
@@ -59,7 +58,7 @@ public data class First<M, F> internal constructor(
          */
         @JvmStatic
         public fun <M, F> first(model: M, vararg effects: F): First<M, F> {
-            return First(model, persistentSetOf(*effects))
+            return First(model, effects.toSet())
         }
     }
 }

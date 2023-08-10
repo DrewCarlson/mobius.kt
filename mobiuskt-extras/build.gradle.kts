@@ -44,7 +44,6 @@ kotlin {
             dependencies {
                 implementation(projects.mobiusktCore)
                 implementation(libs.atomicfu)
-                implementation(libs.immutableCollections)
             }
         }
 

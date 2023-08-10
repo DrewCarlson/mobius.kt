@@ -61,7 +61,6 @@ kotlin {
                 implementation(projects.mobiusktCore)
                 implementation(libs.coroutines.core)
                 implementation(libs.atomicfu)
-                implementation(libs.immutableCollections)
             }
         }
 

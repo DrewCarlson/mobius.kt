@@ -1,6 +1,5 @@
 package kt.mobius.test
 
-import kotlinx.collections.immutable.persistentListOf
 import kt.mobius.Next
 import kt.mobius.Update
 import kt.mobius.test.matcher.Matcher
@@ -108,7 +107,7 @@ public class UpdateSpec<M, E, F>(
         init {
             this.events = ArrayList(events.size + 1)
             this.events.add(event)
-            this.events.addAll(persistentListOf(*events))
+            this.events.addAll(events.toList())
         }
 
         override fun then(assertion: Assert<M, F>) {

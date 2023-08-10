@@ -42,7 +42,6 @@ kotlin {
             dependencies {
                 implementation(projects.mobiusktCore)
                 implementation(libs.atomicfu)
-                implementation(libs.immutableCollections)
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
             }
