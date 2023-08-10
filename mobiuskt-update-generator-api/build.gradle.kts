@@ -5,12 +5,14 @@ plugins {
 }
 
 kotlin {
-    ios()
-    watchos()
-    tvos()
+    iosX64()
+    iosArm64()
     iosSimulatorArm64()
+    tvosX64()
+    tvosArm64()
     tvosSimulatorArm64()
     watchosSimulatorArm64()
+    watchosDeviceArm64()
     macosArm64()
     macosX64()
     linuxX64()

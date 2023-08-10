@@ -7,9 +7,6 @@ plugins {
 apply(plugin = "kotlinx-atomicfu")
 
 kotlin {
-    ios()
-    watchos()
-    tvos()
     jvm {
         jvmToolchain(11)
     }
@@ -30,10 +27,11 @@ kotlin {
         iosSimulatorArm64(),
         tvosX64(),
         tvosArm64(),
-        // tvosSimulatorArm64(),
+        tvosSimulatorArm64(),
         watchosArm32(),
         watchosArm64(),
         watchosSimulatorArm64(),
+        watchosDeviceArm64(),
         watchosX64(),
         macosX64(),
         macosArm64(),

@@ -55,10 +55,6 @@ kotlin {
         }
     }
 
-    ios()
-    watchos()
-    tvos()
-
     val nativeTargets = listOf(
             iosX64(),
             iosArm64(),
@@ -69,6 +65,7 @@ kotlin {
             watchosArm32(),
             watchosArm64(),
             watchosSimulatorArm64(),
+            watchosDeviceArm64(),
             watchosX64(),
             macosX64(),
             macosArm64(),
