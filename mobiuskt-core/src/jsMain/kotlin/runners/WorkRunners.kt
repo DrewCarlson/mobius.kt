@@ -9,4 +9,8 @@ public actual object WorkRunners {
     public actual fun immediate(): WorkRunner {
         return ImmediateWorkRunner()
     }
+
+    public fun async(): WorkRunner {
+        return AsyncWorkRunner
+    }
 }
