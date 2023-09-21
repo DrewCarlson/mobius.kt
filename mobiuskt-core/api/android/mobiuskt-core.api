@@ -267,6 +267,7 @@ public abstract interface class kt/mobius/android/MobiusLoopFactoryProvider {
 public class kt/mobius/android/MobiusLoopViewModel : androidx/lifecycle/ViewModel {
 	public static final field Companion Lkt/mobius/android/MobiusLoopViewModel$Companion;
 	protected fun <init> (Lkt/mobius/android/MobiusLoopFactoryProvider;Ljava/lang/Object;Lkt/mobius/Init;Lkt/mobius/runners/WorkRunner;I)V
+	public static final fun create (Lkt/mobius/android/MobiusLoopFactoryProvider;Ljava/lang/Object;)Lkt/mobius/android/MobiusLoopViewModel;
 	public static final fun create (Lkt/mobius/android/MobiusLoopFactoryProvider;Ljava/lang/Object;Lkt/mobius/Init;)Lkt/mobius/android/MobiusLoopViewModel;
 	public static final fun create (Lkt/mobius/android/MobiusLoopFactoryProvider;Ljava/lang/Object;Lkt/mobius/Init;I)Lkt/mobius/android/MobiusLoopViewModel;
 	public final fun dispatchEvent (Ljava/lang/Object;)V
@@ -278,8 +279,10 @@ public class kt/mobius/android/MobiusLoopViewModel : androidx/lifecycle/ViewMode
 }
 
 public final class kt/mobius/android/MobiusLoopViewModel$Companion {
+	public final fun create (Lkt/mobius/android/MobiusLoopFactoryProvider;Ljava/lang/Object;)Lkt/mobius/android/MobiusLoopViewModel;
 	public final fun create (Lkt/mobius/android/MobiusLoopFactoryProvider;Ljava/lang/Object;Lkt/mobius/Init;)Lkt/mobius/android/MobiusLoopViewModel;
 	public final fun create (Lkt/mobius/android/MobiusLoopFactoryProvider;Ljava/lang/Object;Lkt/mobius/Init;I)Lkt/mobius/android/MobiusLoopViewModel;
+	public static synthetic fun create$default (Lkt/mobius/android/MobiusLoopViewModel$Companion;Lkt/mobius/android/MobiusLoopFactoryProvider;Ljava/lang/Object;Lkt/mobius/Init;IILjava/lang/Object;)Lkt/mobius/android/MobiusLoopViewModel;
 }
 
 public class kt/mobius/android/runners/LooperWorkRunner : kt/mobius/runners/WorkRunner {

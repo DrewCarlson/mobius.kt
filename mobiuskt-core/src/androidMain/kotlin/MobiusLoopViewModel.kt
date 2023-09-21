@@ -112,43 +112,24 @@ public open class MobiusLoopViewModel<M, E, F, V> protected constructor(
     public companion object {
 
         /**
-         * Creates a new MobiusLoopViewModel instance with a default maximum effect queue size.
-         *
-         * @param loopFactoryProvider The provider for the factory, that gets passed all dependencies
-         * @param modelToStartFrom The initial model for the loop
-         * @param init the [Init] function of the loop
-         * @param M the model type
-         * @param E the event type
-         * @param F the effect type
-         * @param V the view effect type
-         */
-        @JvmStatic
-        public fun <M, E, F, V> create(
-            loopFactoryProvider: MobiusLoopFactoryProvider<M, E, F, V>,
-            modelToStartFrom: M,
-            init: Init<M, F>
-        ): MobiusLoopViewModel<M, E, F, V> {
-            return create(loopFactoryProvider, modelToStartFrom, init, 100)
-        }
-
-        /**
          * Creates a new MobiusLoopViewModel instance.
          *
          * @param loopFactoryProvider The provider for the factory, that gets passed all dependencies
          * @param modelToStartFrom the initial model for the loop
          * @param init the [Init] function of the loop
-         * @param maxEffectsToQueue the maximum number of effects to queue while paused
+         * @param maxEffectsToQueue the maximum number of effects to queue while paused, default 100
          * @param M the model type
          * @param E the event type
          * @param F the effect type
          * @param V the view effect type
          */
         @JvmStatic
+        @JvmOverloads
         public fun <M, E, F, V> create(
             loopFactoryProvider: MobiusLoopFactoryProvider<M, E, F, V>,
             modelToStartFrom: M,
-            init: Init<M, F>,
-            maxEffectsToQueue: Int
+            init: Init<M, F>? = null,
+            maxEffectsToQueue: Int = 100
         ): MobiusLoopViewModel<M, E, F, V> {
             return MobiusLoopViewModel(
                 loopFactoryProvider,
@@ -162,7 +143,7 @@ public open class MobiusLoopViewModel<M, E, F, V> protected constructor(
         internal fun <M, E, F, V> create(
             loopFactoryProvider: MobiusLoopFactoryProvider<M, E, F, V>,
             modelToStartFrom: M,
-            init: Init<M, F>,
+            init: Init<M, F>?,
             workRunner: WorkRunner,
             maxEffectsToQueue: Int
         ): MobiusLoopViewModel<M, E, F, V> {
