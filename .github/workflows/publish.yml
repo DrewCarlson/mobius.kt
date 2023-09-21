@@ -35,15 +35,16 @@ jobs:
           arguments: clean publishAllPublicationsToMavenCentralRepository
 
   publish-docs:
-    name: Publish KDoc to Github Pages
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4
       - uses: actions/setup-java@v3
         with:
-          distribution: 'zulu'
-          java-version: 11
+          submodules: true
+          fetch-depth: 0
 
       - name: Cache Build files
         uses: actions/cache@v3
@@ -53,14 +54,38 @@ jobs:
             ~/.gradle
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}
 
+      - name: Configure Git user
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 11
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+          architecture: x64
+          cache: 'pip'
+          cache-dependency-path: 'docs/requirements.txt'
+
+      - name: Install Python dependencies
+        run: python3 -m pip install -r ./docs/requirements.txt
+
       - uses: gradle/gradle-build-action@v2
-        name: Build Docs
+        name: Build KDocs
         with:
           arguments: clean dokkaHtmlMultiModule
 
-      - name: Publish Docs
-        uses: JamesIves/github-pages-deploy-action@v4.4.3
-        with:
-          branch: docs
-          folder: build/dokka/htmlMultiModule
-          single-commit: true
+      - name: Move KDoc build
+        run: mv build/dokka/htmlMultiModule docs/kdoc
+
+      - name: Deploy with mike
+        run: |
+          VERSION_WITH_V=${{ github.ref_name }}
+          VERSION=${VERSION#v}
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          mike deploy --push $VERSION_WITH_V latest

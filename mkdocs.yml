@@ -1,0 +1,91 @@
+site_name: Mobius.kt
+site_description: "Mobius.kt - Kotlin Multiplatform State Management Framework"
+site_author: Drew Carlson
+site_url: https://drewcarlson.github.io/mobius.kt/
+repo_url: https://github.com/DrewCarlson/mobius.kt
+repo_name: mobius.kt
+edit_uri: blob/main/docs/
+remote_branch: gh-pages
+copyright: 'Copyright &copy; 2023 Drew Carlson'
+
+theme:
+  name: material
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - content.action.edit
+  palette:
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+docs_dir: docs
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+
+plugins:
+  - search
+  - mike
+  - markdownextradata: { }
+
+extra:
+  project: Mobius.kt
+  lib_version: !ENV [ VERSION, '0.0.1' ]
+  version:
+    provider: mike
+  social:
+    - icon: fontawesome/solid/heart
+      link: https://github.com/sponsors/DrewCarlson
+    - icon: fontawesome/brands/github
+      link: https://github.com/DrewCarlson/mobius.kt
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Download: download.md
+  - Platforms:
+      - Android: platforms/android.md
+      - Jvm: platforms/jvm.md
+      - Native: platforms/native.md
+      - Javascript: platforms/javascript.md
+  - Modules:
+      - Compose: modules/compose.md
+      - Code Generation: modules/codegen.md
+      - Coroutine Support: modules/coroutines.md
+      - Testing Utilities: modules/testing.md
+      - Extras: modules/extras.md
+  - Reference:
+      - Mobius Loop: reference/mobius-loop.md
+      - Model: reference/model.md
+      - Event: reference/event.md
+      - Effect: reference/effect.md
+      - Update: reference/update.md
+      - Effect Handler: reference/effect-handler.md
+      - Init: reference/init.md
+      - Event Source: reference/event-source.md
+  - Patterns:
+      - Immutability: patterns/immutability.md
+      - Pure vs Impure functions: patterns/pure-vs-impure-functions.md
+      - Events and Effects: patterns/events-and-effects.md
+      - Models: patterns/models.md
+  - Logging and Error Handling: logging-and-error-handling.md
+  - Examples: examples.md
+  - Useful Libraries: useful-libraries.md
+  - Roadmap: roadmap.md
+  - Development:
+      - Documentation: development/documentation.md
