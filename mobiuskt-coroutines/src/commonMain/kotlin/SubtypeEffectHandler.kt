@@ -14,8 +14,12 @@ public fun <F : Any, E> subtypeEffectHandler(
         .apply(block)
         .build()
 
+private val NOOP_ACTION = suspend {}
+
 public class SubtypeEffectHandlerBuilder<F : Any, E> {
     private val effectPerformerMap = hashMapOf<KClass<*>, FlowTransformer<F, E>>()
+
+    public inline fun <reified G : F> ignore() { addAction(G::class) }
 
     public inline fun <reified G : F> addTransformer(
         noinline effectHandler: (input: Flow<G>) -> Flow<E>
@@ -89,7 +93,7 @@ public class SubtypeEffectHandlerBuilder<F : Any, E> {
     @PublishedApi
     internal fun <G : F> addAction(
         effectClass: KClass<G>,
-        effectHandler: suspend () -> Unit
+        effectHandler: suspend () -> Unit = NOOP_ACTION
     ) {
         addTransformer(effectClass) { effects ->
             effects.transform { effectHandler() }
