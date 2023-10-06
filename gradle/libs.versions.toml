@@ -15,7 +15,7 @@ ax_lifecycle = "2.6.2"
 ax_testing = "2.2.0"
 ax_runner = "1.5.2"
 robolectric = "4.10.3"
-immutable_collections = "0.3.5"
+immutable_collections = "0.3.6"
 turbine = "1.0.0"
 
 [plugins]
