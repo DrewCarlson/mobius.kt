@@ -1,28 +1,21 @@
 package kt.mobius.gen
 
-import com.google.devtools.ksp.KspExperimental
 import com.google.devtools.ksp.isAnnotationPresent
-import com.google.devtools.ksp.processing.*
+import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.symbol.*
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
-import com.squareup.kotlinpoet.ksp.*
-import kt.mobius.*
+import com.squareup.kotlinpoet.ksp.addOriginatingKSFile
+import com.squareup.kotlinpoet.ksp.kspDependencies
+import com.squareup.kotlinpoet.ksp.toClassName
+import com.squareup.kotlinpoet.ksp.writeTo
+import kt.mobius.Next
+import kt.mobius.Update
 
-@OptIn(KspExperimental::class)
-class UpdateGeneratorSymbolProcessor(
-    private val codeGenerator: CodeGenerator,
-) : SymbolProcessor {
+object UpdateSpecGenerator {
 
-    override fun process(resolver: Resolver): List<KSAnnotated> {
-        val targets = resolver.getSymbolsWithAnnotation(GenerateUpdate::class.qualifiedName!!)
-        targets.map(::generateSpecFile).forEach { specFile ->
-            specFile.writeTo(codeGenerator, specFile.kspDependencies(true))
-        }
-        return emptyList()
-    }
+    fun generate(updateSymbol: KSAnnotated, codeGenerator: CodeGenerator) {
 
-    private fun generateSpecFile(updateSymbol: KSAnnotated): FileSpec {
         val updateParent = (updateSymbol as KSClassDeclaration).superTypes.firstOrNull { typeRef ->
             typeRef.element?.typeArguments?.size == 3
         }
@@ -47,14 +40,33 @@ class UpdateGeneratorSymbolProcessor(
             .parameterizedBy(modelClassName, effectClassName)
         val specName = "${modelClassDec.simpleName.asString().removeSuffix("Model")}GeneratedUpdate"
 
-        return FileSpec.builder(modelClassDec.packageName.asString(), specName)
+        val objectFunctions = objects.map { createObjectFunctionSpec(it, modelClassName, nextReturnTypeName) }.toList()
+        val dataClassFunctions = dataClasses.map {
+            createDataClassFunctionSpec(it, modelClassName, nextReturnTypeName)
+        }.toList()
+        val sealedClassFunctions = sealedClasses.map { sealedClass ->
+            val subClasses = sealedClass.getSealedSubclasses()
+            val subSealedClasses = subClasses.flatMap {
+                if (it.isAnnotationPresent(DisableSubtypeSpec::class)) {
+                    emptySequence()
+                } else {
+                    it.getSealedSubclasses()
+                }
+            }
+            (subClasses + subSealedClasses).filterObjects().map {
+                createObjectFunctionSpec(it, modelClassName, nextReturnTypeName)
+            } + (subClasses + subSealedClasses).filterDataClasses().map {
+                createDataClassFunctionSpec(it, modelClassName, nextReturnTypeName)
+            }
+        }.flatten().toList()
+
+        val updateTypeName = Update::class.asTypeName()
+            .parameterizedBy(modelClassName, eventClassName, effectClassName)
+        val specFile = FileSpec.builder(modelClassDec.packageName.asString(), specName)
             .addType(
                 TypeSpec.interfaceBuilder(specName)
                     .addModifiers(KModifier.INTERNAL)
-                    .addSuperinterface(
-                        Update::class.asTypeName()
-                            .parameterizedBy(modelClassName, eventClassName, effectClassName)
-                    )
+                    .addSuperinterface(updateTypeName)
                     .addFunction(
                         FunSpec.builder("update")
                             .addModifiers(KModifier.OVERRIDE)
@@ -64,27 +76,9 @@ class UpdateGeneratorSymbolProcessor(
                             .addCode(createWhenBlock(objects, dataClasses, sealedClasses, specName))
                             .build()
                     )
-                    .addFunctions(objects.map {
-                        createObjectFunctionSpec(it, modelClassName, nextReturnTypeName)
-                    }.toList())
-                    .addFunctions(dataClasses.map {
-                        createDataClassFunctionSpec(it, modelClassName, nextReturnTypeName)
-                    }.toList())
-                    .addFunctions(sealedClasses.map { sealedClass ->
-                        val subClasses = sealedClass.getSealedSubclasses()
-                        val subSealedClasses = subClasses.flatMap {
-                            if (it.isAnnotationPresent(DisableSubtypeSpec::class)) {
-                                emptySequence()
-                            } else {
-                                it.getSealedSubclasses()
-                            }
-                        }
-                        (subClasses + subSealedClasses).filterObjects().map {
-                            createObjectFunctionSpec(it, modelClassName, nextReturnTypeName)
-                        } + (subClasses + subSealedClasses).filterDataClasses().map {
-                            createDataClassFunctionSpec(it, modelClassName, nextReturnTypeName)
-                        }
-                    }.flatten().toList())
+                    .addFunctions(objectFunctions)
+                    .addFunctions(dataClassFunctions)
+                    .addFunctions(sealedClassFunctions)
                     .addOriginatingKSFile(updateSymbol.containingFile!!)
                     .addOriginatingKSFile(modelClassDec.containingFile!!)
                     .addOriginatingKSFile(eventClassDec.containingFile!!)
@@ -92,6 +86,7 @@ class UpdateGeneratorSymbolProcessor(
                     .build()
             )
             .build()
+        specFile.writeTo(codeGenerator, specFile.kspDependencies(true))
     }
 
     private fun createWhenBlock(

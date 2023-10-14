@@ -7,7 +7,8 @@ kotlin {
     sourceSets.all {
         languageSettings {
             optIn("com.squareup.kotlinpoet.ksp.KotlinPoetKspPreview")
-            optIn("kt.mobius.gen.ExperimentalUpdateGenerator")
+            optIn("com.google.devtools.ksp.KspExperimental")
+            optIn("kt.mobius.gen.ExperimentalCodegenApi")
         }
     }
 }
@@ -17,5 +18,5 @@ dependencies {
     implementation(libs.kotlinpoet)
     implementation(libs.kotlinpoet.ksp)
     implementation(projects.mobiusktCore)
-    implementation(projects.mobiusktUpdateGeneratorApi)
+    implementation(projects.mobiusktCodegenApi)
 }

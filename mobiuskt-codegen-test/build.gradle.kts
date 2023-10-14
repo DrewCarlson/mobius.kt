@@ -7,7 +7,7 @@ plugins {
 kotlin {
     sourceSets.all {
         languageSettings {
-            optIn("kt.mobius.gen.ExperimentalUpdateGenerator")
+            optIn("kt.mobius.gen.ExperimentalCodegenApi")
         }
     }
 }
@@ -18,6 +18,6 @@ sourceSets {
 
 dependencies {
     implementation(projects.mobiusktCore)
-    implementation(projects.mobiusktUpdateGeneratorApi)
-    ksp(projects.mobiusktUpdateGenerator)
+    implementation(projects.mobiusktCodegenApi)
+    ksp(projects.mobiusktCodegen)
 }

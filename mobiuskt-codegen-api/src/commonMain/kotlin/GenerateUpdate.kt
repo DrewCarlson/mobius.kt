@@ -1,11 +1,11 @@
 package kt.mobius.gen
 
-@ExperimentalUpdateGenerator
+@ExperimentalCodegenApi
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.SOURCE)
 public annotation class GenerateUpdate
 
-@ExperimentalUpdateGenerator
+@ExperimentalCodegenApi
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.SOURCE)
 public annotation class DisableSubtypeSpec

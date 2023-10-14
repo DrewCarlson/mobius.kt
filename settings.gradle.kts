@@ -5,9 +5,9 @@ include(
         ":mobiuskt-test",
         ":mobiuskt-extras",
         ":mobiuskt-coroutines",
-        ":mobiuskt-update-generator",
-        ":mobiuskt-update-generator-api",
-        ":mobiuskt-update-generator-test",
+        ":mobiuskt-codegen",
+        ":mobiuskt-codegen-api",
+        ":mobiuskt-codegen-test",
 )
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

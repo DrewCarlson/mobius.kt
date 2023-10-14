@@ -60,5 +60,5 @@ System.getenv("GITHUB_REF")?.let { ref ->
 }
 
 tasks.dokkaHtmlMultiModule.configure {
-    removeChildTasks(listOf(projects.mobiusktUpdateGenerator.dependencyProject))
+    removeChildTasks(listOf(projects.mobiusktCodegen.dependencyProject))
 }
