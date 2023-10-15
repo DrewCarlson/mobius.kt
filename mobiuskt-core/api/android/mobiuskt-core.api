@@ -116,11 +116,26 @@ public final class kt/mobius/MobiusHooks {
 	public static final field INSTANCE Lkt/mobius/MobiusHooks;
 	public final fun handleError (Ljava/lang/Throwable;)V
 	public final fun setDefaultErrorHandler ()V
+	public final fun setDefaultInternalLogger ()V
 	public final fun setErrorHandler (Lkt/mobius/MobiusHooks$ErrorHandler;)V
+	public final fun setLoggerFactory (Lkt/mobius/MobiusHooks$InternalLoggerFactory;)V
 }
 
 public abstract interface class kt/mobius/MobiusHooks$ErrorHandler {
 	public abstract fun handleError (Ljava/lang/Throwable;)V
+}
+
+public abstract interface class kt/mobius/MobiusHooks$InternalLogger {
+	public abstract fun debug (Ljava/lang/String;[Ljava/lang/Object;)V
+	public abstract fun debug (Ljava/lang/Throwable;Ljava/lang/String;[Ljava/lang/Object;)V
+	public abstract fun error (Ljava/lang/String;[Ljava/lang/Object;)V
+	public abstract fun error (Ljava/lang/Throwable;Ljava/lang/String;[Ljava/lang/Object;)V
+	public abstract fun warn (Ljava/lang/String;[Ljava/lang/Object;)V
+	public abstract fun warn (Ljava/lang/Throwable;Ljava/lang/String;[Ljava/lang/Object;)V
+}
+
+public abstract interface class kt/mobius/MobiusHooks$InternalLoggerFactory {
+	public abstract fun create (Ljava/lang/String;)Lkt/mobius/MobiusHooks$InternalLogger;
 }
 
 public final class kt/mobius/MobiusLoop : kt/mobius/disposables/Disposable {

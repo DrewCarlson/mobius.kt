@@ -1,6 +1,7 @@
 package kt.mobius.runners
 
 import kotlinx.atomicfu.locks.withLock
+import kt.mobius.MobiusHooks
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.ReentrantLock
@@ -8,6 +9,7 @@ import java.util.concurrent.locks.ReentrantLock
 /** A [WorkRunner] implementation that is backed by an [ExecutorService]. */
 public class ExecutorServiceWorkRunner(private val service: ExecutorService) : WorkRunner {
 
+    private val logger = MobiusHooks.newLogger("ExecutorServiceWorkRunner")
     private val lock = ReentrantLock()
 
     override fun post(runnable: Runnable) {
@@ -24,16 +26,15 @@ public class ExecutorServiceWorkRunner(private val service: ExecutorService) : W
                 val runnables = service.shutdownNow()
 
                 if (runnables.isNotEmpty()) {
-                    println("Disposing ExecutorServiceWorkRunner with ${runnables.size} outstanding tasks.")
+                    logger.warn("Disposing ExecutorServiceWorkRunner with {} outstanding tasks.", runnables.size)
                 }
             }
 
             if (!service.awaitTermination(100, TimeUnit.MILLISECONDS)) {
-                println("ExecutorService shutdown timed out; there are still tasks executing")
+                logger.error("ExecutorService shutdown timed out; there are still tasks executing")
             }
         } catch (e: InterruptedException) {
-            println("Timeout when disposing work runner")
-            println(e)
+            logger.error(e, "Timeout when disposing work runner")
         }
     }
 }

@@ -25,6 +25,8 @@ public object Mobius {
 
     @Suppress("ClassName")
     private object NOOP_LOGGER : MobiusLoop.Logger<Any, Any, Any> {
+        private val logger = MobiusHooks.newLogger("NOOP_LOGGER")
+
         override fun beforeInit(model: Any) {
             /* noop */
         }
@@ -34,8 +36,12 @@ public object Mobius {
         }
 
         override fun exceptionDuringInit(model: Any, exception: Throwable) {
-            println("error initialising from model: '$model' - $exception")
-            println(exception)
+            logger.error(
+                exception,
+                "error initialising from model: '{}' - {}",
+                model,
+                exception
+            )
         }
 
         override fun beforeUpdate(model: Any, event: Any) {
@@ -47,8 +53,13 @@ public object Mobius {
         }
 
         override fun exceptionDuringUpdate(model: Any, event: Any, exception: Throwable) {
-            println("error updating model: '$model' with event: '$event' - $exception")
-            println(exception)
+            logger.error(
+                exception,
+                "error updating model: '{}' with event: '{}' - {}",
+                model,
+                event,
+                exception
+            )
         }
     }
 
