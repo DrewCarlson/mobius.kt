@@ -24,6 +24,7 @@ plugins {
     alias(libs.plugins.binaryCompat) apply false
     alias(libs.plugins.kover)
     alias(libs.plugins.mavenPublish) apply false
+    alias(libs.plugins.composeMultiplatform) apply false
     //id("com.louiscad.complete-kotlin") version "1.1.0"
 }
 
@@ -48,6 +49,8 @@ extensions.configure<kotlinx.kover.api.KoverMergedConfig> {
     filters {
         projects {
             excludes.add(":mobiuskt-test")
+            excludes.add(":mobiuskt-codegen-api")
+            excludes.add(":mobiuskt-codegen-test")
         }
     }
 }

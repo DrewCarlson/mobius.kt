@@ -83,6 +83,15 @@ public abstract interface class kt/mobius/Init {
 	public abstract fun init (Ljava/lang/Object;)Lkt/mobius/First;
 }
 
+public final class kt/mobius/LoggingInit : kt/mobius/Init {
+	public static final field Companion Lkt/mobius/LoggingInit$Companion;
+	public fun init (Ljava/lang/Object;)Lkt/mobius/First;
+}
+
+public final class kt/mobius/LoggingInit$Companion {
+	public final fun fromLoop (Lkt/mobius/Init;Lkt/mobius/MobiusLoop$Builder;)Lkt/mobius/Init;
+}
+
 public final class kt/mobius/MergedEventSource : kt/mobius/EventSource {
 	public static final field Companion Lkt/mobius/MergedEventSource$Companion;
 	public synthetic fun <init> (Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -237,13 +246,6 @@ public final class kt/mobius/android/AndroidLogger : kt/mobius/MobiusLoop$Logger
 
 public final class kt/mobius/android/AndroidLogger$Companion {
 	public final fun tag (Ljava/lang/String;)Lkt/mobius/android/AndroidLogger;
-}
-
-public final class kt/mobius/android/BuildConfig {
-	public static final field BUILD_TYPE Ljava/lang/String;
-	public static final field DEBUG Z
-	public static final field LIBRARY_PACKAGE_NAME Ljava/lang/String;
-	public fun <init> ()V
 }
 
 public abstract interface class kt/mobius/android/LiveQueue {

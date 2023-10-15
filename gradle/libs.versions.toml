@@ -1,7 +1,7 @@
 [versions]
 kotlin = "1.9.10"
 dokka = "1.9.0"
-agp = "7.4.2"
+agp = "8.1.2"
 coroutines = "1.7.3"
 guava = "31.0.1-android"
 awaitility = "4.2.0"
@@ -17,6 +17,9 @@ ax_runner = "1.5.2"
 robolectric = "4.10.3"
 immutable_collections = "0.3.5"
 turbine = "1.0.0"
+compose_compiler = "1.5.3"
+compose_multiplatform = "1.5.3"
+compose_multiplatform_compiler = "1.5.0"
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
@@ -25,6 +28,7 @@ kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 binaryCompat = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary_compat" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.25.3" }
+composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose_multiplatform" }
 
 [libraries]
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }

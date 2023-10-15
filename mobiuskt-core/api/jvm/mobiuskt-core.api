@@ -83,6 +83,15 @@ public abstract interface class kt/mobius/Init {
 	public abstract fun init (Ljava/lang/Object;)Lkt/mobius/First;
 }
 
+public final class kt/mobius/LoggingInit : kt/mobius/Init {
+	public static final field Companion Lkt/mobius/LoggingInit$Companion;
+	public fun init (Ljava/lang/Object;)Lkt/mobius/First;
+}
+
+public final class kt/mobius/LoggingInit$Companion {
+	public final fun fromLoop (Lkt/mobius/Init;Lkt/mobius/MobiusLoop$Builder;)Lkt/mobius/Init;
+}
+
 public final class kt/mobius/MergedEventSource : kt/mobius/EventSource {
 	public static final field Companion Lkt/mobius/MergedEventSource$Companion;
 	public synthetic fun <init> (Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -252,6 +261,13 @@ public abstract interface class kt/mobius/functions/Function {
 
 public abstract interface class kt/mobius/functions/Producer {
 	public abstract fun get ()Ljava/lang/Object;
+}
+
+public final class kt/mobius/internal_util/ExtractLoggerFromBuilderKt {
+	public static final fun extractLoggerFromLoopBuilder (Lkt/mobius/MobiusLoop$Builder;)Lkt/mobius/MobiusLoop$Logger;
+}
+
+public abstract interface annotation class kt/mobius/internal_util/InternalMobiusktApi : java/lang/annotation/Annotation {
 }
 
 public final class kt/mobius/runners/ExecutorServiceWorkRunner : kt/mobius/runners/WorkRunner {

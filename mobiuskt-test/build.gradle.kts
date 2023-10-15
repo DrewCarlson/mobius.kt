@@ -11,8 +11,11 @@ kotlin {
     tvosX64()
     tvosArm64()
     tvosSimulatorArm64()
+    watchosArm32()
+    watchosArm64()
     watchosSimulatorArm64()
     watchosDeviceArm64()
+    watchosX64()
     macosArm64()
     macosX64()
     linuxX64()
@@ -32,7 +35,6 @@ kotlin {
         }
     }
 
-    @Suppress("UNUSED_VARIABLE")
     sourceSets {
         all {
             explicitApi()
