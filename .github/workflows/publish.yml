@@ -20,7 +20,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: 11
+          java-version: 17
       - name: Cache Build files
         uses: actions/cache@v3
         if: ${{ !startsWith(matrix.os, 'windows') }}
@@ -62,7 +62,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: 11
+          java-version: 17
 
       - name: Set up Python
         uses: actions/setup-python@v4
