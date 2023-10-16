@@ -278,13 +278,6 @@ public abstract interface class kt/mobius/functions/Producer {
 	public abstract fun get ()Ljava/lang/Object;
 }
 
-public final class kt/mobius/internal_util/ExtractLoggerFromBuilderKt {
-	public static final fun extractLoggerFromLoopBuilder (Lkt/mobius/MobiusLoop$Builder;)Lkt/mobius/MobiusLoop$Logger;
-}
-
-public abstract interface annotation class kt/mobius/internal_util/InternalMobiusktApi : java/lang/annotation/Annotation {
-}
-
 public final class kt/mobius/runners/ExecutorServiceWorkRunner : kt/mobius/runners/WorkRunner {
 	public fun <init> (Ljava/util/concurrent/ExecutorService;)V
 	public fun dispose ()V
