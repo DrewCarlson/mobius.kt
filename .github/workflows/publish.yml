@@ -85,7 +85,6 @@ jobs:
 
       - name: Deploy with mike
         run: |
-          VERSION_WITH_V=${{ github.ref_name }}
-          VERSION=${VERSION#v}
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "VERSION_WITH_V=${{ github.ref_name }}" >> $GITHUB_ENV
+          VERSION=${VERSION#v} && echo "VERSION=$VERSION" >> $GITHUB_ENV
           mike deploy --push $VERSION_WITH_V latest
