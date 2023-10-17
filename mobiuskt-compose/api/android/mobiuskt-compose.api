@@ -16,3 +16,6 @@ public final class kt/mobius/compose/ComposeMobiusLoopStateHolder {
 	public fun toString ()Ljava/lang/String;
 }
 
+public abstract interface annotation class kt/mobius/compose/ExperimentalMobiusktComposeApi : java/lang/annotation/Annotation {
+}
+

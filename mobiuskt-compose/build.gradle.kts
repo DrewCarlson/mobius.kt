@@ -70,6 +70,9 @@ kotlin {
     sourceSets {
         all {
             explicitApi()
+            languageSettings {
+                optIn("kt.mobius.compose.ExperimentalMobiusktComposeApi")
+            }
         }
         named("commonMain") {
             dependencies {
