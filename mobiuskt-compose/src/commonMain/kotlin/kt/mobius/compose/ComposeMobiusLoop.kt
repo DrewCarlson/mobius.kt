@@ -50,16 +50,15 @@ private fun <M, E, F> rememberMobiusLoopInternal(
     loopBuilder: () -> MobiusLoop.Builder<M, E, F>
 ): ComposeMobiusLoopStateHolder<M, E> {
     val loopFactory = remember(loopBuilder) { loopBuilder() }
-    val first = remember {
+    val first = remember(loopFactory) {
         val actualInit = init ?: Init { first(startModel) }
         LoggingInit.fromLoop(actualInit, loopFactory)
             .init(startModel)
     }
-    val mobiusLoop = remember(loopBuilder) {
-        loopBuilder()
-            .startFrom(first.model(), first.effects())
+    val mobiusLoop = remember(loopFactory) {
+        loopFactory.startFrom(first.model(), first.effects())
     }
-    val modelState = remember { mutableStateOf(first.model()) }
+    val modelState = remember { mutableStateOf(mobiusLoop.mostRecentModel) }
     val eventConsumer = remember { mutableStateOf<Consumer<E>?>(null) }
 
     DisposableEffect(mobiusLoop) {

@@ -1,114 +1,97 @@
 package kt.mobius.compose
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Button
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.test.*
-import androidx.compose.ui.test.junit4.createComposeRule
-import kotlinx.coroutines.test.runTest
 import kt.mobius.*
-import kt.mobius.First.Companion.first
-import org.junit.Rule
-import org.junit.Test
-import kotlin.test.assertTrue
+import org.jetbrains.compose.web.dom.Div
+import org.jetbrains.compose.web.dom.Span
+import org.jetbrains.compose.web.dom.Text
+import org.jetbrains.compose.web.testutils.ComposeWebExperimentalTestsApi
+import org.jetbrains.compose.web.testutils.runTest
+import org.w3c.dom.HTMLSpanElement
+import kotlin.test.*
 
-class ComposeMobiusLoopTest {
-    @get:Rule
-    val compose = createComposeRule()
+@OptIn(ComposeWebExperimentalTestsApi::class)
+class ComposeMobiusLoopJsTest {
 
     @Test
     fun test_StartModel_IsSet() = runTest {
-        compose.setContent { testUi(100) }
+        composition { testUi(100) }
 
-        compose
-            .onNodeWithTag("model")
-            .assertTextEquals("100")
+        val modelSpan = assertNotNull(root.querySelector("#model"))
+
+        assertEquals("100", modelSpan.textContent)
     }
 
     @Test
     fun test_Event_UpdatesModel() = runTest {
-        compose.setContent { testUi(1) }
+        composition { testUi(1) }
 
-        compose
-            .onNodeWithText("inc")
-            .performClick()
+        val incSpan: HTMLSpanElement = assertIs(assertNotNull(root.querySelector("#inc")))
+        val decSpan: HTMLSpanElement = assertIs(assertNotNull(root.querySelector("#dec")))
+        val modelSpan = assertNotNull(root.querySelector("#model"))
 
-        compose
-            .onNodeWithTag("model")
-            .assertTextEquals("2")
-
-        compose
-            .onNodeWithText("dec")
-            .performClick()
-
-        compose
-            .onNodeWithTag("model")
-            .assertTextEquals("1")
+        incSpan.click()
+        waitForRecompositionComplete()
+        assertEquals("2", modelSpan.textContent)
+        decSpan.click()
+        waitForRecompositionComplete()
+        assertEquals("1", modelSpan.textContent)
     }
 
     @Test
     fun test_Init_IsApplied() = runTest {
-        compose.setContent {
-            testUi(0, init = { first(100) })
-        }
-        compose
-            .onNodeWithTag("model")
-            .assertTextEquals("100")
+        composition { testUi(0, init = { First.first(100) }) }
+        val modelSpan = assertNotNull(root.querySelector("#model"))
+        assertEquals("100", modelSpan.textContent)
     }
 
     @Test
     fun test_StartModelChange_DoesNotResetLoop() = runTest {
-        compose.setContent {
-            val startModel = mutableStateOf(1)
+        val startModel = mutableStateOf(1)
+        composition {
             testUi(startModel = startModel.value)
-
             LaunchedEffect(Unit) {
                 startModel.value = 100
             }
         }
+        val modelSpan = assertNotNull(root.querySelector("#model"))
 
-        compose.awaitIdle()
+        waitForRecompositionComplete()
 
-        compose
-            .onNodeWithTag("model")
-            .assertTextEquals("1")
+        assertEquals("1", modelSpan.textContent)
     }
 
     @Test
     fun test_NewLoop_WithUpdatedStartModel() = runTest {
         val isDisplayed = mutableStateOf(true)
         val startModel = mutableStateOf(0)
-        compose.setContent {
+        composition {
             if (isDisplayed.value) {
                 testUi(startModel = startModel.value)
             }
         }
-        compose
-            .onNodeWithTag("model")
-            .assertTextEquals("0")
+        val modelSpan = assertNotNull(root.querySelector("#model"))
+
+        assertEquals("0", modelSpan.textContent)
 
         isDisplayed.value = false
         startModel.value = 1
-        compose.awaitIdle()
+        waitForRecompositionComplete()
 
         isDisplayed.value = true
-        compose.awaitIdle()
+        waitForRecompositionComplete()
 
-        compose
-            .onNodeWithTag("model")
-            .assertTextEquals("1")
+        val modelSpan2 = assertNotNull(root.querySelector("#model"))
+        assertEquals("1", modelSpan2.textContent)
     }
 
     @Test
     fun test_WhenComposableIsDisposed_LoopIsDisposed() = runTest {
         val isDisplayed = mutableStateOf(true)
         val isDisposed = mutableStateOf(false)
-        compose.setContent {
+        composition {
             if (isDisplayed.value) {
                 rememberMobiusLoop(0) {
                     Mobius.loop(
@@ -127,26 +110,24 @@ class ComposeMobiusLoopTest {
         }
 
         isDisplayed.value = false
-        compose.awaitIdle()
+        waitForRecompositionComplete()
         assertTrue(isDisposed.value)
     }
 
     @Test
     fun test_ExistingLoop_WithUpdatedStartModel() = runTest {
         val startModel = mutableStateOf(0)
-        compose.setContent {
+        composition {
             testUi(startModel = startModel.value)
         }
-        compose
-            .onNodeWithTag("model")
-            .assertTextEquals("0")
+        val modelSpan = assertNotNull(root.querySelector("#model"))
+
+        assertEquals("0", modelSpan.textContent)
 
         startModel.value = 1
-        compose.awaitIdle()
+        waitForRecompositionComplete()
 
-        compose
-            .onNodeWithTag("model")
-            .assertTextEquals("0")
+        assertEquals("0", modelSpan.textContent)
     }
 
     @Composable
@@ -165,13 +146,22 @@ class ComposeMobiusLoopTest {
                 }
             ).logger(SimpleLogger("Test"))
         }
-        Column {
-            Text(
-                text = model.value.toString(),
-                modifier = Modifier.testTag("model")
-            )
-            Button(onClick = { eventConsumer(1) }) { Text("inc") }
-            Button(onClick = { eventConsumer(-1) }) { Text("dec") }
+        Div {
+            Span({ id("model") }) {
+                Text(model.value.toString())
+            }
+            Span({
+                id("inc")
+                onClick { eventConsumer(1) }
+            }) {
+                Text("inc")
+            }
+            Span({
+                id("dec")
+                onClick { eventConsumer(-1) }
+            }) {
+                Text("dec")
+            }
         }
     }
 }
