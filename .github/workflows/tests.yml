@@ -2,7 +2,7 @@ name: Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, drew/codecov-fix ]
   pull_request:
     branches: [ main ]
 
@@ -28,13 +28,6 @@ jobs:
         with:
           arguments: macosX64Test iosX64Test # tvosX64Test
 
-      - name: Archive Reports
-        uses: actions/upload-artifact@v3
-        if: ${{ always() }}
-        with:
-          name: reports
-          path: '**/build/reports/*'
-
       - name: Archive Test Results
         uses: actions/upload-artifact@v3
         if: ${{ always() }}
@@ -55,13 +48,6 @@ jobs:
         name: Test Windows Target
         with:
           arguments: mingwX64Test
-
-      - name: Archive Reports
-        uses: actions/upload-artifact@v3
-        if: ${{ always() }}
-        with:
-          name: reports
-          path: '**/build/reports/*'
 
       - name: Archive Test Results
         uses: actions/upload-artifact@v3
@@ -101,7 +87,7 @@ jobs:
         if: ${{ always() }}
         with:
           name: reports
-          path: '**/build/reports/*'
+          path: "build/reports/kover/report.xml"
 
       - name: Archive Test Results
         uses: actions/upload-artifact@v3
@@ -128,13 +114,6 @@ jobs:
         with:
           arguments: jsNodeTest jsBrowserTest
 
-      - name: Archive Reports
-        uses: actions/upload-artifact@v3
-        if: ${{ always() }}
-        with:
-          name: reports
-          path: '**/build/reports/*'
-
       - name: Archive Test Results
         uses: actions/upload-artifact@v3
         if: ${{ always() }}
@@ -151,10 +130,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: reports
+      - run: ls -la
       - uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: "build/reports/kover/report.xml"
+          files: "report.xml"
 
   upload-junit-results:
     runs-on: ubuntu-latest
