@@ -5,7 +5,7 @@
 A common pain point with Mobius.kt is wrapping Event types to their state change functions.
 In Mobius.kt this code is implemented in your `Update` function, taking an event and returning a `Next` instance.
 
-Using [KSP](https://github.com/google/ksp/), `mobiuskt-update-generator` provides code generation to reduce manual boilerplate when writing complex `Update` functions.
+Using [KSP](https://github.com/google/ksp/), `mobiuskt-codegen` provides code generation to reduce manual boilerplate when writing complex `Update` functions.
 
 Given a `sealed class Event` declaration, an interface is generated defining update methods for each `Event` subclass and the exhaustive `when` block in the `update` method.
 
@@ -78,17 +78,17 @@ sealed class Event {
 ```
 
 ```kotlin
-fun onResultSuccess(event: Event.Result.Success): Next<Model, Effect> {
+fun resultSuccess(event: Event.Result.Success): Next<Model, Effect> {
     // ...
 }
 
-fun onResultError(event: Event.Result.Error): Next<Model, Effect> {
+fun resultError(event: Event.Result.Error): Next<Model, Effect> {
     // ...
 }
 ```
 </details>
 
-These behavior can be changed with `@DisableSubtypeSpec`, causing the sealed class to be handle by one function.
+This behavior can be changed with `@DisableSubtypeSpec`, causing the sealed class to be handled by one function.
 
 <details open="open">
 <summary>Child Sealed Class Default Behavior</summary>
@@ -101,7 +101,7 @@ sealed class Event {
 ```
 
 ```kotlin
-fun onResult(event: Event.Result): Next<Model, Effect> {
+fun result(event: Event.Result): Next<Model, Effect> {
     // ...
 }
 ```
@@ -128,8 +128,8 @@ kotlin {
 }
 
 dependencies {
-    implementation("org.drewcarlson:mobiuskt-update-generator-api:$mobiuskt_version")
-    ksp("org.drewcarlson:mobiuskt-update-generator:$mobiuskt_version")
+    implementation("org.drewcarlson:mobiuskt-codegen-api:$mobiuskt_version")
+    ksp("org.drewcarlson:mobiuskt-codegen:$mobiuskt_version")
 }
 ```
 </details>
@@ -148,7 +148,7 @@ kotlin {
         val commonMain by getting {
             kotlin.srcDir("build/generated/ksp/$name/kotlin")
             dependencies {
-                implementation("org.drewcarlson:mobiuskt-update-generator-api:$mobiuskt_version")
+                implementation("org.drewcarlson:mobiuskt-codegen-api:$mobiuskt_version")
             }
         }
     }
@@ -156,7 +156,7 @@ kotlin {
 
 // Note this must be in a top-level `dependencies` block, not `kotlin { sourceSets { .. } }`
 dependencies {
-    add("kspCommonMainMetadata", "org.drewcarlson:mobiuskt-update-generator:$mobiuskt_version")
+    add("kspCommonMainMetadata", "org.drewcarlson:mobiuskt-codegen:$mobiuskt_version")
 }
 
 // This ensures that when compiling for any target, your `commonMain` sources are
