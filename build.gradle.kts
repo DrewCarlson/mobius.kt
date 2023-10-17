@@ -51,5 +51,4 @@ dependencies {
     kover(project(":mobiuskt-compose"))
     kover(project(":mobiuskt-coroutines"))
     kover(project(":mobiuskt-extras"))
-    kover(project(":mobiuskt-test"))
 }
