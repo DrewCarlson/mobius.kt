@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform")
     id("org.jetbrains.kotlinx.binary-compatibility-validator")
     alias(libs.plugins.mavenPublish)
+    alias(libs.plugins.dokka)
 }
 
 apply(plugin = "kotlinx-atomicfu")

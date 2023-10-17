@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlinx.binary-compatibility-validator")
     id("com.android.library")
     alias(libs.plugins.mavenPublish)
+    alias(libs.plugins.dokka)
 }
 
 apply(plugin = "kotlinx-atomicfu")

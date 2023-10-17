@@ -4,6 +4,7 @@ plugins {
     id("org.jetbrains.kotlinx.binary-compatibility-validator")
     alias(libs.plugins.mavenPublish)
     alias(libs.plugins.composeMultiplatform)
+    alias(libs.plugins.dokka)
 }
 
 android {

@@ -61,7 +61,3 @@ System.getenv("GITHUB_REF")?.let { ref ->
         version = ref.substringAfterLast("refs/tags/v")
     }
 }
-
-tasks.dokkaHtmlMultiModule.configure {
-    removeChildTasks(listOf(projects.mobiusktCodegen.dependencyProject))
-}
