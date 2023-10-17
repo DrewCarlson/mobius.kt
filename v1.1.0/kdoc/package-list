@@ -1,0 +1,41 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:kt.mobius.darwin/MobiusDarwin///PointingToDeclaration/mobiuskt-core/kt.mobius.darwin/[watchos-x64]-mobius-darwin/index.html
+$dokka.location:kt.mobius.darwin/MobiusDarwin/controller/#kt.mobius.MobiusLoop.Factory[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]#TypeParam(bounds=[kotlin.Any?])#kt.mobius.Init[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/mobiuskt-core/kt.mobius.darwin/[watchos-x64]-mobius-darwin/controller.html
+$dokka.location:kt.mobius.darwin/MobiusDarwin/controller/#kt.mobius.MobiusLoop.Factory[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/mobiuskt-core/kt.mobius.darwin/[watchos-x64]-mobius-darwin/controller.html
+$dokka.location:kt.mobius.runners//fromDispatchQueue/kt.mobius.runners.WorkRunners#[Error type: Unresolved type for dispatch_queue_t]/PointingToDeclaration/mobiuskt-core/kt.mobius.runners/[watchos-x64]from-dispatch-queue.html
+$dokka.location:kt.mobius.runners//globalDispatchQueue/kt.mobius.runners.WorkRunners#/PointingToDeclaration/mobiuskt-core/kt.mobius.runners/[watchos-x64]global-dispatch-queue.html
+$dokka.location:kt.mobius.runners//mainDispatchQueue/kt.mobius.runners.WorkRunners#/PointingToDeclaration/mobiuskt-core/kt.mobius.runners/[watchos-x64]main-dispatch-queue.html
+$dokka.location:kt.mobius.runners/DispatchQueueWorkRunner.Companion///PointingToDeclaration/mobiuskt-core/kt.mobius.runners/[watchos-x64]-dispatch-queue-work-runner/-companion/index.html
+$dokka.location:kt.mobius.runners/DispatchQueueWorkRunner.Companion/global/#/PointingToDeclaration/mobiuskt-core/kt.mobius.runners/[watchos-x64]-dispatch-queue-work-runner/-companion/global.html
+$dokka.location:kt.mobius.runners/DispatchQueueWorkRunner.Companion/main/#/PointingToDeclaration/mobiuskt-core/kt.mobius.runners/[watchos-x64]-dispatch-queue-work-runner/-companion/main.html
+$dokka.location:kt.mobius.runners/DispatchQueueWorkRunner///PointingToDeclaration/mobiuskt-core/kt.mobius.runners/[watchos-x64]-dispatch-queue-work-runner/index.html
+$dokka.location:kt.mobius.runners/DispatchQueueWorkRunner/DispatchQueueWorkRunner/#[Error type: Unresolved type for dispatch_queue_t]/PointingToDeclaration/mobiuskt-core/kt.mobius.runners/[watchos-x64]-dispatch-queue-work-runner/-dispatch-queue-work-runner.html
+$dokka.location:kt.mobius.runners/DispatchQueueWorkRunner/dispose/#/PointingToDeclaration/mobiuskt-core/kt.mobius.runners/[watchos-x64]-dispatch-queue-work-runner/dispose.html
+$dokka.location:kt.mobius.runners/DispatchQueueWorkRunner/post/#kt.mobius.runners.Runnable/PointingToDeclaration/mobiuskt-core/kt.mobius.runners/[watchos-x64]-dispatch-queue-work-runner/post.html
+$dokka.location:kt.mobius.runners/NativeWorkRunner///PointingToDeclaration/mobiuskt-core/kt.mobius.runners/[watchos-x64]-native-work-runner/index.html
+$dokka.location:kt.mobius.runners/NativeWorkRunner/NativeWorkRunner/#kotlin.native.concurrent.Worker/PointingToDeclaration/mobiuskt-core/kt.mobius.runners/[watchos-x64]-native-work-runner/-native-work-runner.html
+$dokka.location:kt.mobius.runners/NativeWorkRunner/dispose/#/PointingToDeclaration/mobiuskt-core/kt.mobius.runners/[watchos-x64]-native-work-runner/dispose.html
+$dokka.location:kt.mobius.runners/NativeWorkRunner/post/#kt.mobius.runners.Runnable/PointingToDeclaration/mobiuskt-core/kt.mobius.runners/[watchos-x64]-native-work-runner/post.html
+$dokka.location:kt.mobius.runners/WorkRunners/nativeWorker/#kotlin.String?#kotlin.Boolean/PointingToDeclaration/mobiuskt-core/kt.mobius.runners/-work-runners/[watchos-x64]native-worker.html
+$dokka.location:kt.mobius.runners/WorkRunners/nativeWorker/#kotlin.native.concurrent.Worker/PointingToDeclaration/mobiuskt-core/kt.mobius.runners/-work-runners/[watchos-x64]native-worker.html
+module:mobiuskt-codegen-api
+kt.mobius.gen
+module:mobiuskt-compose
+kt.mobius.compose
+module:mobiuskt-core
+kt.mobius
+kt.mobius.android
+kt.mobius.android.runners
+kt.mobius.darwin
+kt.mobius.disposables
+kt.mobius.functions
+kt.mobius.runners
+module:mobiuskt-coroutines
+kt.mobius.flow
+module:mobiuskt-extras
+kt.mobius.extras
+kt.mobius.extras.patterns
+module:mobiuskt-test
+kt.mobius.test
+kt.mobius.test.matcher
