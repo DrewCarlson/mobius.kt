@@ -53,6 +53,7 @@ extensions.configure<kotlinx.kover.api.KoverMergedConfig> {
     filters {
         projects {
             excludes.add(":mobiuskt-test")
+            excludes.add(":mobiuskt-codegen")
             excludes.add(":mobiuskt-codegen-api")
             excludes.add(":mobiuskt-codegen-test")
         }
