@@ -89,7 +89,7 @@ jobs:
       - uses: gradle/gradle-build-action@v2.9.0
         name: Test Jvm
         with:
-          arguments: jvmTest koverMergedXmlReport apiCheck
+          arguments: jvmTest koverXmlReport apiCheck
 
       - uses: gradle/gradle-build-action@v2.9.0
         name: Test Linux Target
@@ -154,7 +154,7 @@ jobs:
       - uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: "**/build/reports/kover/merged/xml/report.xml"
+          files: "**/build/reports/kover/report.xml"
 
   upload-junit-results:
     runs-on: ubuntu-latest
