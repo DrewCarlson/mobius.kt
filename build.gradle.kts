@@ -39,6 +39,11 @@ allprojects {
     }
 }
 
+// Required for doc publishing
+System.getenv("GITHUB_REF_NAME")
+    ?.takeIf { it.startsWith("v") }
+    ?.let { version = it.removePrefix("v") }
+
 subprojects {
     apply(plugin = "org.jetbrains.kotlinx.kover")
     kover {}
@@ -52,12 +57,5 @@ extensions.configure<kotlinx.kover.api.KoverMergedConfig> {
             excludes.add(":mobiuskt-codegen-api")
             excludes.add(":mobiuskt-codegen-test")
         }
-    }
-}
-
-// Required for doc publishing
-System.getenv("GITHUB_REF")?.let { ref ->
-    if (ref.startsWith("refs/tags/v")) {
-        version = ref.substringAfterLast("refs/tags/v")
     }
 }
