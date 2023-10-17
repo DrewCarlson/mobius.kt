@@ -49,7 +49,7 @@ kotlin {
             })
         }
     }
-    val nativeTargets = listOf(
+    listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64(),
@@ -74,7 +74,7 @@ kotlin {
                 optIn("kt.mobius.compose.ExperimentalMobiusktComposeApi")
             }
         }
-        named("commonMain") {
+        val commonMain by getting {
             dependencies {
                 implementation(projects.mobiusktCore)
                 implementation(projects.mobiusktExtras)
@@ -83,7 +83,7 @@ kotlin {
             }
         }
 
-        named("commonTest") {
+        val commonTest by getting {
             dependencies {
                 implementation(libs.coroutines.test)
                 implementation(kotlin("test-common"))
@@ -92,7 +92,7 @@ kotlin {
         }
 
         @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-        named("jvmTest") {
+        val jvmTest by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation(compose.desktop.uiTestJUnit4)
@@ -101,13 +101,13 @@ kotlin {
             }
         }
 
-        named("jsMain") {
+        val jsMain by getting {
             dependencies {
                 implementation(compose.html.core)
             }
         }
 
-        named("jsTest") {
+        val jsTest by getting {
             dependencies {
                 implementation(compose.html.testUtils)
                 implementation(kotlin("test"))

@@ -57,7 +57,7 @@ kotlin {
                 }
             }
         }
-        named("commonMain") {
+        val commonMain by getting {
             dependencies {
                 implementation(projects.mobiusktCore)
                 implementation(libs.coroutines.core)
@@ -65,7 +65,7 @@ kotlin {
             }
         }
 
-        named("commonTest") {
+        val commonTest by getting {
             dependencies {
                 implementation(projects.mobiusktTest)
                 implementation(libs.coroutines.test)
@@ -75,14 +75,14 @@ kotlin {
             }
         }
 
-        named("jvmTest") {
+        val jvmTest by getting {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
             }
         }
 
-        named("jsTest") {
+        val jsTest by getting {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-js"))

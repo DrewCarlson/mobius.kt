@@ -34,7 +34,6 @@ kotlin {
         }
     }
 
-    @Suppress("UNUSED_VARIABLE")
     sourceSets {
         all {
             explicitApi()

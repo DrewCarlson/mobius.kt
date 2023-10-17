@@ -1,4 +1,3 @@
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.ksp)
     kotlin("jvm")
@@ -13,7 +12,7 @@ kotlin {
 }
 
 sourceSets {
-    main { java.srcDir(buildDir.resolve("generated/ksp/$name/kotlin")) }
+    main { java.srcDir(layout.buildDirectory.file("generated/ksp/$name/kotlin")) }
 }
 
 dependencies {

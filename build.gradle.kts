@@ -1,6 +1,5 @@
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
-import org.jetbrains.kotlin.gradle.targets.js.yarn.yarn
 
 buildscript {
     repositories {
@@ -17,7 +16,6 @@ buildscript {
     }
 }
 
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.multiplatform) apply false
     alias(libs.plugins.dokka)
