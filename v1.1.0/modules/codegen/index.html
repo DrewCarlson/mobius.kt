@@ -1205,7 +1205,7 @@
 <h2 id="update-generator">Update Generator</h2>
 <p>A common pain point with Mobius.kt is wrapping Event types to their state change functions.
 In Mobius.kt this code is implemented in your <code>Update</code> function, taking an event and returning a <code>Next</code> instance.</p>
-<p>Using <a href="https://github.com/google/ksp/">KSP</a>, <code>mobiuskt-update-generator</code> provides code generation to reduce manual boilerplate when writing complex <code>Update</code> functions.</p>
+<p>Using <a href="https://github.com/google/ksp/">KSP</a>, <code>mobiuskt-codegen</code> provides code generation to reduce manual boilerplate when writing complex <code>Update</code> functions.</p>
 <p>Given a <code>sealed class Event</code> declaration, an interface is generated defining update methods for each <code>Event</code> subclass and the exhaustive <code>when</code> block in the <code>update</code> method.</p>
 <h3 id="example">Example</h3>
 <p>To apply code generation, add the <code>@GenerateUpdate</code> annotation to your Update function class definition:</p>
@@ -1266,7 +1266,7 @@ In Mobius.kt this code is implemented in your <code>Update</code> function, taki
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">}</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">fun</span><span class="w"> </span><span class="nf">onResultSuccess</span><span class="p">(</span><span class="n">event</span><span class="p">:</span><span class="w"> </span><span class="n">Event</span><span class="p">.</span><span class="na">Result</span><span class="p">.</span><span class="na">Success</span><span class="p">):</span><span class="w"> </span><span class="n">Next</span><span class="o">&lt;</span><span class="n">Model</span><span class="p">,</span><span class="w"> </span><span class="n">Effect</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">fun</span><span class="w"> </span><span class="nf">resultSuccess</span><span class="p">(</span><span class="n">event</span><span class="p">:</span><span class="w"> </span><span class="n">Event</span><span class="p">.</span><span class="na">Result</span><span class="p">.</span><span class="na">Success</span><span class="p">):</span><span class="w"> </span><span class="n">Next</span><span class="o">&lt;</span><span class="n">Model</span><span class="p">,</span><span class="w"> </span><span class="n">Effect</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="c1">// ...</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">}</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
@@ -1276,7 +1276,7 @@ In Mobius.kt this code is implemented in your <code>Update</code> function, taki
 </code></pre></div>
 </details>
 
-<p>These behavior can be changed with <code>@DisableSubtypeSpec</code>, causing the sealed class to be handle by one function.</p>
+<p>This behavior can be changed with <code>@DisableSubtypeSpec</code>, causing the sealed class to be handled by one function.</p>
 <details open="open">
 <summary>Child Sealed Class Default Behavior</summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kd">sealed</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Event</span><span class="w"> </span><span class="p">{</span>
@@ -1308,8 +1308,8 @@ In Mobius.kt this code is implemented in your <code>Update</code> function, taki
 <a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="p">}</span>
 <a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>
 <a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;org.drewcarlson:mobiuskt-update-generator-api:</span><span class="si">$</span><span class="n">mobiuskt_version</span><span class="s">&quot;</span><span class="p">)</span>
-<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">    </span><span class="n">ksp</span><span class="p">(</span><span class="s">&quot;org.drewcarlson:mobiuskt-update-generator:</span><span class="si">$</span><span class="n">mobiuskt_version</span><span class="s">&quot;</span><span class="p">)</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;org.drewcarlson:mobiuskt-codegen-api:</span><span class="si">$</span><span class="n">mobiuskt_version</span><span class="s">&quot;</span><span class="p">)</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">    </span><span class="n">ksp</span><span class="p">(</span><span class="s">&quot;org.drewcarlson:mobiuskt-codegen:</span><span class="si">$</span><span class="n">mobiuskt_version</span><span class="s">&quot;</span><span class="p">)</span>
 <a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="p">}</span>
 </code></pre></div>
 </details>
@@ -1327,7 +1327,7 @@ In Mobius.kt this code is implemented in your <code>Update</code> function, taki
 <a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">commonMain</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">getting</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">            </span><span class="n">kotlin</span><span class="p">.</span><span class="na">srcDir</span><span class="p">(</span><span class="s">&quot;build/generated/ksp/</span><span class="si">$</span><span class="n">name</span><span class="s">/kotlin&quot;</span><span class="p">)</span>
 <a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">            </span><span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">                </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;org.drewcarlson:mobiuskt-update-generator-api:</span><span class="si">$</span><span class="n">mobiuskt_version</span><span class="s">&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">                </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;org.drewcarlson:mobiuskt-codegen-api:</span><span class="si">$</span><span class="n">mobiuskt_version</span><span class="s">&quot;</span><span class="p">)</span>
 <a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">            </span><span class="p">}</span>
 <a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">        </span><span class="p">}</span>
 <a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">    </span><span class="p">}</span>
@@ -1335,7 +1335,7 @@ In Mobius.kt this code is implemented in your <code>Update</code> function, taki
 <a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>
 <a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="c1">// Note this must be in a top-level `dependencies` block, not `kotlin { sourceSets { .. } }`</span>
 <a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="w">    </span><span class="n">add</span><span class="p">(</span><span class="s">&quot;kspCommonMainMetadata&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;org.drewcarlson:mobiuskt-update-generator:</span><span class="si">$</span><span class="n">mobiuskt_version</span><span class="s">&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="w">    </span><span class="n">add</span><span class="p">(</span><span class="s">&quot;kspCommonMainMetadata&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;org.drewcarlson:mobiuskt-codegen:</span><span class="si">$</span><span class="n">mobiuskt_version</span><span class="s">&quot;</span><span class="p">)</span>
 <a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="p">}</span>
 <a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>
 <a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="c1">// This ensures that when compiling for any target, your `commonMain` sources are</span>
