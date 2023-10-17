@@ -26,13 +26,11 @@ Features:
 - Reduced boilerplate with code generation
 - No runtime dependencies (*[atomicfu](https://github.com/Kotlin/kotlinx-atomicfu/) for Native targets)
 
-**[Documentation](https://drewcarlson.github.io/mobius.kt/latest/)**
+**[Getting Started](https://drewcarlson.github.io/mobius.kt/v{{lib_version}}/getting-started/)**
 
-**[Getting Started](https://drewcarlson.github.io/mobius.kt/latest/getting-started/)**
+**[Download](https://drewcarlson.github.io/mobius.kt/v{{lib_version}}/download/)**
 
-**[Download](https://drewcarlson.github.io/mobius.kt/latest/download/)**
-
-**[API Docs](https://drewcarlson.github.io/mobius.kt/latest/kdoc/)**
+**[API Docs](https://drewcarlson.github.io/mobius.kt/v{{lib_version}}/kdoc/)**
 
 ## What is Mobius?
 
