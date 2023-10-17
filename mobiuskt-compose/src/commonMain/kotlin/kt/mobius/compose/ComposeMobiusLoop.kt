@@ -60,10 +60,10 @@ private fun <M, E, F> rememberMobiusLoopInternal(
             .startFrom(first.model(), first.effects())
     }
     val modelState = remember { mutableStateOf(first.model()) }
-    val eventConsumer = remember { mutableStateOf<Consumer<E>>(NoopConsumer()) }
+    val eventConsumer = remember { mutableStateOf<Consumer<E>?>(null) }
 
     DisposableEffect(mobiusLoop) {
-        val observerDisposable = mobiusLoop.observe { model ->
+        mobiusLoop.observe { model ->
             modelState.value = model
             eventConsumer.value = Consumer(mobiusLoop::dispatchEvent)
             object : Connection<M> {
@@ -72,17 +72,17 @@ private fun <M, E, F> rememberMobiusLoopInternal(
                 }
 
                 override fun dispose() {
-                    eventConsumer.value = NoopConsumer()
+                    eventConsumer.value = null
                 }
             }
         }
 
-        onDispose(observerDisposable::dispose)
+        onDispose(mobiusLoop::dispose)
     }
     return remember {
         ComposeMobiusLoopStateHolder(
             model = modelState,
-            eventConsumer = { event -> eventConsumer.value.accept(event) },
+            eventConsumer = { event -> eventConsumer.value?.accept(event) },
         )
     }
 }

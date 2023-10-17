@@ -15,6 +15,7 @@ import kt.mobius.*
 import kt.mobius.First.Companion.first
 import org.junit.Rule
 import org.junit.Test
+import kotlin.test.assertTrue
 
 class ComposeMobiusLoopTest {
     @get:Rule
@@ -76,6 +77,76 @@ class ComposeMobiusLoopTest {
         compose
             .onNodeWithTag("model")
             .assertTextEquals("1")
+    }
+
+    @Test
+    fun test_NewLoop_WithUpdatedStartModel() = runTest {
+        val isDisplayed = mutableStateOf(true)
+        val startModel = mutableStateOf(0)
+        compose.setContent {
+            if (isDisplayed.value) {
+                testUi(startModel = startModel.value)
+            }
+        }
+        compose
+            .onNodeWithTag("model")
+            .assertTextEquals("0")
+
+        isDisplayed.value = false
+        startModel.value = 1
+        compose.awaitIdle()
+
+        isDisplayed.value = true
+        compose.awaitIdle()
+
+        compose
+            .onNodeWithTag("model")
+            .assertTextEquals("1")
+    }
+
+    @Test
+    fun test_WhenComposableIsDisposed_LoopIsDisposed() = runTest {
+        val isDisplayed = mutableStateOf(true)
+        val isDisposed = mutableStateOf(false)
+        compose.setContent {
+            if (isDisplayed.value) {
+                rememberMobiusLoop(0) {
+                    Mobius.loop(
+                        update = Update<Int, Int, Unit> { model, event -> Next.next(model + event) },
+                        effectHandler = {
+                            object : Connection<Unit> {
+                                override fun accept(value: Unit) = Unit
+                                override fun dispose() {
+                                    isDisposed.value = true
+                                }
+                            }
+                        }
+                    ).logger(SimpleLogger("Test"))
+                }
+            }
+        }
+
+        isDisplayed.value = false
+        compose.awaitIdle()
+        assertTrue(isDisposed.value)
+    }
+
+    @Test
+    fun test_ExistingLoop_WithUpdatedStartModel() = runTest {
+        val startModel = mutableStateOf(0)
+        compose.setContent {
+            testUi(startModel = startModel.value)
+        }
+        compose
+            .onNodeWithTag("model")
+            .assertTextEquals("0")
+
+        startModel.value = 1
+        compose.awaitIdle()
+
+        compose
+            .onNodeWithTag("model")
+            .assertTextEquals("0")
     }
 
     @Composable
