@@ -88,7 +88,7 @@ public class UpdateSpec<M, E, F>(
     }
 
     /** Interface for defining your error assertions.  */
-    public interface AssertError {
+    public fun interface AssertError {
         public fun assertError(e: Exception)
     }
 

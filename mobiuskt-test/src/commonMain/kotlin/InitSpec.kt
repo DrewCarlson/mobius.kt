@@ -64,7 +64,7 @@ public class InitSpec<M, F>(
     }
 
     /** Interface for defining your error assertions.  */
-    public interface AssertError {
+    public fun interface AssertError {
         public fun assertError(e: Exception)
     }
 

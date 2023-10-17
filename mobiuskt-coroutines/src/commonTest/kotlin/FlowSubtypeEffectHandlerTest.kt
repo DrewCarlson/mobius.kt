@@ -2,6 +2,7 @@ package kt.mobius.flow
 
 import app.cash.turbine.test
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
@@ -95,6 +96,65 @@ class FlowSubtypeEffectHandlerTest {
             addAction<Effect.Test4> {  }
             assertFailsWith<IllegalArgumentException> {
                 addAction<Effect.Test4> {  }
+            }
+        }
+    }
+
+    @Test
+    fun testIgnoredTypeIsIgnored() = runTest {
+        val handler = subtypeEffectHandler<Effect, Event> {
+            ignore<Effect.Ignored>()
+        }
+        handler(flowOf(Effect.Ignored)).test {
+            awaitComplete()
+        }
+    }
+
+    @Test
+    fun testAddValueCollector() = runTest {
+        val handler = subtypeEffectHandler<Effect, Event> {
+            addValueCollector<Effect.Test4> {
+                repeat(4) { i ->
+                    emit(Event.Test1(i))
+                }
+            }
+        }
+        val effectFlow = MutableSharedFlow<Effect>()
+        handler(effectFlow).test {
+            effectFlow.emit(Effect.Test4)
+            repeat(4) { i ->
+                assertEquals(i, (awaitItem() as Event.Test1).value)
+            }
+        }
+    }
+
+    @Test
+    fun testAddLatestValueCollector() = runTest {
+        val handler = subtypeEffectHandler<Effect, Event> {
+            addLatestValueCollector<Effect.Test4> {
+                repeat(4) { i ->
+                    emit(Event.Test1(i))
+                }
+            }
+        }
+        val effectFlow = MutableSharedFlow<Effect>()
+        handler(effectFlow).test {
+            effectFlow.emit(Effect.Test4)
+            repeat(4) { i ->
+                assertEquals(i, (awaitItem() as Event.Test1).value)
+            }
+        }
+    }
+
+    @Test
+    fun testHandlerErrorIsWrappedAndThrown() = runTest {
+        val handler = subtypeEffectHandler<Effect, Event> {
+            addAction<Effect.Test4> { error("This should fail.") }
+        }
+
+        handler(flowOf(Effect.Test4)).test {
+            assertFailsWith<UnrecoverableIncomingException> {
+                throw awaitError()
             }
         }
     }

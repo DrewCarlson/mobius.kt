@@ -3,7 +3,6 @@ package kt.mobius
 import com.google.common.util.concurrent.SettableFuture
 import kt.mobius.Effects.effects
 import kt.mobius.Next.Companion.next
-import kt.mobius.functions.Consumer
 import kt.mobius.runners.ExecutorServiceWorkRunner
 import kt.mobius.test.SimpleConnection
 import kt.mobius.test.TestWorkRunner
@@ -41,11 +40,9 @@ class MobiusLoopBehaviorWithEffectHandlers : MobiusLoopTest() {
     @Test
     fun shouldSupportEffectsThatGenerateEvents() {
         setupWithEffects(
-            Connectable { eventConsumer: Consumer<TestEvent> ->
-                object : SimpleConnection<TestEffect> {
-                    override fun accept(value: TestEffect) {
-                        eventConsumer.accept(TestEvent(value.toString()))
-                    }
+            { eventConsumer ->
+                SimpleConnection { value ->
+                    eventConsumer.accept(TestEvent(value.toString()))
                 }
             },
             immediateRunner
@@ -58,16 +55,14 @@ class MobiusLoopBehaviorWithEffectHandlers : MobiusLoopTest() {
     fun shouldOrderStateChangesCorrectlyWhenEffectsAreSlow() {
         val future = SettableFuture.create<TestEvent>()
         setupWithEffects(
-            Connectable { eventConsumer: Consumer<TestEvent> ->
-                object : SimpleConnection<TestEffect> {
-                    override fun accept(value: TestEffect) {
-                        try {
-                            eventConsumer.accept(future.get())
-                        } catch (e: InterruptedException) {
-                            throw RuntimeException(e)
-                        } catch (e: ExecutionException) {
-                            throw RuntimeException(e)
-                        }
+            { eventConsumer ->
+                SimpleConnection {
+                    try {
+                        eventConsumer.accept(future.get())
+                    } catch (e: InterruptedException) {
+                        throw RuntimeException(e)
+                    } catch (e: ExecutionException) {
+                        throw RuntimeException(e)
                     }
                 }
             },
@@ -84,22 +79,20 @@ class MobiusLoopBehaviorWithEffectHandlers : MobiusLoopTest() {
     @Test
     fun shouldSupportHandlingEffectsWhenOneEffectNeverCompletes() {
         setupWithEffects(
-            { eventConsumer: Consumer<TestEvent> ->
-                object : SimpleConnection<TestEffect> {
-                    override fun accept(value: TestEffect) {
-                        if (value is SafeEffect) {
-                            if (value.id == "1") {
-                                try {
-                                    // Rough approximation of waiting infinite amount of time.
-                                    Thread.sleep(2000)
-                                } catch (e: InterruptedException) {
-                                    // ignored.
-                                }
-                                return
+            { eventConsumer ->
+                SimpleConnection { value ->
+                    if (value is SafeEffect) {
+                        if (value.id == "1") {
+                            try {
+                                // Rough approximation of waiting infinite amount of time.
+                                Thread.sleep(2000)
+                            } catch (e: InterruptedException) {
+                                // ignored.
                             }
+                            return@SimpleConnection
                         }
-                        eventConsumer.accept(TestEvent(value.toString()))
                     }
+                    eventConsumer.accept(TestEvent(value.toString()))
                 }
             },
             ExecutorServiceWorkRunner(Executors.newFixedThreadPool(2))
@@ -122,11 +115,9 @@ class MobiusLoopBehaviorWithEffectHandlers : MobiusLoopTest() {
         startEffects = effects(SafeEffect("frominit"))
         val testWorkRunner = TestWorkRunner()
         setupWithEffects(
-            { eventConsumer: Consumer<TestEvent> ->
-                object : SimpleConnection<TestEffect> {
-                    override fun accept(value: TestEffect) {
-                        eventConsumer.accept(TestEvent(value.toString()))
-                    }
+            { eventConsumer ->
+                SimpleConnection { value ->
+                    eventConsumer.accept(TestEvent(value.toString()))
                 }
             },
             testWorkRunner

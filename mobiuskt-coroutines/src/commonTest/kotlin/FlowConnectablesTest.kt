@@ -7,6 +7,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.UNLIMITED
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.test.runTest
+import kt.mobius.test.RecordingConsumer
 import kotlin.test.*
 
 @OptIn(DelicateCoroutinesApi::class)
@@ -103,5 +104,25 @@ class FlowConnectablesTest {
         } catch (e: Exception) {
             assertEquals("expected", e.message)
         }
+    }
+
+    @Test
+    fun testFlowConnectable() = runTest {
+        val connectable = flowTransformer<Int, String> { ints ->
+            ints.map { it.toString() }
+        }.asConnectable()
+
+        val recordingConsumer = RecordingConsumer<String>()
+        val connection = connectable.connect(recordingConsumer)
+
+        connection.accept(1)
+        connection.accept(2)
+        connection.accept(3)
+
+        connection.dispose()
+
+        connection.accept(4)
+
+        recordingConsumer.assertValues("1", "2", "3")
     }
 }

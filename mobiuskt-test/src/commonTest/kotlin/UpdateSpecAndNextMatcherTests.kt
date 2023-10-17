@@ -14,6 +14,7 @@ import kt.mobius.test.matcher.descriptionOf
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertIs
 
 class UpdateSpecAndNextMatcherTests {
 
@@ -24,9 +25,35 @@ class UpdateSpecAndNextMatcherTests {
             TestEvent.Noop -> noChange()
             TestEvent.GenerateBothEffects ->
                 dispatch(setOf(TestEffect.SideEffect1, TestEffect.SideEffect2("Hello World!")))
+
             TestEvent.GenerateEffect1 -> dispatch(setOf(TestEffect.SideEffect1))
             TestEvent.GenerateEffect2 -> dispatch(setOf(TestEffect.SideEffect2("Hello World!")))
         }
+    }
+
+    @Test
+    fun testNextWithErrorSuccess() {
+        UpdateSpec(Update<TestModel, TestEvent, TestEffect> { _, _ -> error("Expected error") })
+            .given(TestModel())
+            .whenEvent(TestEvent.DecrementNumber)
+            .thenError { error ->
+                assertIs<IllegalStateException>(error)
+                assertEquals("Expected error", error.message)
+            }
+    }
+
+    @Test
+    fun testNextWithErrorFailed() {
+        val error = assertFailsWith<AssertionError> {
+            UpdateSpec(Update<TestModel, TestEvent, TestEffect> { _, _ -> noChange() })
+                .given(TestModel())
+                .whenEvents(
+                    TestEvent.DecrementNumber,
+                    TestEvent.Noop
+                )
+                .thenError { }
+        }
+        assertEquals("An exception was expected but was not thrown", error.message)
     }
 
     @Test

@@ -1,13 +1,15 @@
 package kt.mobius.flow
 
-import kotlinx.coroutines.DelicateCoroutinesApi
+import app.cash.turbine.test
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.consumeAsFlow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.yield
+import kt.mobius.EventSource
+import kt.mobius.disposables.Disposable
 import kt.mobius.test.RecordingConsumer
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 @OptIn(DelicateCoroutinesApi::class)
@@ -42,5 +44,40 @@ class FlowEventSourcesTest {
         consumer.assertValues(1, 2)
 
         assertTrue(channel.isClosedForSend)
+    }
+
+    @Test
+    fun eventSourceToFlow() = runTest {
+        val eventSource = EventSource { consumer ->
+            launch {
+                repeat(5) { i ->
+                    consumer.accept(i)
+                    yield()
+                }
+            }
+            Disposable { }
+        }
+
+        val results = eventSource.toFlow()
+            .take(5)
+            .toList()
+
+        assertEquals(listOf(0, 1, 2, 3, 4), results)
+    }
+
+    @Test
+    fun eventSourceToFlowDispose() = runTest {
+        var disposed = false
+        val eventSource = EventSource { consumer ->
+            consumer.accept(0)
+            Disposable {
+                disposed = true
+            }
+        }
+
+        eventSource.toFlow().test {
+            cancelAndIgnoreRemainingEvents()
+            assertTrue(disposed)
+        }
     }
 }

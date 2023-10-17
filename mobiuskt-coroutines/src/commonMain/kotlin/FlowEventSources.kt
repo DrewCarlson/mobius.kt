@@ -3,7 +3,6 @@ package kt.mobius.flow
 import kt.mobius.EventSource
 import kt.mobius.disposables.Disposable
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -34,7 +33,6 @@ public fun <E> Flow<E>.toEventSource(
  * [EventSource.subscribe] is called when collection begins and
  * [Disposable.dispose] is called when the [Flow] is cancelled.
  */
-@OptIn(ExperimentalCoroutinesApi::class)
 public fun <E> EventSource<E>.toFlow(): Flow<E> =
     callbackFlow {
         val disposable = subscribe { event -> trySend(event) }

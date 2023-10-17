@@ -46,14 +46,10 @@ subprojects {
     kover {}
 }
 
-extensions.configure<kotlinx.kover.api.KoverMergedConfig> {
-    enable()
-    filters {
-        projects {
-            excludes.add(":mobiuskt-test")
-            excludes.add(":mobiuskt-codegen")
-            excludes.add(":mobiuskt-codegen-api")
-            excludes.add(":mobiuskt-codegen-test")
-        }
-    }
+dependencies {
+    kover(project(":mobiuskt-core"))
+    kover(project(":mobiuskt-compose"))
+    kover(project(":mobiuskt-coroutines"))
+    kover(project(":mobiuskt-extras"))
+    kover(project(":mobiuskt-test"))
 }

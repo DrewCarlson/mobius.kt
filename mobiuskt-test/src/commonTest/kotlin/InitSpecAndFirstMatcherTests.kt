@@ -10,6 +10,7 @@ import kt.mobius.test.matcher.descriptionOf
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertIs
 
 class InitSpecAndFirstMatcherTests {
 
@@ -23,6 +24,10 @@ class InitSpecAndFirstMatcherTests {
 
     private val initWithNewModel = Init<TestModel, TestEffect> {
         First.first(TestModel(number = 10, string = "Hello World!"))
+    }
+
+    private val initWithError = Init<TestModel, TestEffect> {
+        error("Failure expected")
     }
 
     @Test
@@ -95,5 +100,28 @@ class InitSpecAndFirstMatcherTests {
                     "     but: bad model: was <TestModel(number=10, string=Hello World!)>",
             error.message
         )
+    }
+
+    @Test
+    fun testInitThenErrorSuccess() {
+        val spec = InitSpec(initWithError)
+
+        spec.whenInit(TestModel())
+            .thenError { error ->
+                assertIs<IllegalStateException>(error)
+                assertEquals("Failure expected", error.message)
+            }
+    }
+
+    @Test
+    fun testInitThenErrorFailed() {
+        val spec = InitSpec(initWithoutEffects)
+        val initialModel = TestModel()
+
+        val error = assertFailsWith<AssertionError> {
+            spec.whenInit(initialModel)
+                .thenError {}
+        }
+        assertEquals("An exception was expected but was not thrown", error.message)
     }
 }

@@ -12,7 +12,7 @@ import kotlin.test.*
 
 class FlowMobiusLoopTest {
 
-    private lateinit var loop: FlowMobiusLoop<String, Int>
+    private lateinit var loop: FlowTransformer<Int, String>
 
     @BeforeTest
     fun setUp() {
@@ -26,7 +26,7 @@ class FlowMobiusLoopTest {
             }
         )
 
-        loop = FlowMobiusLoop(factory, "")
+        loop = FlowMobius.loopFrom(factory, "")
     }
 
     @Test
