@@ -15,7 +15,7 @@ val myLogger = CompositeLogger.from(
 
 val loop = Mobius.loop(MyUpdate(), effectHandler)
     .logger(myLogger)
-    .startFrom
+    .startFrom(MyModel())
 ```
 
 ## Effect Handler Decorators
