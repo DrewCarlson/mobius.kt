@@ -28,11 +28,11 @@ kotlin {
     js(IR) {
         nodejs()
         browser {
-            testTask(Action {
+            testTask {
                 useKarma {
                     useFirefoxHeadless()
                 }
-            })
+            }
         }
     }
 

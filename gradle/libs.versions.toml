@@ -1,24 +1,25 @@
 [versions]
-kotlin = "1.9.10"
+kotlin = "1.9.22"
 dokka = "1.9.10"
-agp = "8.1.2"
+agp = "8.2.0"
 coroutines = "1.7.3"
 guava = "31.0.1-android"
 awaitility = "4.2.0"
-atomicfu = "0.22.0"
+atomicfu = "0.23.1"
 binary_compat = "0.13.2"
-kover = "0.7.4"
+kover = "0.7.5"
 slf4j = "2.0.9"
-ksp = "1.9.10-1.0.13"
-kotlinpoet = "1.14.2"
+ksp = "1.9.22-1.0.17"
+kotlinpoet = "1.15.3"
 ax_lifecycle = "2.6.2"
 ax_testing = "2.2.0"
 ax_runner = "1.5.2"
-robolectric = "4.10.3"
+robolectric = "4.11.1"
 turbine = "1.0.0"
-compose_compiler = "1.5.3"
-compose_multiplatform = "1.5.3"
-compose_multiplatform_compiler = "1.5.0"
+compose_compiler = "1.5.8"
+compose_multiplatform = "1.5.11"
+compose_multiplatform_compiler = "1.5.7.1"
+androidxComposeBom = "2023.10.01"
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
@@ -26,7 +27,7 @@ dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 binaryCompat = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary_compat" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.25.3" }
+mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.26.0" }
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose_multiplatform" }
 
 [libraries]

@@ -9,7 +9,7 @@ plugins {
 apply(plugin = "kotlinx-atomicfu")
 
 android {
-    compileSdk = 33
+    compileSdk = 34
     namespace = "kt.mobius.android"
     defaultConfig {
         minSdk = 21
@@ -37,6 +37,9 @@ android {
 }
 
 kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
     androidTarget {
         jvmToolchain(11)
         publishLibraryVariants("release", "debug")
@@ -48,11 +51,11 @@ kotlin {
         binaries.library()
         nodejs()
         browser {
-            testTask(Action {
+            testTask {
                 useKarma {
                     useFirefoxHeadless()
                 }
-            })
+            }
         }
     }
 
@@ -78,10 +81,10 @@ kotlin {
     configure(nativeTargets) {
         compilations.getByName("main") {
             defaultSourceSet {
-                kotlin.srcDir("src/nativeMain/kotlin")
+                //kotlin.srcDir("src/nativeMain/kotlin")
 
                 if (darwinTargets.any(this@configure.name::startsWith)) {
-                    kotlin.srcDir("src/darwinMain/kotlin")
+                    //kotlin.srcDir("src/darwinMain/kotlin")
                 }
             }
         }
@@ -123,7 +126,6 @@ kotlin {
         }
 
         val androidMain by getting {
-            dependsOn(jvmMain)
             dependencies {
                 implementation(libs.androidx.livedata)
                 implementation(libs.androidx.viewmodel)
@@ -131,7 +133,6 @@ kotlin {
         }
 
         val androidUnitTest by getting {
-            dependsOn(jvmTest)
             dependencies {
                 implementation(projects.mobiusktTest)
                 implementation(libs.androidx.lifecycleRuntime)
