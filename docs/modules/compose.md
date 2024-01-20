@@ -1,14 +1,22 @@
 # Compose
 
+![](https://img.shields.io/static/v1?label=&message=Platforms&color=grey)
+![](https://img.shields.io/static/v1?label=&message=Android&color=blue)
+![](https://img.shields.io/static/v1?label=&message=Js(HTML)&color=blue)
+![](https://img.shields.io/static/v1?label=&message=Jvm&color=blue)
+![](https://img.shields.io/static/v1?label=&message=macOS&color=blue)
+![](https://img.shields.io/static/v1?label=&message=iOS&color=blue)
+
 The `mobiuskt-compose` module provides support for
-[Jetpack Compose](https://developer.android.com/jetpack/compose) and
-[Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/).
+[Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) and
+[Jetpack Compose](https://developer.android.com/jetpack/compose) with built in support
+for [Jetpack Navigation Component](https://developer.android.com/jetpack/compose/navigation)
+
+_Note: This module is experimental and likely to change in the future._
 
 ## Creating a Loop
 
 With Compose, loops are created with `rememberMobiusLoop`.
-
-### Example
 
 ```kotlin
 @Composable
@@ -42,8 +50,46 @@ fun MyScreen(
 }
 ```
 
-!!! note
+## Platform Behavior
 
-    Create the loop outside the main Composable UI function.
-    You should provide the model and event consumer function as parameters to maintain preview support.
-    The loop setup would typically live at the same level as your navigation handler body for the associated route.
+### iOS/Desktop/Web
+
+For these platforms, the loop is running while in the Composition and is disposed when removed.
+The `rememberMobiusLoopLocal` method is available if you need to enforce this behavior on all
+platforms.
+
+### Android
+
+When using [Jetpack Navigation Component](https://developer.android.com/jetpack/compose/navigation),
+the loop will be scoped to the route and survive configuration changes.
+
+Without Jetpack Navigation, `rememberMobiusLoop` uses `rememberMobiusLoopLocal` meaning the loop
+will be disposed and recreated on configuration changes.
+
+??? note "Supporting other Navigation libraries (Control the loop's lifecycle)"
+
+    To support different navigation libraries, you must provide a custom `ViewModelStoreOwner` that
+    is tied to the libraries route lifecycle.
+
+    `rememberMobiusLoop` checks if `LocalViewModelStoreOwner.current` is set to an Activity,
+    in which case `rememberMobiusLoopLocal` is used. When it's not an Activity, we're likely
+    within a route for Jetpack Navigation or some other library so the loop will be held in
+    a ViewModel which has it's lifecyle managed by the store owner.
+    
+    ```kotlin
+    val navLibraryViewModelStoreOwner = ...
+    CompositionLocalProvider(
+        LocalViewModelStoreOwner provides navLibraryViewModelStoreOwner
+    ) {
+        route(path = "my-screen") {
+            val (modelState, eventConsumer) = rememberMobiusLoop(ScreenModel()) {
+                Mobius.loop(MyScreenUpdate(), MyScreenHandler())
+                    .logger(SimpleLogger("MyScreen"))
+            }
+            MyScreen(
+                model = modelState.value,
+                eventConsumer = eventConsumer,
+            )
+        }
+    }
+    ```

@@ -2,6 +2,8 @@
 
 Mobius.kt provides a few different Android specific utilities for Logging and binding to Android UI.
 
+_See the [Modules > Compose](../modules/compose.md) section for Jetpack Compose/Compose Multiplatform documentation._
+
 ## MobiusController
 
 _(See [Android ViewModel](#ViewModel) below for a less manual approach to UI lifecycle binding.)_

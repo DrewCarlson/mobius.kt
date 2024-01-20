@@ -1,5 +1,5 @@
 public final class kt/mobius/compose/ComposeMobiusLoopKt {
-	public static final fun rememberMobiusLoop (Ljava/lang/Object;Lkt/mobius/Init;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)Lkt/mobius/compose/ComposeMobiusLoopStateHolder;
+	public static final fun rememberMobiusLoopLocal (Ljava/lang/Object;Lkt/mobius/Init;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)Lkt/mobius/compose/ComposeMobiusLoopStateHolder;
 }
 
 public final class kt/mobius/compose/ComposeMobiusLoopStateHolder {
@@ -14,6 +14,10 @@ public final class kt/mobius/compose/ComposeMobiusLoopStateHolder {
 	public final fun getModel ()Landroidx/compose/runtime/State;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class kt/mobius/compose/ComposeMobiusLoop_jvmKt {
+	public static final fun rememberMobiusLoop (Ljava/lang/Object;Lkt/mobius/Init;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)Lkt/mobius/compose/ComposeMobiusLoopStateHolder;
 }
 
 public abstract interface annotation class kt/mobius/compose/ExperimentalMobiusktComposeApi : java/lang/annotation/Annotation {

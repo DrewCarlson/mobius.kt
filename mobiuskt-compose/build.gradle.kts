@@ -1,4 +1,4 @@
-plugins {
+﻿plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("org.jetbrains.kotlinx.binary-compatibility-validator")
@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
     namespace = "kt.mobius.compose"
     defaultConfig {
         minSdk = 21
@@ -40,7 +40,9 @@ compose {
 }
 
 kotlin {
-    androidTarget()
+    androidTarget {
+        publishAllLibraryVariants()
+    }
     jvm {
         jvmToolchain(11)
     }
@@ -83,7 +85,7 @@ kotlin {
                 implementation(projects.mobiusktCore)
                 implementation(projects.mobiusktExtras)
                 implementation(libs.coroutines.core)
-                implementation(compose.runtime)
+                implementation(compose.foundation)
             }
         }
 
@@ -92,6 +94,27 @@ kotlin {
                 implementation(libs.coroutines.test)
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+            }
+        }
+
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.androidx.compose.livedata)
+                implementation(libs.androidx.lifecycle.viewmodel.compose)
+            }
+        }
+
+        val androidInstrumentedTest by getting {
+            dependencies {
+                implementation(project.dependencies.platform(libs.androidx.compose.bom))
+                implementation(libs.androidx.compose.ui)
+                implementation(libs.androidx.compose.runtime.android)
+                implementation(libs.androidx.compose.foundation)
+                implementation(libs.androidx.compose.material)
+                implementation(libs.androidx.compose.ui.test.junit4)
+                implementation(libs.androidx.compose.ui.test.manifest)
+                implementation(kotlin("test"))
+                implementation(kotlin("test-junit"))
             }
         }
 
