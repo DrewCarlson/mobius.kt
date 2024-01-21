@@ -8,6 +8,30 @@ public final class kt/mobius/flow/DispatcherWorkRunnerKt {
 	public static final fun fromDispatcher (Lkt/mobius/runners/WorkRunners;Lkotlinx/coroutines/CoroutineDispatcher;)Lkt/mobius/runners/WorkRunner;
 }
 
+public abstract interface class kt/mobius/flow/ExecutionPolicy {
+	public abstract fun execute (Lkotlin/jvm/functions/Function3;Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class kt/mobius/flow/ExecutionPolicy$Concurrent : kt/mobius/flow/ExecutionPolicy {
+	public static final field Companion Lkt/mobius/flow/ExecutionPolicy$Concurrent$Companion;
+	public fun <init> (I)V
+	public fun execute (Lkotlin/jvm/functions/Function3;Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class kt/mobius/flow/ExecutionPolicy$Concurrent$Companion : kt/mobius/flow/ExecutionPolicy {
+	public fun execute (Lkotlin/jvm/functions/Function3;Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class kt/mobius/flow/ExecutionPolicy$Latest : kt/mobius/flow/ExecutionPolicy {
+	public static final field INSTANCE Lkt/mobius/flow/ExecutionPolicy$Latest;
+	public fun execute (Lkotlin/jvm/functions/Function3;Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class kt/mobius/flow/ExecutionPolicy$Sequential : kt/mobius/flow/ExecutionPolicy {
+	public static final field INSTANCE Lkt/mobius/flow/ExecutionPolicy$Sequential;
+	public fun execute (Lkotlin/jvm/functions/Function3;Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+}
+
 public final class kt/mobius/flow/FlowConnectablesKt {
 	public static final fun asConnectable (Lkt/mobius/flow/FlowTransformer;)Lkt/mobius/Connectable;
 	public static final fun flowConnectable (Lkt/mobius/flow/FlowTransformer;)Lkt/mobius/Connectable;
@@ -34,17 +58,17 @@ public final class kt/mobius/flow/FlowTransformerKt {
 }
 
 public final class kt/mobius/flow/SubtypeEffectHandlerBuilder {
-	public fun <init> ()V
-	public final fun addAction (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function1;)V
-	public static synthetic fun addAction$default (Lkt/mobius/flow/SubtypeEffectHandlerBuilder;Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
-	public final fun addConsumer (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function2;)V
-	public final fun addFunction (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function2;)V
-	public final fun addTransformer (Lkotlin/reflect/KClass;Lkt/mobius/flow/FlowTransformer;)V
+	public fun <init> (Lkt/mobius/flow/ExecutionPolicy;)V
+	public final fun addFlowTransformer (Lkotlin/reflect/KClass;Lkt/mobius/flow/FlowTransformer;)V
+	public final fun addHandler (Lkotlin/reflect/KClass;Lkt/mobius/flow/ExecutionPolicy;Lkotlin/jvm/functions/Function3;)V
+	public static synthetic fun addHandler$default (Lkt/mobius/flow/SubtypeEffectHandlerBuilder;Lkotlin/reflect/KClass;Lkt/mobius/flow/ExecutionPolicy;Lkotlin/jvm/functions/Function3;ILjava/lang/Object;)V
 	public final fun build ()Lkt/mobius/flow/FlowTransformer;
+	public final fun getDefaultExecutionPolicy ()Lkt/mobius/flow/ExecutionPolicy;
 }
 
 public final class kt/mobius/flow/SubtypeEffectHandlerKt {
-	public static final fun subtypeEffectHandler (Lkotlin/jvm/functions/Function1;)Lkt/mobius/flow/FlowTransformer;
+	public static final fun subtypeEffectHandler (Lkt/mobius/flow/ExecutionPolicy;Lkotlin/jvm/functions/Function1;)Lkt/mobius/flow/FlowTransformer;
+	public static synthetic fun subtypeEffectHandler$default (Lkt/mobius/flow/ExecutionPolicy;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkt/mobius/flow/FlowTransformer;
 }
 
 public final class kt/mobius/flow/SubtypeEffectHandlerKt$sam$i$kt_mobius_flow_FlowTransformer$0 : kotlin/jvm/internal/FunctionAdapter, kt/mobius/flow/FlowTransformer {
