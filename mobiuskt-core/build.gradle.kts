@@ -9,7 +9,7 @@ plugins {
 apply(plugin = "kotlinx-atomicfu")
 
 android {
-    compileSdk = 33
+    compileSdk = 34
     namespace = "kt.mobius.android"
     defaultConfig {
         minSdk = 21
@@ -37,6 +37,9 @@ android {
 }
 
 kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
     androidTarget {
         jvmToolchain(11)
         publishLibraryVariants("release", "debug")
@@ -48,44 +51,30 @@ kotlin {
         binaries.library()
         nodejs()
         browser {
-            testTask(Action {
+            testTask {
                 useKarma {
                     useFirefoxHeadless()
-                }
-            })
-        }
-    }
-
-    val nativeTargets = listOf(
-            iosX64(),
-            iosArm64(),
-            iosSimulatorArm64(),
-            tvosX64(),
-            tvosArm64(),
-            tvosSimulatorArm64(),
-            watchosArm32(),
-            watchosArm64(),
-            watchosSimulatorArm64(),
-            watchosDeviceArm64(),
-            watchosX64(),
-            macosX64(),
-            macosArm64(),
-            linuxX64(),
-            linuxArm64(),
-            mingwX64(),
-    )
-    val darwinTargets = listOf("ios", "tvos", "watchos", "macos")
-    configure(nativeTargets) {
-        compilations.getByName("main") {
-            defaultSourceSet {
-                kotlin.srcDir("src/nativeMain/kotlin")
-
-                if (darwinTargets.any(this@configure.name::startsWith)) {
-                    kotlin.srcDir("src/darwinMain/kotlin")
                 }
             }
         }
     }
+
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+    tvosX64()
+    tvosArm64()
+    tvosSimulatorArm64()
+    watchosArm32()
+    watchosArm64()
+    watchosSimulatorArm64()
+    watchosDeviceArm64()
+    watchosX64()
+    macosX64()
+    macosArm64()
+    linuxX64()
+    linuxArm64()
+    mingwX64()
 
     sourceSets {
         all {
@@ -123,7 +112,6 @@ kotlin {
         }
 
         val androidMain by getting {
-            dependsOn(jvmMain)
             dependencies {
                 implementation(libs.androidx.livedata)
                 implementation(libs.androidx.viewmodel)
@@ -131,7 +119,6 @@ kotlin {
         }
 
         val androidUnitTest by getting {
-            dependsOn(jvmTest)
             dependencies {
                 implementation(projects.mobiusktTest)
                 implementation(libs.androidx.lifecycleRuntime)

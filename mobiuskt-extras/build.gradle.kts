@@ -26,11 +26,11 @@ kotlin {
         binaries.library()
         nodejs()
         browser {
-            testTask(Action {
+            testTask {
                 useKarma {
                     useFirefoxHeadless()
                 }
-            })
+            }
         }
     }
 

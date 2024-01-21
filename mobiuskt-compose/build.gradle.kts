@@ -35,6 +35,10 @@ android {
     }
 }
 
+compose {
+    kotlinCompilerPlugin.set(libs.versions.compose.multiplatform.compiler.get())
+}
+
 kotlin {
     androidTarget()
     jvm {
@@ -42,11 +46,11 @@ kotlin {
     }
     js(IR) {
         browser {
-            testTask(Action {
+            testTask {
                 useKarma {
                     useFirefoxHeadless()
                 }
-            })
+            }
         }
     }
     listOf(
