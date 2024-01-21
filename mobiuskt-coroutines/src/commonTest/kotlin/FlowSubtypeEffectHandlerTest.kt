@@ -2,10 +2,15 @@ package kt.mobius.flow
 
 import app.cash.turbine.test
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.test.advanceTimeBy
+import kotlinx.coroutines.test.currentTime
 import kotlinx.coroutines.test.runTest
 import kt.mobius.test.RecordingConsumer
 import kotlin.test.*
@@ -93,9 +98,9 @@ class FlowSubtypeEffectHandlerTest {
     @Test
     fun testCannotAttachDuplicateHandler() {
         subtypeEffectHandler<Effect, Event> {
-            addAction<Effect.Test4> {  }
+            addAction<Effect.Test4> { }
             assertFailsWith<IllegalArgumentException> {
-                addAction<Effect.Test4> {  }
+                addAction<Effect.Test4> { }
             }
         }
     }
@@ -129,24 +134,6 @@ class FlowSubtypeEffectHandlerTest {
     }
 
     @Test
-    fun testAddLatestValueCollector() = runTest {
-        val handler = subtypeEffectHandler<Effect, Event> {
-            addLatestValueCollector<Effect.Test4> {
-                repeat(4) { i ->
-                    emit(Event.Test1(i))
-                }
-            }
-        }
-        val effectFlow = MutableSharedFlow<Effect>()
-        handler(effectFlow).test {
-            effectFlow.emit(Effect.Test4)
-            repeat(4) { i ->
-                assertEquals(i, (awaitItem() as Event.Test1).value)
-            }
-        }
-    }
-
-    @Test
     fun testHandlerErrorIsWrappedAndThrown() = runTest {
         val handler = subtypeEffectHandler<Effect, Event> {
             addAction<Effect.Test4> { error("This should fail.") }
@@ -156,6 +143,60 @@ class FlowSubtypeEffectHandlerTest {
             assertFailsWith<UnrecoverableIncomingException> {
                 throw awaitError()
             }
+        }
+    }
+
+    @Test
+    fun testLatestExecutionPolicy() = runTest {
+        val handler = subtypeEffectHandler<Effect, Int> {
+            addValueCollector<Effect.Test3>(ExecutionPolicy.Latest) { effect ->
+                delay(effect.value.toLong())
+                emit(effect.value)
+            }
+        }
+        val effectFlow = flowOf(
+            Effect.Test3(5),
+            Effect.Test3(1)
+        ).onEach { delay(1) }
+        handler(effectFlow).test {
+            advanceTimeBy(1)
+            expectNoEvents()
+            advanceTimeBy(1)
+            assertEquals(1, awaitItem())
+            awaitComplete()
+        }
+    }
+
+    @Test
+    fun testSequentialExecutionPolicy() = runTest {
+        val handler = subtypeEffectHandler<Effect, Long> {
+            addValueCollector<Effect.Test4>(ExecutionPolicy.Sequential) {
+                emit(currentTime)
+                delay(1)
+            }
+        }
+        val effectFlow = List(4) { Effect.Test4 }.asFlow()
+        handler(effectFlow).test {
+            repeat(4) { i ->
+                assertEquals(i.toLong(), awaitItem())
+            }
+        }
+    }
+
+    @Test
+    fun testConcurrentExecutionPolicy() = runTest {
+        val handler = subtypeEffectHandler<Effect, Long> {
+            addValueCollector<Effect.Test4>(ExecutionPolicy.Concurrent(4)) {
+                emit(currentTime)
+                delay(1)
+            }
+        }
+        val effectFlow = List(4) { Effect.Test4 }.asFlow()
+        handler(effectFlow).test {
+            repeat(4) { i ->
+                assertEquals(0, awaitItem())
+            }
+            awaitComplete()
         }
     }
 }
