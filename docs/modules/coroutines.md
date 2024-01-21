@@ -1,12 +1,14 @@
 # Coroutines
 
-Coroutines and Flows are supported with the `mobiuskt-coroutines` module (See [Download](../download.md)).
+Coroutines and Flows are supported with the `mobiuskt-coroutines` module
+(See [Download](../download.md)).
 
 **Note:** `Update` functions are always synchronous and there is no use for coroutines in them.
 
 ## Side Effects
 
-The `subtypeEffectHandler` builder provides various coroutine based methods to handle Effects in whatever way your application requires.
+The `subtypeEffectHandler` builder provides various coroutine based methods to handle Effects in
+whatever way your application requires.
 
 ```kotlin
 val effectHandler = subtypeEffectHandler<Effect, Event> {
@@ -19,7 +21,7 @@ val effectHandler = subtypeEffectHandler<Effect, Event> {
     // suspend (Effect) -> Unit
     addConsumer<Effect.SubType2> { effect ->
         // Perform action with Effect data and without a result.
-    } 
+    }
 
     // suspend (Effect) -> Event
     addFunction<Effect.SubType3> { effect ->
@@ -35,12 +37,6 @@ val effectHandler = subtypeEffectHandler<Effect, Event> {
         emitAll(createEventFlow())
     }
 
-    addLatestValueCollector<Effect.SubType5> {
-        // Same as `addValueCollector` but previous invocations are
-        // disposed when a new Effect instance is emitted.
-        emitAll(createEventFlow())
-    }
-
     // (Flow<Effect>) -> Flow<Event>
     addTransformer<Effect.SubType6> { effects ->
         // This allows freeform Flow operator usage for more advanced cases.
@@ -48,7 +44,9 @@ val effectHandler = subtypeEffectHandler<Effect, Event> {
     }
 }
 ```
- 
+
+### Creating the Loop
+
 A `SubtypeEffectHandler` can be used directly with the `FlowMobius` loop factory
 
 ```kotlin
@@ -59,4 +57,34 @@ Or with the standard `Mobius`/`MobiusLoop` builders with the `asConnectable()` e
 
 ```kotlin
 val loopFactory = Mobius.loop(update, effectHandler.asConnectable())
+```
+
+### Execution Policy
+
+Execution of functions added to a `SubtypeEffectHandler` can be configured with
+an `ExecutionPolicy`.
+
+- `ExecutionPolicy.Sequential`: The handler is executed with each Effect in order one at a
+  time, waiting until the previous execution is complete before starting another.
+
+- `ExecutionPolicy.Latest`: Each Effect will execute the handler, new Effects will cancel the
+  previous handler if it has not finished executing.
+
+- (Default) `ExecutionPolicy.Concurrent`: Effects will be processed concurrently up to the maximum provided
+  concurrency limit.
+  The default limit is defined
+  by [`DEFAULT_CONCURRENCY`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-d-e-f-a-u-l-t_-c-o-n-c-u-r-r-e-n-c-y.html)
+  from the coroutines library.
+
+An `ExecutionPolicy` can be applied in two ways:
+
+```kotlin
+// Set the default policy for all handlers
+subtypeEffectHandler<Effect, Event>(ExecutionPolicy.Sequential) {
+
+    // Override the default per handler function
+    addConsumer<Effect.MyEffect>(ExecutionPolicy.Latest) {
+        // ...
+    }
+}
 ```
