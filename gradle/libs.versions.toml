@@ -11,7 +11,7 @@ kover = "0.7.5"
 slf4j = "2.0.9"
 ksp = "1.9.22-1.0.17"
 kotlinpoet = "1.15.3"
-ax_lifecycle = "2.6.2"
+ax_lifecycle = "2.7.0"
 ax_testing = "2.2.0"
 ax_runner = "1.5.2"
 robolectric = "4.11.1"
@@ -49,3 +49,13 @@ androidx-lifecycleRuntime = { module = "androidx.lifecycle:lifecycle-runtime", v
 androidx-coreTesting = { module = "androidx.arch.core:core-testing", version.ref = "ax_testing" }
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "ax_runner" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "ax_lifecycle" }
+
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
+androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-runtime-android = { group = "androidx.compose.runtime", name = "runtime" }
+androidx-compose-material = { group = "androidx.compose.material", name = "material" }
+androidx-compose-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
+androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
