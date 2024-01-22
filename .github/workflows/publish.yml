@@ -87,4 +87,4 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v') == false
         run: |
           SNAPSHOT_VERSION=$(grep "version=" gradle.properties | cut -d '=' -f2)
-          VERSION=$SNAPSHOT_VERSION mike deploy --update-aliases --push "v$SNAPSHOT_VERSION" dev-snapshot
+          VERSION=$SNAPSHOT_VERSION mike deploy --ignore-remote-status --update-aliases --push "v$SNAPSHOT_VERSION" dev-snapshot
