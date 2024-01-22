@@ -29,7 +29,7 @@ jobs:
           arguments: macosX64Test iosX64Test # tvosX64Test
 
       - name: Archive Test Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
           name: test-results
@@ -50,7 +50,7 @@ jobs:
           arguments: mingwX64Test
 
       - name: Archive Test Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
           name: test-results
@@ -83,14 +83,14 @@ jobs:
           arguments: linuxX64Test
 
       - name: Archive Reports
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
           name: reports
           path: "build/reports/kover/report.xml"
 
       - name: Archive Test Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
           name: test-results
@@ -115,7 +115,7 @@ jobs:
           arguments: jsNodeTest jsBrowserTest
 
       - name: Archive Test Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
           name: test-results
