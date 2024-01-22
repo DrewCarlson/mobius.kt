@@ -1,1 +1,16 @@
-[{"version": "v1.1.0", "title": "v1.1.0", "aliases": ["latest"]}]
+[
+  {
+    "version": "v1.2.1-SNAPSHOT",
+    "title": "v1.2.1-SNAPSHOT",
+    "aliases": [
+      "dev-snapshot"
+    ]
+  },
+  {
+    "version": "v1.1.0",
+    "title": "v1.1.0",
+    "aliases": [
+      "latest"
+    ]
+  }
+]
