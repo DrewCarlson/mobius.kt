@@ -67,8 +67,8 @@ public final class kt/mobius/flow/SubtypeEffectHandlerBuilder {
 }
 
 public final class kt/mobius/flow/SubtypeEffectHandlerKt {
+	public static final fun subtypeEffectHandler (Lkotlin/jvm/functions/Function1;)Lkt/mobius/flow/FlowTransformer;
 	public static final fun subtypeEffectHandler (Lkt/mobius/flow/ExecutionPolicy;Lkotlin/jvm/functions/Function1;)Lkt/mobius/flow/FlowTransformer;
-	public static synthetic fun subtypeEffectHandler$default (Lkt/mobius/flow/ExecutionPolicy;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkt/mobius/flow/FlowTransformer;
 }
 
 public final class kt/mobius/flow/SubtypeEffectHandlerKt$sam$i$kt_mobius_flow_FlowTransformer$0 : kotlin/jvm/internal/FunctionAdapter, kt/mobius/flow/FlowTransformer {
