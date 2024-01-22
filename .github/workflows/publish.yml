@@ -27,7 +27,7 @@ jobs:
             ~/.konan
             ~/.gradle
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}-v1
-      - uses: gradle/gradle-build-action@v2.9.0
+      - uses: gradle/gradle-build-action@v2.11.1
         name: Publish
         with:
           arguments: clean publishAllPublicationsToMavenCentralRepository
@@ -71,7 +71,7 @@ jobs:
       - name: Install Python dependencies
         run: python3 -m pip install -r ./docs/requirements.txt
 
-      - uses: gradle/gradle-build-action@v2.9.0
+      - uses: gradle/gradle-build-action@v2.11.1
         name: Build KDocs
         with:
           arguments: clean dokkaHtmlMultiModule
