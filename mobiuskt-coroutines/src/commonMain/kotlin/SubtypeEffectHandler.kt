@@ -6,10 +6,17 @@ import kotlin.reflect.KClass
 import kotlin.reflect.cast
 
 public fun <F : Any, E> subtypeEffectHandler(
-    executionPolicy: ExecutionPolicy = ExecutionPolicy.Concurrent,
+    executionPolicy: ExecutionPolicy,
     block: SubtypeEffectHandlerBuilder<F, E>.() -> Unit
 ): FlowTransformer<F, E> =
     SubtypeEffectHandlerBuilder<F, E>(executionPolicy)
+        .apply(block)
+        .build()
+
+public fun <F : Any, E> subtypeEffectHandler(
+    block: SubtypeEffectHandlerBuilder<F, E>.() -> Unit
+): FlowTransformer<F, E> =
+    SubtypeEffectHandlerBuilder<F, E>(ExecutionPolicy.Concurrent)
         .apply(block)
         .build()
 
