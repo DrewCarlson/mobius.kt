@@ -64,17 +64,22 @@ val loopFactory = Mobius.loop(update, effectHandler.asConnectable())
 Execution of functions added to a `SubtypeEffectHandler` can be configured with
 an `ExecutionPolicy`.
 
+- (Default) `ExecutionPolicy.Concurrent(concurrency: Int)`: Effects will be processed concurrently up to the maximum provided
+  concurrency limit.
+  The default limit is defined
+  by [`DEFAULT_CONCURRENCY`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-d-e-f-a-u-l-t_-c-o-n-c-u-r-r-e-n-c-y.html)
+  from the coroutines library.
+
 - `ExecutionPolicy.Sequential`: The handler is executed with each Effect in order one at a
   time, waiting until the previous execution is complete before starting another.
 
 - `ExecutionPolicy.Latest`: Each Effect will execute the handler, new Effects will cancel the
   previous handler if it has not finished executing.
 
-- (Default) `ExecutionPolicy.Concurrent`: Effects will be processed concurrently up to the maximum provided
-  concurrency limit.
-  The default limit is defined
-  by [`DEFAULT_CONCURRENCY`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-d-e-f-a-u-l-t_-c-o-n-c-u-r-r-e-n-c-y.html)
-  from the coroutines library.
+- `ExecutionPolicy.ThrottleLatest(window: Duration)`: Immediately handle the first Effect, delaying any new effects
+  by the provided window.  When a new Effect is dispatched within
+  the window, it is dispatched after the window elapses and the
+  previous handler is canceled if still running.
 
 An `ExecutionPolicy` can be applied in two ways:
 

@@ -14,6 +14,7 @@ import kotlinx.coroutines.test.currentTime
 import kotlinx.coroutines.test.runTest
 import kt.mobius.test.RecordingConsumer
 import kotlin.test.*
+import kotlin.time.Duration.Companion.seconds
 
 class FlowSubtypeEffectHandlerTest {
 
@@ -196,6 +197,21 @@ class FlowSubtypeEffectHandlerTest {
             repeat(4) { i ->
                 assertEquals(0, awaitItem())
             }
+            awaitComplete()
+        }
+    }
+
+    @Test
+    fun testThrottleLatestExecutionPolicy() = runTest {
+        val handler = subtypeEffectHandler<Effect, Pair<Int, Long>> {
+            addValueCollector<Effect.Test1>(ExecutionPolicy.ThrottleLatest(1.seconds)) { (index) ->
+                emit(index to currentTime)
+            }
+        }
+        val effectFlow = List(4) { Effect.Test1(it) }.asFlow()
+        handler(effectFlow).test {
+            assertEquals(0 to 0L, awaitItem())
+            assertEquals(3 to 1000L, awaitItem())
             awaitComplete()
         }
     }

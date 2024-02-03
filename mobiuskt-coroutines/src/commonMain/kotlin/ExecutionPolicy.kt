@@ -2,13 +2,9 @@ package kt.mobius.flow
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.DEFAULT_CONCURRENCY
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.flatMapMerge
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.transform
-import kotlinx.coroutines.flow.transformLatest
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
+import kotlin.time.Duration
 
 /**
  * Defines execution behavior of handler functions added to a [subtypeEffectHandler].
@@ -67,6 +63,30 @@ public interface ExecutionPolicy {
             effects: Flow<F>
         ): Flow<E> {
             return effects.transformLatest(transform)
+        }
+    }
+
+    /**
+     * Immediately handle the first Effect, delaying any new effects
+     * by the provided [window].  When a new Effect is dispatched within
+     * the window, it is dispatched after the window elapses and the
+     * previous handler is canceled if still running.
+     */
+    public class ThrottleLatest(
+        private val window: Duration
+    ) : ExecutionPolicy {
+
+        override fun <F, E> execute(
+            transform: suspend FlowCollector<E>.(effect: F) -> Unit,
+            effects: Flow<F>
+        ): Flow<E> {
+            return effects
+                .conflate()
+                .transform { value: F ->
+                    emit(value)
+                    delay(window)
+                }
+                .transform(transform)
         }
     }
 }
