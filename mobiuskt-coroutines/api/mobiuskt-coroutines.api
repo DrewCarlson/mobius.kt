@@ -32,6 +32,11 @@ public final class kt/mobius/flow/ExecutionPolicy$Sequential : kt/mobius/flow/Ex
 	public fun execute (Lkotlin/jvm/functions/Function3;Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 }
 
+public final class kt/mobius/flow/ExecutionPolicy$ThrottleLatest : kt/mobius/flow/ExecutionPolicy {
+	public synthetic fun <init> (JLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun execute (Lkotlin/jvm/functions/Function3;Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+}
+
 public final class kt/mobius/flow/FlowConnectablesKt {
 	public static final fun asConnectable (Lkt/mobius/flow/FlowTransformer;)Lkt/mobius/Connectable;
 	public static final fun flowConnectable (Lkt/mobius/flow/FlowTransformer;)Lkt/mobius/Connectable;
