@@ -26,6 +26,8 @@ Features:
 - Reduced boilerplate with code generation
 - No runtime dependencies (*[atomicfu](https://github.com/Kotlin/kotlinx-atomicfu/) for Native targets)
 
+**[Sample Project](https://github.com/DrewCarlson/pokedex-mobiuskt)**
+
 **[Documentation](https://drewcarlson.github.io/mobius.kt/latest/)**
 
 **[Getting Started](https://drewcarlson.github.io/mobius.kt/latest/getting-started/)**
