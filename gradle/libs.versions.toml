@@ -19,7 +19,7 @@ turbine = "1.0.0"
 compose_compiler = "1.5.8"
 compose_multiplatform = "1.5.11"
 compose_multiplatform_compiler = "1.5.7.1"
-androidxComposeBom = "2023.10.01"
+androidxComposeBom = "2024.01.00"
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
