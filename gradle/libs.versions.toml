@@ -27,7 +27,7 @@ dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 binaryCompat = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary_compat" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.27.0" }
+mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.28.0" }
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose_multiplatform" }
 
 [libraries]
