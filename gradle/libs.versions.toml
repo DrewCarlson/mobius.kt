@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.9.22"
+kotlin = "1.9.23"
 dokka = "1.9.20"
 agp = "8.3.2"
 coroutines = "1.8.0"
@@ -18,7 +18,7 @@ robolectric = "4.12.1"
 turbine = "1.1.0"
 compose_compiler = "1.5.8"
 compose_multiplatform = "1.6.2"
-compose_multiplatform_compiler = "1.5.7.1"
+compose_multiplatform_compiler = "1.5.10.1"
 androidxComposeBom = "2024.04.01"
 
 [plugins]
