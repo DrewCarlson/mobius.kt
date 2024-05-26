@@ -1,6 +1,6 @@
 package kt.mobius.disposables
 
-import kotlin.js.JsExport
+import kt.mobius.internal_util.JsExport
 
 /**
  * A [Disposable] is an object that may be holding on to references or resources that need to

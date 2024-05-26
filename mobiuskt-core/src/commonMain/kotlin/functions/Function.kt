@@ -1,6 +1,6 @@
 package kt.mobius.functions
 
-import kotlin.js.JsExport
+import kt.mobius.internal_util.JsExport
 import kotlin.js.JsName
 
 /** Interface for simple functions.  */

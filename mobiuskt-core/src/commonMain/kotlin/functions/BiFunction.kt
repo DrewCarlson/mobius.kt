@@ -1,6 +1,6 @@
 package kt.mobius.functions
 
-import kotlin.js.JsExport
+import kt.mobius.internal_util.JsExport
 
 /** Interface for simple functions with two arguments.  */
 @JsExport

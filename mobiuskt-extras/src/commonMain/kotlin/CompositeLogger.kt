@@ -3,7 +3,7 @@ package kt.mobius.extras
 import kt.mobius.First
 import kt.mobius.MobiusLoop.Logger
 import kt.mobius.Next
-import kotlin.js.JsExport
+import kt.mobius.internal_util.JsExport
 import kotlin.js.JsName
 import kotlin.jvm.JvmStatic
 

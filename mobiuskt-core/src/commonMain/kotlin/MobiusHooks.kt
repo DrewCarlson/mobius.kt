@@ -3,7 +3,7 @@ package kt.mobius
 import kotlinx.atomicfu.atomic
 import kotlinx.atomicfu.update
 import kt.mobius.internal_util.format
-import kotlin.js.JsExport
+import kt.mobius.internal_util.JsExport
 import kotlin.js.JsName
 
 /**

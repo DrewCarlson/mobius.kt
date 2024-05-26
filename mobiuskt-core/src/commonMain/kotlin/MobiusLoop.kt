@@ -7,7 +7,7 @@ import kt.mobius.functions.Consumer
 import kt.mobius.functions.Producer
 import kt.mobius.runners.WorkRunner
 import kotlin.concurrent.Volatile
-import kotlin.js.JsExport
+import kt.mobius.internal_util.JsExport
 import kotlin.js.JsName
 import kotlin.jvm.JvmStatic
 

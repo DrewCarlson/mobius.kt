@@ -1,3 +1,7 @@
+@file:OptIn(ExperimentalWasmDsl::class)
+
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.kotlinx.binary-compatibility-validator")
@@ -35,6 +39,18 @@ kotlin {
             }
         }
     }
+    wasmJs {
+        browser {
+            testTask {
+                useKarma {
+                    useFirefoxHeadless()
+                }
+            }
+        }
+    }
+    wasmWasi {
+        nodejs()
+    }
 
     sourceSets {
         all {
@@ -45,7 +61,7 @@ kotlin {
             dependencies {
                 implementation(projects.mobiusktCore)
                 implementation(libs.atomicfu)
-                implementation(kotlin("test-common"))
+                implementation(kotlin("test"))
                 implementation(kotlin("test-annotations-common"))
             }
         }

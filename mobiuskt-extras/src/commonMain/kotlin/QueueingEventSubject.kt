@@ -5,7 +5,7 @@ import kotlinx.atomicfu.locks.synchronized
 import kt.mobius.EventSource
 import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
-import kotlin.js.JsExport
+import kt.mobius.internal_util.JsExport
 
 /**
  * An EventSource that can also consume events. If it has a subscriber, events will be immediately

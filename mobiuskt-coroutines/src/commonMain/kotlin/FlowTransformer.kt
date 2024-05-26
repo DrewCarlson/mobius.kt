@@ -1,7 +1,7 @@
 package kt.mobius.flow
 
 import kotlinx.coroutines.flow.Flow
-import kotlin.js.JsExport
+import kt.mobius.internal_util.JsExport
 
 @Suppress("NON_EXPORTABLE_TYPE")
 @JsExport

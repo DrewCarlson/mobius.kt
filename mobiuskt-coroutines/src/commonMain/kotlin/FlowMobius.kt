@@ -3,7 +3,7 @@ package kt.mobius.flow
 import kt.mobius.Mobius
 import kt.mobius.MobiusLoop
 import kt.mobius.Update
-import kotlin.js.JsExport
+import kt.mobius.internal_util.JsExport
 
 @Suppress("NON_EXPORTABLE_TYPE")
 @JsExport
