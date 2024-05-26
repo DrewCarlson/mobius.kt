@@ -7,6 +7,7 @@
 
 ![](https://img.shields.io/static/v1?label=&message=Platforms&color=grey)
 ![](https://img.shields.io/static/v1?label=&message=Js&color=blue)
+![](https://img.shields.io/static/v1?label=&message=Wasm&color=blue)
 ![](https://img.shields.io/static/v1?label=&message=Jvm&color=blue)
 ![](https://img.shields.io/static/v1?label=&message=Linux&color=blue)
 ![](https://img.shields.io/static/v1?label=&message=macOS&color=blue)
