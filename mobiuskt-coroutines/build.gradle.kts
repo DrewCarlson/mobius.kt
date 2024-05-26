@@ -42,7 +42,6 @@ kotlin {
     linuxArm64()
     mingwX64()
     wasmJs {
-        d8()
         browser {
             testTask {
                 useKarma {

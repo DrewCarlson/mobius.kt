@@ -31,7 +31,6 @@ kotlin {
         browser()
     }
     wasmJs {
-        d8()
         browser {
             testTask {
                 useKarma {

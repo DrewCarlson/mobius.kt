@@ -56,7 +56,6 @@ kotlin {
         }
     }
     wasmJs {
-        d8()
         browser {
             testTask {
                 useKarma {
