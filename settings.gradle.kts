@@ -7,7 +7,6 @@ include(
         ":mobiuskt-coroutines",
         ":mobiuskt-codegen",
         ":mobiuskt-codegen-api",
-        ":mobiuskt-codegen-test",
         ":mobiuskt-compose",
 )
 
