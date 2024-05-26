@@ -22,7 +22,8 @@ plugins {
     alias(libs.plugins.binaryCompat) apply false
     alias(libs.plugins.kover)
     alias(libs.plugins.mavenPublish) apply false
-    alias(libs.plugins.composeMultiplatform) apply false
+    alias(libs.plugins.compose.multiplatform) apply false
+    alias(libs.plugins.compose.compiler) apply false
     //id("com.louiscad.complete-kotlin") version "1.1.0"
 }
 
