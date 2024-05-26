@@ -1,7 +1,7 @@
 package kt.mobius.runners
 
 import kt.mobius.disposables.Disposable
-import kotlin.js.JsExport
+import kt.mobius.internal_util.JsExport
 
 /** Interface for posting runnables to be executed using different scheduling mechanisms. */
 @JsExport

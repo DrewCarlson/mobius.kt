@@ -3,7 +3,7 @@ package kt.mobius.extras
 import kotlinx.atomicfu.locks.SynchronizedObject
 import kotlinx.atomicfu.locks.synchronized
 import kt.mobius.functions.Consumer
-import kotlin.js.JsExport
+import kt.mobius.internal_util.JsExport
 
 /**
  * Collects events and passes them in order to a new consumer via [dequeueAll].

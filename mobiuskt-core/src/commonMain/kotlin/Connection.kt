@@ -2,7 +2,7 @@ package kt.mobius
 
 import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
-import kotlin.js.JsExport
+import kt.mobius.internal_util.JsExport
 
 /**
  * Handle for a connection created by [Connectable].

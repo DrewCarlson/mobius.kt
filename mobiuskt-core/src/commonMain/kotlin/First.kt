@@ -1,6 +1,6 @@
 package kt.mobius
 
-import kotlin.js.JsExport
+import kt.mobius.internal_util.JsExport
 import kotlin.js.JsName
 import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmStatic

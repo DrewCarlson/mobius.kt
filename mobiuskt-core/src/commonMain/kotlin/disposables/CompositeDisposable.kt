@@ -2,7 +2,7 @@ package kt.mobius.disposables
 
 import kotlinx.atomicfu.locks.SynchronizedObject
 import kotlinx.atomicfu.locks.synchronized
-import kotlin.js.JsExport
+import kt.mobius.internal_util.JsExport
 import kotlin.js.JsName
 import kotlin.jvm.JvmStatic
 

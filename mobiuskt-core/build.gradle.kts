@@ -1,3 +1,7 @@
+@file:OptIn(ExperimentalWasmDsl::class)
+
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.kotlinx.binary-compatibility-validator")
@@ -56,6 +60,19 @@ kotlin {
             }
         }
     }
+    wasmJs {
+        d8()
+        browser {
+            testTask {
+                useKarma {
+                    useFirefoxHeadless()
+                }
+            }
+        }
+    }
+    wasmWasi {
+        nodejs()
+    }
 
     iosX64()
     iosArm64()
@@ -92,7 +109,7 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(projects.mobiusktTest)
-                implementation(kotlin("test-common"))
+                implementation(kotlin("test"))
                 implementation(kotlin("test-annotations-common"))
             }
         }

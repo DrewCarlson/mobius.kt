@@ -1,7 +1,7 @@
 package kt.mobius
 
 import kt.mobius.functions.Consumer
-import kotlin.js.JsExport
+import kt.mobius.internal_util.JsExport
 import kotlin.js.JsName
 import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmStatic

@@ -3,7 +3,7 @@ package kt.mobius.extras
 import kt.mobius.Connectable
 import kt.mobius.Connection
 import kt.mobius.functions.Consumer
-import kotlin.js.JsExport
+import kt.mobius.internal_util.JsExport
 import kotlin.js.JsName
 import kotlin.jvm.JvmStatic
 import kotlin.reflect.KClass

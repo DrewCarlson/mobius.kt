@@ -1,3 +1,7 @@
+@file:OptIn(ExperimentalWasmDsl::class)
+
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.kotlinx.binary-compatibility-validator")
@@ -25,6 +29,19 @@ kotlin {
     js(IR) {
         nodejs()
         browser()
+    }
+    wasmJs {
+        d8()
+        browser {
+            testTask {
+                useKarma {
+                    useFirefoxHeadless()
+                }
+            }
+        }
+    }
+    wasmWasi {
+        nodejs()
     }
 
     sourceSets {

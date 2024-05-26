@@ -1,6 +1,6 @@
 package kt.mobius
 
-import kotlin.js.JsExport
+import kt.mobius.internal_util.JsExport
 
 /**
  * A basic [MobiusLoop.Logger] implementation backed by the current [MobiusHooks.InternalLogger].
