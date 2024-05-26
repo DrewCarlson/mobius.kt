@@ -5,9 +5,9 @@ import kotlinx.atomicfu.locks.synchronized
 import kt.mobius.disposables.Disposable
 import kt.mobius.functions.Consumer
 import kt.mobius.functions.Producer
+import kt.mobius.internal_util.JsExport
 import kt.mobius.runners.WorkRunner
 import kotlin.concurrent.Volatile
-import kt.mobius.internal_util.JsExport
 import kotlin.js.JsName
 import kotlin.jvm.JvmStatic
 
@@ -151,6 +151,9 @@ public class MobiusLoop<M, E, F> private constructor(
      * notified of future changes to the model until the loop or the returned [Disposable] is
      * disposed.
      *
+     * The observer is guaranteed to get notified of models in the same order that they are emitted
+     * by the loop, but there is no guarantee about which model will be the first one observed.
+     *
      * @param observer a non-null observer of model changes
      * @return a [Disposable] that can be used to stop further notifications to the observer
      * @throws IllegalStateException if the loop has been disposed
@@ -163,17 +166,18 @@ public class MobiusLoop<M, E, F> private constructor(
 
         if (runState == RunState.DISPOSING) return Disposable { }
 
-        val currentModel = mostRecentModel
-        // Start by emitting the most recently received model.
-        observer.accept(currentModel)
+        val wrapped = FireAtLeastOnceObserver(observer)
 
-        synchronized(lock) {
-            modelObservers = (modelObservers + observer) as ArrayList<Consumer<M>>
-        }
+        modelObservers.add(wrapped)
+
+        val currentModel = mostRecentModel
+        // Start by emitting the most recently received model, if one hasn't already been emitted
+        // because of a racing model update
+        wrapped.acceptIfFirst(currentModel)
 
         return Disposable {
             synchronized(lock) {
-                modelObservers = (modelObservers - observer) as ArrayList<Consumer<M>>
+                modelObservers = (modelObservers - wrapped) as ArrayList<Consumer<M>>
             }
         }
     }
