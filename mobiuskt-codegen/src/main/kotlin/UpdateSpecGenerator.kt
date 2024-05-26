@@ -15,13 +15,13 @@ import kt.mobius.Update
 object UpdateSpecGenerator {
 
     fun generate(updateSymbol: KSAnnotated, codeGenerator: CodeGenerator) {
-
         val updateParent = (updateSymbol as KSClassDeclaration).superTypes.firstOrNull { typeRef ->
             typeRef.element?.typeArguments?.size == 3
         }
         checkNotNull(updateParent) {
             "Classes annotated with @GenerateUpdate must implement Update<M, E, F>: ${updateSymbol.simpleName}"
         }
+        // Extract Update class type information and process names
         val typeArgs = updateParent.element?.typeArguments.orEmpty()
         val modelClassDec = checkNotNull(typeArgs[0].type?.resolve()).declaration as KSClassDeclaration
         val eventClassDec = checkNotNull(typeArgs[1].type?.resolve()).declaration as KSClassDeclaration
@@ -30,7 +30,10 @@ object UpdateSpecGenerator {
         val modelClassName = modelClassDec.toClassName()
         val eventClassName = eventClassDec.toClassName()
         val effectClassName = effectClassDec.toClassName()
+        val updateTypeName = Update::class.asTypeName()
+            .parameterizedBy(modelClassName, eventClassName, effectClassName)
 
+        // Collect and sort event subclasses
         val eventSubclasses = eventClassDec.getSealedSubclasses()
         val sealedClasses = eventSubclasses.filterSealed()
         val objects = eventSubclasses.filterObjects()
@@ -38,8 +41,9 @@ object UpdateSpecGenerator {
 
         val nextReturnTypeName = Next::class.asTypeName()
             .parameterizedBy(modelClassName, effectClassName)
-        val specName = "${modelClassDec.simpleName.asString().removeSuffix("Model")}GeneratedUpdate"
+        val specName = modelClassDec.createSpecName()
 
+        // Create the function representations for each event
         val objectFunctions = objects.map { createObjectFunctionSpec(it, modelClassName, nextReturnTypeName) }.toList()
         val dataClassFunctions = dataClasses.map {
             createDataClassFunctionSpec(it, modelClassName, nextReturnTypeName)
@@ -60,22 +64,14 @@ object UpdateSpecGenerator {
             }
         }.flatten().toList()
 
-        val updateTypeName = Update::class.asTypeName()
-            .parameterizedBy(modelClassName, eventClassName, effectClassName)
+        // Construct and write the spec file
+        val whenBlock = createWhenBlock(objects, dataClasses, sealedClasses, specName)
         val specFile = FileSpec.builder(modelClassDec.packageName.asString(), specName)
             .addType(
                 TypeSpec.interfaceBuilder(specName)
                     .addModifiers(KModifier.INTERNAL)
                     .addSuperinterface(updateTypeName)
-                    .addFunction(
-                        FunSpec.builder("update")
-                            .addModifiers(KModifier.OVERRIDE)
-                            .addParameter("model", modelClassName)
-                            .addParameter("event", eventClassName)
-                            .returns(nextReturnTypeName)
-                            .addCode(createWhenBlock(objects, dataClasses, sealedClasses, specName))
-                            .build()
-                    )
+                    .addUpdateOverride(modelClassName, eventClassName, nextReturnTypeName, whenBlock)
                     .addFunctions(objectFunctions)
                     .addFunctions(dataClassFunctions)
                     .addFunctions(sealedClassFunctions)
@@ -87,6 +83,23 @@ object UpdateSpecGenerator {
             )
             .build()
         specFile.writeTo(codeGenerator, specFile.kspDependencies(true))
+    }
+
+    private fun TypeSpec.Builder.addUpdateOverride(
+        modelClassName: ClassName,
+        eventClassName: ClassName,
+        nextReturnTypeName: ParameterizedTypeName,
+        whenBlock: CodeBlock
+    ): TypeSpec.Builder {
+        return addFunction(
+            FunSpec.builder("update")
+                .addModifiers(KModifier.OVERRIDE)
+                .addParameter("model", modelClassName)
+                .addParameter("event", eventClassName)
+                .returns(nextReturnTypeName)
+                .addCode(whenBlock)
+                .build()
+        )
     }
 
     private fun createWhenBlock(
@@ -106,28 +119,10 @@ object UpdateSpecGenerator {
                 }
             }
             .indent()
-            .apply {
-                objects.forEach {
-                    addObjectBranch(it)
-                }
-                dataClasses.forEach {
-                    addDataClassBranch(it)
-                }
-                sealedClasses.forEach { sealedClass ->
-                    val sealedSubclasses = sealedClass.getSealedSubclasses()
-                    val subObjects = sealedSubclasses.filterObjects()
-                    val subDataClasses = sealedSubclasses.filterDataClasses()
-                    val subSealedClasses = sealedSubclasses.filterSealed()
-
-                    add(
-                        CodeBlock.builder()
-                            .addStatement("is %T -> ", sealedClass.toClassName())
-                            .add(createWhenBlock(subObjects, subDataClasses, subSealedClasses, specName, false))
-                            .build()
-                    )
-                }
-                add("else -> error(%P)", "$specName: unexpected missing branch for \$event")
-            }
+            .addObjectBranches(objects)
+            .addDataClassBranches(dataClasses)
+            .addSealedClassBranches(sealedClasses, specName)
+            .add("else -> error(%P)", "$specName: unexpected missing branch for \$event")
             .unindent()
             .add("\n}\n")
             .build()
@@ -169,21 +164,51 @@ object UpdateSpecGenerator {
         .returns(nextReturnTypeName)
         .build()
 
-    private fun CodeBlock.Builder.addDataClassBranch(ksClass: KSClassDeclaration) {
-        addStatement(
-            "is %T -> ${ksClass.asFunName()}(%L, %L)",
-            ksClass.toClassName(),
-            "model",
-            "event",
-        )
+    private fun CodeBlock.Builder.addSealedClassBranches(
+        declarations: Sequence<KSClassDeclaration>,
+        specName: String
+    ): CodeBlock.Builder {
+        declarations.forEach { sealedClass ->
+            val sealedSubclasses = sealedClass.getSealedSubclasses()
+            val subObjects = sealedSubclasses.filterObjects()
+            val subDataClasses = sealedSubclasses.filterDataClasses()
+            val subSealedClasses = sealedSubclasses.filterSealed()
+
+            add(
+                CodeBlock.builder()
+                    .addStatement("is %T -> ", sealedClass.toClassName())
+                    .add(createWhenBlock(subObjects, subDataClasses, subSealedClasses, specName, false))
+                    .build()
+            )
+        }
+        return this
     }
 
-    private fun CodeBlock.Builder.addObjectBranch(it: KSClassDeclaration) {
-        addStatement(
-            "%T -> ${it.asFunName()}(%L)",
-            it.toClassName(),
-            "model"
-        )
+    private fun CodeBlock.Builder.addDataClassBranches(declarations: Sequence<KSClassDeclaration>): CodeBlock.Builder {
+        declarations.forEach { declaration ->
+            addStatement(
+                "is %T -> ${declaration.asFunName()}(%L, %L)",
+                declaration.toClassName(),
+                "model",
+                "event",
+            )
+        }
+        return this
+    }
+
+    private fun CodeBlock.Builder.addObjectBranches(declarations: Sequence<KSClassDeclaration>): CodeBlock.Builder {
+        declarations.forEach { declaration ->
+            addStatement(
+                "%T -> ${declaration.asFunName()}(%L)",
+                declaration.toClassName(),
+                "model"
+            )
+        }
+        return this
+    }
+
+    private fun KSClassDeclaration.createSpecName(): String {
+        return "${simpleName.asString().removeSuffix("Model")}GeneratedUpdate"
     }
 
     private fun KSDeclaration.asFunName(): String {
