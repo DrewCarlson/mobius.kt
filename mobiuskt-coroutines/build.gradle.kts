@@ -8,9 +8,8 @@ plugins {
 apply(plugin = "kotlinx-atomicfu")
 
 kotlin {
-    jvm {
-        jvmToolchain(11)
-    }
+    jvmToolchain(11)
+    jvm()
     js(IR) {
         binaries.executable()
         nodejs()

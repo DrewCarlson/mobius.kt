@@ -37,16 +37,14 @@ android {
 }
 
 kotlin {
+    jvmToolchain(11)
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
     }
     androidTarget {
-        jvmToolchain(11)
         publishLibraryVariants("release", "debug")
     }
-    jvm {
-        jvmToolchain(11)
-    }
+    jvm()
     js(IR) {
         binaries.library()
         nodejs()

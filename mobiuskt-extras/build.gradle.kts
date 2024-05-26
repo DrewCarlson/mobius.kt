@@ -6,6 +6,7 @@ plugins {
 }
 
 kotlin {
+    jvmToolchain(11)
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -19,9 +20,7 @@ kotlin {
     linuxX64()
     linuxArm64()
     mingwX64()
-    jvm {
-        jvmToolchain(11)
-    }
+    jvm()
     js(IR) {
         binaries.library()
         nodejs()

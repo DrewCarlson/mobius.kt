@@ -3,7 +3,8 @@
     id("com.android.library")
     id("org.jetbrains.kotlinx.binary-compatibility-validator")
     alias(libs.plugins.mavenPublish)
-    alias(libs.plugins.composeMultiplatform)
+    alias(libs.plugins.compose.multiplatform)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.dokka)
 }
 
@@ -26,7 +27,6 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 
     compileOptions {
@@ -35,17 +35,13 @@ android {
     }
 }
 
-compose {
-    kotlinCompilerPlugin.set(libs.versions.compose.multiplatform.compiler.get())
-}
-
 kotlin {
+    jvmToolchain(11)
+
     androidTarget {
         publishAllLibraryVariants()
     }
-    jvm {
-        jvmToolchain(11)
-    }
+    jvm()
     js(IR) {
         browser {
             testTask {
