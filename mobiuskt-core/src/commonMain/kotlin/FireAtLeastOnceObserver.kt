@@ -6,7 +6,7 @@ import kt.mobius.functions.Consumer
 import kotlin.concurrent.Volatile
 
 
-public class FireAtLeastOnceObserver<V>(
+internal class FireAtLeastOnceObserver<V>(
     private var delegate: Consumer<V>
 ) : Consumer<V> {
     private val lock = SynchronizedObject()
