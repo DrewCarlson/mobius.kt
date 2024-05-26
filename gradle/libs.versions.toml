@@ -1,7 +1,7 @@
 [versions]
 kotlin = "2.0.0"
 dokka = "1.9.20"
-agp = "8.2.0"
+agp = "8.2.2"
 coroutines = "1.8.1"
 guava = "31.0.1-android"
 awaitility = "4.2.1"
@@ -45,9 +45,9 @@ kotlinpoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinpoet" }
 kotlinpoet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlinpoet" }
 compileTesting = { module = "dev.zacsweers.kctfork:core", version.ref = "compileTesting" }
 compileTesting-ksp = { module = "dev.zacsweers.kctfork:ksp", version.ref = "compileTesting" }
-androidx-livedata = { module = "androidx.lifecycle:lifecycle-livedata", version.ref = "ax_lifecycle" }
+androidx-livedata = { module = "androidx.lifecycle:lifecycle-livedata-core-ktx", version.ref = "ax_lifecycle" }
 androidx-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "ax_lifecycle" }
-androidx-lifecycleRuntime = { module = "androidx.lifecycle:lifecycle-runtime", version.ref = "ax_lifecycle" }
+androidx-lifecycleRuntime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "ax_lifecycle" }
 androidx-coreTesting = { module = "androidx.arch.core:core-testing", version.ref = "ax_testing" }
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "ax_runner" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }

@@ -1,5 +1,6 @@
 @file:OptIn(ExperimentalWasmDsl::class)
 
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
@@ -33,22 +34,21 @@ android {
             manifest.srcFile("src/androidMain/AndroidManifest.xml")
         }
     }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
 }
 
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(17)
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
     }
     androidTarget {
         publishLibraryVariants("release", "debug")
     }
-    jvm()
+    jvm {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_11)
+        }
+    }
     js(IR) {
         binaries.library()
         nodejs()

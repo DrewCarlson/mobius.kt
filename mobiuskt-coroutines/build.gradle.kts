@@ -1,5 +1,6 @@
 @file:OptIn(ExperimentalWasmDsl::class)
 
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
@@ -12,8 +13,12 @@ plugins {
 apply(plugin = "kotlinx-atomicfu")
 
 kotlin {
-    jvmToolchain(11)
-    jvm()
+    jvmToolchain(17)
+    jvm {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_11)
+        }
+    }
     js(IR) {
         binaries.executable()
         nodejs()
