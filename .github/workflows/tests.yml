@@ -112,7 +112,7 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}-v1
       - uses: gradle/gradle-build-action@v3.3.2
         with:
-          arguments: jsNodeTest jsBrowserTest
+          arguments: jsNodeTest jsBrowserTest wasmJsTest wasmWasiTest
 
       - name: Archive Test Results
         uses: actions/upload-artifact@v3
