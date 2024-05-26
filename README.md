@@ -25,7 +25,7 @@ Features:
 - Coroutine and Flow support
 - Testing utilities module
 - Reduced boilerplate with code generation
-- No runtime dependencies (*[atomicfu](https://github.com/Kotlin/kotlinx-atomicfu/) for Native targets)
+- No runtime dependencies
 
 **[Sample Project](https://github.com/DrewCarlson/pokedex-mobiuskt)**
 
