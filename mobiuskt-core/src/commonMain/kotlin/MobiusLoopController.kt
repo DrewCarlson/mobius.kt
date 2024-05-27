@@ -92,7 +92,7 @@ internal class MobiusLoopController<M, E, F>(
         }
 
     override fun goToStateCreated(view: Connectable<M, E>, nextModelToStartFrom: M) {
-        val safeModelHandler = SafeConnectable(view)
+        val safeModelHandler = DiscardAfterDisposeConnectable(view)
         val modelConnection = safeModelHandler.connect(::dispatchEvent)
 
         goToStateCreated(modelConnection, nextModelToStartFrom)
