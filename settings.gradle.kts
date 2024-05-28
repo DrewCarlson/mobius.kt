@@ -3,6 +3,7 @@ rootProject.name = "mobiuskt"
 include(
         ":mobiuskt-core",
         ":mobiuskt-test",
+        ":mobiuskt-kotest",
         ":mobiuskt-extras",
         ":mobiuskt-coroutines",
         ":mobiuskt-codegen",

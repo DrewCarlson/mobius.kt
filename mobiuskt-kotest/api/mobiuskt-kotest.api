@@ -1,0 +1,108 @@
+public final class kt/mobius/kotest/NextMatchers {
+	public static final field INSTANCE Lkt/mobius/kotest/NextMatchers;
+	public final fun containEffects ()Lio/kotest/matchers/Matcher;
+	public final fun containModel ()Lio/kotest/matchers/Matcher;
+	public final fun containsEffects (Ljava/util/Collection;)Lio/kotest/matchers/Matcher;
+}
+
+public final class kt/mobius/kotest/NextMatchersKt {
+	public static final fun shouldContainEffects (Lkt/mobius/Next;Ljava/util/Collection;)Lkt/mobius/Next;
+	public static final fun shouldHaveModel (Lkt/mobius/Next;Lkotlin/jvm/functions/Function1;)Lkt/mobius/Next;
+	public static synthetic fun shouldHaveModel$default (Lkt/mobius/Next;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkt/mobius/Next;
+	public static final fun shouldHaveNothing (Lkt/mobius/Next;)Lkt/mobius/Next;
+	public static final fun shouldNotContainEffects (Lkt/mobius/Next;Ljava/util/Collection;)Lkt/mobius/Next;
+	public static final fun shouldNotHaveModel (Lkt/mobius/Next;)Lkt/mobius/Next;
+}
+
+public final class kt/mobius/kotest/TestComponentsKt {
+	public static final fun getUpdate ()Lkt/mobius/Update;
+}
+
+public abstract class kt/mobius/kotest/TestEffect {
+}
+
+public final class kt/mobius/kotest/TestEffect$SideEffect1 : kt/mobius/kotest/TestEffect {
+	public static final field INSTANCE Lkt/mobius/kotest/TestEffect$SideEffect1;
+}
+
+public final class kt/mobius/kotest/TestEffect$SideEffect2 : kt/mobius/kotest/TestEffect {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lkt/mobius/kotest/TestEffect$SideEffect2;
+	public static synthetic fun copy$default (Lkt/mobius/kotest/TestEffect$SideEffect2;Ljava/lang/String;ILjava/lang/Object;)Lkt/mobius/kotest/TestEffect$SideEffect2;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getString ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract class kt/mobius/kotest/TestEvent {
+}
+
+public final class kt/mobius/kotest/TestEvent$DecrementNumber : kt/mobius/kotest/TestEvent {
+	public static final field INSTANCE Lkt/mobius/kotest/TestEvent$DecrementNumber;
+}
+
+public final class kt/mobius/kotest/TestEvent$GenerateBothEffects : kt/mobius/kotest/TestEvent {
+	public static final field INSTANCE Lkt/mobius/kotest/TestEvent$GenerateBothEffects;
+}
+
+public final class kt/mobius/kotest/TestEvent$GenerateEffect1 : kt/mobius/kotest/TestEvent {
+	public static final field INSTANCE Lkt/mobius/kotest/TestEvent$GenerateEffect1;
+}
+
+public final class kt/mobius/kotest/TestEvent$GenerateEffect2 : kt/mobius/kotest/TestEvent {
+	public static final field INSTANCE Lkt/mobius/kotest/TestEvent$GenerateEffect2;
+}
+
+public final class kt/mobius/kotest/TestEvent$IncrementNumber : kt/mobius/kotest/TestEvent {
+	public static final field INSTANCE Lkt/mobius/kotest/TestEvent$IncrementNumber;
+}
+
+public final class kt/mobius/kotest/TestEvent$Noop : kt/mobius/kotest/TestEvent {
+	public static final field INSTANCE Lkt/mobius/kotest/TestEvent$Noop;
+}
+
+public final class kt/mobius/kotest/TestEvent$SetString : kt/mobius/kotest/TestEvent {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lkt/mobius/kotest/TestEvent$SetString;
+	public static synthetic fun copy$default (Lkt/mobius/kotest/TestEvent$SetString;Ljava/lang/String;ILjava/lang/Object;)Lkt/mobius/kotest/TestEvent$SetString;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getString ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class kt/mobius/kotest/TestEvent$UpdateModelAndEffect : kt/mobius/kotest/TestEvent {
+	public static final field INSTANCE Lkt/mobius/kotest/TestEvent$UpdateModelAndEffect;
+}
+
+public final class kt/mobius/kotest/TestKt {
+	public static final fun main ()V
+	public static synthetic fun main ([Ljava/lang/String;)V
+}
+
+public final class kt/mobius/kotest/TestModel {
+	public fun <init> ()V
+	public fun <init> (ILjava/lang/String;)V
+	public synthetic fun <init> (ILjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (ILjava/lang/String;)Lkt/mobius/kotest/TestModel;
+	public static synthetic fun copy$default (Lkt/mobius/kotest/TestModel;ILjava/lang/String;ILjava/lang/Object;)Lkt/mobius/kotest/TestModel;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getNumber ()I
+	public final fun getString ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class kt/mobius/kotest/UpdateSpec {
+}
+
+public final class kt/mobius/kotest/UpdateSpecKt {
+	public static final fun given (Lkt/mobius/Update;Ljava/lang/Object;)Lkt/mobius/kotest/UpdateSpec;
+	public static final fun whenEvent (Lkt/mobius/kotest/UpdateSpec;[Ljava/lang/Object;)Lkt/mobius/Next;
+}
+
