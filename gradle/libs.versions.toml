@@ -18,7 +18,7 @@ robolectric = "4.13"
 turbine = "1.1.0"
 compose_multiplatform = "1.6.11"
 androidxComposeBom = "2024.06.00"
-compileTesting = "0.4.1"
+compileTesting = "0.5.1"
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
