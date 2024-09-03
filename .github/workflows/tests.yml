@@ -127,7 +127,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Download kover reports
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           name: reports
       - run: ls -la
@@ -142,7 +142,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Download test results
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           name: test-results
       - name: Publish Unit Test Results
