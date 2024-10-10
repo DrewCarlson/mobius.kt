@@ -1,5 +1,5 @@
 [versions]
-kotlin = "2.0.10"
+kotlin = "2.0.21"
 dokka = "1.9.20"
 agp = "8.5.2"
 coroutines = "1.8.1"
