@@ -1,9 +1,6 @@
 package kt.mobius.gen
 
-import com.tschuchort.compiletesting.KotlinCompilation
-import com.tschuchort.compiletesting.SourceFile
-import com.tschuchort.compiletesting.kspSourcesDir
-import com.tschuchort.compiletesting.symbolProcessorProviders
+import com.tschuchort.compiletesting.*
 import org.intellij.lang.annotations.Language
 import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 import java.io.File
@@ -19,6 +16,7 @@ class UpdateSpecTests {
         val source = SourceFile.kotlin(
             "test.kt", """
                 import kt.mobius.*
+                import kt.mobius.Next.Companion.next
                 import kt.mobius.gen.*
                 
                 data class TestModel(
@@ -52,8 +50,10 @@ class UpdateSpecTests {
         )
         val compilation = KotlinCompilation().apply {
             sources = listOf(source)
-            symbolProcessorProviders = listOf(MobiusktSymbolProcessorProvider())
             inheritClassPath = true
+            configureKsp(useKsp2 = true) {
+                symbolProcessorProviders.add(MobiusktSymbolProcessorProvider())
+            }
         }
         val result = compilation.compile()
 
@@ -142,8 +142,10 @@ class UpdateSpecTests {
         )
         val compilation = KotlinCompilation().apply {
             sources = listOf(source)
-            symbolProcessorProviders = listOf(MobiusktSymbolProcessorProvider())
             inheritClassPath = true
+            configureKsp(useKsp2 = true) {
+                symbolProcessorProviders.add(MobiusktSymbolProcessorProvider())
+            }
         }
         val result = compilation.compile()
 
@@ -157,10 +159,8 @@ class UpdateSpecTests {
                 import kt.mobius.Next
                 import kt.mobius.Update
                 
-                internal interface TestWithSealedGeneratedUpdate :
-                    Update<TestWithSealedModel, TestEventWithSealed, TestEffect> {
-                  override fun update(model: TestWithSealedModel, event: TestEventWithSealed):
-                      Next<TestWithSealedModel, TestEffect> {
+                internal interface TestWithSealedGeneratedUpdate : Update<TestWithSealedModel, TestEventWithSealed, TestEffect> {
+                  override fun update(model: TestWithSealedModel, event: TestEventWithSealed): Next<TestWithSealedModel, TestEffect> {
                     @Suppress("REDUNDANT_ELSE_IN_WHEN")
                     return when (event) {
                       TestEventWithSealed.Test2 -> test2(model)
@@ -178,16 +178,13 @@ class UpdateSpecTests {
                 
                   public fun test2(model: TestWithSealedModel): Next<TestWithSealedModel, TestEffect>
                 
-                  public fun test1(model: TestWithSealedModel, event: TestEventWithSealed.Test1):
-                      Next<TestWithSealedModel, TestEffect>
+                  public fun test1(model: TestWithSealedModel, event: TestEventWithSealed.Test1): Next<TestWithSealedModel, TestEffect>
                 
                   public fun test3B(model: TestWithSealedModel): Next<TestWithSealedModel, TestEffect>
                 
-                  public fun test3A(model: TestWithSealedModel, event: TestEventWithSealed.Test3.A):
-                      Next<TestWithSealedModel, TestEffect>
+                  public fun test3A(model: TestWithSealedModel, event: TestEventWithSealed.Test3.A): Next<TestWithSealedModel, TestEffect>
                 
-                  public fun test3C(model: TestWithSealedModel, event: TestEventWithSealed.Test3.C):
-                      Next<TestWithSealedModel, TestEffect>
+                  public fun test3C(model: TestWithSealedModel, event: TestEventWithSealed.Test3.C): Next<TestWithSealedModel, TestEffect>
                 }
 
             """.trimIndent(),
