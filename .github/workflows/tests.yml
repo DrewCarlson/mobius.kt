@@ -44,10 +44,9 @@ jobs:
           distribution: 'zulu'
           java-version: 17
 
-      - uses: gradle/gradle-build-action@v3.3.2
-        name: Test Windows Target
-        with:
-          arguments: mingwX64Test
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Test Windows Target
+        run: ./gradlew mingwX64Test
 
       - name: Archive Test Results
         uses: actions/upload-artifact@v3
@@ -72,15 +71,12 @@ jobs:
             ~/.gradle
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}-v1
 
-      - uses: gradle/gradle-build-action@v3.3.2
-        name: Test Jvm
-        with:
-          arguments: jvmTest koverXmlReport apiCheck
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Test Jvm
+        run: ./gradlew jvmTest koverXmlReport apiCheck
 
-      - uses: gradle/gradle-build-action@v3.3.2
-        name: Test Linux Target
-        with:
-          arguments: linuxX64Test
+      - name: Test Linux Target
+        run: ./gradlew linuxX64Test
 
       - name: Archive Reports
         uses: actions/upload-artifact@v3
@@ -110,9 +106,9 @@ jobs:
           path: |
             ~/.gradle
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}-v1
-      - uses: gradle/gradle-build-action@v3.3.2
-        with:
-          arguments: jsNodeTest jsBrowserTest wasmJsTest wasmWasiTest
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Test JS Targets
+        run: ./gradlew jsNodeTest jsBrowserTest wasmJsTest wasmWasiTest
 
       - name: Archive Test Results
         uses: actions/upload-artifact@v3
