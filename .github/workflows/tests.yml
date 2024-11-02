@@ -72,7 +72,7 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
       - name: Test Jvm
-        run: ./gradlew jvmTest koverXmlReport apiCheck
+        run: ./gradlew jvmTest mobiuskt-codegen:test koverXmlReport apiCheck
 
       - name: Test Linux Target
         run: ./gradlew linuxX64Test
