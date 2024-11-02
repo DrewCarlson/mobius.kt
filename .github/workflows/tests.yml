@@ -23,10 +23,9 @@ jobs:
             ~/.gradle
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}-v1
 
-      - uses: gradle/gradle-build-action@v3.3.2
-        name: Test Apple Targets
-        with:
-          arguments: macosX64Test iosX64Test # tvosX64Test
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Test Apple Targets
+        run: ./gradlew macosX64Test iosX64Test # tvosX64Test
 
       - name: Archive Test Results
         uses: actions/upload-artifact@v3
