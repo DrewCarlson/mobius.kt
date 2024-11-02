@@ -10,9 +10,6 @@ buildscript {
 
     dependencies {
         classpath(libs.agp)
-        classpath(libs.atomicfu.plugin) {
-            exclude("org.jetbrains.kotlin", "kotlin-gradle-plugin-api")
-        }
     }
 }
 
@@ -24,6 +21,7 @@ plugins {
     alias(libs.plugins.mavenPublish) apply false
     alias(libs.plugins.compose.multiplatform) apply false
     alias(libs.plugins.compose.compiler) apply false
+    alias(libs.plugins.atomicfu) apply false
     //id("com.louiscad.complete-kotlin") version "1.1.0"
 }
 

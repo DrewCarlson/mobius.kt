@@ -9,9 +9,8 @@ plugins {
     id("com.android.library")
     alias(libs.plugins.mavenPublish)
     alias(libs.plugins.dokka)
+    alias(libs.plugins.atomicfu)
 }
-
-apply(plugin = "kotlinx-atomicfu")
 
 android {
     compileSdk = 34

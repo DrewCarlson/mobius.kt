@@ -8,9 +8,8 @@ plugins {
     id("org.jetbrains.kotlinx.binary-compatibility-validator")
     alias(libs.plugins.mavenPublish)
     alias(libs.plugins.dokka)
+    alias(libs.plugins.atomicfu)
 }
-
-apply(plugin = "kotlinx-atomicfu")
 
 kotlin {
     jvmToolchain(17)
