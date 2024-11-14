@@ -126,7 +126,7 @@ jobs:
         with:
           name: reports
       - run: ls -la
-      - uses: codecov/codecov-action@v4
+      - uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: "report.xml"
