@@ -4,6 +4,12 @@
 
 Various factories are provided for `java.util.concurrent.ExecutorService`.
 
+### Default WorkRunners
+
+Jvm targets will use a single thread for Events and a cached thread pool for Effects.
+
+See **[Configuration](../configuration.md)** to change the default `WorkRunner`s.
+
 ### Single Thread
 
 ```kotlin

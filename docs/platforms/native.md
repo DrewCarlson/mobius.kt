@@ -2,6 +2,12 @@
 
 ## WorkRunners
 
+### Default WorkRunners
+
+Native targets will use a K/N `Worker` for Events and Effects.
+
+See **[Configuration](../configuration.md)** to change the default `WorkRunner`s.
+
 ### Common Native
 
 For all native targets, there are `WorkRunner` implementations backed by Kotlin's

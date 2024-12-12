@@ -114,8 +114,12 @@ public final class kt/mobius/Mobius {
 
 public final class kt/mobius/MobiusHooks {
 	public static final field INSTANCE Lkt/mobius/MobiusHooks;
+	public final fun getDefaultEffectRunner ()Lkt/mobius/functions/Producer;
+	public final fun getDefaultEventRunner ()Lkt/mobius/functions/Producer;
 	public final fun handleError (Ljava/lang/Throwable;)V
+	public final fun setDefaultEffectRunner (Lkt/mobius/functions/Producer;)V
 	public final fun setDefaultErrorHandler ()V
+	public final fun setDefaultEventRunner (Lkt/mobius/functions/Producer;)V
 	public final fun setDefaultInternalLogger ()V
 	public final fun setErrorHandler (Lkt/mobius/MobiusHooks$ErrorHandler;)V
 	public final fun setLoggerFactory (Lkt/mobius/MobiusHooks$InternalLoggerFactory;)V

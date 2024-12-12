@@ -2,11 +2,17 @@ package kt.mobius
 
 import kotlinx.atomicfu.atomic
 import kotlinx.atomicfu.update
+import kt.mobius.functions.Producer
 import kt.mobius.internal_util.format
 import kt.mobius.internal_util.JsExport
+import kt.mobius.runners.DefaultWorkRunners
+import kt.mobius.runners.WorkRunner
 import kotlin.js.JsName
 
 /**
+ * Provides hooks to configure global Mobius.kt behavior including error handling and
+ * default work runners.
+ *
  * Allows configuration of how Mobius handles programmer errors through setting a custom [ErrorHandler]
  * via the [setErrorHandler] method. The default handler prints errors with [println].
  */
@@ -20,6 +26,8 @@ public object MobiusHooks {
 
     private val errorHandler = atomic(DEFAULT_ERROR_HANDLER)
     private val loggerFactory = atomic(DEFAULT_LOGGER_FACTORY)
+    private val eventRunnerOverride = atomic(DefaultWorkRunners.eventWorkRunnerProducer())
+    private val effectRunnerOverride = atomic(DefaultWorkRunners.effectWorkRunnerProducer())
 
     internal fun newLogger(tag: String): InternalLogger {
         return loggerFactory.value.create(tag)
@@ -56,6 +64,28 @@ public object MobiusHooks {
     /** Sets the logger factory to produce the default `println` logger. */
     public fun setDefaultInternalLogger() {
         loggerFactory.update { DEFAULT_LOGGER_FACTORY }
+    }
+
+    /**
+     * Set a custom event [WorkRunner] to be used by all newly created loops.
+     */
+    public fun setDefaultEventRunner(producer: Producer<WorkRunner>) {
+        eventRunnerOverride.update { producer }
+    }
+
+    /**
+     * Set a custom effect [WorkRunner] to be used by all newly created loops.
+     */
+    public fun setDefaultEffectRunner(producer: Producer<WorkRunner>) {
+        effectRunnerOverride.update { producer }
+    }
+
+    public fun getDefaultEventRunner(): Producer<WorkRunner> {
+        return eventRunnerOverride.value
+    }
+
+    public fun getDefaultEffectRunner(): Producer<WorkRunner> {
+        return effectRunnerOverride.value
     }
 
     public fun interface ErrorHandler {

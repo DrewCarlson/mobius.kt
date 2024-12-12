@@ -83,6 +83,7 @@ nav:
       - Pure vs Impure functions: patterns/pure-vs-impure-functions.md
       - Events and Effects: patterns/events-and-effects.md
       - Models: patterns/models.md
+  - Configuration: configuration.md
   - Logging and Error Handling: logging-and-error-handling.md
   - Examples: examples.md
   - Useful Libraries: useful-libraries.md

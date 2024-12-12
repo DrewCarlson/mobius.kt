@@ -70,6 +70,12 @@ val loopFactory =
 Two Android specific `WorkRunner` implementations are provided: `LooperWorkRunner` and `MainThreadWorkRunner`.
 Additionally, Android targets have access to the standard Jvm `WorkRunner`s (see [Jvm > WorkRunners](jvm.md#WorkRunners)).
 
+### Default WorkRunners
+
+Android targets will use a single thread for Events and a cached thread pool for Effects.
+
+See **[Configuration](../configuration.md)** to change the default `WorkRunner`s.
+
 ### MainThreadWorkRunner
 
 As the name implies, `MainThreadWorkRunner` allows you to execute work on Android's Main Thread.

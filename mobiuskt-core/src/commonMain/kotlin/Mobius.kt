@@ -80,13 +80,13 @@ public object Mobius {
         effectHandler: Connectable<F, E>
     ): MobiusLoop.Builder<M, E, F> {
         return Builder(
-            update,
-            effectHandler,
-            null,
-            NOOP_EVENT_SOURCE as Connectable<M, E>,
-            DefaultWorkRunners.eventWorkRunnerProducer(),
-            DefaultWorkRunners.effectWorkRunnerProducer(),
-            NOOP_LOGGER as MobiusLoop.Logger<M, E, F>
+            update = update,
+            effectHandler = effectHandler,
+            init = null,
+            eventSource = NOOP_EVENT_SOURCE as Connectable<M, E>,
+            eventRunner = MobiusHooks.getDefaultEventRunner(),
+            effectRunner = MobiusHooks.getDefaultEffectRunner(),
+            logger = NOOP_LOGGER as MobiusLoop.Logger<M, E, F>
         )
     }
 
