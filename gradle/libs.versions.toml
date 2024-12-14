@@ -16,7 +16,7 @@ ax_testing = "2.2.0"
 ax_runner = "1.6.2"
 robolectric = "4.14.1"
 turbine = "1.2.0"
-compose_multiplatform = "1.7.0"
+compose_multiplatform = "1.7.1"
 androidxComposeBom = "2024.12.01"
 compileTesting = "0.7.0"
 
