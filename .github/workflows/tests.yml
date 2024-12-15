@@ -28,7 +28,7 @@ jobs:
         run: ./gradlew macosX64Test iosX64Test # tvosX64Test
 
       - name: Archive Test Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
           name: test-results
@@ -48,7 +48,7 @@ jobs:
         run: ./gradlew mingwX64Test
 
       - name: Archive Test Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
           name: test-results
@@ -78,14 +78,14 @@ jobs:
         run: ./gradlew linuxX64Test
 
       - name: Archive Reports
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
           name: reports
           path: "build/reports/kover/report.xml"
 
       - name: Archive Test Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
           name: test-results
@@ -110,7 +110,7 @@ jobs:
         run: ./gradlew jsNodeTest jsBrowserTest wasmJsTest wasmWasiTest
 
       - name: Archive Test Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
           name: test-results
@@ -122,7 +122,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Download kover reports
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: reports
       - run: ls -la
@@ -137,7 +137,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Download test results
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: test-results
       - name: Publish Unit Test Results
