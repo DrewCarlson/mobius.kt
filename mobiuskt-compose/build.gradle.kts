@@ -91,7 +91,7 @@ kotlin {
                 implementation(projects.mobiusktCore)
                 implementation(projects.mobiusktExtras)
                 implementation(libs.coroutines.core)
-                implementation(compose.foundation)
+                implementation(compose.runtime)
             }
         }
 
