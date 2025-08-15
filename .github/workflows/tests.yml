@@ -11,24 +11,24 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
-      - uses: actions/setup-java@3b6c050358614dd082e53cdbc55580431fc4e437
+      - uses: actions/setup-java@e9343db97e09d87a3c50e544105d99fe912c204b
         with:
           distribution: 'zulu'
           java-version: 17
       - name: Cache Build files
-        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
+        uses: actions/cache@638ed79f9dc94c1de1baef91bcab5edaa19451f4
         with:
           path: |
             ~/.konan
             ~/.gradle
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}-v1
 
-      - uses: gradle/actions/setup-gradle@06832c7b30a0129d7fb559bcc6e43d26f6374244
+      - uses: gradle/actions/setup-gradle@017a9effdb900e5b5b2fddfb590a105619dca3c3
       - name: Test Apple Targets
         run: ./gradlew macosX64Test iosX64Test # tvosX64Test
 
       - name: Archive Test Results
-        uses: actions/upload-artifact@6027e3dd177782cd8ab9af838c04fd81a07f1d47
+        uses: actions/upload-artifact@de65e23aa2b7e23d713bb51fbfcb6d502f8667d8
         if: ${{ always() }}
         with:
           name: test-results-macos
@@ -38,17 +38,17 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
-      - uses: actions/setup-java@3b6c050358614dd082e53cdbc55580431fc4e437
+      - uses: actions/setup-java@e9343db97e09d87a3c50e544105d99fe912c204b
         with:
           distribution: 'zulu'
           java-version: 17
 
-      - uses: gradle/actions/setup-gradle@06832c7b30a0129d7fb559bcc6e43d26f6374244
+      - uses: gradle/actions/setup-gradle@017a9effdb900e5b5b2fddfb590a105619dca3c3
       - name: Test Windows Target
         run: ./gradlew mingwX64Test
 
       - name: Archive Test Results
-        uses: actions/upload-artifact@6027e3dd177782cd8ab9af838c04fd81a07f1d47
+        uses: actions/upload-artifact@de65e23aa2b7e23d713bb51fbfcb6d502f8667d8
         if: ${{ always() }}
         with:
           name: test-results-windows
@@ -58,19 +58,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
-      - uses: actions/setup-java@3b6c050358614dd082e53cdbc55580431fc4e437
+      - uses: actions/setup-java@e9343db97e09d87a3c50e544105d99fe912c204b
         with:
           distribution: 'zulu'
           java-version: 17
       - name: Cache Build files
-        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
+        uses: actions/cache@638ed79f9dc94c1de1baef91bcab5edaa19451f4
         with:
           path: |
             ~/.konan
             ~/.gradle
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}-v1
 
-      - uses: gradle/actions/setup-gradle@06832c7b30a0129d7fb559bcc6e43d26f6374244
+      - uses: gradle/actions/setup-gradle@017a9effdb900e5b5b2fddfb590a105619dca3c3
       - name: Test Jvm
         run: ./gradlew jvmTest mobiuskt-codegen:test koverXmlReport checkLegacyAbi
 
@@ -78,14 +78,14 @@ jobs:
         run: ./gradlew linuxX64Test
 
       - name: Archive Reports
-        uses: actions/upload-artifact@6027e3dd177782cd8ab9af838c04fd81a07f1d47
+        uses: actions/upload-artifact@de65e23aa2b7e23d713bb51fbfcb6d502f8667d8
         if: ${{ always() }}
         with:
           name: kover-report
           path: "build/reports/kover/report.xml"
 
       - name: Archive Test Results
-        uses: actions/upload-artifact@6027e3dd177782cd8ab9af838c04fd81a07f1d47
+        uses: actions/upload-artifact@de65e23aa2b7e23d713bb51fbfcb6d502f8667d8
         if: ${{ always() }}
         with:
           name: test-results-junit
@@ -95,22 +95,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
-      - uses: actions/setup-java@3b6c050358614dd082e53cdbc55580431fc4e437
+      - uses: actions/setup-java@e9343db97e09d87a3c50e544105d99fe912c204b
         with:
           distribution: 'zulu'
           java-version: 17
       - name: Cache Build files
-        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
+        uses: actions/cache@638ed79f9dc94c1de1baef91bcab5edaa19451f4
         with:
           path: |
             ~/.gradle
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}-v1
-      - uses: gradle/actions/setup-gradle@06832c7b30a0129d7fb559bcc6e43d26f6374244
+      - uses: gradle/actions/setup-gradle@017a9effdb900e5b5b2fddfb590a105619dca3c3
       - name: Test JS Targets
         run: ./gradlew jsNodeTest jsBrowserTest wasmJsTest wasmWasiTest
 
       - name: Archive Test Results
-        uses: actions/upload-artifact@6027e3dd177782cd8ab9af838c04fd81a07f1d47
+        uses: actions/upload-artifact@de65e23aa2b7e23d713bb51fbfcb6d502f8667d8
         if: ${{ always() }}
         with:
           name: test-results-js
@@ -122,11 +122,11 @@ jobs:
     steps:
       - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493
       - name: Download kover reports
-        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e
+        uses: actions/download-artifact@de96f4613b77ec03b5cf633e7c350c32bd3c5660
         with:
           name: kover-report
       - run: ls -la
-      - uses: codecov/codecov-action@0565863a31f2c772f9f0395002a31e3f06189574
+      - uses: codecov/codecov-action@2db07e317924c76f654a414629d71c65876882e2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: "report.xml"
@@ -137,7 +137,7 @@ jobs:
     steps:
       - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493
       - name: Download test results
-        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e
+        uses: actions/download-artifact@de96f4613b77ec03b5cf633e7c350c32bd3c5660
         with:
           pattern: test-results*
       - name: Publish Unit Test Results
