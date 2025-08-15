@@ -17,7 +17,6 @@ import java.time.Duration
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicInteger
-import javax.annotation.Nonnull
 import kotlin.test.Test
 import kotlin.test.assertFails
 import kotlin.test.assertTrue
@@ -204,7 +203,6 @@ class MobiusTest {
     private class ConnectableTestEventSource : Connectable<String, Int> {
         lateinit var consumer: Consumer<Int>
 
-        @Nonnull
         override fun connect(output: Consumer<Int>): Connection<String> {
             consumer = output
             return object : Connection<String> {

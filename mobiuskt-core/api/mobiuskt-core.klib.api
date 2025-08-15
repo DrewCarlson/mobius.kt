@@ -1,0 +1,325 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, wasmJs, wasmWasi, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
+// Alias: native => [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
+// Alias: apple => [iosArm64, iosSimulatorArm64, iosX64, macosArm64, macosX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.drewcarlson:mobiuskt-core>
+abstract fun interface <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?> kt.mobius.functions/BiFunction { // kt.mobius.functions/BiFunction|null[0]
+    abstract fun apply(#A, #B): #C // kt.mobius.functions/BiFunction.apply|apply(1:0;1:1){}[0]
+}
+
+abstract fun interface <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?> kt.mobius/Update { // kt.mobius/Update|null[0]
+    abstract fun update(#A, #B): kt.mobius/Next<#A, #C> // kt.mobius/Update.update|update(1:0;1:1){}[0]
+}
+
+abstract fun interface <#A: kotlin/Any?, #B: kotlin/Any?> kt.mobius.functions/Function { // kt.mobius.functions/Function|null[0]
+    abstract fun apply(#A): #B // kt.mobius.functions/Function.apply|apply(1:0){}[0]
+}
+
+abstract fun interface <#A: kotlin/Any?, #B: kotlin/Any?> kt.mobius/Connectable { // kt.mobius/Connectable|null[0]
+    abstract fun connect(kt.mobius.functions/Consumer<#B>): kt.mobius/Connection<#A> // kt.mobius/Connectable.connect|connect(kt.mobius.functions.Consumer<1:1>){}[0]
+}
+
+abstract fun interface <#A: kotlin/Any?, #B: kotlin/Any?> kt.mobius/Init { // kt.mobius/Init|null[0]
+    abstract fun init(#A): kt.mobius/First<#A, #B> // kt.mobius/Init.init|init(1:0){}[0]
+}
+
+abstract fun interface <#A: kotlin/Any?> kt.mobius.functions/Consumer { // kt.mobius.functions/Consumer|null[0]
+    abstract fun accept(#A) // kt.mobius.functions/Consumer.accept|accept(1:0){}[0]
+}
+
+abstract fun interface <#A: kotlin/Any?> kt.mobius.functions/Producer { // kt.mobius.functions/Producer|null[0]
+    abstract fun get(): #A // kt.mobius.functions/Producer.get|get(){}[0]
+}
+
+abstract fun interface <#A: kotlin/Any?> kt.mobius/EventSource { // kt.mobius/EventSource|null[0]
+    abstract fun subscribe(kt.mobius.functions/Consumer<#A>): kt.mobius.disposables/Disposable // kt.mobius/EventSource.subscribe|subscribe(kt.mobius.functions.Consumer<1:0>){}[0]
+}
+
+abstract fun interface kt.mobius.disposables/Disposable { // kt.mobius.disposables/Disposable|null[0]
+    abstract fun dispose() // kt.mobius.disposables/Disposable.dispose|dispose(){}[0]
+}
+
+abstract interface <#A: kotlin/Any?> kt.mobius/Connection : kt.mobius.disposables/Disposable, kt.mobius.functions/Consumer<#A> { // kt.mobius/Connection|null[0]
+    abstract fun accept(#A) // kt.mobius/Connection.accept|accept(1:0){}[0]
+    abstract fun dispose() // kt.mobius/Connection.dispose|dispose(){}[0]
+}
+
+abstract interface kt.mobius.runners/Runnable { // kt.mobius.runners/Runnable|null[0]
+    abstract fun run() // kt.mobius.runners/Runnable.run|run(){}[0]
+}
+
+abstract interface kt.mobius.runners/WorkRunner : kt.mobius.disposables/Disposable { // kt.mobius.runners/WorkRunner|null[0]
+    abstract fun post(kt.mobius.runners/Runnable) // kt.mobius.runners/WorkRunner.post|post(kt.mobius.runners.Runnable){}[0]
+}
+
+final class <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?> kt.mobius/MobiusLoop : kt.mobius.disposables/Disposable { // kt.mobius/MobiusLoop|null[0]
+    final var mostRecentModel // kt.mobius/MobiusLoop.mostRecentModel|{}mostRecentModel[0]
+        final fun <get-mostRecentModel>(): #A // kt.mobius/MobiusLoop.mostRecentModel.<get-mostRecentModel>|<get-mostRecentModel>(){}[0]
+
+    final fun dispatchEvent(#B) // kt.mobius/MobiusLoop.dispatchEvent|dispatchEvent(1:1){}[0]
+    final fun dispose() // kt.mobius/MobiusLoop.dispose|dispose(){}[0]
+    final fun observe(kt.mobius.functions/Consumer<#A>): kt.mobius.disposables/Disposable // kt.mobius/MobiusLoop.observe|observe(kt.mobius.functions.Consumer<1:0>){}[0]
+
+    abstract interface <#A1: kotlin/Any?, #B1: kotlin/Any?, #C1: kotlin/Any?> Builder : kt.mobius/MobiusLoop.Factory<#A1, #B1, #C1> { // kt.mobius/MobiusLoop.Builder|null[0]
+        abstract fun effectRunner(kt.mobius.functions/Producer<kt.mobius.runners/WorkRunner>): kt.mobius/MobiusLoop.Builder<#A1, #B1, #C1> // kt.mobius/MobiusLoop.Builder.effectRunner|effectRunner(kt.mobius.functions.Producer<kt.mobius.runners.WorkRunner>){}[0]
+        abstract fun eventRunner(kt.mobius.functions/Producer<kt.mobius.runners/WorkRunner>): kt.mobius/MobiusLoop.Builder<#A1, #B1, #C1> // kt.mobius/MobiusLoop.Builder.eventRunner|eventRunner(kt.mobius.functions.Producer<kt.mobius.runners.WorkRunner>){}[0]
+        abstract fun eventSource(kt.mobius/Connectable<#A1, #B1>): kt.mobius/MobiusLoop.Builder<#A1, #B1, #C1> // kt.mobius/MobiusLoop.Builder.eventSource|eventSource(kt.mobius.Connectable<1:0,1:1>){}[0]
+        abstract fun eventSource(kt.mobius/EventSource<#B1>): kt.mobius/MobiusLoop.Builder<#A1, #B1, #C1> // kt.mobius/MobiusLoop.Builder.eventSource|eventSource(kt.mobius.EventSource<1:1>){}[0]
+        abstract fun eventSources(kotlin/Array<out kt.mobius/EventSource<#B1>>...): kt.mobius/MobiusLoop.Builder<#A1, #B1, #C1> // kt.mobius/MobiusLoop.Builder.eventSources|eventSources(kotlin.Array<out|kt.mobius.EventSource<1:1>>...){}[0]
+        abstract fun init(kt.mobius/Init<#A1, #C1>): kt.mobius/MobiusLoop.Builder<#A1, #B1, #C1> // kt.mobius/MobiusLoop.Builder.init|init(kt.mobius.Init<1:0,1:2>){}[0]
+        abstract fun logger(kt.mobius/MobiusLoop.Logger<#A1, #B1, #C1>): kt.mobius/MobiusLoop.Builder<#A1, #B1, #C1> // kt.mobius/MobiusLoop.Builder.logger|logger(kt.mobius.MobiusLoop.Logger<1:0,1:1,1:2>){}[0]
+    }
+
+    abstract interface <#A1: kotlin/Any?, #B1: kotlin/Any?, #C1: kotlin/Any?> Factory { // kt.mobius/MobiusLoop.Factory|null[0]
+        abstract fun startFrom(#A1): kt.mobius/MobiusLoop<#A1, #B1, #C1> // kt.mobius/MobiusLoop.Factory.startFrom|startFrom(1:0){}[0]
+        abstract fun startFrom(#A1, kotlin.collections/Set<#C1>): kt.mobius/MobiusLoop<#A1, #B1, #C1> // kt.mobius/MobiusLoop.Factory.startFrom|startFrom(1:0;kotlin.collections.Set<1:2>){}[0]
+    }
+
+    abstract interface <#A1: kotlin/Any?, #B1: kotlin/Any?, #C1: kotlin/Any?> Logger { // kt.mobius/MobiusLoop.Logger|null[0]
+        abstract fun afterInit(#A1, kt.mobius/First<#A1, #C1>) // kt.mobius/MobiusLoop.Logger.afterInit|afterInit(1:0;kt.mobius.First<1:0,1:2>){}[0]
+        abstract fun afterUpdate(#A1, #B1, kt.mobius/Next<#A1, #C1>) // kt.mobius/MobiusLoop.Logger.afterUpdate|afterUpdate(1:0;1:1;kt.mobius.Next<1:0,1:2>){}[0]
+        abstract fun beforeInit(#A1) // kt.mobius/MobiusLoop.Logger.beforeInit|beforeInit(1:0){}[0]
+        abstract fun beforeUpdate(#A1, #B1) // kt.mobius/MobiusLoop.Logger.beforeUpdate|beforeUpdate(1:0;1:1){}[0]
+        abstract fun exceptionDuringInit(#A1, kotlin/Throwable) // kt.mobius/MobiusLoop.Logger.exceptionDuringInit|exceptionDuringInit(1:0;kotlin.Throwable){}[0]
+        abstract fun exceptionDuringUpdate(#A1, #B1, kotlin/Throwable) // kt.mobius/MobiusLoop.Logger.exceptionDuringUpdate|exceptionDuringUpdate(1:0;1:1;kotlin.Throwable){}[0]
+    }
+
+    abstract interface <#A1: kotlin/Any?, #B1: kotlin/Any?> Controller { // kt.mobius/MobiusLoop.Controller|null[0]
+        abstract val isRunning // kt.mobius/MobiusLoop.Controller.isRunning|{}isRunning[0]
+            abstract fun <get-isRunning>(): kotlin/Boolean // kt.mobius/MobiusLoop.Controller.isRunning.<get-isRunning>|<get-isRunning>(){}[0]
+        abstract val model // kt.mobius/MobiusLoop.Controller.model|{}model[0]
+            abstract fun <get-model>(): #A1 // kt.mobius/MobiusLoop.Controller.model.<get-model>|<get-model>(){}[0]
+
+        abstract fun connect(kt.mobius/Connectable<#A1, #B1>) // kt.mobius/MobiusLoop.Controller.connect|connect(kt.mobius.Connectable<1:0,1:1>){}[0]
+        abstract fun disconnect() // kt.mobius/MobiusLoop.Controller.disconnect|disconnect(){}[0]
+        abstract fun replaceModel(#A1) // kt.mobius/MobiusLoop.Controller.replaceModel|replaceModel(1:0){}[0]
+        abstract fun start() // kt.mobius/MobiusLoop.Controller.start|start(){}[0]
+        abstract fun stop() // kt.mobius/MobiusLoop.Controller.stop|stop(){}[0]
+    }
+
+    final object Companion { // kt.mobius/MobiusLoop.Companion|null[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?, #C2: kotlin/Any?> create(kt.mobius/Update<#A2, #B2, #C2>, #A2, kotlin.collections/Set<#C2>, kt.mobius/Connectable<#C2, #B2>, kt.mobius/Connectable<#A2, #B2>, kt.mobius.runners/WorkRunner, kt.mobius.runners/WorkRunner): kt.mobius/MobiusLoop<#A2, #B2, #C2> // kt.mobius/MobiusLoop.Companion.create|create(kt.mobius.Update<0:0,0:1,0:2>;0:0;kotlin.collections.Set<0:2>;kt.mobius.Connectable<0:2,0:1>;kt.mobius.Connectable<0:0,0:1>;kt.mobius.runners.WorkRunner;kt.mobius.runners.WorkRunner){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>}[0]
+    }
+}
+
+final class <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?> kt.mobius/SimpleLogger : kt.mobius/MobiusLoop.Logger<#A, #B, #C> { // kt.mobius/SimpleLogger|null[0]
+    constructor <init>(kotlin/String) // kt.mobius/SimpleLogger.<init>|<init>(kotlin.String){}[0]
+
+    final fun afterInit(#A, kt.mobius/First<#A, #C>) // kt.mobius/SimpleLogger.afterInit|afterInit(1:0;kt.mobius.First<1:0,1:2>){}[0]
+    final fun afterUpdate(#A, #B, kt.mobius/Next<#A, #C>) // kt.mobius/SimpleLogger.afterUpdate|afterUpdate(1:0;1:1;kt.mobius.Next<1:0,1:2>){}[0]
+    final fun beforeInit(#A) // kt.mobius/SimpleLogger.beforeInit|beforeInit(1:0){}[0]
+    final fun beforeUpdate(#A, #B) // kt.mobius/SimpleLogger.beforeUpdate|beforeUpdate(1:0;1:1){}[0]
+    final fun exceptionDuringInit(#A, kotlin/Throwable) // kt.mobius/SimpleLogger.exceptionDuringInit|exceptionDuringInit(1:0;kotlin.Throwable){}[0]
+    final fun exceptionDuringUpdate(#A, #B, kotlin/Throwable) // kt.mobius/SimpleLogger.exceptionDuringUpdate|exceptionDuringUpdate(1:0;1:1;kotlin.Throwable){}[0]
+}
+
+final class <#A: kotlin/Any?, #B: kotlin/Any?> kt.mobius/DiscardAfterDisposeConnectable : kt.mobius/Connectable<#A, #B> { // kt.mobius/DiscardAfterDisposeConnectable|null[0]
+    constructor <init>(kt.mobius/Connectable<#A, #B>) // kt.mobius/DiscardAfterDisposeConnectable.<init>|<init>(kt.mobius.Connectable<1:0,1:1>){}[0]
+
+    final fun connect(kt.mobius.functions/Consumer<#B>): kt.mobius/Connection<#A> // kt.mobius/DiscardAfterDisposeConnectable.connect|connect(kt.mobius.functions.Consumer<1:1>){}[0]
+}
+
+final class <#A: kotlin/Any?, #B: kotlin/Any?> kt.mobius/EventSourceConnectable : kt.mobius/Connectable<#A, #B> { // kt.mobius/EventSourceConnectable|null[0]
+    final fun connect(kt.mobius.functions/Consumer<#B>): kt.mobius/Connection<#A> // kt.mobius/EventSourceConnectable.connect|connect(kt.mobius.functions.Consumer<1:1>){}[0]
+
+    final object Companion { // kt.mobius/EventSourceConnectable.Companion|null[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> create(kt.mobius/EventSource<#B2>): kt.mobius/Connectable<#A2, #B2> // kt.mobius/EventSourceConnectable.Companion.create|create(kt.mobius.EventSource<0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    }
+}
+
+final class <#A: kotlin/Any?, #B: kotlin/Any?> kt.mobius/First { // kt.mobius/First|null[0]
+    final fun copy(#A = ..., kotlin.collections/Set<#B> = ...): kt.mobius/First<#A, #B> // kt.mobius/First.copy|copy(1:0;kotlin.collections.Set<1:1>){}[0]
+    final fun effects(): kotlin.collections/Set<#B> // kt.mobius/First.effects|effects(){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // kt.mobius/First.equals|equals(kotlin.Any?){}[0]
+    final fun hasEffects(): kotlin/Boolean // kt.mobius/First.hasEffects|hasEffects(){}[0]
+    final fun hashCode(): kotlin/Int // kt.mobius/First.hashCode|hashCode(){}[0]
+    final fun model(): #A // kt.mobius/First.model|model(){}[0]
+    final fun toString(): kotlin/String // kt.mobius/First.toString|toString(){}[0]
+
+    final object Companion { // kt.mobius/First.Companion|null[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> first(#A2, kotlin.collections/Set<#B2> = ...): kt.mobius/First<#A2, #B2> // kt.mobius/First.Companion.first|first(0:0;kotlin.collections.Set<0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> first(#A2, kotlin/Array<out #B2>...): kt.mobius/First<#A2, #B2> // kt.mobius/First.Companion.first|first(0:0;kotlin.Array<out|0:1>...){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    }
+}
+
+final class <#A: kotlin/Any?, #B: kotlin/Any?> kt.mobius/LoggingInit : kt.mobius/Init<#A, #B> { // kt.mobius/LoggingInit|null[0]
+    final fun init(#A): kt.mobius/First<#A, #B> // kt.mobius/LoggingInit.init|init(1:0){}[0]
+
+    final object Companion { // kt.mobius/LoggingInit.Companion|null[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> fromLoop(kt.mobius/Init<#A2, #B2>, kt.mobius/MobiusLoop.Builder<#A2, *, #B2>): kt.mobius/Init<#A2, #B2> // kt.mobius/LoggingInit.Companion.fromLoop|fromLoop(kt.mobius.Init<0:0,0:1>;kt.mobius.MobiusLoop.Builder<0:0,*,0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    }
+}
+
+final class <#A: kotlin/Any?, #B: kotlin/Any?> kt.mobius/Next { // kt.mobius/Next|null[0]
+    final fun effects(): kotlin.collections/Set<#B> // kt.mobius/Next.effects|effects(){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // kt.mobius/Next.equals|equals(kotlin.Any?){}[0]
+    final fun hasEffects(): kotlin/Boolean // kt.mobius/Next.hasEffects|hasEffects(){}[0]
+    final fun hasModel(): kotlin/Boolean // kt.mobius/Next.hasModel|hasModel(){}[0]
+    final fun hashCode(): kotlin/Int // kt.mobius/Next.hashCode|hashCode(){}[0]
+    final fun ifHasModel(kt.mobius.functions/Consumer<#A>) // kt.mobius/Next.ifHasModel|ifHasModel(kt.mobius.functions.Consumer<1:0>){}[0]
+    final fun model(): #A? // kt.mobius/Next.model|model(){}[0]
+    final fun modelOrElse(#A): #A // kt.mobius/Next.modelOrElse|modelOrElse(1:0){}[0]
+    final fun modelUnsafe(): #A // kt.mobius/Next.modelUnsafe|modelUnsafe(){}[0]
+    final fun toString(): kotlin/String // kt.mobius/Next.toString|toString(){}[0]
+
+    final object Companion { // kt.mobius/Next.Companion|null[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> dispatch(kotlin.collections/Set<#B2>): kt.mobius/Next<#A2, #B2> // kt.mobius/Next.Companion.dispatch|dispatch(kotlin.collections.Set<0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> dispatch(kotlin/Array<out #B2>...): kt.mobius/Next<#A2, #B2> // kt.mobius/Next.Companion.dispatch|dispatch(kotlin.Array<out|0:1>...){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> next(#A2, kotlin.collections/Set<#B2> = ...): kt.mobius/Next<#A2, #B2> // kt.mobius/Next.Companion.next|next(0:0;kotlin.collections.Set<0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> next(#A2, kotlin/Array<out #B2>...): kt.mobius/Next<#A2, #B2> // kt.mobius/Next.Companion.next|next(0:0;kotlin.Array<out|0:1>...){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> noChange(): kt.mobius/Next<#A2, #B2> // kt.mobius/Next.Companion.noChange|noChange(){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    }
+}
+
+final class <#A: kotlin/Any?> kt.mobius/DiscardAfterDisposeWrapper : kt.mobius.disposables/Disposable, kt.mobius.functions/Consumer<#A> { // kt.mobius/DiscardAfterDisposeWrapper|null[0]
+    final fun accept(#A) // kt.mobius/DiscardAfterDisposeWrapper.accept|accept(1:0){}[0]
+    final fun dispose() // kt.mobius/DiscardAfterDisposeWrapper.dispose|dispose(){}[0]
+
+    final object Companion { // kt.mobius/DiscardAfterDisposeWrapper.Companion|null[0]
+        final fun <#A2: kotlin/Any?> wrapConnection(kt.mobius/Connection<#A2>): kt.mobius/DiscardAfterDisposeWrapper<#A2> // kt.mobius/DiscardAfterDisposeWrapper.Companion.wrapConnection|wrapConnection(kt.mobius.Connection<0:0>){0§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?> wrapConsumer(kt.mobius.functions/Consumer<#A2>): kt.mobius/DiscardAfterDisposeWrapper<#A2> // kt.mobius/DiscardAfterDisposeWrapper.Companion.wrapConsumer|wrapConsumer(kt.mobius.functions.Consumer<0:0>){0§<kotlin.Any?>}[0]
+    }
+}
+
+final class <#A: kotlin/Any?> kt.mobius/MergedEventSource : kt.mobius/EventSource<#A> { // kt.mobius/MergedEventSource|null[0]
+    final fun subscribe(kt.mobius.functions/Consumer<#A>): kt.mobius.disposables/Disposable // kt.mobius/MergedEventSource.subscribe|subscribe(kt.mobius.functions.Consumer<1:0>){}[0]
+
+    final object Companion { // kt.mobius/MergedEventSource.Companion|null[0]
+        final fun <#A2: kotlin/Any?> from(kotlin/Array<out kt.mobius/EventSource<#A2>>...): kt.mobius/EventSource<#A2> // kt.mobius/MergedEventSource.Companion.from|from(kotlin.Array<out|kt.mobius.EventSource<0:0>>...){0§<kotlin.Any?>}[0]
+    }
+}
+
+final class kt.mobius.disposables/CompositeDisposable : kt.mobius.disposables/Disposable { // kt.mobius.disposables/CompositeDisposable|null[0]
+    final fun dispose() // kt.mobius.disposables/CompositeDisposable.dispose|dispose(){}[0]
+
+    final object Companion { // kt.mobius.disposables/CompositeDisposable.Companion|null[0]
+        final fun from(kotlin/Array<out kt.mobius.disposables/Disposable>...): kt.mobius.disposables/Disposable // kt.mobius.disposables/CompositeDisposable.Companion.from|from(kotlin.Array<out|kt.mobius.disposables.Disposable>...){}[0]
+    }
+}
+
+final class kt.mobius.runners/ImmediateWorkRunner : kt.mobius.runners/WorkRunner { // kt.mobius.runners/ImmediateWorkRunner|null[0]
+    constructor <init>() // kt.mobius.runners/ImmediateWorkRunner.<init>|<init>(){}[0]
+
+    final fun dispose() // kt.mobius.runners/ImmediateWorkRunner.dispose|dispose(){}[0]
+    final fun post(kt.mobius.runners/Runnable) // kt.mobius.runners/ImmediateWorkRunner.post|post(kt.mobius.runners.Runnable){}[0]
+}
+
+final class kt.mobius/ConnectionException : kotlin/RuntimeException { // kt.mobius/ConnectionException|null[0]
+    constructor <init>(kotlin/Any, kotlin/Throwable) // kt.mobius/ConnectionException.<init>|<init>(kotlin.Any;kotlin.Throwable){}[0]
+
+    final val effect // kt.mobius/ConnectionException.effect|{}effect[0]
+        final fun <get-effect>(): kotlin/Any // kt.mobius/ConnectionException.effect.<get-effect>|<get-effect>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // kt.mobius/ConnectionException.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // kt.mobius/ConnectionException.hashCode|hashCode(){}[0]
+}
+
+final class kt.mobius/ConnectionLimitExceededException : kotlin/RuntimeException { // kt.mobius/ConnectionLimitExceededException|null[0]
+    constructor <init>(kotlin/String? = ..., kotlin/Throwable? = ...) // kt.mobius/ConnectionLimitExceededException.<init>|<init>(kotlin.String?;kotlin.Throwable?){}[0]
+}
+
+final object kt.mobius.runners/WorkRunners { // kt.mobius.runners/WorkRunners|null[0]
+    final fun immediate(): kt.mobius.runners/WorkRunner // kt.mobius.runners/WorkRunners.immediate|immediate(){}[0]
+
+    // Targets: [native]
+    final fun nativeWorker(kotlin.native.concurrent/Worker): kt.mobius.runners/WorkRunner // kt.mobius.runners/WorkRunners.nativeWorker|nativeWorker(kotlin.native.concurrent.Worker){}[0]
+
+    // Targets: [native]
+    final fun nativeWorker(kotlin/String? = ..., kotlin/Boolean = ...): kt.mobius.runners/WorkRunner // kt.mobius.runners/WorkRunners.nativeWorker|nativeWorker(kotlin.String?;kotlin.Boolean){}[0]
+
+    // Targets: [js, wasmJs]
+    final fun async(): kt.mobius.runners/WorkRunner // kt.mobius.runners/WorkRunners.async|async(){}[0]
+}
+
+final object kt.mobius/Effects { // kt.mobius/Effects|null[0]
+    final fun <#A1: kotlin/Any?, #B1: #A1> effects(kotlin/Array<out #B1>...): kotlin.collections/Set<#A1> // kt.mobius/Effects.effects|effects(kotlin.Array<out|0:1>...){0§<kotlin.Any?>;1§<0:0>}[0]
+}
+
+final object kt.mobius/Mobius { // kt.mobius/Mobius|null[0]
+    final fun <#A1: kotlin/Any?, #B1: kotlin/Any?, #C1: kotlin/Any?> controller(kt.mobius/MobiusLoop.Factory<#A1, #B1, #C1>, #A1): kt.mobius/MobiusLoop.Controller<#A1, #B1> // kt.mobius/Mobius.controller|controller(kt.mobius.MobiusLoop.Factory<0:0,0:1,0:2>;0:0){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>}[0]
+    final fun <#A1: kotlin/Any?, #B1: kotlin/Any?, #C1: kotlin/Any?> controller(kt.mobius/MobiusLoop.Factory<#A1, #B1, #C1>, #A1, kt.mobius.runners/WorkRunner): kt.mobius/MobiusLoop.Controller<#A1, #B1> // kt.mobius/Mobius.controller|controller(kt.mobius.MobiusLoop.Factory<0:0,0:1,0:2>;0:0;kt.mobius.runners.WorkRunner){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>}[0]
+    final fun <#A1: kotlin/Any?, #B1: kotlin/Any?, #C1: kotlin/Any?> controller(kt.mobius/MobiusLoop.Factory<#A1, #B1, #C1>, #A1, kt.mobius/Init<#A1, #C1>): kt.mobius/MobiusLoop.Controller<#A1, #B1> // kt.mobius/Mobius.controller|controller(kt.mobius.MobiusLoop.Factory<0:0,0:1,0:2>;0:0;kt.mobius.Init<0:0,0:2>){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>}[0]
+    final fun <#A1: kotlin/Any?, #B1: kotlin/Any?, #C1: kotlin/Any?> controller(kt.mobius/MobiusLoop.Factory<#A1, #B1, #C1>, #A1, kt.mobius/Init<#A1, #C1>, kt.mobius.runners/WorkRunner): kt.mobius/MobiusLoop.Controller<#A1, #B1> // kt.mobius/Mobius.controller|controller(kt.mobius.MobiusLoop.Factory<0:0,0:1,0:2>;0:0;kt.mobius.Init<0:0,0:2>;kt.mobius.runners.WorkRunner){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>}[0]
+    final fun <#A1: kotlin/Any?, #B1: kotlin/Any?, #C1: kotlin/Any?> loop(kt.mobius/Update<#A1, #B1, #C1>, kt.mobius/Connectable<#C1, #B1>): kt.mobius/MobiusLoop.Builder<#A1, #B1, #C1> // kt.mobius/Mobius.loop|loop(kt.mobius.Update<0:0,0:1,0:2>;kt.mobius.Connectable<0:2,0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>}[0]
+}
+
+final object kt.mobius/MobiusHooks { // kt.mobius/MobiusHooks|null[0]
+    final fun getDefaultEffectRunner(): kt.mobius.functions/Producer<kt.mobius.runners/WorkRunner> // kt.mobius/MobiusHooks.getDefaultEffectRunner|getDefaultEffectRunner(){}[0]
+    final fun getDefaultEventRunner(): kt.mobius.functions/Producer<kt.mobius.runners/WorkRunner> // kt.mobius/MobiusHooks.getDefaultEventRunner|getDefaultEventRunner(){}[0]
+    final fun handleError(kotlin/Throwable) // kt.mobius/MobiusHooks.handleError|handleError(kotlin.Throwable){}[0]
+    final fun setDefaultEffectRunner(kt.mobius.functions/Producer<kt.mobius.runners/WorkRunner>) // kt.mobius/MobiusHooks.setDefaultEffectRunner|setDefaultEffectRunner(kt.mobius.functions.Producer<kt.mobius.runners.WorkRunner>){}[0]
+    final fun setDefaultErrorHandler() // kt.mobius/MobiusHooks.setDefaultErrorHandler|setDefaultErrorHandler(){}[0]
+    final fun setDefaultEventRunner(kt.mobius.functions/Producer<kt.mobius.runners/WorkRunner>) // kt.mobius/MobiusHooks.setDefaultEventRunner|setDefaultEventRunner(kt.mobius.functions.Producer<kt.mobius.runners.WorkRunner>){}[0]
+    final fun setDefaultInternalLogger() // kt.mobius/MobiusHooks.setDefaultInternalLogger|setDefaultInternalLogger(){}[0]
+    final fun setErrorHandler(kt.mobius/MobiusHooks.ErrorHandler) // kt.mobius/MobiusHooks.setErrorHandler|setErrorHandler(kt.mobius.MobiusHooks.ErrorHandler){}[0]
+    final fun setLoggerFactory(kt.mobius/MobiusHooks.InternalLoggerFactory) // kt.mobius/MobiusHooks.setLoggerFactory|setLoggerFactory(kt.mobius.MobiusHooks.InternalLoggerFactory){}[0]
+
+    abstract fun interface ErrorHandler { // kt.mobius/MobiusHooks.ErrorHandler|null[0]
+        abstract fun handleError(kotlin/Throwable) // kt.mobius/MobiusHooks.ErrorHandler.handleError|handleError(kotlin.Throwable){}[0]
+    }
+
+    abstract fun interface InternalLoggerFactory { // kt.mobius/MobiusHooks.InternalLoggerFactory|null[0]
+        abstract fun create(kotlin/String): kt.mobius/MobiusHooks.InternalLogger // kt.mobius/MobiusHooks.InternalLoggerFactory.create|create(kotlin.String){}[0]
+    }
+
+    abstract interface InternalLogger { // kt.mobius/MobiusHooks.InternalLogger|null[0]
+        abstract fun debug(kotlin/String, kotlin/Array<out kotlin/Any?>...) // kt.mobius/MobiusHooks.InternalLogger.debug|debug(kotlin.String;kotlin.Array<out|kotlin.Any?>...){}[0]
+        abstract fun debug(kotlin/Throwable, kotlin/String, kotlin/Array<out kotlin/Any?>...) // kt.mobius/MobiusHooks.InternalLogger.debug|debug(kotlin.Throwable;kotlin.String;kotlin.Array<out|kotlin.Any?>...){}[0]
+        abstract fun error(kotlin/String, kotlin/Array<out kotlin/Any?>...) // kt.mobius/MobiusHooks.InternalLogger.error|error(kotlin.String;kotlin.Array<out|kotlin.Any?>...){}[0]
+        abstract fun error(kotlin/Throwable, kotlin/String, kotlin/Array<out kotlin/Any?>...) // kt.mobius/MobiusHooks.InternalLogger.error|error(kotlin.Throwable;kotlin.String;kotlin.Array<out|kotlin.Any?>...){}[0]
+        abstract fun warn(kotlin/String, kotlin/Array<out kotlin/Any?>...) // kt.mobius/MobiusHooks.InternalLogger.warn|warn(kotlin.String;kotlin.Array<out|kotlin.Any?>...){}[0]
+        abstract fun warn(kotlin/Throwable, kotlin/String, kotlin/Array<out kotlin/Any?>...) // kt.mobius/MobiusHooks.InternalLogger.warn|warn(kotlin.Throwable;kotlin.String;kotlin.Array<out|kotlin.Any?>...){}[0]
+    }
+}
+
+// Targets: [native, wasmJs, wasmWasi]
+open annotation class kt.mobius.internal_util/JsExport : kotlin/Annotation { // kt.mobius.internal_util/JsExport|null[1]
+    constructor <init>() // kt.mobius.internal_util/JsExport.<init>|<init>(){}[1]
+}
+
+// Targets: [native]
+final class kt.mobius.runners/NativeWorkRunner : kt.mobius.runners/WorkRunner { // kt.mobius.runners/NativeWorkRunner|null[0]
+    constructor <init>(kotlin.native.concurrent/Worker) // kt.mobius.runners/NativeWorkRunner.<init>|<init>(kotlin.native.concurrent.Worker){}[0]
+
+    final fun dispose() // kt.mobius.runners/NativeWorkRunner.dispose|dispose(){}[0]
+    final fun post(kt.mobius.runners/Runnable) // kt.mobius.runners/NativeWorkRunner.post|post(kt.mobius.runners.Runnable){}[0]
+}
+
+// Targets: [apple]
+final class kt.mobius.runners/DispatchQueueWorkRunner : kt.mobius.runners/WorkRunner { // kt.mobius.runners/DispatchQueueWorkRunner|null[0]
+    constructor <init>(platform.darwin/NSObject?) // kt.mobius.runners/DispatchQueueWorkRunner.<init>|<init>(platform.darwin.NSObject?){}[0]
+
+    final fun dispose() // kt.mobius.runners/DispatchQueueWorkRunner.dispose|dispose(){}[0]
+    final fun post(kt.mobius.runners/Runnable) // kt.mobius.runners/DispatchQueueWorkRunner.post|post(kt.mobius.runners.Runnable){}[0]
+
+    final object Companion { // kt.mobius.runners/DispatchQueueWorkRunner.Companion|null[0]
+        final fun global(): kt.mobius.runners/WorkRunner // kt.mobius.runners/DispatchQueueWorkRunner.Companion.global|global(){}[0]
+        final fun main(): kt.mobius.runners/WorkRunner // kt.mobius.runners/DispatchQueueWorkRunner.Companion.main|main(){}[0]
+    }
+}
+
+// Targets: [apple]
+final object kt.mobius.darwin/MobiusDarwin { // kt.mobius.darwin/MobiusDarwin|null[0]
+    final fun <#A1: kotlin/Any?, #B1: kotlin/Any?, #C1: kotlin/Any?> controller(kt.mobius/MobiusLoop.Factory<#A1, #B1, #C1>, #A1): kt.mobius/MobiusLoop.Controller<#A1, #B1> // kt.mobius.darwin/MobiusDarwin.controller|controller(kt.mobius.MobiusLoop.Factory<0:0,0:1,0:2>;0:0){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>}[0]
+    final fun <#A1: kotlin/Any?, #B1: kotlin/Any?, #C1: kotlin/Any?> controller(kt.mobius/MobiusLoop.Factory<#A1, #B1, #C1>, #A1, kt.mobius/Init<#A1, #C1>): kt.mobius/MobiusLoop.Controller<#A1, #B1> // kt.mobius.darwin/MobiusDarwin.controller|controller(kt.mobius.MobiusLoop.Factory<0:0,0:1,0:2>;0:0;kt.mobius.Init<0:0,0:2>){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>}[0]
+}
+
+// Targets: [apple]
+final fun (kt.mobius.runners/WorkRunners).kt.mobius.runners/fromDispatchQueue(platform.darwin/NSObject?): kt.mobius.runners/WorkRunner // kt.mobius.runners/fromDispatchQueue|fromDispatchQueue@kt.mobius.runners.WorkRunners(platform.darwin.NSObject?){}[0]
+
+// Targets: [apple]
+final fun (kt.mobius.runners/WorkRunners).kt.mobius.runners/globalDispatchQueue(): kt.mobius.runners/WorkRunner // kt.mobius.runners/globalDispatchQueue|globalDispatchQueue@kt.mobius.runners.WorkRunners(){}[0]
+
+// Targets: [apple]
+final fun (kt.mobius.runners/WorkRunners).kt.mobius.runners/mainDispatchQueue(): kt.mobius.runners/WorkRunner // kt.mobius.runners/mainDispatchQueue|mainDispatchQueue@kt.mobius.runners.WorkRunners(){}[0]
+
+// Targets: [js, wasmJs]
+final object kt.mobius.runners/AsyncWorkRunner : kt.mobius.runners/WorkRunner { // kt.mobius.runners/AsyncWorkRunner|null[0]
+    final fun dispose() // kt.mobius.runners/AsyncWorkRunner.dispose|dispose(){}[0]
+    final fun post(kt.mobius.runners/Runnable) // kt.mobius.runners/AsyncWorkRunner.post|post(kt.mobius.runners.Runnable){}[0]
+}

@@ -5,7 +5,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
-    id("org.jetbrains.kotlinx.binary-compatibility-validator")
     alias(libs.plugins.mavenPublish)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
@@ -13,7 +12,7 @@ plugins {
 }
 
 android {
-    compileSdk = 34
+    compileSdk = 35
     namespace = "kt.mobius.compose"
     defaultConfig {
         minSdk = 21
@@ -33,11 +32,13 @@ android {
 }
 
 kotlin {
+    @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
+    abiValidation {
+        enabled = true
+    }
     jvmToolchain(17)
 
-    androidTarget {
-        publishAllLibraryVariants()
-    }
+    androidTarget()
     jvm {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)

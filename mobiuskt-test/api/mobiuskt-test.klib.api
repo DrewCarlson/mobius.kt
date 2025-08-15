@@ -1,0 +1,226 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, wasmJs, wasmWasi, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.drewcarlson:mobiuskt-test>
+abstract interface <#A: kotlin/Any?> kt.mobius.test.matcher/Matcher : kt.mobius.test.matcher/SelfDescribing { // kt.mobius.test.matcher/Matcher|null[0]
+    abstract fun describeMismatch(kotlin/Any?, kt.mobius.test.matcher/Description) // kt.mobius.test.matcher/Matcher.describeMismatch|describeMismatch(kotlin.Any?;kt.mobius.test.matcher.Description){}[0]
+    abstract fun matches(kotlin/Any?): kotlin/Boolean // kt.mobius.test.matcher/Matcher.matches|matches(kotlin.Any?){}[0]
+}
+
+abstract interface <#A: kotlin/Any?> kt.mobius.test/SimpleConnection : kt.mobius/Connection<#A> { // kt.mobius.test/SimpleConnection|null[0]
+    open fun dispose() // kt.mobius.test/SimpleConnection.dispose|dispose(){}[0]
+
+    final object Companion { // kt.mobius.test/SimpleConnection.Companion|null[0]
+        final inline fun <#A2: kotlin/Any?> invoke(crossinline kotlin/Function1<#A2, kotlin/Unit>): kt.mobius.test/SimpleConnection<#A2> // kt.mobius.test/SimpleConnection.Companion.invoke|invoke(kotlin.Function1<0:0,kotlin.Unit>){0§<kotlin.Any?>}[0]
+    }
+}
+
+abstract interface kt.mobius.test.matcher/Description { // kt.mobius.test.matcher/Description|null[0]
+    abstract fun <#A1: kotlin/Any?> appendValueList(kotlin/String, kotlin/String, kotlin/String, kotlin.collections/Iterable<#A1>): kt.mobius.test.matcher/Description // kt.mobius.test.matcher/Description.appendValueList|appendValueList(kotlin.String;kotlin.String;kotlin.String;kotlin.collections.Iterable<0:0>){0§<kotlin.Any?>}[0]
+    abstract fun <#A1: kotlin/Any?> appendValueList(kotlin/String, kotlin/String, kotlin/String, kotlin/Array<out #A1>...): kt.mobius.test.matcher/Description // kt.mobius.test.matcher/Description.appendValueList|appendValueList(kotlin.String;kotlin.String;kotlin.String;kotlin.Array<out|0:0>...){0§<kotlin.Any?>}[0]
+    abstract fun appendDescriptionOf(kt.mobius.test.matcher/SelfDescribing): kt.mobius.test.matcher/Description // kt.mobius.test.matcher/Description.appendDescriptionOf|appendDescriptionOf(kt.mobius.test.matcher.SelfDescribing){}[0]
+    abstract fun appendList(kotlin/String, kotlin/String, kotlin/String, kotlin.collections/Iterable<kt.mobius.test.matcher/SelfDescribing>): kt.mobius.test.matcher/Description // kt.mobius.test.matcher/Description.appendList|appendList(kotlin.String;kotlin.String;kotlin.String;kotlin.collections.Iterable<kt.mobius.test.matcher.SelfDescribing>){}[0]
+    abstract fun appendText(kotlin/String): kt.mobius.test.matcher/Description // kt.mobius.test.matcher/Description.appendText|appendText(kotlin.String){}[0]
+    abstract fun appendValue(kotlin/Any?): kt.mobius.test.matcher/Description // kt.mobius.test.matcher/Description.appendValue|appendValue(kotlin.Any?){}[0]
+
+    final object Companion { // kt.mobius.test.matcher/Description.Companion|null[0]
+        final val NONE // kt.mobius.test.matcher/Description.Companion.NONE|{}NONE[0]
+            final fun <get-NONE>(): kt.mobius.test.matcher/Description // kt.mobius.test.matcher/Description.Companion.NONE.<get-NONE>|<get-NONE>(){}[0]
+    }
+}
+
+abstract interface kt.mobius.test.matcher/SelfDescribing { // kt.mobius.test.matcher/SelfDescribing|null[0]
+    abstract fun describeTo(kt.mobius.test.matcher/Description) // kt.mobius.test.matcher/SelfDescribing.describeTo|describeTo(kt.mobius.test.matcher.Description){}[0]
+}
+
+abstract class <#A: kotlin/Any> kt.mobius.test.matcher/TypeSafeDiagnosingMatcher : kt.mobius.test.matcher/BaseMatcher<#A> { // kt.mobius.test.matcher/TypeSafeDiagnosingMatcher|null[0]
+    constructor <init>(kotlin.reflect/KType) // kt.mobius.test.matcher/TypeSafeDiagnosingMatcher.<init>|<init>(kotlin.reflect.KType){}[0]
+
+    abstract fun matchesSafely(#A, kt.mobius.test.matcher/Description): kotlin/Boolean // kt.mobius.test.matcher/TypeSafeDiagnosingMatcher.matchesSafely|matchesSafely(1:0;kt.mobius.test.matcher.Description){}[0]
+    open fun describeMismatch(kotlin/Any?, kt.mobius.test.matcher/Description) // kt.mobius.test.matcher/TypeSafeDiagnosingMatcher.describeMismatch|describeMismatch(kotlin.Any?;kt.mobius.test.matcher.Description){}[0]
+    open fun matches(kotlin/Any?): kotlin/Boolean // kt.mobius.test.matcher/TypeSafeDiagnosingMatcher.matches|matches(kotlin.Any?){}[0]
+}
+
+abstract class <#A: kotlin/Any?> kt.mobius.test.matcher/BaseMatcher : kt.mobius.test.matcher/Matcher<#A> { // kt.mobius.test.matcher/BaseMatcher|null[0]
+    constructor <init>() // kt.mobius.test.matcher/BaseMatcher.<init>|<init>(){}[0]
+
+    open fun describeMismatch(kotlin/Any?, kt.mobius.test.matcher/Description) // kt.mobius.test.matcher/BaseMatcher.describeMismatch|describeMismatch(kotlin.Any?;kt.mobius.test.matcher.Description){}[0]
+    open fun toString(): kotlin/String // kt.mobius.test.matcher/BaseMatcher.toString|toString(){}[0]
+
+    final object Companion // kt.mobius.test.matcher/BaseMatcher.Companion|null[0]
+}
+
+abstract class kt.mobius.test.matcher/BaseDescription : kt.mobius.test.matcher/Description { // kt.mobius.test.matcher/BaseDescription|null[0]
+    constructor <init>() // kt.mobius.test.matcher/BaseDescription.<init>|<init>(){}[0]
+
+    abstract fun append(kotlin/Char) // kt.mobius.test.matcher/BaseDescription.append|append(kotlin.Char){}[0]
+    open fun <#A1: kotlin/Any?> appendValueList(kotlin/String, kotlin/String, kotlin/String, kotlin.collections/Iterable<#A1>): kt.mobius.test.matcher/Description // kt.mobius.test.matcher/BaseDescription.appendValueList|appendValueList(kotlin.String;kotlin.String;kotlin.String;kotlin.collections.Iterable<0:0>){0§<kotlin.Any?>}[0]
+    open fun <#A1: kotlin/Any?> appendValueList(kotlin/String, kotlin/String, kotlin/String, kotlin/Array<out #A1>...): kt.mobius.test.matcher/Description // kt.mobius.test.matcher/BaseDescription.appendValueList|appendValueList(kotlin.String;kotlin.String;kotlin.String;kotlin.Array<out|0:0>...){0§<kotlin.Any?>}[0]
+    open fun append(kotlin/String) // kt.mobius.test.matcher/BaseDescription.append|append(kotlin.String){}[0]
+    open fun appendDescriptionOf(kt.mobius.test.matcher/SelfDescribing): kt.mobius.test.matcher/Description // kt.mobius.test.matcher/BaseDescription.appendDescriptionOf|appendDescriptionOf(kt.mobius.test.matcher.SelfDescribing){}[0]
+    open fun appendList(kotlin/String, kotlin/String, kotlin/String, kotlin.collections/Iterable<kt.mobius.test.matcher/SelfDescribing>): kt.mobius.test.matcher/Description // kt.mobius.test.matcher/BaseDescription.appendList|appendList(kotlin.String;kotlin.String;kotlin.String;kotlin.collections.Iterable<kt.mobius.test.matcher.SelfDescribing>){}[0]
+    open fun appendText(kotlin/String): kt.mobius.test.matcher/Description // kt.mobius.test.matcher/BaseDescription.appendText|appendText(kotlin.String){}[0]
+    open fun appendValue(kotlin/Any?): kt.mobius.test.matcher/Description // kt.mobius.test.matcher/BaseDescription.appendValue|appendValue(kotlin.Any?){}[0]
+}
+
+final class <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?> kt.mobius.test/UpdateSpec { // kt.mobius.test/UpdateSpec|null[0]
+    constructor <init>(kt.mobius/Update<#A, #B, #C>) // kt.mobius.test/UpdateSpec.<init>|<init>(kt.mobius.Update<1:0,1:1,1:2>){}[0]
+
+    final fun given(#A): kt.mobius.test/UpdateSpec.When<#A, #B, #C> // kt.mobius.test/UpdateSpec.given|given(1:0){}[0]
+
+    abstract fun interface <#A1: kotlin/Any?, #B1: kotlin/Any?> Assert { // kt.mobius.test/UpdateSpec.Assert|null[0]
+        abstract fun apply(kt.mobius.test/Result<#A1, #B1>) // kt.mobius.test/UpdateSpec.Assert.apply|apply(kt.mobius.test.Result<1:0,1:1>){}[0]
+    }
+
+    abstract fun interface AssertError { // kt.mobius.test/UpdateSpec.AssertError|null[0]
+        abstract fun assertError(kotlin/Exception) // kt.mobius.test/UpdateSpec.AssertError.assertError|assertError(kotlin.Exception){}[0]
+    }
+
+    abstract interface <#A1: kotlin/Any?, #B1: kotlin/Any?> Then { // kt.mobius.test/UpdateSpec.Then|null[0]
+        abstract fun then(kt.mobius.test/UpdateSpec.Assert<#A1, #B1>) // kt.mobius.test/UpdateSpec.Then.then|then(kt.mobius.test.UpdateSpec.Assert<1:0,1:1>){}[0]
+        abstract fun thenError(kt.mobius.test/UpdateSpec.AssertError) // kt.mobius.test/UpdateSpec.Then.thenError|thenError(kt.mobius.test.UpdateSpec.AssertError){}[0]
+    }
+
+    final inner class When { // kt.mobius.test/UpdateSpec.When|null[0]
+        final fun when(#B, kotlin/Array<out #B>...): kt.mobius.test/UpdateSpec.Then<#A, #C> // kt.mobius.test/UpdateSpec.When.when|when(2:1;kotlin.Array<out|2:1>...){}[0]
+        final fun whenEvent(#B): kt.mobius.test/UpdateSpec.Then<#A, #C> // kt.mobius.test/UpdateSpec.When.whenEvent|whenEvent(2:1){}[0]
+        final fun whenEvents(#B, kotlin/Array<out #B>...): kt.mobius.test/UpdateSpec.Then<#A, #C> // kt.mobius.test/UpdateSpec.When.whenEvents|whenEvents(2:1;kotlin.Array<out|2:1>...){}[0]
+    }
+
+    final object Companion { // kt.mobius.test/UpdateSpec.Companion|null[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> assertThatNext(kotlin/Array<out kt.mobius.test.matcher/Matcher<kt.mobius/Next<#A2, #B2>>>...): kt.mobius.test/UpdateSpec.Assert<#A2, #B2> // kt.mobius.test/UpdateSpec.Companion.assertThatNext|assertThatNext(kotlin.Array<out|kt.mobius.test.matcher.Matcher<kt.mobius.Next<0:0,0:1>>>...){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    }
+}
+
+final class <#A: kotlin/Any?, #B: kotlin/Any?> kt.mobius.test/InitSpec { // kt.mobius.test/InitSpec|null[0]
+    constructor <init>(kt.mobius/Init<#A, #B>) // kt.mobius.test/InitSpec.<init>|<init>(kt.mobius.Init<1:0,1:1>){}[0]
+
+    final fun whenInit(#A): kt.mobius.test/InitSpec.Then<#A, #B> // kt.mobius.test/InitSpec.whenInit|whenInit(1:0){}[0]
+
+    abstract fun interface <#A1: kotlin/Any?, #B1: kotlin/Any?> Assert { // kt.mobius.test/InitSpec.Assert|null[0]
+        abstract fun assertFirst(kt.mobius/First<#A1, #B1>) // kt.mobius.test/InitSpec.Assert.assertFirst|assertFirst(kt.mobius.First<1:0,1:1>){}[0]
+    }
+
+    abstract fun interface AssertError { // kt.mobius.test/InitSpec.AssertError|null[0]
+        abstract fun assertError(kotlin/Exception) // kt.mobius.test/InitSpec.AssertError.assertError|assertError(kotlin.Exception){}[0]
+    }
+
+    abstract interface <#A1: kotlin/Any?, #B1: kotlin/Any?> Then { // kt.mobius.test/InitSpec.Then|null[0]
+        abstract fun then(kt.mobius.test/InitSpec.Assert<#A1, #B1>) // kt.mobius.test/InitSpec.Then.then|then(kt.mobius.test.InitSpec.Assert<1:0,1:1>){}[0]
+        abstract fun thenError(kt.mobius.test/InitSpec.AssertError) // kt.mobius.test/InitSpec.Then.thenError|thenError(kt.mobius.test.InitSpec.AssertError){}[0]
+    }
+
+    final object Companion { // kt.mobius.test/InitSpec.Companion|null[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> assertThatFirst(kotlin/Array<out kt.mobius.test.matcher/Matcher<kt.mobius/First<#A2, #B2>>>...): kt.mobius.test/InitSpec.Assert<#A2, #B2> // kt.mobius.test/InitSpec.Companion.assertThatFirst|assertThatFirst(kotlin.Array<out|kt.mobius.test.matcher.Matcher<kt.mobius.First<0:0,0:1>>>...){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    }
+}
+
+final class <#A: kotlin/Any?, #B: kotlin/Any?> kt.mobius.test/Result { // kt.mobius.test/Result|null[0]
+    constructor <init>(#A, kt.mobius/Next<#A, #B>?) // kt.mobius.test/Result.<init>|<init>(1:0;kt.mobius.Next<1:0,1:1>?){}[0]
+
+    final val lastNext // kt.mobius.test/Result.lastNext|{}lastNext[0]
+        final fun <get-lastNext>(): kt.mobius/Next<#A, #B>? // kt.mobius.test/Result.lastNext.<get-lastNext>|<get-lastNext>(){}[0]
+    final val model // kt.mobius.test/Result.model|{}model[0]
+        final fun <get-model>(): #A // kt.mobius.test/Result.model.<get-model>|<get-model>(){}[0]
+
+    final fun component1(): #A // kt.mobius.test/Result.component1|component1(){}[0]
+    final fun component2(): kt.mobius/Next<#A, #B>? // kt.mobius.test/Result.component2|component2(){}[0]
+    final fun copy(#A = ..., kt.mobius/Next<#A, #B>? = ...): kt.mobius.test/Result<#A, #B> // kt.mobius.test/Result.copy|copy(1:0;kt.mobius.Next<1:0,1:1>?){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // kt.mobius.test/Result.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // kt.mobius.test/Result.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // kt.mobius.test/Result.toString|toString(){}[0]
+
+    final object Companion { // kt.mobius.test/Result.Companion|null[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> of(#A2, kt.mobius/Next<#A2, #B2>?): kt.mobius.test/Result<#A2, #B2> // kt.mobius.test/Result.Companion.of|of(0:0;kt.mobius.Next<0:0,0:1>?){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    }
+}
+
+final class <#A: kotlin/Any?> kt.mobius.test.matcher/IsEqual : kt.mobius.test.matcher/BaseMatcher<#A> { // kt.mobius.test.matcher/IsEqual|null[0]
+    constructor <init>(#A) // kt.mobius.test.matcher/IsEqual.<init>|<init>(1:0){}[0]
+
+    final fun describeTo(kt.mobius.test.matcher/Description) // kt.mobius.test.matcher/IsEqual.describeTo|describeTo(kt.mobius.test.matcher.Description){}[0]
+    final fun matches(kotlin/Any?): kotlin/Boolean // kt.mobius.test.matcher/IsEqual.matches|matches(kotlin.Any?){}[0]
+
+    final object Companion { // kt.mobius.test.matcher/IsEqual.Companion|null[0]
+        final fun <#A2: kotlin/Any?> equalTo(#A2): kt.mobius.test.matcher/Matcher<#A2> // kt.mobius.test.matcher/IsEqual.Companion.equalTo|equalTo(0:0){0§<kotlin.Any?>}[0]
+    }
+}
+
+final class <#A: kotlin/Any?> kt.mobius.test.matcher/IsIterableContaining : kt.mobius.test.matcher/TypeSafeDiagnosingMatcher<kotlin.collections/Iterable<#A>> { // kt.mobius.test.matcher/IsIterableContaining|null[0]
+    constructor <init>(kt.mobius.test.matcher/Matcher<in #A>) // kt.mobius.test.matcher/IsIterableContaining.<init>|<init>(kt.mobius.test.matcher.Matcher<in|1:0>){}[0]
+
+    final fun describeTo(kt.mobius.test.matcher/Description) // kt.mobius.test.matcher/IsIterableContaining.describeTo|describeTo(kt.mobius.test.matcher.Description){}[0]
+
+    final object Companion { // kt.mobius.test.matcher/IsIterableContaining.Companion|null[0]
+        final fun <#A2: kotlin/Any?> hasItem(#A2): kt.mobius.test.matcher/Matcher<kotlin.collections/Iterable<#A2>> // kt.mobius.test.matcher/IsIterableContaining.Companion.hasItem|hasItem(0:0){0§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?> hasItem(kt.mobius.test.matcher/Matcher<#A2>): kt.mobius.test.matcher/Matcher<kotlin.collections/Iterable<#A2>> // kt.mobius.test.matcher/IsIterableContaining.Companion.hasItem|hasItem(kt.mobius.test.matcher.Matcher<0:0>){0§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?> hasItems(kotlin/Array<out #A2>...): kt.mobius.test.matcher/Matcher<kotlin.collections/Iterable<#A2>> // kt.mobius.test.matcher/IsIterableContaining.Companion.hasItems|hasItems(kotlin.Array<out|0:0>...){0§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?> hasItems(kotlin/Array<out kt.mobius.test.matcher/Matcher<#A2>>...): kt.mobius.test.matcher/Matcher<kotlin.collections/Iterable<#A2>> // kt.mobius.test.matcher/IsIterableContaining.Companion.hasItems|hasItems(kotlin.Array<out|kt.mobius.test.matcher.Matcher<0:0>>...){0§<kotlin.Any?>}[0]
+    }
+}
+
+final class <#A: kotlin/Any?> kt.mobius.test/RecordingConnection : kt.mobius.test/RecordingConsumer<#A>, kt.mobius/Connection<#A> { // kt.mobius.test/RecordingConnection|null[0]
+    constructor <init>() // kt.mobius.test/RecordingConnection.<init>|<init>(){}[0]
+
+    final var disposed // kt.mobius.test/RecordingConnection.disposed|{}disposed[0]
+        final fun <get-disposed>(): kotlin/Boolean // kt.mobius.test/RecordingConnection.disposed.<get-disposed>|<get-disposed>(){}[0]
+
+    final fun dispose() // kt.mobius.test/RecordingConnection.dispose|dispose(){}[0]
+}
+
+final class <#A: kotlin/Any?> kt.mobius.test/RecordingModelObserver : kt.mobius.functions/Consumer<#A> { // kt.mobius.test/RecordingModelObserver|null[0]
+    constructor <init>() // kt.mobius.test/RecordingModelObserver.<init>|<init>(){}[0]
+
+    final fun accept(#A) // kt.mobius.test/RecordingModelObserver.accept|accept(1:0){}[0]
+    final fun assertStates(kotlin/Array<out #A>...) // kt.mobius.test/RecordingModelObserver.assertStates|assertStates(kotlin.Array<out|1:0>...){}[0]
+    final fun valueCount(): kotlin/Int // kt.mobius.test/RecordingModelObserver.valueCount|valueCount(){}[0]
+}
+
+final class kt.mobius.test/TestWorkRunner : kt.mobius.runners/WorkRunner { // kt.mobius.test/TestWorkRunner|null[0]
+    constructor <init>() // kt.mobius.test/TestWorkRunner.<init>|<init>(){}[0]
+
+    final var isDisposed // kt.mobius.test/TestWorkRunner.isDisposed|{}isDisposed[0]
+        final fun <get-isDisposed>(): kotlin/Boolean // kt.mobius.test/TestWorkRunner.isDisposed.<get-isDisposed>|<get-isDisposed>(){}[0]
+
+    final fun dispose() // kt.mobius.test/TestWorkRunner.dispose|dispose(){}[0]
+    final fun post(kt.mobius.runners/Runnable) // kt.mobius.test/TestWorkRunner.post|post(kt.mobius.runners.Runnable){}[0]
+    final fun runAll() // kt.mobius.test/TestWorkRunner.runAll|runAll(){}[0]
+}
+
+open class <#A: kotlin/Any?> kt.mobius.test/RecordingConsumer : kt.mobius.functions/Consumer<#A> { // kt.mobius.test/RecordingConsumer|null[0]
+    constructor <init>() // kt.mobius.test/RecordingConsumer.<init>|<init>(){}[0]
+
+    final fun assertValues(kotlin/Array<out #A>...) // kt.mobius.test/RecordingConsumer.assertValues|assertValues(kotlin.Array<out|1:0>...){}[0]
+    final fun assertValuesInAnyOrder(kotlin/Array<out #A>...) // kt.mobius.test/RecordingConsumer.assertValuesInAnyOrder|assertValuesInAnyOrder(kotlin.Array<out|1:0>...){}[0]
+    final fun clearValues() // kt.mobius.test/RecordingConsumer.clearValues|clearValues(){}[0]
+    final fun valueCount(): kotlin/Int // kt.mobius.test/RecordingConsumer.valueCount|valueCount(){}[0]
+    open fun accept(#A) // kt.mobius.test/RecordingConsumer.accept|accept(1:0){}[0]
+}
+
+final object kt.mobius.test.matcher/MatcherAssert { // kt.mobius.test.matcher/MatcherAssert|null[0]
+    final fun <#A1: kotlin/Any> assertThat(#A1?, kt.mobius.test.matcher/Matcher<in #A1>) // kt.mobius.test.matcher/MatcherAssert.assertThat|assertThat(0:0?;kt.mobius.test.matcher.Matcher<in|0:0>){0§<kotlin.Any>}[0]
+    final fun <#A1: kotlin/Any> assertThat(kotlin/String, #A1?, kt.mobius.test.matcher/Matcher<in #A1>) // kt.mobius.test.matcher/MatcherAssert.assertThat|assertThat(kotlin.String;0:0?;kt.mobius.test.matcher.Matcher<in|0:0>){0§<kotlin.Any>}[0]
+}
+
+final object kt.mobius.test/FirstMatchers { // kt.mobius.test/FirstMatchers|null[0]
+    final fun <#A1: kotlin/Any?, #B1: kotlin/Any?> hasEffects(kotlin/Array<out #B1>...): kt.mobius.test.matcher/Matcher<kt.mobius/First<#A1, #B1>> // kt.mobius.test/FirstMatchers.hasEffects|hasEffects(kotlin.Array<out|0:1>...){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    final fun <#A1: kotlin/Any?, #B1: kotlin/Any?> hasEffects(kt.mobius.test.matcher/Matcher<kotlin.collections/Iterable<#B1>>): kt.mobius.test.matcher/Matcher<kt.mobius/First<#A1, #B1>> // kt.mobius.test/FirstMatchers.hasEffects|hasEffects(kt.mobius.test.matcher.Matcher<kotlin.collections.Iterable<0:1>>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    final fun <#A1: kotlin/Any?, #B1: kotlin/Any?> hasModel(#A1): kt.mobius.test.matcher/Matcher<kt.mobius/First<#A1, #B1>> // kt.mobius.test/FirstMatchers.hasModel|hasModel(0:0){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    final fun <#A1: kotlin/Any?, #B1: kotlin/Any?> hasModel(kt.mobius.test.matcher/Matcher<#A1>): kt.mobius.test.matcher/Matcher<kt.mobius/First<#A1, #B1>> // kt.mobius.test/FirstMatchers.hasModel|hasModel(kt.mobius.test.matcher.Matcher<0:0>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    final fun <#A1: kotlin/Any?, #B1: kotlin/Any?> hasNoEffects(): kt.mobius.test.matcher/Matcher<kt.mobius/First<#A1, #B1>> // kt.mobius.test/FirstMatchers.hasNoEffects|hasNoEffects(){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+}
+
+final object kt.mobius.test/NextMatchers { // kt.mobius.test/NextMatchers|null[0]
+    final fun <#A1: kotlin/Any?, #B1: kotlin/Any?> hasEffects(kotlin/Array<out #B1>...): kt.mobius.test.matcher/Matcher<kt.mobius/Next<#A1, #B1>> // kt.mobius.test/NextMatchers.hasEffects|hasEffects(kotlin.Array<out|0:1>...){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    final fun <#A1: kotlin/Any?, #B1: kotlin/Any?> hasEffects(kt.mobius.test.matcher/Matcher<kotlin.collections/Iterable<#B1>>): kt.mobius.test.matcher/Matcher<kt.mobius/Next<#A1, #B1>> // kt.mobius.test/NextMatchers.hasEffects|hasEffects(kt.mobius.test.matcher.Matcher<kotlin.collections.Iterable<0:1>>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    final fun <#A1: kotlin/Any?, #B1: kotlin/Any?> hasModel(#A1): kt.mobius.test.matcher/Matcher<kt.mobius/Next<#A1, #B1>> // kt.mobius.test/NextMatchers.hasModel|hasModel(0:0){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    final fun <#A1: kotlin/Any?, #B1: kotlin/Any?> hasModel(): kt.mobius.test.matcher/Matcher<kt.mobius/Next<#A1, #B1>> // kt.mobius.test/NextMatchers.hasModel|hasModel(){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    final fun <#A1: kotlin/Any?, #B1: kotlin/Any?> hasModel(kt.mobius.test.matcher/Matcher<#A1>): kt.mobius.test.matcher/Matcher<kt.mobius/Next<#A1, #B1>> // kt.mobius.test/NextMatchers.hasModel|hasModel(kt.mobius.test.matcher.Matcher<0:0>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    final fun <#A1: kotlin/Any?, #B1: kotlin/Any?> hasNoEffects(): kt.mobius.test.matcher/Matcher<kt.mobius/Next<#A1, #B1>> // kt.mobius.test/NextMatchers.hasNoEffects|hasNoEffects(){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    final fun <#A1: kotlin/Any?, #B1: kotlin/Any?> hasNoModel(): kt.mobius.test.matcher/Matcher<kt.mobius/Next<#A1, #B1>> // kt.mobius.test/NextMatchers.hasNoModel|hasNoModel(){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    final fun <#A1: kotlin/Any?, #B1: kotlin/Any?> hasNothing(): kt.mobius.test.matcher/Matcher<kt.mobius/Next<#A1, #B1>> // kt.mobius.test/NextMatchers.hasNothing|hasNothing(){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+}

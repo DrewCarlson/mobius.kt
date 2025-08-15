@@ -12,7 +12,7 @@ import kt.mobius.DiscardAfterDisposeConnectable
  * Constructs a [Connectable] that applies [transform] to
  * map a [Flow] of [I] into a [Flow] of [O].
  */
-@OptIn(ExperimentalCoroutinesApi::class)
+@OptIn(DelicateCoroutinesApi::class)
 public fun <I, O> flowConnectable(
     transform: FlowTransformer<I, O>
 ): Connectable<I, O> {

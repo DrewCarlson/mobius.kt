@@ -4,7 +4,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     kotlin("multiplatform")
-    id("org.jetbrains.kotlinx.binary-compatibility-validator")
     id("com.android.library")
     alias(libs.plugins.mavenPublish)
     alias(libs.plugins.dokka)
@@ -12,7 +11,7 @@ plugins {
 }
 
 android {
-    compileSdk = 34
+    compileSdk = 35
     namespace = "kt.mobius.android"
     defaultConfig {
         minSdk = 21
@@ -35,6 +34,10 @@ android {
 }
 
 kotlin {
+    @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
+    abiValidation {
+        enabled = true
+    }
     jvmToolchain(17)
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")

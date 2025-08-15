@@ -84,7 +84,7 @@ public final class kt/mobius/test/Result$Companion {
 
 public abstract interface class kt/mobius/test/SimpleConnection : kt/mobius/Connection {
 	public static final field Companion Lkt/mobius/test/SimpleConnection$Companion;
-	public abstract fun dispose ()V
+	public fun dispose ()V
 }
 
 public final class kt/mobius/test/SimpleConnection$Companion {

@@ -1,0 +1,33 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, macosArm64, macosX64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.drewcarlson:mobiuskt-compose>
+open annotation class kt.mobius.compose/ExperimentalMobiusktComposeApi : kotlin/Annotation { // kt.mobius.compose/ExperimentalMobiusktComposeApi|null[0]
+    constructor <init>() // kt.mobius.compose/ExperimentalMobiusktComposeApi.<init>|<init>(){}[0]
+}
+
+final class <#A: kotlin/Any?, #B: kotlin/Any?> kt.mobius.compose/ComposeMobiusLoopStateHolder { // kt.mobius.compose/ComposeMobiusLoopStateHolder|null[0]
+    constructor <init>(androidx.compose.runtime/State<#A>, kotlin/Function1<#B, kotlin/Unit>) // kt.mobius.compose/ComposeMobiusLoopStateHolder.<init>|<init>(androidx.compose.runtime.State<1:0>;kotlin.Function1<1:1,kotlin.Unit>){}[0]
+
+    final val eventConsumer // kt.mobius.compose/ComposeMobiusLoopStateHolder.eventConsumer|{}eventConsumer[0]
+        final fun <get-eventConsumer>(): kotlin/Function1<#B, kotlin/Unit> // kt.mobius.compose/ComposeMobiusLoopStateHolder.eventConsumer.<get-eventConsumer>|<get-eventConsumer>(){}[0]
+    final val model // kt.mobius.compose/ComposeMobiusLoopStateHolder.model|{}model[0]
+        final fun <get-model>(): androidx.compose.runtime/State<#A> // kt.mobius.compose/ComposeMobiusLoopStateHolder.model.<get-model>|<get-model>(){}[0]
+
+    final fun component1(): androidx.compose.runtime/State<#A> // kt.mobius.compose/ComposeMobiusLoopStateHolder.component1|component1(){}[0]
+    final fun component2(): kotlin/Function1<#B, kotlin/Unit> // kt.mobius.compose/ComposeMobiusLoopStateHolder.component2|component2(){}[0]
+    final fun copy(androidx.compose.runtime/State<#A> = ..., kotlin/Function1<#B, kotlin/Unit> = ...): kt.mobius.compose/ComposeMobiusLoopStateHolder<#A, #B> // kt.mobius.compose/ComposeMobiusLoopStateHolder.copy|copy(androidx.compose.runtime.State<1:0>;kotlin.Function1<1:1,kotlin.Unit>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // kt.mobius.compose/ComposeMobiusLoopStateHolder.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // kt.mobius.compose/ComposeMobiusLoopStateHolder.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // kt.mobius.compose/ComposeMobiusLoopStateHolder.toString|toString(){}[0]
+}
+
+final val kt.mobius.compose/kt_mobius_compose_ComposeMobiusLoopStateHolder$stableprop // kt.mobius.compose/kt_mobius_compose_ComposeMobiusLoopStateHolder$stableprop|#static{}kt_mobius_compose_ComposeMobiusLoopStateHolder$stableprop[0]
+
+final fun <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?> kt.mobius.compose/rememberMobiusLoop(#A, kt.mobius/Init<#A, #C>?, kotlin/Function0<kt.mobius/MobiusLoop.Builder<#A, #B, #C>>, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): kt.mobius.compose/ComposeMobiusLoopStateHolder<#A, #B> // kt.mobius.compose/rememberMobiusLoop|rememberMobiusLoop(0:0;kt.mobius.Init<0:0,0:2>?;kotlin.Function0<kt.mobius.MobiusLoop.Builder<0:0,0:1,0:2>>;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?> kt.mobius.compose/rememberMobiusLoopLocal(#A, kt.mobius/Init<#A, #C>?, kotlin/Function0<kt.mobius/MobiusLoop.Builder<#A, #B, #C>>, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): kt.mobius.compose/ComposeMobiusLoopStateHolder<#A, #B> // kt.mobius.compose/rememberMobiusLoopLocal|rememberMobiusLoopLocal(0:0;kt.mobius.Init<0:0,0:2>?;kotlin.Function0<kt.mobius.MobiusLoop.Builder<0:0,0:1,0:2>>;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>}[0]
+final fun kt.mobius.compose/kt_mobius_compose_ComposeMobiusLoopStateHolder$stableprop_getter(): kotlin/Int // kt.mobius.compose/kt_mobius_compose_ComposeMobiusLoopStateHolder$stableprop_getter|kt_mobius_compose_ComposeMobiusLoopStateHolder$stableprop_getter(){}[0]

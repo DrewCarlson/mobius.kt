@@ -16,7 +16,6 @@ buildscript {
 plugins {
     alias(libs.plugins.multiplatform) apply false
     alias(libs.plugins.dokka)
-    alias(libs.plugins.binaryCompat) apply false
     alias(libs.plugins.kover)
     alias(libs.plugins.mavenPublish) apply false
     alias(libs.plugins.compose.multiplatform) apply false

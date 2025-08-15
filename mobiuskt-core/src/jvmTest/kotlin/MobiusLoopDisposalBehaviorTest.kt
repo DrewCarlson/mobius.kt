@@ -23,7 +23,6 @@ import java.util.concurrent.ExecutionException
 import java.util.concurrent.Executors
 import java.util.concurrent.Semaphore
 import java.util.concurrent.atomic.AtomicBoolean
-import javax.annotation.Nonnull
 import kotlin.concurrent.Volatile
 import kotlin.test.*
 
@@ -261,14 +260,12 @@ class MobiusLoopDisposalBehavior : MobiusLoopTest() {
     }
 
     internal class EmitDuringDisposeEventSource(private val event: TestEvent) : EventSource<TestEvent> {
-        @Nonnull
         override fun subscribe(eventConsumer: Consumer<TestEvent>): Disposable {
             return Disposable { eventConsumer.accept(event) }
         }
     }
 
     internal class EmitDuringDisposeEffectHandler : Connectable<TestEffect, TestEvent> {
-        @Nonnull
         override fun connect(output: Consumer<TestEvent>): Connection<TestEffect> {
             return object : Connection<TestEffect> {
                 override fun accept(value: TestEffect) {
@@ -285,7 +282,6 @@ class MobiusLoopDisposalBehavior : MobiusLoopTest() {
     internal class RecurringEventSource : EventSource<TestEvent> {
         val completion = SettableFuture.create<Void>()
 
-        @Nonnull
         override fun subscribe(eventConsumer: Consumer<TestEvent>): Disposable {
             if (completion.isDone) {
                 try {
