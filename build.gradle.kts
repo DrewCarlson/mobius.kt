@@ -50,4 +50,11 @@ dependencies {
     kover(project(":mobiuskt-compose"))
     kover(project(":mobiuskt-coroutines"))
     kover(project(":mobiuskt-extras"))
+
+    dokka(project(":mobiuskt-core"))
+    dokka(project(":mobiuskt-compose"))
+    dokka(project(":mobiuskt-codegen-api"))
+    dokka(project(":mobiuskt-coroutines"))
+    dokka(project(":mobiuskt-extras"))
+    dokka(project(":mobiuskt-test"))
 }
