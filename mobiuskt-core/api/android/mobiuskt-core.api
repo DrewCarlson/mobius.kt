@@ -59,8 +59,6 @@ public final class kt/mobius/EventSourceConnectable$Companion {
 
 public final class kt/mobius/First {
 	public static final field Companion Lkt/mobius/First$Companion;
-	public final fun copy (Ljava/lang/Object;Ljava/util/Set;)Lkt/mobius/First;
-	public static synthetic fun copy$default (Lkt/mobius/First;Ljava/lang/Object;Ljava/util/Set;ILjava/lang/Object;)Lkt/mobius/First;
 	public final fun effects ()Ljava/util/Set;
 	public fun equals (Ljava/lang/Object;)Z
 	public static final fun first (Ljava/lang/Object;)Lkt/mobius/First;

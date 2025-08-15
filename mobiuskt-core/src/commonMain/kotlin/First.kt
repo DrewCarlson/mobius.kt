@@ -8,7 +8,7 @@ import kotlin.jvm.JvmStatic
 /** Defines the entry into the initial state of a Mobius loop. */
 @Suppress("NON_EXPORTABLE_TYPE")
 @JsExport
-public data class First<M, F> internal constructor(
+public class First<M, F> internal constructor(
     /** the initial model to use */
     private val model: M,
     /** the possibly empty set of effects to initially dispatch */
@@ -31,6 +31,10 @@ public data class First<M, F> internal constructor(
         var result = model?.hashCode() ?: 0
         result = 31 * result + effects.hashCode()
         return result
+    }
+
+    override fun toString(): String {
+        return "First(model=$model, effects=$effects)"
     }
 
     public companion object {

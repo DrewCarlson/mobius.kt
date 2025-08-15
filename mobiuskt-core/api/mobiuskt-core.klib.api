@@ -133,7 +133,6 @@ final class <#A: kotlin/Any?, #B: kotlin/Any?> kt.mobius/EventSourceConnectable 
 }
 
 final class <#A: kotlin/Any?, #B: kotlin/Any?> kt.mobius/First { // kt.mobius/First|null[0]
-    final fun copy(#A = ..., kotlin.collections/Set<#B> = ...): kt.mobius/First<#A, #B> // kt.mobius/First.copy|copy(1:0;kotlin.collections.Set<1:1>){}[0]
     final fun effects(): kotlin.collections/Set<#B> // kt.mobius/First.effects|effects(){}[0]
     final fun equals(kotlin/Any?): kotlin/Boolean // kt.mobius/First.equals|equals(kotlin.Any?){}[0]
     final fun hasEffects(): kotlin/Boolean // kt.mobius/First.hasEffects|hasEffects(){}[0]
