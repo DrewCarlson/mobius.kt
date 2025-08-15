@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
+import org.jetbrains.kotlin.gradle.targets.wasm.nodejs.WasmNodeJsRootPlugin
 
 buildscript {
     repositories {
@@ -32,6 +33,9 @@ allprojects {
 
     plugins.withType<NodeJsRootPlugin> {
         the<YarnRootExtension>().lockFileDirectory = rootDir.resolve("gradle/kotlin-js-store")
+    }
+    plugins.withType<WasmNodeJsRootPlugin> {
+        the<YarnRootExtension>().lockFileDirectory = rootDir.resolve("gradle/kotlin-js-store/wasm")
     }
 }
 
