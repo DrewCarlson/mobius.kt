@@ -16,7 +16,7 @@ jobs:
           distribution: 'zulu'
           java-version: 17
       - name: Cache Build files
-        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
+        uses: actions/cache@638ed79f9dc94c1de1baef91bcab5edaa19451f4
         with:
           path: |
             ~/.konan
@@ -63,7 +63,7 @@ jobs:
           distribution: 'zulu'
           java-version: 17
       - name: Cache Build files
-        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
+        uses: actions/cache@638ed79f9dc94c1de1baef91bcab5edaa19451f4
         with:
           path: |
             ~/.konan
@@ -100,7 +100,7 @@ jobs:
           distribution: 'zulu'
           java-version: 17
       - name: Cache Build files
-        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
+        uses: actions/cache@638ed79f9dc94c1de1baef91bcab5edaa19451f4
         with:
           path: |
             ~/.gradle
