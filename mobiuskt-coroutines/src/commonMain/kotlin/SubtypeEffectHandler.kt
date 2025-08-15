@@ -155,16 +155,6 @@ public class SubtypeEffectHandlerBuilder<F : Any, E>(
         addHandler(G::class, executionPolicy) { effectHandler(it) }
     }
 
-    @Deprecated(
-        "Use addValueCollector with the ExecutionPolicy.Latest policy.",
-        ReplaceWith("addValueCollector<G>(ExecutionPolicy.Latest, effectHandler)")
-    )
-    public inline fun <reified G : F> addLatestValueCollector(
-        crossinline effectHandler: suspend FlowCollector<E>.(G) -> Unit
-    ) {
-        addValueCollector<G>(ExecutionPolicy.Latest, effectHandler)
-    }
-
     @PublishedApi
     internal fun <G : F> addFlowTransformer(
         effectClass: KClass<G>,
