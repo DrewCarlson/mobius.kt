@@ -126,7 +126,7 @@ jobs:
         with:
           name: kover-report
       - run: ls -la
-      - uses: codecov/codecov-action@2db07e317924c76f654a414629d71c65876882e2
+      - uses: codecov/codecov-action@3cb13a12348ef4ffcf9783ac0f74954f92113e33
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: "report.xml"
