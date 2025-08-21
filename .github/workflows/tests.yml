@@ -23,7 +23,7 @@ jobs:
             ~/.gradle
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}-v1
 
-      - uses: gradle/actions/setup-gradle@017a9effdb900e5b5b2fddfb590a105619dca3c3
+      - uses: gradle/actions/setup-gradle@44b6df6376c4d17b026d3ccbed93a0899607a247
       - name: Test Apple Targets
         run: ./gradlew macosX64Test iosX64Test # tvosX64Test
 
@@ -43,7 +43,7 @@ jobs:
           distribution: 'zulu'
           java-version: 17
 
-      - uses: gradle/actions/setup-gradle@017a9effdb900e5b5b2fddfb590a105619dca3c3
+      - uses: gradle/actions/setup-gradle@44b6df6376c4d17b026d3ccbed93a0899607a247
       - name: Test Windows Target
         run: ./gradlew mingwX64Test
 
@@ -70,7 +70,7 @@ jobs:
             ~/.gradle
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}-v1
 
-      - uses: gradle/actions/setup-gradle@017a9effdb900e5b5b2fddfb590a105619dca3c3
+      - uses: gradle/actions/setup-gradle@44b6df6376c4d17b026d3ccbed93a0899607a247
       - name: Test Jvm
         run: ./gradlew jvmTest mobiuskt-codegen:test koverXmlReport checkLegacyAbi
 
@@ -105,7 +105,7 @@ jobs:
           path: |
             ~/.gradle
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}-v1
-      - uses: gradle/actions/setup-gradle@017a9effdb900e5b5b2fddfb590a105619dca3c3
+      - uses: gradle/actions/setup-gradle@44b6df6376c4d17b026d3ccbed93a0899607a247
       - name: Test JS Targets
         run: ./gradlew jsNodeTest jsBrowserTest wasmJsTest wasmWasiTest
 
