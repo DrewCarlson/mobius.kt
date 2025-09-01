@@ -106,6 +106,7 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
+                implementation(project.dependencies.platform(libs.androidx.compose.bom))
                 implementation(libs.androidx.compose.livedata)
                 implementation(libs.androidx.lifecycle.viewmodel.compose)
             }
