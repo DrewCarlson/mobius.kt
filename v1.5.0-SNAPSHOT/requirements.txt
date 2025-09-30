@@ -1,0 +1,4 @@
+mkdocs==1.6.1
+mkdocs-material==9.6.21
+mkdocs-markdownextradata-plugin==0.2.6
+mike==2.1.3
