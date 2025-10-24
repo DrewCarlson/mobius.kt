@@ -122,7 +122,7 @@ jobs:
     steps:
       - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493
       - name: Download kover reports
-        uses: actions/download-artifact@de96f4613b77ec03b5cf633e7c350c32bd3c5660
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
         with:
           name: kover-report
       - run: ls -la
@@ -137,7 +137,7 @@ jobs:
     steps:
       - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493
       - name: Download test results
-        uses: actions/download-artifact@de96f4613b77ec03b5cf633e7c350c32bd3c5660
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
         with:
           pattern: test-results*
       - name: Publish Unit Test Results
