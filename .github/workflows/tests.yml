@@ -72,17 +72,17 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2
       - name: Test Jvm
-        run: ./gradlew jvmTest mobiuskt-codegen:test koverXmlReport checkLegacyAbi
+        run: ./gradlew jvmTest mobiuskt-codegen:test checkLegacyAbi # koverXmlReport
 
       - name: Test Linux Target
         run: ./gradlew linuxX64Test
 
-      - name: Archive Reports
-        uses: actions/upload-artifact@de65e23aa2b7e23d713bb51fbfcb6d502f8667d8
-        if: ${{ always() }}
-        with:
-          name: kover-report
-          path: "build/reports/kover/report.xml"
+      #- name: Archive Reports
+      #  uses: actions/upload-artifact@de65e23aa2b7e23d713bb51fbfcb6d502f8667d8
+      #  if: ${{ always() }}
+      #  with:
+      #    name: kover-report
+      #    path: "build/reports/kover/report.xml"
 
       - name: Archive Test Results
         uses: actions/upload-artifact@de65e23aa2b7e23d713bb51fbfcb6d502f8667d8
@@ -116,20 +116,20 @@ jobs:
           name: test-results-js
           path: '**/TEST-*.xml'
 
-  upload-kover-reports:
-    runs-on: ubuntu-latest
-    needs: [ linux-tests ]
-    steps:
-      - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493
-      - name: Download kover reports
-        uses: actions/download-artifact@de96f4613b77ec03b5cf633e7c350c32bd3c5660
-        with:
-          name: kover-report
-      - run: ls -la
-      - uses: codecov/codecov-action@5a1091511ad55cbe89839c7260b706298ca349f7
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: "report.xml"
+#  upload-kover-reports:
+#    runs-on: ubuntu-latest
+#    needs: [ linux-tests ]
+#    steps:
+#      - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493
+#      - name: Download kover reports
+#        uses: actions/download-artifact@de96f4613b77ec03b5cf633e7c350c32bd3c5660
+#        with:
+#          name: kover-report
+#      - run: ls -la
+#      - uses: codecov/codecov-action@5a1091511ad55cbe89839c7260b706298ca349f7
+#        with:
+#          token: ${{ secrets.CODECOV_TOKEN }}
+#          files: "report.xml"
 
   upload-junit-results:
     runs-on: ubuntu-latest

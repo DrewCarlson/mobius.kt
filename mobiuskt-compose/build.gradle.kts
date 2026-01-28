@@ -4,31 +4,11 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     kotlin("multiplatform")
-    id("com.android.library")
+    id("com.android.kotlin.multiplatform.library")
     alias(libs.plugins.mavenPublish)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.dokka)
-}
-
-android {
-    compileSdk = 35
-    namespace = "kt.mobius.compose"
-    defaultConfig {
-        minSdk = 21
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    lint {
-        disable.add("InvalidPackage")
-    }
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-    }
-    buildFeatures {
-        compose = true
-    }
 }
 
 kotlin {
@@ -38,7 +18,22 @@ kotlin {
     }
     jvmToolchain(17)
 
-    androidTarget()
+    android {
+        namespace = "kt.mobius.compose"
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
+        compileSdk { version = release(36) }
+        minSdk { version = release(21) }
+        withHostTest {
+            isIncludeAndroidResources = true
+        }
+        withDeviceTest {
+        }
+        lint {
+            disable.add("InvalidPackage")
+        }
+    }
     jvm {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
@@ -92,7 +87,7 @@ kotlin {
                 implementation(projects.mobiusktCore)
                 implementation(projects.mobiusktExtras)
                 implementation(libs.coroutines.core)
-                implementation(compose.runtime)
+                implementation(libs.compose.runtime)
             }
         }
 
@@ -112,7 +107,7 @@ kotlin {
             }
         }
 
-        val androidInstrumentedTest by getting {
+        val androidHostTest by getting {
             dependencies {
                 implementation(project.dependencies.platform(libs.androidx.compose.bom))
                 implementation(libs.androidx.compose.ui)
@@ -126,11 +121,10 @@ kotlin {
             }
         }
 
-        @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
         val jvmTest by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
-                implementation(compose.desktop.uiTestJUnit4)
+                implementation(libs.compose.ui.test.junit4)
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
             }
@@ -138,13 +132,13 @@ kotlin {
 
         val jsMain by getting {
             dependencies {
-                implementation(compose.html.core)
+                implementation(libs.compose.html.core)
             }
         }
 
         val jsTest by getting {
             dependencies {
-                implementation(compose.html.testUtils)
+                implementation(libs.compose.html.test.utils)
                 implementation(kotlin("test"))
                 implementation(kotlin("test-js"))
             }

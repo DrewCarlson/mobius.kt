@@ -4,33 +4,10 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     kotlin("multiplatform")
-    id("com.android.library")
+    id("com.android.kotlin.multiplatform.library")
     alias(libs.plugins.mavenPublish)
     alias(libs.plugins.dokka)
     alias(libs.plugins.atomicfu)
-}
-
-android {
-    compileSdk = 35
-    namespace = "kt.mobius.android"
-    defaultConfig {
-        minSdk = 21
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    lint {
-        disable.add("InvalidPackage")
-    }
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-    }
-
-    sourceSets {
-        getByName("main") {
-            manifest.srcFile("src/androidMain/AndroidManifest.xml")
-        }
-    }
 }
 
 kotlin {
@@ -42,8 +19,21 @@ kotlin {
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
     }
-    androidTarget {
-        publishLibraryVariants("release", "debug")
+    android {
+        namespace = "kt.mobius.android"
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
+        compileSdk { version = release(36) }
+        minSdk { version = release(21) }
+        withHostTest {
+            isIncludeAndroidResources = true
+        }
+        withDeviceTest {
+        }
+        lint {
+            disable.add("InvalidPackage")
+        }
     }
     jvm {
         compilerOptions {
@@ -133,7 +123,7 @@ kotlin {
             }
         }
 
-        val androidUnitTest by getting {
+        val androidHostTest by getting {
             dependencies {
                 implementation(projects.mobiusktTest)
                 implementation(libs.androidx.lifecycleRuntime)
