@@ -76,14 +76,6 @@ public final class kt/mobius/flow/SubtypeEffectHandlerKt {
 	public static final fun subtypeEffectHandler (Lkt/mobius/flow/ExecutionPolicy;Lkotlin/jvm/functions/Function1;)Lkt/mobius/flow/FlowTransformer;
 }
 
-public final class kt/mobius/flow/SubtypeEffectHandlerKt$sam$i$kt_mobius_flow_FlowTransformer$0 : kotlin/jvm/internal/FunctionAdapter, kt/mobius/flow/FlowTransformer {
-	public fun <init> (Lkotlin/jvm/functions/Function1;)V
-	public final fun equals (Ljava/lang/Object;)Z
-	public final fun getFunctionDelegate ()Lkotlin/Function;
-	public final fun hashCode ()I
-	public final synthetic fun invoke (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
-}
-
 public final class kt/mobius/flow/UnknownEffectException : java/lang/RuntimeException {
 	public fun <init> (Ljava/lang/Object;)V
 	public final fun component1 ()Ljava/lang/Object;
