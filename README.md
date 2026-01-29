@@ -1,7 +1,7 @@
 # Mobius.kt
 
 [![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/mobiuskt-core-jvm?label=maven&color=blue)](https://central.sonatype.com/search?q=mobiuskt-*&namespace=org.drewcarlson)
-![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/org.drewcarlson/mobiuskt-core-jvm?server=https%3A%2F%2Fs01.oss.sonatype.org)
+![Sonatype Nexus (Snapshots)](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Fcentral.sonatype.com%2Frepository%2Fmaven-snapshots%2Forg%2Fdrewcarlson%2Fmobiuskt-core-jvm%2Fmaven-metadata.xml&label=nexus)
 ![](https://github.com/DrewCarlson/mobius.kt/workflows/Tests/badge.svg)
 [![Codecov](https://img.shields.io/codecov/c/github/drewcarlson/mobius.kt?token=7DKJUD60BO)](https://app.codecov.io/gh/DrewCarlson/mobius.kt/)
 
