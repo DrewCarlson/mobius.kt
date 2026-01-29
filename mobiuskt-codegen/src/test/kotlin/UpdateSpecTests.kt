@@ -51,7 +51,7 @@ class UpdateSpecTests {
         val compilation = KotlinCompilation().apply {
             sources = listOf(source)
             inheritClassPath = true
-            configureKsp(useKsp2 = true) {
+            configureKsp {
                 symbolProcessorProviders.add(MobiusktSymbolProcessorProvider())
             }
         }
@@ -143,7 +143,7 @@ class UpdateSpecTests {
         val compilation = KotlinCompilation().apply {
             sources = listOf(source)
             inheritClassPath = true
-            configureKsp(useKsp2 = true) {
+            configureKsp {
                 symbolProcessorProviders.add(MobiusktSymbolProcessorProvider())
             }
         }
