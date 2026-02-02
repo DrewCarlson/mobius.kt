@@ -28,7 +28,7 @@ jobs:
         run: ./gradlew macosX64Test iosX64Test # tvosX64Test
 
       - name: Archive Test Results
-        uses: actions/upload-artifact@de65e23aa2b7e23d713bb51fbfcb6d502f8667d8
+        uses: actions/upload-artifact@47309c993abb98030a35d55ef7ff34b7fa1074b5
         if: ${{ always() }}
         with:
           name: test-results-macos
@@ -48,7 +48,7 @@ jobs:
         run: ./gradlew mingwX64Test
 
       - name: Archive Test Results
-        uses: actions/upload-artifact@de65e23aa2b7e23d713bb51fbfcb6d502f8667d8
+        uses: actions/upload-artifact@47309c993abb98030a35d55ef7ff34b7fa1074b5
         if: ${{ always() }}
         with:
           name: test-results-windows
@@ -78,14 +78,14 @@ jobs:
         run: ./gradlew linuxX64Test
 
       - name: Archive Reports
-        uses: actions/upload-artifact@de65e23aa2b7e23d713bb51fbfcb6d502f8667d8
+        uses: actions/upload-artifact@47309c993abb98030a35d55ef7ff34b7fa1074b5
         if: ${{ always() }}
         with:
           name: kover-report
           path: "build/reports/kover/report.xml"
 
       - name: Archive Test Results
-        uses: actions/upload-artifact@de65e23aa2b7e23d713bb51fbfcb6d502f8667d8
+        uses: actions/upload-artifact@47309c993abb98030a35d55ef7ff34b7fa1074b5
         if: ${{ always() }}
         with:
           name: test-results-junit
@@ -110,7 +110,7 @@ jobs:
         run: ./gradlew jsNodeTest jsBrowserTest wasmJsTest wasmWasiTest
 
       - name: Archive Test Results
-        uses: actions/upload-artifact@de65e23aa2b7e23d713bb51fbfcb6d502f8667d8
+        uses: actions/upload-artifact@47309c993abb98030a35d55ef7ff34b7fa1074b5
         if: ${{ always() }}
         with:
           name: test-results-js
