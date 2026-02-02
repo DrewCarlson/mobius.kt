@@ -6,6 +6,7 @@ plugins {
     kotlin("multiplatform")
     alias(libs.plugins.mavenPublish)
     alias(libs.plugins.dokka)
+    alias(libs.plugins.kover)
 }
 
 kotlin {

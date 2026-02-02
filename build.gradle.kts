@@ -44,15 +44,13 @@ subprojects {
     System.getenv("GITHUB_REF_NAME")
         ?.takeIf { it.startsWith("v") }
         ?.let { version = it.removePrefix("v") }
-    //apply(plugin = "org.jetbrains.kotlinx.kover")
-    //kover {}
 }
 
 dependencies {
-    /*kover(project(":mobiuskt-core"))
+    kover(project(":mobiuskt-core"))
     kover(project(":mobiuskt-compose"))
     kover(project(":mobiuskt-coroutines"))
-    kover(project(":mobiuskt-extras"))*/
+    kover(project(":mobiuskt-extras"))
 
     dokka(project(":mobiuskt-core"))
     dokka(project(":mobiuskt-compose"))

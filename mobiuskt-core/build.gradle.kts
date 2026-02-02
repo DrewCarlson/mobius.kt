@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.mavenPublish)
     alias(libs.plugins.dokka)
     alias(libs.plugins.atomicfu)
+    alias(libs.plugins.kover)
 }
 
 kotlin {
