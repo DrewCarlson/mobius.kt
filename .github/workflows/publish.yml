@@ -21,7 +21,7 @@ jobs:
           java-version: 17
       - uses: gradle/actions/setup-gradle@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2
       - name: Cache Build files
-        uses: actions/cache@638ed79f9dc94c1de1baef91bcab5edaa19451f4
+        uses: actions/cache@b7e8d49f17405cc70c1c120101943203c98d3a4b
         if: ${{ !startsWith(matrix.os, 'windows') }}
         with:
           path: |
@@ -42,7 +42,7 @@ jobs:
           fetch-depth: 0
 
       - name: Cache Build files
-        uses: actions/cache@638ed79f9dc94c1de1baef91bcab5edaa19451f4
+        uses: actions/cache@b7e8d49f17405cc70c1c120101943203c98d3a4b
         with:
           path: |
             ~/.konan
