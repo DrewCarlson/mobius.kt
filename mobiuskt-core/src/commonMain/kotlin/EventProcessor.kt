@@ -18,16 +18,12 @@ internal class EventProcessor<M, E, F> internal constructor(
     private val modelConsumer: Consumer<M>
 ) {
     private val lock = SynchronizedObject()
+    private val consumer = Consumer<M> { value -> dispatchModel(value) }
 
     fun update(event: E): Unit = synchronized(lock) {
         val next = store.update(event)
 
-        next.ifHasModel(
-            object : Consumer<M> {
-                override fun accept(value: M) {
-                    dispatchModel(value)
-                }
-            })
+        next.ifHasModel(consumer)
         dispatchEffects(next.effects())
     }
 
